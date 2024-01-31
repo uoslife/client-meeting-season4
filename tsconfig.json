@@ -9,6 +9,8 @@
     "paths": {
       "~/*": ["./src/*"],
     },
+    "types": ["@emotion/react/types/css-prop"],
+    "jsxImportSource": "@emotion/react",
 
     /* Bundler mode */
     "moduleResolution": "bundler",
