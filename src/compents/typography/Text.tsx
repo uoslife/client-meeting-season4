@@ -7,13 +7,21 @@ export type TxtProps = Combine<
   {
     label: string;
     color: colorType;
-    typography?: SerializedStyles;
+    typography: SerializedStyles;
     weight?: number;
+    size?: number;
   },
   React.ComponentProps<'div'>
 >;
 
-const Text = ({ label, color, typography, weight, ...props }: TxtProps) => {
+const Text = ({
+  label,
+  color,
+  typography,
+  weight,
+  size,
+  ...props
+}: TxtProps) => {
   return (
     <div
       css={css`
@@ -21,6 +29,7 @@ const Text = ({ label, color, typography, weight, ...props }: TxtProps) => {
         ${typography};
         font-weight: ${weight};
         white-space: pre-line;
+        font-size: ${size}px;
       `}
       {...props}>
       {label}
