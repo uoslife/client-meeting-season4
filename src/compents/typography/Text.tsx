@@ -1,0 +1,31 @@
+import { css, SerializedStyles } from '@emotion/react';
+import { colorType } from '~/types/style.type';
+import { colors } from '~/styles/colors';
+import { Combine } from '~/types/utils.type';
+
+export type TxtProps = Combine<
+  {
+    label: string;
+    color: colorType;
+    typography?: SerializedStyles;
+    weight?: number;
+  },
+  React.ComponentProps<'div'>
+>;
+
+const Text = ({ label, color, typography, weight, ...props }: TxtProps) => {
+  return (
+    <div
+      css={css`
+        color: ${colors[color]};
+        ${typography};
+        font-weight: ${weight};
+        white-space: pre-line;
+      `}
+      {...props}>
+      {label}
+    </div>
+  );
+};
+
+export default Text;
