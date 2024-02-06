@@ -50,6 +50,37 @@ const reset = css`
     border-collapse: collapse;
     border-spacing: 0;
   }
+
+  @font-face {
+    font-family: 'LeferiBaseType-RegularA';
+    src: url('/fonts/LeferiBaseRegular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'GothicA1Type-Regular';
+    src: url('/fonts/GothicA1-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'NeoDunggeunmoProType-Regular';
+    src: url('/fonts/NeoDunggeunmoPro-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'PFstardustType-Regular';
+    src: url('/fonts/PFstardust.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'PretendardType-Regular';
+    src: url('/fonts/Pretendard-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
 `;
 
 export default reset;
