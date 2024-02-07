@@ -1,5 +1,5 @@
-import { css, SerializedStyles } from '@emotion/react';
-import { colorType } from '~/types/style.type';
+import { css } from '@emotion/react';
+import { colorType, typographyType } from '~/types/style.type';
 import { colors } from '~/styles/colors';
 import { Combine } from '~/types/utils.type';
 
@@ -7,7 +7,7 @@ export type TxtProps = Combine<
   {
     label: string;
     color: colorType;
-    typography: SerializedStyles;
+    typography: typographyType;
     weight?: number;
     size?: number;
   },
