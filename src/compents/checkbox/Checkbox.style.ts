@@ -17,8 +17,7 @@ const S = {
     align-items: center;
 
     box-shadow: ${({ checked }) =>
-      // TODO: rgba 형식 사용 대신 지정 color config으로 사용하는 쪽으로 통일
-      checked ? 'none' : '2px 2px 0px 0px rgba(74, 74, 74, 0.90) inset'};
+      checked ? 'none' : `2px 2px 0px 0px ${colors.Gray450} inset`};
   `,
 };
 
