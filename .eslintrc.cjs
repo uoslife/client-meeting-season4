@@ -15,5 +15,11 @@ module.exports = {
       'warn',
       { allowConstantExport: true },
     ],
+    'prettier/prettier': [
+      'error',
+      {
+        endOfLine: 'auto', // 이 부분이 lf로 되어있다면 auto로 변경
+      },
+    ],
   },
-}
+};
