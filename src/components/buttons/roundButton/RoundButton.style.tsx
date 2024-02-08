@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { colors } from '~/styles/colors';
-import { Props } from '~/compents/buttons/Button';
+import { Props } from './RoundButton';
 import { css } from '@emotion/react';
 
 type StyledProps = Omit<Props, 'label'>;

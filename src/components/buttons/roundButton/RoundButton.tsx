@@ -1,4 +1,4 @@
-import * as S from './Button.style';
+import * as S from './RoundButton.style';
 import { Combine } from '~/types/utils.type';
 
 export type Props = Combine<
@@ -15,7 +15,7 @@ export type Props = Combine<
   React.ComponentProps<'button'>
 >;
 
-const Button = ({
+const RoundButton = ({
   status,
   label,
   width = 'full',
@@ -42,4 +42,4 @@ const Button = ({
   );
 };
 
-export default Button;
+export default RoundButton;
