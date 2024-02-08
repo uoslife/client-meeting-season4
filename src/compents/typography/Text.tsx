@@ -2,6 +2,7 @@ import { css } from '@emotion/react';
 import { colorType, typographyType } from '~/types/style.type';
 import { colors } from '~/styles/colors';
 import { Combine } from '~/types/utils.type';
+import { typographies } from '~/styles/typographies';
 
 export type TxtProps = Combine<
   {
@@ -26,7 +27,7 @@ const Text = ({
     <div
       css={css`
         color: ${colors[color]};
-        ${typography};
+        ${typographies[typography]};
         font-weight: ${weight};
         white-space: pre-line;
         font-size: ${size}px;
