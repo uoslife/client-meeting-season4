@@ -1,7 +1,7 @@
 import * as S from './RoundButton.style';
 import { Combine } from '~/types/utils.type';
 
-export type Props = Combine<
+export type RoundButtonProps = Combine<
   {
     status: 'active' | 'inactive' | 'disabled';
     borderType?: 'primary' | 'black' | 'none';
@@ -25,7 +25,7 @@ const RoundButton = ({
   borderType = 'primary',
   children,
   ...props
-}: Props) => {
+}: RoundButtonProps) => {
   return (
     <S.Button
       type={'button'}
