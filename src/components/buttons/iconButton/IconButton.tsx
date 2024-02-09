@@ -13,7 +13,7 @@ const IconButton = ({
   iconName,
   width,
   height,
-  rotate,
+  rotate = 0,
   onClick,
   ...props
 }: IconButtonProps) => {
