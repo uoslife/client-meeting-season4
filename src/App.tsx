@@ -1,18 +1,7 @@
 import GlobalStyle from '~/styles/GlobalStyle';
 import { css } from '@emotion/react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import commonRoutes from '~/routes/commonRoutes';
-
-const getRoutes = (routes: any) => {
-  return routes.map((route: any, i: any) => (
-    <Route key={route.path} path={route.path} element={route.element}>
-      {route.children && getRoutes(route.children)}
-    </Route>
-  ));
-};
-const Router = () => {
-  return <Routes>{getRoutes(commonRoutes)}</Routes>;
-};
+import { BrowserRouter } from 'react-router-dom';
+import { Router } from '~/routes';
 
 function App() {
   return (
