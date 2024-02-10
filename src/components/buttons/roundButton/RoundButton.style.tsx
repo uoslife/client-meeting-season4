@@ -1,9 +1,9 @@
 import styled from '@emotion/styled';
 import { colors } from '~/styles/colors';
-import { Props } from '~/compents/buttons/Button';
+import { RoundButtonProps } from './RoundButton';
 import { css } from '@emotion/react';
 
-type StyledProps = Omit<Props, 'label'>;
+type StyledProps = Omit<RoundButtonProps, 'label'>;
 
 export const Button = styled.button<StyledProps>`
   display: flex;
@@ -20,7 +20,7 @@ export const Button = styled.button<StyledProps>`
   ${({ status }) => checkStatusType(status)}
 `;
 
-const checkBorderType = (borderType: Props['borderType']) => {
+const checkBorderType = (borderType: RoundButtonProps['borderType']) => {
   switch (borderType) {
     case 'primary':
       return `${colors.Primary500}`;
@@ -33,7 +33,7 @@ const checkBorderType = (borderType: Props['borderType']) => {
   }
 };
 
-const checkStatusType = (status: Props['status']) => {
+const checkStatusType = (status: RoundButtonProps['status']) => {
   switch (status) {
     case 'active':
       return css`
