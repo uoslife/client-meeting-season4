@@ -2,10 +2,10 @@ import styled from '@emotion/styled';
 import { colors } from '~/styles/colors';
 import { CheckboxProps } from './Checkbox';
 
-type SRootProps = Pick<CheckboxProps, 'checked'>;
+type SWrapperProps = Pick<CheckboxProps, 'checked'>;
 
 const S = {
-  Root: styled.div<SRootProps>`
+  Wrapper: styled.div<SWrapperProps>`
     height: 24px;
     width: 24px;
     border-radius: 2px;

@@ -7,10 +7,10 @@ export type CheckboxProps = {
 
 const Checkbox = ({ checked, onClick }: CheckboxProps) => {
   return (
-    <S.Root checked={checked} onClick={onClick}>
+    <S.Wrapper checked={checked} onClick={onClick}>
       {/* TODO: img를 Icon 컴포넌트로 교체 */}
       {checked && <img src="/images/icons/checkbox-check.png" width={20} />}
-    </S.Root>
+    </S.Wrapper>
   );
 };
 
