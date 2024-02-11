@@ -3,12 +3,12 @@ import Card, { CardStyleProps } from '../card/Card';
 
 type BodyCardType = 'DEFAULT' | 'BG_GREY' | 'DOUBLE';
 
-type BodyContainerType = {
+type BodyContainerProps = {
   cardType: BodyCardType;
   children: React.ReactNode;
 };
 
-const SelectedCard = ({ children, cardType }: BodyContainerType) => {
+const SelectedCard = ({ children, cardType }: BodyContainerProps) => {
   // TODO: 필요한 컴포넌트 제작 후에 DOUBLE case 대응
   if (cardType === 'DOUBLE') return <>{children}</>;
 
@@ -23,7 +23,7 @@ const SelectedCard = ({ children, cardType }: BodyContainerType) => {
   return <Card {...cardStyleProps}>{children}</Card>;
 };
 
-const BodyContainer = ({ children, cardType }: BodyContainerType) => {
+const BodyContainer = ({ children, cardType }: BodyContainerProps) => {
   return (
     <S.DashedBodyWrapper>
       <S.CardWrapper>
