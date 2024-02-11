@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import Card, { CardStyleProps } from '../card/Card';
 
-type BodyCardType = 'DEFAULT' | 'BG_GREY' | 'SPLITTED';
+type BodyCardType = 'DEFAULT' | 'BG_GREY' | 'DOUBLE';
 
 type BodyContainerType = {
   cardType: BodyCardType;
@@ -9,8 +9,8 @@ type BodyContainerType = {
 };
 
 const SelectedCard = ({ children, cardType }: BodyContainerType) => {
-  // TODO: 필요한 컴포넌트 제작 후에 SPLITTED case 대응
-  if (cardType === 'SPLITTED') return <>{children}</>;
+  // TODO: 필요한 컴포넌트 제작 후에 DOUBLE case 대응
+  if (cardType === 'DOUBLE') return <>{children}</>;
 
   const isDefault = cardType === 'DEFAULT';
   const cardStyleProps: CardStyleProps = {
