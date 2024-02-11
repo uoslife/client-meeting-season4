@@ -24,7 +24,6 @@ const S = {
     border: solid ${({ borderColor }) => colors[borderColor]};
     border-radius: ${({ borderRadius }) => borderRadius}px;
     border-width: ${({ borderWidth }) => borderWidth}px;
-    height: 400px;
 
     background-color: ${({ backgroundColor }) => colors[backgroundColor]};
     width: 100%;
