@@ -1,18 +1,18 @@
 import styled from '@emotion/styled';
 import Row from '~/components/layout/Row';
 
-const SpringPair = () => (
+const PairOfRings = () => (
   <Row gap={4}>
-    <S.SpringItem />
-    <S.SpringItem />
+    <S.Ring />
+    <S.Ring />
   </Row>
 );
 
 const CardConnector = () => {
   return (
     <Row justify="space-between" width="full">
-      <SpringPair />
-      <SpringPair />
+      <PairOfRings />
+      <PairOfRings />
     </Row>
   );
 };
@@ -20,7 +20,7 @@ const CardConnector = () => {
 export default CardConnector;
 
 const S = {
-  SpringItem: styled.div`
+  Ring: styled.div`
     width: 8px;
     height: 32px;
     background: linear-gradient(180deg, #fff 0%, #cdcdcd 100%);
