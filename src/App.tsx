@@ -1,5 +1,7 @@
 import GlobalStyle from '~/styles/GlobalStyle';
 import { css } from '@emotion/react';
+import { BrowserRouter } from 'react-router-dom';
+import { Router } from '~/routes';
 
 function App() {
   return (
@@ -11,7 +13,9 @@ function App() {
             height: 100dvh;
             background-color: white;
           `}>
-          MainPage
+          <BrowserRouter>
+            <Router />
+          </BrowserRouter>
         </div>
       </GlobalStyle>
     </>
