@@ -3,13 +3,13 @@ import { colors } from '~/styles/colors';
 import { colorType } from '~/types/style.type';
 
 export type CardStyleProps = {
-  backgroundColor: colorType;
-  borderColor: colorType;
+  backgroundColorName: colorType;
+  borderColorName: colorType;
   borderWidth: number;
   borderRadius: number;
 };
 
-type CardProps = {
+export type CardProps = {
   children: React.ReactNode;
 } & CardStyleProps;
 
@@ -21,11 +21,12 @@ export default Card;
 
 const S = {
   Wrapper: styled.div<CardStyleProps>`
-    border: solid ${({ borderColor }) => colors[borderColor]};
+    border: solid ${({ borderColorName }) => colors[borderColorName]};
     border-radius: ${({ borderRadius }) => borderRadius}px;
     border-width: ${({ borderWidth }) => borderWidth}px;
 
-    background-color: ${({ backgroundColor }) => colors[backgroundColor]};
+    background-color: ${({ backgroundColorName }) =>
+      colors[backgroundColorName]};
     width: 100%;
   `,
 };
