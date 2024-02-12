@@ -1,7 +1,9 @@
+import MyInformationStep from '~/pages/personal/myInformationStep';
+
 const personalRoutes = [
   {
-    path: '/personal',
-    element: <div>personalPage</div>,
+    path: '/personal/myInformation',
+    element: <MyInformationStep />,
   },
 ];
 
