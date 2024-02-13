@@ -6,12 +6,12 @@ import {
   useState,
 } from 'react';
 
-export interface PageProps {
+interface PageProps {
   pageNumber: number;
   children: ReactNode;
 }
 
-export interface FunnelProps {
+interface FunnelProps {
   children: Array<ReactNode>;
 }
 

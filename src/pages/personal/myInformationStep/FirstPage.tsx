@@ -1,5 +1,14 @@
-const FirstPage = () => {
-  return <div>첫 번쨰 페이지</div>;
+import { PageProps } from '~/types/page.type';
+import { useEffect, useState } from 'react';
+
+const FirstPage = ({ setIsPageFinished }: PageProps) => {
+  const [abc, setAbc] = useState(false);
+
+  useEffect(() => {
+    abc ? setIsPageFinished(true) : setIsPageFinished(false);
+  }, [abc, setAbc]);
+
+  return <div>dsds</div>;
 };
 
 export default FirstPage;
