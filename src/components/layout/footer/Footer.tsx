@@ -30,9 +30,9 @@ const Footer = ({
         typography={'PFLabelL'}
       />
       {isDisabled ? (
-        <IconButton iconName={'footerButton-disabled'} onClick={onNext} />
-      ) : (
         <IconButton iconName={'footerButton-able'} onClick={onNext} />
+      ) : (
+        <IconButton iconName={'footerButton-disabled'} />
       )}
     </Row>
   );
