@@ -11,7 +11,7 @@ function App() {
         <div
           css={css`
             width: 414px;
-            height: 100dvh;
+            min-height: 100dvh;
             background-color: ${colors.Primary500};
             padding: 0 5px;
           `}>
