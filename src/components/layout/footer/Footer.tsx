@@ -1,6 +1,6 @@
 import IconButton from '~/components/buttons/iconButton/IconButton';
-import Row from '~/components/layout/Row';
 import Text from '~/components/typography/Text';
+import * as S from './Footer.style';
 
 export type FooterPropsType = {
   totalPage: number;
@@ -18,7 +18,7 @@ const Footer = ({
   isDisabled,
 }: FooterPropsType) => {
   return (
-    <Row justify={'space-between'} align={'center'}>
+    <S.Wrapper>
       <IconButton
         iconName={'footerButton-able'}
         rotate={180}
@@ -34,7 +34,7 @@ const Footer = ({
       ) : (
         <IconButton iconName={'footerButton-disabled'} />
       )}
-    </Row>
+    </S.Wrapper>
   );
 };
 
