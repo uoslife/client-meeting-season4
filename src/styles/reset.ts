@@ -1,4 +1,9 @@
 import { css } from '@emotion/react';
+import NeoDunggeunmoPro from '/fonts/NeoDunggeunmoPro-Regular.ttf';
+import PFstardust from '/fonts/PFstardust.ttf';
+import PretendardRegular from '/fonts/Pretendard-Regular.ttf';
+import GothicA1Regular from '/fonts/GothicA1-Regular.ttf';
+import LeferiBaseRegular from '/fonts/LeferiBaseRegular.ttf';
 
 const reset = css`
   * {
@@ -53,31 +58,31 @@ const reset = css`
 
   @font-face {
     font-family: 'LeferiBaseType-RegularA';
-    src: url('/fonts/LeferiBaseRegular.ttf') format('truetype');
-    font-weight: normal;
+    src: url(${LeferiBaseRegular}) format('truetype');
+    font-weight: 700;
     font-style: normal;
   }
   @font-face {
     font-family: 'GothicA1Type-Regular';
-    src: url('/fonts/GothicA1-Regular.ttf') format('truetype');
+    src: url(${GothicA1Regular}) format('truetype');
     font-weight: normal;
     font-style: normal;
   }
   @font-face {
     font-family: 'NeoDunggeunmoProType-Regular';
-    src: url('/fonts/NeoDunggeunmoPro-Regular.ttf') format('truetype');
+    src: url(${NeoDunggeunmoPro}) format('truetype');
     font-weight: normal;
     font-style: normal;
   }
   @font-face {
     font-family: 'PFstardustType-Regular';
-    src: url('/fonts/PFstardust.ttf') format('truetype');
+    src: url(${PFstardust}) format('truetype');
     font-weight: normal;
     font-style: normal;
   }
   @font-face {
     font-family: 'PretendardType-Regular';
-    src: url('/fonts/Pretendard-Regular.ttf') format('truetype');
+    src: url(${PretendardRegular}) format('truetype');
     font-weight: normal;
     font-style: normal;
   }
