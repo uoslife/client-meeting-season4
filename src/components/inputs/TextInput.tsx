@@ -32,7 +32,7 @@ const TextInput = ({
       />
       <S.Icon status={status} isAuthentication={isAuthentication}>
         <IconButton
-          iconName="xButton"
+          iconName="clearButton"
           width={20}
           height={20}
           format="svg"
