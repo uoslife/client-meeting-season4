@@ -29,7 +29,7 @@ const Row = ({
   align = 'flex-start',
   padding = '0',
   fill = false,
-  width,
+  width = 'full',
   children,
   ...props
 }: RowProps) => {
