@@ -1,15 +1,10 @@
 import { Global } from '@emotion/react';
 import reset from '~/styles/reset';
 
-type Props = {
-  children: React.ReactElement;
-};
-
-const GlobalStyle = ({ children }: Props) => {
+const GlobalStyle = () => {
   return (
     <>
       <Global styles={reset} />
-      {children}
     </>
   );
 };
