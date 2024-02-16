@@ -7,7 +7,7 @@ export type FooterPropsType = {
   currentPage: number;
   onPrev: () => void;
   onNext: () => void;
-  isDisabled?: boolean;
+  isAbled?: boolean;
 };
 
 const Footer = ({
@@ -15,7 +15,7 @@ const Footer = ({
   currentPage,
   onPrev,
   onNext,
-  isDisabled,
+  isAbled,
 }: FooterPropsType) => {
   return (
     <S.Wrapper>
@@ -29,7 +29,7 @@ const Footer = ({
         color={'Gray300'}
         typography={'PFLabelL'}
       />
-      {isDisabled ? (
+      {isAbled ? (
         <IconButton iconName={'footerButton-able'} onClick={onNext} />
       ) : (
         <IconButton iconName={'footerButton-disabled'} />
