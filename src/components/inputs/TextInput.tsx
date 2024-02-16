@@ -1,5 +1,6 @@
 import { ChangeEvent } from 'react';
 import * as S from './TextInput.style';
+import IconButton from '../buttons/iconButton/IconButton';
 
 export type InputProps = {
   type?: string;
@@ -29,13 +30,13 @@ const TextInput = ({
         placeholder={placeholder}
         onChange={onChange}
       />
-      <S.Icon
-        type="button"
-        status={status}
-        onClick={onClick}
-        isAuthentication={isAuthentication}>
-        <img
-          src="../../icon/x.png" //Icon 컴포넌트 도입 후 수정
+      <S.Icon status={status} isAuthentication={isAuthentication}>
+        <IconButton
+          iconName="clearButton"
+          width={20}
+          height={20}
+          format="svg"
+          onClick={onClick}
         />
       </S.Icon>
     </S.Container>
