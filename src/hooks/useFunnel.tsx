@@ -16,7 +16,10 @@ interface FunnelProps {
 }
 
 export const useFunnel = (pageNumberList: number[]) => {
-  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [isFunnelFinished, setIsFunnelFinished] = useState(false);
+  const [currentPage, setCurrentPage] = useState(
+    isFunnelFinished ? 1 : pageNumberList.length,
+  );
   const Funnel = ({ children }: FunnelProps) => {
     // children 검증
     const validChildren = Children.toArray(children)
@@ -39,5 +42,5 @@ export const useFunnel = (pageNumberList: number[]) => {
     return <>{children}</>;
   };
 
-  return { Funnel, Page, setCurrentPage, currentPage };
+  return { Funnel, Page, setCurrentPage, currentPage, setIsFunnelFinished };
 };

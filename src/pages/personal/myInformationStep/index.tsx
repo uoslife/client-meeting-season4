@@ -9,16 +9,23 @@ import ForthPage from '~/pages/personal/myInformationStep/ForthPage';
 import FifthPage from '~/pages/personal/myInformationStep/FifthPage';
 import SixthPage from '~/pages/personal/myInformationStep/SixthPage';
 import Header from '~/components/layout/header/Header';
+import { useNavigate } from 'react-router-dom';
 
 const PAGE_NUMBER = [1, 2, 3, 4, 5, 6];
 
 const MyInformationStep = () => {
-  const { Funnel, Page, setCurrentPage, currentPage } = useFunnel(PAGE_NUMBER);
+  const { Funnel, Page, setCurrentPage, currentPage, setIsFunnelFinished } =
+    useFunnel(PAGE_NUMBER);
   const [isPageFinished, setIsPageFinished] = useState(false);
-
+  const navigate = useNavigate();
   const onNext = () => {
+    if (currentPage === 6) {
+      navigate('/');
+      setIsFunnelFinished(true);
+      return;
+    }
     setCurrentPage(currentPage + 1);
-    setIsPageFinished(false);
+    setIsPageFinished(true);
   };
 
   const onPrev = () => {
