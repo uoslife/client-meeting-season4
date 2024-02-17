@@ -24,17 +24,16 @@ const useRangeSlider = ({
   minMarkPrefix,
   maxMarkPostfix,
 }: UseRangeSliderParams): UseRangeSliderReturn => {
-  const [value, setRangeValue] = useState<SliderProps['value']>([1, 2]);
+  const [value, setValue] = useState<SliderProps['value']>([1, 2]);
 
   const onChange: SliderProps['onChange'] = value => {
-    setRangeValue(value);
+    setValue(value);
   };
 
   const marks = useMemo(() => {
     const ret: RangeSliderProps['marks'] = {};
 
-    let i: number;
-    for (i = min; i <= max; i += markStep) ret[i] = `${i}`;
+    for (let i = min; i <= max; i += markStep) ret[i] = `${i}`;
 
     const minMarkIndex = 0;
     const maxMarkIndex = Math.max(
