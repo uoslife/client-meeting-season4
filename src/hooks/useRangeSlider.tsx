@@ -1,6 +1,7 @@
 import { SliderProps } from 'rc-slider';
 import { useMemo, useState } from 'react';
 import { RangeSliderProps } from '~/components/rangeSlider/RangeSlider';
+import RangeSliderMarkText from '~/components/rangeSlider/RangeSliderMarkText';
 
 type UseRangeSliderParams = Required<
   Pick<RangeSliderProps, 'min' | 'max' | 'defaultValue' | 'step'>
@@ -33,15 +34,25 @@ const useRangeSlider = ({
   const marks = useMemo(() => {
     const ret: RangeSliderProps['marks'] = {};
 
-    for (let i = min; i <= max; i += markStep) ret[i] = `${i}`;
+    for (let index = min; index <= max; index += markStep)
+      ret[index] = <RangeSliderMarkText label={`${index}`} />;
 
-    const minMarkIndex = 0;
+    const minMarkIndex = Math.min(
+      ...Object.keys(ret).map(item => Number(item)),
+    );
     const maxMarkIndex = Math.max(
       ...Object.keys(ret).map(item => Number(item)),
     );
 
-    if (minMarkPrefix) ret[minMarkIndex] = minMarkPrefix + ret[minMarkIndex];
-    if (maxMarkPostfix) ret[maxMarkIndex] = ret[maxMarkIndex] + maxMarkPostfix;
+    if (minMarkPrefix)
+      ret[minMarkIndex] = (
+        <RangeSliderMarkText label={`${minMarkPrefix}${minMarkIndex}`} />
+      );
+
+    if (maxMarkPostfix)
+      ret[maxMarkIndex] = (
+        <RangeSliderMarkText label={`${maxMarkIndex}${maxMarkPostfix}`} />
+      );
 
     return ret;
   }, [min, max, markStep, minMarkPrefix, maxMarkPostfix]);

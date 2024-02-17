@@ -25,7 +25,7 @@ const RangeSlider = ({
   onChange,
 }: RangeSliderProps) => {
   return (
-    <S.Container>
+    <S.EntireContainer>
       <S.BackgroundContainer>
         <RangeSliderBackground />
       </S.BackgroundContainer>
@@ -45,7 +45,7 @@ const RangeSlider = ({
           }}
         />
       </S.SliderContainer>
-    </S.Container>
+    </S.EntireContainer>
   );
 };
 
