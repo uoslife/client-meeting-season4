@@ -4,13 +4,9 @@ import { colors } from '~/styles/colors';
 import { colorType } from '~/types/style.type';
 
 const RangeSliderBackground = memo(() => {
-  const rowProps = getRowProps();
-
   return (
     <S.Container>
-      {rowProps.map(styles => (
-        <S.BackgroundRow {...styles} />
-      ))}
+      <Rows />
     </S.Container>
   );
 });
@@ -22,7 +18,13 @@ type SBackgroundRowProps = {
   widthSubtrahend: number;
 };
 
-const getRowProps = () => {
+const Rows = () => {
+  const rowInfo = getRowsInfo();
+
+  return rowInfo.map(rowInfoItem => <S.BackgroundRow {...rowInfoItem} />);
+};
+
+const getRowsInfo = () => {
   const rowCount = 8;
   const ret: SBackgroundRowProps[] = Array.from({ length: rowCount }, () => ({
     backgroundColorName: 'Blue',
