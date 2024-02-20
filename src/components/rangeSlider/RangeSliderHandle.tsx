@@ -21,27 +21,34 @@ export default RangeSliderHandle;
 
 const Row1 = () => {
   const ret = [];
-  for (let i = 0; i < 2; i++) ret.push(<S.DotItem />);
-  for (let i = 0; i < 6; i++) ret.push(<S.DotItem background="Gray500" />);
-  for (let i = 0; i < 2; i++) ret.push(<S.DotItem />);
+  for (let i = 0; i < 2; i++) ret.push(<S.DotItem key={i} />);
+  for (let i = 2; i < 8; i++)
+    ret.push(<S.DotItem key={i} background="Gray500" />);
+  for (let i = 8; i < 10; i++) ret.push(<S.DotItem key={i} />);
 
   return ret;
 };
 const Row2 = () => {
   const ret = [];
-  for (let i = 0; i < 1; i++) ret.push(<S.DotItem />);
-  for (let i = 0; i < 1; i++) ret.push(<S.DotItem background="Gray500" />);
-  for (let i = 0; i < 6; i++) ret.push(<S.DotItem background="White" />);
-  for (let i = 0; i < 1; i++) ret.push(<S.DotItem background="Gray500" />);
-  for (let i = 0; i < 1; i++) ret.push(<S.DotItem />);
+  for (let i = 0; i < 1; i++) ret.push(<S.DotItem key={i} />);
+  for (let i = 1; i < 2; i++)
+    ret.push(<S.DotItem key={i} background="Gray500" />);
+  for (let i = 2; i < 8; i++)
+    ret.push(<S.DotItem key={i} background="White" />);
+  for (let i = 8; i < 9; i++)
+    ret.push(<S.DotItem key={i} background="Gray500" />);
+  for (let i = 9; i < 10; i++) ret.push(<S.DotItem key={i} />);
 
   return ret;
 };
 const Row3 = () => {
   const ret = [];
-  for (let i = 0; i < 1; i++) ret.push(<S.DotItem background="Gray500" />);
-  for (let i = 0; i < 8; i++) ret.push(<S.DotItem background="White" />);
-  for (let i = 0; i < 1; i++) ret.push(<S.DotItem background="Gray500" />);
+  for (let i = 0; i < 1; i++)
+    ret.push(<S.DotItem key={i} background="Gray500" />);
+  for (let i = 1; i < 9; i++)
+    ret.push(<S.DotItem key={i} background="White" />);
+  for (let i = 9; i < 10; i++)
+    ret.push(<S.DotItem key={i} background="Gray500" />);
 
   return ret;
 };

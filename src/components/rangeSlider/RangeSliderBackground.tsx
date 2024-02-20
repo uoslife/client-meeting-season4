@@ -21,7 +21,9 @@ type SBackgroundRowProps = {
 const Rows = () => {
   const rowInfo = getRowsInfo();
 
-  return rowInfo.map(rowInfoItem => <S.BackgroundRow {...rowInfoItem} />);
+  return rowInfo.map((rowInfoItem, i) => (
+    <S.BackgroundRow key={i} {...rowInfoItem} />
+  ));
 };
 
 const getRowsInfo = () => {
