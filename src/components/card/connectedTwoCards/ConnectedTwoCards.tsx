@@ -1,26 +1,34 @@
 import Col from '~/components/layout/Col';
-import Card, { CardStyleProps } from '../Card';
+import Card, { CardProps } from '../Card';
 import CardConnector from './CardConnector';
 import styled from '@emotion/styled';
+import { css } from '@emotion/react';
 
 export type ConnectedTwoCardsProps = {
-  topCardChildren: React.ReactNode;
-  bottomCardChildren: React.ReactNode;
-  cardStyleProps: CardStyleProps;
+  topCardProps: CardProps;
+  bottomCardProps: CardProps;
 };
 
 const ConnectedTwoCards = ({
-  topCardChildren,
-  bottomCardChildren,
-  cardStyleProps,
+  topCardProps,
+  bottomCardProps,
 }: ConnectedTwoCardsProps) => {
   return (
     <Col align="center">
-      <Card {...cardStyleProps}>{topCardChildren}</Card>
+      <Card key={0} {...topCardProps} />
       <S.ConnectorWrapper>
         <CardConnector />
       </S.ConnectorWrapper>
-      <Card {...cardStyleProps}>{bottomCardChildren}</Card>
+      <div
+        css={css`
+          background-color: blue;
+          height: 0;
+          flex: 1;
+        `}>
+        <Card key={1} {...bottomCardProps}>
+          {bottomCardProps.children}
+        </Card>
+      </div>
     </Col>
   );
 };

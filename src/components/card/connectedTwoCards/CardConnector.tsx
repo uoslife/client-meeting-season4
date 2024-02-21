@@ -2,15 +2,15 @@ import styled from '@emotion/styled';
 import Row from '~/components/layout/Row';
 
 const PairOfRings = () => (
-  <Row gap={4}>
+  <S.PairContainer>
     <S.Ring />
     <S.Ring />
-  </Row>
+  </S.PairContainer>
 );
 
 const CardConnector = () => {
   return (
-    <Row justify="space-between" width="full">
+    <Row justify="space-between">
       <PairOfRings />
       <PairOfRings />
     </Row>
@@ -27,5 +27,9 @@ const S = {
 
     border-radius: 21px;
     border: 2px solid #818181;
+  `,
+  PairContainer: styled.div`
+    display: flex;
+    gap: 4px;
   `,
 };
