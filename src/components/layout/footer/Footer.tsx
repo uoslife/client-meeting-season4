@@ -15,7 +15,7 @@ const Footer = ({
   currentPage,
   onPrev,
   onNext,
-  isAbled,
+  isAbled = true,
 }: FooterPropsType) => {
   return (
     <S.Wrapper>
