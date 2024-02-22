@@ -6,7 +6,10 @@ import { css } from '@emotion/react';
 type SOuterProps = Pick<FooterPropsType, 'outerPadding'>;
 type SInnerProps = Pick<
   FooterPropsType,
-  'innerPadding' | 'backgroundColorName' | 'borderRadius' | 'border'
+  | 'innerPadding'
+  | 'backgroundColorName'
+  | 'bottomBorderRadius'
+  | 'horizontalBorder'
 >;
 
 const S = {
@@ -33,10 +36,18 @@ const S = {
         background: ${colors[backgroundColorName]};
       `}
 
-    ${({ border }) =>
-      border &&
+    ${({ horizontalBorder }) =>
+      horizontalBorder &&
       css`
-        border: ${border};
+        border-left: ${horizontalBorder};
+        border-right: ${horizontalBorder};
+      `}
+
+      ${({ bottomBorderRadius }) =>
+      bottomBorderRadius &&
+      css`
+        border-bottom-left-radius: ${bottomBorderRadius}px;
+        border-bottom-right-radius: ${bottomBorderRadius}px;
       `}
   `,
 };
