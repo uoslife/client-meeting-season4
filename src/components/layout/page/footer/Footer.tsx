@@ -9,9 +9,11 @@ export type FooterPropsType = {
   onPrev: () => void;
   onNext: () => void;
   isAbled?: boolean;
-  outerPadding: string;
-  innerPadding: string;
-  backgroundColorName: colorType;
+  border?: string;
+  borderRadius?: number;
+  outerPadding?: string;
+  innerPadding?: string;
+  backgroundColorName?: colorType;
 };
 
 const Footer = ({
@@ -20,13 +22,17 @@ const Footer = ({
   onPrev,
   onNext,
   isAbled,
-  outerPadding,
-  innerPadding,
-  backgroundColorName,
+  borderRadius = 0,
+  border,
+  outerPadding = '15px 29px',
+  innerPadding = '24px 20px',
+  backgroundColorName = 'White',
 }: FooterPropsType) => {
   return (
     <S.Outer outerPadding={outerPadding}>
       <S.Inner
+        border={border}
+        borderRadius={borderRadius}
         innerPadding={innerPadding}
         backgroundColorName={backgroundColorName}>
         <IconButton

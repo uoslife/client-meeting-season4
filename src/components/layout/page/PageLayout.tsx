@@ -1,8 +1,8 @@
 import { css } from '@emotion/react';
 import { colors } from '~/styles/colors';
 import Header from './header/Header';
-import SingleCardBody from './body/singleCard/SingleCardBody';
-import DoubleCardBody from './body/doubleCard/DoubleCardBody';
+import SingleCardBody from './body/SingleCardBody';
+import DoubleCardBody from './body/DoubleCardBody';
 import Footer from './footer/Footer';
 
 const PageTemplate = ({ children }: { children: React.ReactNode }) => {

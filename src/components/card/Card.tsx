@@ -69,6 +69,8 @@ const S = {
         overflow-y: auto;
       `}
 
+    height: 100%;
+
     display: flex;
     flex-direction: column;
   `,
