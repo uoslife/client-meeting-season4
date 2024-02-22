@@ -10,7 +10,7 @@ export const getCardStyleProps = (theme: BodyCardTheme): CardStyleProps => ({
 });
 
 export const S = {
-  DashedLineOuterPadding: styled.div`
+  DashedLineOuterPadding: styled.main`
     padding: 0 5px 8px;
 
     display: flex;
