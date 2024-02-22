@@ -2,6 +2,7 @@ import { DoubleCardBodyProps } from './Body.type';
 import { S, getCardStyleProps } from './Body.style';
 import Card from '~/components/card/Card';
 import CardConnector from '~/components/card/connectedTwoCards/CardConnector';
+import { css } from '@emotion/react';
 
 const fixedCardTheme = 'BG_WHITE';
 
@@ -26,6 +27,9 @@ const DoubleCardBody = ({
               <CardConnector />
             </S.ConnectorWrapper>
             <Card
+              css={css`
+                flex: 1;
+              `}
               padding={bottomCardPadding}
               {...getCardStyleProps(fixedCardTheme)}
               children={bottomCardChildren}
