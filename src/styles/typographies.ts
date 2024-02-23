@@ -3,7 +3,7 @@ import { css } from '@emotion/react';
 export const typographies = {
   // Neo
   NeoTitleM: css`
-    font-size: 18px;
+    font-size: 17px;
     line-height: 27px;
     font-weight: 400;
     font-family: 'NeoDunggeunmoProType-Regular';

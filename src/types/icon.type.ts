@@ -5,7 +5,9 @@ export type normalType =
   | 'clearButton'
   | 'footerButton-able'
   | 'footerButton-disabled'
-  | 'check';
+  | 'check'
+  |'headerButton-home' 
+  | 'headerButton-backArrow';
 
 // 동물상 관련 타입 지정입니다. 'dog' | 'cat' 이런 식으로 작성해주시면 됩니다.
 export type animalKeyType =

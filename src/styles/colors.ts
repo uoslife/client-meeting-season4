@@ -20,4 +20,8 @@ export const colors = {
   Red200: '#F47F88',
 
   Blue: '#005E9E',
+
+  Secondary800: '#656D78',
+
+  LightBlue: '#4EB1CB',
 };
