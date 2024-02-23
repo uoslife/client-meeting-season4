@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import { InputProps } from './TextInput';
 import { colors } from '~/styles/colors';
+import '/public/fonts/GothicA1-Regular.ttf';
 
 type InputStyledProps = Omit<InputProps, 'value'>;
 
@@ -24,7 +25,7 @@ export const Input = styled.input<InputStyledProps>`
   border: none;
 
   //글씨체 컴포넌트 도입 후 수정
-  font-family: 'Gothic A1';
+  font-family: 'GothicA1Type-Regular';
   font-size: 14px;
   font-weight: 400;
   line-height: 20px;
@@ -41,7 +42,7 @@ export const Input = styled.input<InputStyledProps>`
 `;
 
 //Icon 컴포넌트 도입 후 수정
-export const Icon = styled.button<InputStyledProps>`
+export const Icon = styled.div<InputStyledProps>`
   display: ${({ isAuthentication, status }) =>
     isAuthentication === true && (status === 'focused' || status === 'error')
       ? 'flex'
