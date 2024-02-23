@@ -31,7 +31,9 @@ const Header = ({
             }
             width={24}
             height={25.5}
-            onClick={() => navigate('/')}
+            onClick={() =>
+              isBackArrow ? navigate('/common/branchGateWay') : navigate('/')
+            }
           />
           <Text label={title} color={'White'} typography={'NeoTitleM'} />
           <S.DummyBox />

@@ -1,5 +1,6 @@
 import { useFunnel } from '~/hooks/useFunnel';
 import Col from '~/components/layout/Col';
+import Footer from '~/components/layout/footer/Footer';
 import { useState } from 'react';
 import FirstPage from '~/pages/personal/myInformationStep/FirstPage';
 import SecondPage from '~/pages/personal/myInformationStep/SecondPage';
@@ -7,8 +8,7 @@ import ThirdPage from '~/pages/personal/myInformationStep/ThirdPapge';
 import ForthPage from '~/pages/personal/myInformationStep/ForthPage';
 import FifthPage from '~/pages/personal/myInformationStep/FifthPage';
 import SixthPage from '~/pages/personal/myInformationStep/SixthPage';
-import Header from '~/components/layout/page/header/Header';
-import Footer from '~/components/layout/page/footer/Footer';
+import Header from '~/components/layout/header/Header';
 
 const PAGE_NUMBER = [1, 2, 3, 4, 5, 6];
 
@@ -54,6 +54,13 @@ const MyInformationStep = () => {
             <SixthPage setIsPageFinished={setIsPageFinished} />
           </Page>
         </Funnel>
+        <Footer
+          currentPage={currentPage}
+          totalPage={PAGE_NUMBER.length}
+          isAbled={isPageFinished}
+          onNext={onNext}
+          onPrev={onPrev}
+        />
       </Col>
     </>
   );
