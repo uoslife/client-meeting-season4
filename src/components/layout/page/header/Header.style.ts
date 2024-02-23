@@ -1,8 +1,8 @@
 import styled from '@emotion/styled';
-import { ProgressHeaderProps } from '~/components/layout/header/Header';
 import { colors } from '~/styles/colors';
+import { HeaderProps } from './Header';
 
-export const Container = styled.header<Pick<ProgressHeaderProps, 'isProgress'>>`
+export const Container = styled.header<Pick<HeaderProps, 'isProgress'>>`
   position: sticky;
   top: 0;
   z-index: 1000;
