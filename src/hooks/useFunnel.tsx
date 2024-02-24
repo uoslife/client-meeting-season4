@@ -39,5 +39,7 @@ export const useFunnel = (pageNumberList: number[]) => {
     return <>{children}</>;
   };
 
-  return { Funnel, Page, setCurrentPage, currentPage };
+  const totalPage = pageNumberList.length;
+
+  return { Funnel, Page, setCurrentPage, totalPage, currentPage };
 };
