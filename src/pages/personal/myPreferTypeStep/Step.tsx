@@ -1,12 +1,8 @@
 import { useFunnel } from '~/hooks/useFunnel';
-import Col from '~/components/layout/Col';
 import FirstPage from './FirstPage';
 import SecondPage from './SecondPage';
 import ThirdPage from './ThirdPapge';
 import ForthPage from './ForthPage';
-import { useAtomValue } from 'jotai';
-import { pageFinishAtom } from '~/store/funnel';
-import { useNavigate } from 'react-router-dom';
 import PageLayout from '~/components/layout/page/PageLayout';
 
 const PAGE_NUMBER = [1, 2, 3, 4];
@@ -16,13 +12,6 @@ const MyPreferTypeStep = () => {
     pageNumberList: PAGE_NUMBER,
     nextStep: { path: '/common/privacyPolicy' },
     prevStep: { path: '/personal/myRomance' },
-  });
-
-  const navigate = useNavigate();
-  const isPageFinished = useAtomValue(pageFinishAtom);
-
-  navigate('/personal/mypPreferType', {
-    state: 4,
   });
 
   return (
@@ -50,7 +39,6 @@ const MyPreferTypeStep = () => {
       <PageLayout.Footer
         currentPage={currentPage}
         totalPage={PAGE_NUMBER.length}
-        isAbled={isPageFinished}
         onNext={PageHandler.onNext}
         onPrev={PageHandler.onPrev}
       />

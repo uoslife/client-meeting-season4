@@ -5,15 +5,11 @@ import FirstPage from '~/pages/common/applyPledgeStep/FirstPage';
 import { useFunnel } from '~/hooks/useFunnel';
 
 const GroupParticipateStep = () => {
-  const navigate = useNavigate();
   const { Funnel, currentPage, PageHandler } = useFunnel({
     pageNumberList: [1],
-    nextStep: { path: '/common/finishApplyStep' },
-    prevStep: { path: '/common/paymentStep' },
+    nextStep: { path: '/common/privacyPolicyStep' },
+    prevStep: { path: '/group/myInformationStep' },
   });
-
-  const onPrev = () => navigate('/group/myInformationStep');
-  const onNext = () => navigate('/common/privacyPolicyStep');
 
   return (
     <PageLayout>
@@ -31,8 +27,8 @@ const GroupParticipateStep = () => {
       <PageLayout.Footer
         currentPage={1}
         totalPage={1}
-        onNext={onNext}
-        onPrev={onPrev}
+        onNext={PageHandler.onNext}
+        onPrev={PageHandler.onPrev}
       />
     </PageLayout>
   );

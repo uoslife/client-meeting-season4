@@ -1,11 +1,8 @@
-import { useAtomValue } from 'jotai';
-import { pageFinishAtom } from '~/store/funnel';
 import PageLayout from '~/components/layout/page/PageLayout';
 import { useFunnel } from '~/hooks/useFunnel';
 import FirstPage from './FirstPage';
 
 const BranchGatewayStep = () => {
-  const isPageFinished = useAtomValue(pageFinishAtom);
   const { Funnel, currentPage, PageHandler } = useFunnel({
     pageNumberList: [1],
     nextStep: {
@@ -27,7 +24,6 @@ const BranchGatewayStep = () => {
       <PageLayout.Footer
         currentPage={currentPage}
         totalPage={1}
-        isAbled={isPageFinished}
         onNext={PageHandler.onNext}
         onPrev={PageHandler.onPrev}
       />

@@ -12,9 +12,7 @@ const BranchGatewayStep = () => {
     nextStep: { path: '/common/branchGateWayStep' },
     prevStep: { path: '/' },
   });
-  const isPageFinished = useAtomValue(pageFinishAtom);
   const meetingType = useAtomValue(meetingTypeAtom);
-  const navigate = useNavigate();
 
   return (
     <PageLayout>
@@ -32,7 +30,6 @@ const BranchGatewayStep = () => {
       <PageLayout.Footer
         currentPage={currentPage}
         totalPage={1}
-        isAbled={isPageFinished}
         onNext={PageHandler.onNext}
         onPrev={PageHandler.onPrev}
       />

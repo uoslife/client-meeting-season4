@@ -1,6 +1,6 @@
 import { ApplyData, ApplyQuestionArrType } from '~/types/apply.type';
 import { atom } from 'jotai';
-import { initialCommonState, univTypeAtom } from '~/store/meeting/common';
+import { initialCommonState } from '~/store/meeting/common';
 
 export type GroupState = {
   code: string;

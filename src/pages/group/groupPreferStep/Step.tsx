@@ -1,19 +1,13 @@
-import Col from '~/components/layout/Col';
-import { useNavigate } from 'react-router-dom';
 import PageLayout from '~/components/layout/page/PageLayout';
 import FirstPage from '~/pages/common/applyPledgeStep/FirstPage';
 import { useFunnel } from '~/hooks/useFunnel';
 
 const GroupPreferStep = () => {
-  const navigate = useNavigate();
   const { Funnel, currentPage, PageHandler } = useFunnel({
     pageNumberList: [1],
-    nextStep: { path: '/common/finishApplyStep' },
-    prevStep: { path: '/common/paymentStep' },
+    nextStep: { path: '/group/groupInformationStep' },
+    prevStep: { path: '/common/privacyPolicyStep' },
   });
-
-  const onPrev = () => navigate('/group/groupInformationStep');
-  const onNext = () => navigate('/common/privacyPolicyStep');
 
   return (
     <PageLayout>
@@ -29,10 +23,10 @@ const GroupPreferStep = () => {
         </Funnel.Page>
       </Funnel>
       <PageLayout.Footer
-        currentPage={1}
+        currentPage={currentPage}
         totalPage={1}
-        onNext={onNext}
-        onPrev={onPrev}
+        onNext={PageHandler.onNext}
+        onPrev={PageHandler.onPrev}
       />
     </PageLayout>
   );

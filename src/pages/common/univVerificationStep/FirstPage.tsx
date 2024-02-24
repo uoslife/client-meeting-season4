@@ -17,6 +17,12 @@ const FirstPage = () => {
   const [univAtom, setUnivAtom] = useAtom(univTypeAtom);
   const setIsPageFinished = useSetAtom(pageFinishAtom);
 
+  useEffect(() => {
+    if (univAtom) {
+      setIsPageFinished(true);
+    }
+  }, [univAtom, setUnivAtom]);
+
   // jotai 전역 변수가 groupApplyAtom처럼 객체라면 아래 코드처럼 useImmerAtom을 사용해보세요!
   // const [nickname, setNickname] = useImmerAtom(groupApplyAtom);
   // const handleSetNickname = () => {
@@ -24,12 +30,6 @@ const FirstPage = () => {
   //     draft.info_name.data = '김영찬123';
   //   });
   // };
-
-  useEffect(() => {
-    if (univAtom) {
-      setIsPageFinished(true);
-    }
-  }, [univAtom, setUnivAtom]);
 
   return (
     <Col align={'center'} gap={52}>

@@ -1,6 +1,4 @@
 import { useFunnel } from '~/hooks/useFunnel';
-import { useAtomValue } from 'jotai';
-import { pageFinishAtom } from '~/store/funnel';
 import FirstPage from './FirstPage';
 import SecondPage from './SecondPage';
 import PageLayout from '~/components/layout/page/PageLayout';
@@ -8,7 +6,6 @@ import PageLayout from '~/components/layout/page/PageLayout';
 const PAGE_NUMBER = [1, 2];
 
 const UnivVerificationStep = () => {
-  const isPageFinished = useAtomValue(pageFinishAtom);
   const { Funnel, currentPage, PageHandler } = useFunnel({
     pageNumberList: PAGE_NUMBER,
     nextStep: { path: '/common/branchGateWayStep' },
@@ -34,7 +31,6 @@ const UnivVerificationStep = () => {
       <PageLayout.Footer
         currentPage={currentPage}
         totalPage={PAGE_NUMBER.length}
-        isAbled={isPageFinished}
         onNext={PageHandler.onNext}
         onPrev={PageHandler.onPrev}
       />

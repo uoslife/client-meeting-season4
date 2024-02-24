@@ -1,9 +1,6 @@
 import { useFunnel } from '~/hooks/useFunnel';
-import Col from '~/components/layout/Col';
 import FirstPage from './FirstPage';
 import SecondPage from './SecondPage';
-import { useAtomValue } from 'jotai';
-import { pageFinishAtom } from '~/store/funnel';
 import PageLayout from '~/components/layout/page/PageLayout';
 
 const PAGE_NUMBER = [1, 2];
@@ -14,8 +11,6 @@ const GroupCreateStep = () => {
     nextStep: { path: '/common/privacyPolicy' },
     prevStep: { path: '/group/myInformationStep' },
   });
-
-  const isPageFinished = useAtomValue(pageFinishAtom);
 
   return (
     <PageLayout>
@@ -36,7 +31,6 @@ const GroupCreateStep = () => {
       <PageLayout.Footer
         currentPage={currentPage}
         totalPage={PAGE_NUMBER.length}
-        isAbled={isPageFinished}
         onNext={PageHandler.onNext}
         onPrev={PageHandler.onPrev}
       />

@@ -1,13 +1,10 @@
 import { useFunnel } from '~/hooks/useFunnel';
-import Col from '~/components/layout/Col';
 import FirstPage from './FirstPage';
 import SecondPage from './SecondPage';
 import ThirdPage from './ThirdPapge';
 import ForthPage from './ForthPage';
 import FifthPage from './FifthPage';
 import SixthPage from './SixthPage';
-import { useAtomValue } from 'jotai';
-import { pageFinishAtom } from '~/store/funnel';
 import PageLayout from '~/components/layout/page/PageLayout';
 
 const PAGE_NUMBER = [1, 2, 3, 4, 5, 6];
@@ -18,8 +15,6 @@ const MyInformationStep = () => {
     nextStep: { path: '/personal/myRomanceStep' },
     prevStep: { path: '/common/branchGateWayStep' },
   });
-  const isPageFinished = useAtomValue(pageFinishAtom);
-
   return (
     <PageLayout>
       <PageLayout.Header
@@ -51,7 +46,6 @@ const MyInformationStep = () => {
       <PageLayout.Footer
         currentPage={currentPage}
         totalPage={PAGE_NUMBER.length}
-        isAbled={isPageFinished}
         onNext={PageHandler.onNext}
         onPrev={PageHandler.onPrev}
       />
