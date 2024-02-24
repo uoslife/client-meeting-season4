@@ -18,7 +18,7 @@ const S = {
     width: 100%;
 
     position: fixed;
-    bottom: 0;
+    bottom: 5px;
     left: 0;
 
     background: transparent;

@@ -17,6 +17,7 @@ export const S = {
     flex-direction: column;
 
     width: 100%;
+    margin-bottom: 5px;
 
     height: 0;
     flex: 1;

@@ -54,12 +54,6 @@ const S = {
         flex: 1;
         height: 0;
       `}
-
-    ${({ padding }) =>
-      padding &&
-      css`
-        padding: ${padding};
-      `};
   `,
   Inner: styled.div<Pick<CardProps, 'scroll'>>`
     ${({ scroll }) =>
@@ -70,6 +64,7 @@ const S = {
       `}
 
     height: 100%;
+    padding: 36px 20px;
 
     display: flex;
     flex-direction: column;
