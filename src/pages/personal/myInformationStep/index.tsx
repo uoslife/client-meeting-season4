@@ -30,8 +30,8 @@ const MyInformationStep = () => {
       <Header
         title={'경희대 한국외대 구성원 인증'}
         isProgress={true}
-        currentStep={1}
-        totalStep={5}
+        currentPage={1}
+        totalPage={5}
       />
       <Col justify={'space-between'} align={'center'}>
         <Funnel>
