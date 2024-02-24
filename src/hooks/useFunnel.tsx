@@ -16,7 +16,7 @@ interface PageProps {
 }
 
 interface FunnelProps {
-  children: Array<ReactNode>;
+  children: Array<ReactNode> | ReactNode;
 }
 
 type useFunnelType = {

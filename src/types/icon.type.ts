@@ -36,7 +36,7 @@ export type interestKeyType =
 export type interestType = `interests/${interestKeyType}`;
 
 // 학교 선택
-export type univSelectionKeyType = 'HUFS' | 'KKU';
+export type univSelectionKeyType = 'HUFS' | 'KHU';
 export type univSelectionType = `univSelection/${univSelectionKeyType}`;
 
 export type iconType =
