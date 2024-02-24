@@ -1,4 +1,4 @@
-import { animalKeyType } from '~/types/icon.type';
+import { animalKeyType, interestKeyType } from '~/types/icon.type';
 
 export const ANIMALS: animalKeyType[] = [
   'dog',
@@ -22,4 +22,30 @@ export enum ANIMALS_NAME {
   'monkey' = '원숭이',
   'dinosaur' = '공룡',
   'chick' = '병아리',
+}
+
+export const INTEREST: interestKeyType[] = [
+  'reading',
+  'exercise',
+  'game',
+  'traveling',
+  'animal',
+  'music',
+  'drawing',
+  'movie_drama',
+  'fashion',
+  'cooking',
+];
+
+export enum INTEREST_NAME {
+  'reading' = '독서',
+  'exercise' = '운동',
+  'game' = '게임',
+  'traveling' = '여행',
+  'animal' = '동물',
+  'music' = '음악',
+  'drawing' = '그림',
+  'movie_drama' = '영화/드라마',
+  'fashion' = '패션',
+  'cooking' = '요리',
 }

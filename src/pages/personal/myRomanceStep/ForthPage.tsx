@@ -1,8 +1,7 @@
 import QuestionPageTemplate from '~/components/questionPageTemplate/QuestionPageTemplate';
 import { useToggleSelect } from '~/hooks/useToggleSelect';
-import { PageProps } from '~/types/page.type';
 
-const ForthPage = ({ setIsPageFinished }: PageProps) => {
+const ForthPage = () => {
   const { checkSelectedValues, select } = useToggleSelect(1);
 
   return (
