@@ -1,11 +1,10 @@
 import { useFunnel } from '~/hooks/useFunnel';
 import Col from '~/components/layout/Col';
-import Footer from '~/components/layout/footer/Footer';
 import { useAtomValue } from 'jotai';
-import Header from '~/components/layout/header/Header';
 import { pageFinishAtom } from '~/store/funnel';
 import FirstPage from './FirstPage';
 import SecondPage from './SecondPage';
+import PageLayout from '~/components/layout/page/PageLayout';
 
 const PAGE_NUMBER = [1, 2];
 
@@ -18,9 +17,12 @@ const UnivVerificationStep = () => {
   const isPageFinished = useAtomValue(pageFinishAtom);
 
   return (
-    <>
-      <Header title={'경희대 한국외대 구성원 인증'} isProgress={false} />
-      <Col justify={'space-between'} align={'center'}>
+    <PageLayout>
+      <PageLayout.Header
+        title={'경희대 한국외대 구성원 인증'}
+        isProgress={false}
+      />
+      <PageLayout.SingleCardBody>
         <Funnel>
           <Funnel.Page pageNumber={1}>
             <FirstPage />
@@ -29,15 +31,15 @@ const UnivVerificationStep = () => {
             <SecondPage />
           </Funnel.Page>
         </Funnel>
-        <Footer
-          currentPage={currentPage}
-          totalPage={PAGE_NUMBER.length}
-          isAbled={isPageFinished}
-          onNext={PageHandler.onNext}
-          onPrev={PageHandler.onPrev}
-        />
-      </Col>
-    </>
+      </PageLayout.SingleCardBody>
+      <PageLayout.Footer
+        currentPage={currentPage}
+        totalPage={PAGE_NUMBER.length}
+        isAbled={isPageFinished}
+        onNext={PageHandler.onNext}
+        onPrev={PageHandler.onPrev}
+      />
+    </PageLayout>
   );
 };
 
