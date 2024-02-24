@@ -1,6 +1,6 @@
 import { ApplyData, ApplyQuestionArrType } from '~/types/apply.type';
 import { atom } from 'jotai';
-import { initialCommonState } from '~/store/meeting/common';
+import { initialCommonState, univTypeAtom } from '~/store/meeting/common';
 
 export type GroupState = {
   code: string;
@@ -59,3 +59,4 @@ const initialState: GroupState = {
 };
 
 export const groupApplyAtom = atom<GroupState>(initialState);
+groupApplyAtom.debugLabel = 'groupApplyAtom';

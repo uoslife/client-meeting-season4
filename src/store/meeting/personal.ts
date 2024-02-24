@@ -1,6 +1,7 @@
 import { ApplyData, ApplyQuestionArrType } from '~/types/apply.type';
 import { atom } from 'jotai';
 import { initialCommonState } from '~/store/meeting/common';
+import { groupApplyAtom } from '~/store/meeting/group';
 
 export type PersonalState = {
   info_drink: ApplyData<string[]>;
@@ -128,3 +129,4 @@ const initialState: PersonalState = {
 };
 
 export const personalApplyAtom = atom<PersonalState>(initialState);
+personalApplyAtom.debugLabel = 'personalApplyAtom';
