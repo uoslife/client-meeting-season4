@@ -9,7 +9,7 @@ const BranchGatewayStep = () => {
   const { Funnel, currentPage, PageHandler } = useFunnel({
     pageNumberList: [1],
     nextStep: {
-      path: '/common/univVerificationStep',
+      path: '/group/myInformationStep',
     },
     prevStep: {
       path: '/common/univVerificationStep',
