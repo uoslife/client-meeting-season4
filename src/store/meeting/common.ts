@@ -2,6 +2,9 @@ import { atom } from 'jotai';
 import { ApplyData } from '~/types/apply.type';
 
 export const meetingTypeAtom = atom<'group' | 'personal' | null>(null);
+meetingTypeAtom.debugLabel = 'meetingTypeAtom';
+export const univTypeAtom = atom<'HUFS' | 'KHU' | 'UOS' | null>(null);
+univTypeAtom.debugLabel = 'univTypeAtom';
 
 export type CommonState = {
   info_nickname: ApplyData<string>;

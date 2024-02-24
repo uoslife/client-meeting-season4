@@ -1,19 +1,28 @@
-import Col from '~/components/layout/Col';
-import { useNavigate } from 'react-router-dom';
 import PageLayout from '~/components/layout/page/PageLayout';
+import FirstPage from './FirstPage';
+import { useFunnel } from '~/hooks/useFunnel';
 
 const CheckApplyInfoStep = () => {
-  const navigate = useNavigate();
-
-  const onPrev = () => navigate('/common/paymentStep');
-  const onNext = () => navigate('/common/finishApplyStep');
+  const { Funnel, currentPage, PageHandler } = useFunnel({
+    pageNumberList: [1],
+    nextStep: { path: '/common/finishApplyStep' },
+    prevStep: { path: '/common/paymentStep' },
+  });
 
   return (
     <PageLayout>
       <PageLayout.Header title={'신청 정보 확인하기'} isProgress={false} />
-      <Col justify={'space-between'} align={'center'}>
-        <div>미팅 종류 선택 페이지</div>
-      </Col>
+      <Funnel>
+        <Funnel.Page pageNumber={1}>
+          <FirstPage />
+        </Funnel.Page>
+      </Funnel>
+      <PageLayout.Footer
+        totalPage={currentPage}
+        currentPage={2}
+        onPrev={PageHandler.onPrev}
+        onNext={PageHandler.onNext}
+      />
     </PageLayout>
   );
 };

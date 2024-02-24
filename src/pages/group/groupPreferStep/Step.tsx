@@ -1,9 +1,16 @@
 import Col from '~/components/layout/Col';
 import { useNavigate } from 'react-router-dom';
 import PageLayout from '~/components/layout/page/PageLayout';
+import FirstPage from '~/pages/common/applyPledgeStep/FirstPage';
+import { useFunnel } from '~/hooks/useFunnel';
 
 const GroupPreferStep = () => {
   const navigate = useNavigate();
+  const { Funnel, currentPage, PageHandler } = useFunnel({
+    pageNumberList: [1],
+    nextStep: { path: '/common/finishApplyStep' },
+    prevStep: { path: '/common/paymentStep' },
+  });
 
   const onPrev = () => navigate('/group/groupInformationStep');
   const onNext = () => navigate('/common/privacyPolicyStep');
@@ -16,9 +23,11 @@ const GroupPreferStep = () => {
         totalStep={7}
         currentStep={4}
       />
-      <Col justify={'space-between'} align={'center'}>
-        <div>미팅 종류 선택 페이지</div>
-      </Col>
+      <Funnel>
+        <Funnel.Page pageNumber={1}>
+          <FirstPage />
+        </Funnel.Page>
+      </Funnel>
       <PageLayout.Footer
         currentPage={1}
         totalPage={1}

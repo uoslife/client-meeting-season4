@@ -1,24 +1,21 @@
-import Col from '~/components/layout/Col';
 import { useAtomValue } from 'jotai';
 import { meetingTypeAtom } from '~/store/meeting/common';
-import { useNavigate } from 'react-router-dom';
 import PageLayout from '~/components/layout/page/PageLayout';
+import FirstPage from './FirstPage';
+import { useFunnel } from '~/hooks/useFunnel';
 
 const PrivacyPolicyStep = () => {
-  const navigate = useNavigate();
   const meetingType = useAtomValue(meetingTypeAtom);
-
-  const onPrev = () => {
-    navigate(
-      meetingType === 'personal'
-        ? '/personal/myPreferTypeStep'
-        : '/group/groupPreferTypeStep',
-    );
-  };
-
-  const onNext = () => {
-    navigate('/common/paymentStep');
-  };
+  const { Funnel, currentPage, PageHandler } = useFunnel({
+    pageNumberList: [1],
+    nextStep: { path: '/common/finishApplyStep' },
+    prevStep: {
+      path:
+        meetingType === 'personal'
+          ? '/personal/myPreferTypeStep'
+          : '/group/groupPreferTypeStep',
+    },
+  });
 
   return (
     <PageLayout>
@@ -27,14 +24,16 @@ const PrivacyPolicyStep = () => {
         title={'개인정보 처리 방침'}
         isProgress={false}
       />
-      <Col justify={'space-between'} align={'center'}>
-        <div>미팅 종류 선택 페이지</div>
-      </Col>
+      <Funnel>
+        <Funnel.Page pageNumber={1}>
+          <FirstPage />
+        </Funnel.Page>
+      </Funnel>
       <PageLayout.Footer
         totalPage={1}
         currentPage={1}
-        onPrev={onPrev}
-        onNext={onNext}
+        onPrev={PageHandler.onPrev}
+        onNext={PageHandler.onNext}
       />
     </PageLayout>
   );
