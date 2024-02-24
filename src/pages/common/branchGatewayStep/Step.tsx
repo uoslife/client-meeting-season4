@@ -1,39 +1,33 @@
-import Col from '~/components/layout/Col';
-import Footer from '~/components/layout/footer/Footer';
-import { useAtomValue } from 'jotai';
-import Header from '~/components/layout/header/Header';
-import { pageFinishAtom } from '~/store/funnel';
-import { useNavigate } from 'react-router-dom';
-import { meetingTypeAtom } from '~/store/meeting/common';
+import PageLayout from '~/components/layout/page/PageLayout';
+import { useFunnel } from '~/hooks/useFunnel';
+import FirstPage from './FirstPage';
 
 const BranchGatewayStep = () => {
-  const isPageFinished = useAtomValue(pageFinishAtom);
-  const navigate = useNavigate();
-  const meetingType = useAtomValue(meetingTypeAtom);
-
-  const onPrev = () => navigate('/common/univVerificationStep');
-  // 시립대일 때, 경희대 & 외대일 때 navigate 분기 처리 필요
-  const onNext = () =>
-    navigate(
-      meetingType === 'personal'
-        ? '/personal/myInformationStep'
-        : '/group/groupInformationStep',
-    );
+  const { Funnel, currentPage, PageHandler } = useFunnel({
+    pageNumberList: [1],
+    nextStep: {
+      path: '/group/myInformationStep',
+    },
+    prevStep: {
+      path: '/common/univVerificationStep',
+    },
+  });
 
   return (
-    <>
-      <Header title={'경희대 한국외대 구성원 인증'} isProgress={false} />
-      <Col justify={'space-between'} align={'center'}>
-        <div>미팅 종류 선택 페이지</div>
-        <Footer
-          currentPage={1}
-          totalPage={1}
-          isAbled={isPageFinished}
-          onNext={onNext}
-          onPrev={onPrev}
-        />
-      </Col>
-    </>
+    <PageLayout>
+      <PageLayout.Header title={'시대팅 종류 선택'} isProgress={false} />
+      <Funnel>
+        <Funnel.Page pageNumber={1}>
+          <FirstPage />
+        </Funnel.Page>
+      </Funnel>
+      <PageLayout.Footer
+        currentPage={currentPage}
+        totalPage={1}
+        onNext={PageHandler.onNext}
+        onPrev={PageHandler.onPrev}
+      />
+    </PageLayout>
   );
 };
 

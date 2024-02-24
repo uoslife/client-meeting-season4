@@ -128,3 +128,4 @@ const initialState: PersonalState = {
 };
 
 export const personalApplyAtom = atom<PersonalState>(initialState);
+personalApplyAtom.debugLabel = 'personalApplyAtom';

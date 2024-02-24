@@ -1,39 +1,39 @@
-import Col from '~/components/layout/Col';
-import Footer from '~/components/layout/footer/Footer';
 import { useAtomValue } from 'jotai';
-import Header from '~/components/layout/header/Header';
+import FirstPage from './FirstPage';
 import { pageFinishAtom } from '~/store/funnel';
 import { useNavigate } from 'react-router-dom';
 import { meetingTypeAtom } from '~/store/meeting/common';
+import PageLayout from '~/components/layout/page/PageLayout';
+import { useFunnel } from '~/hooks/useFunnel';
 
 const BranchGatewayStep = () => {
-  const isPageFinished = useAtomValue(pageFinishAtom);
+  const { Funnel, currentPage, PageHandler } = useFunnel({
+    pageNumberList: [1],
+    nextStep: { path: '/common/branchGateWayStep' },
+    prevStep: { path: '/' },
+  });
   const meetingType = useAtomValue(meetingTypeAtom);
-  const navigate = useNavigate();
 
-  const onPrev = () => navigate('/common/univVerificationStep');
-  const onNext = () => navigate('/');
-  // location으로 자료 받기
   return (
-    <>
-      <Header
+    <PageLayout>
+      <PageLayout.Header
         title={'04. 시대팅 이용 서약'}
         isProgress={true}
-        totalStep={meetingType === 'personal'}
-        currentStep={}
+        totalStep={meetingType === 'personal' ? 1 : 2}
+        currentStep={1}
       />
-
-      <Col justify={'space-between'} align={'center'}>
-        <div>미팅 종류 선택 페이지</div>
-        <Footer
-          currentPage={1}
-          totalPage={1}
-          isAbled={isPageFinished}
-          onNext={onNext}
-          onPrev={onPrev}
-        />
-      </Col>
-    </>
+      <Funnel>
+        <Funnel.Page pageNumber={1}>
+          <FirstPage />
+        </Funnel.Page>
+      </Funnel>
+      <PageLayout.Footer
+        currentPage={currentPage}
+        totalPage={1}
+        onNext={PageHandler.onNext}
+        onPrev={PageHandler.onPrev}
+      />
+    </PageLayout>
   );
 };
 

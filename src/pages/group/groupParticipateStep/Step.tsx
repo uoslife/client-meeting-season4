@@ -1,27 +1,36 @@
 import Col from '~/components/layout/Col';
-import Footer from '~/components/layout/footer/Footer';
-import Header from '~/components/layout/header/Header';
 import { useNavigate } from 'react-router-dom';
+import PageLayout from '~/components/layout/page/PageLayout';
+import FirstPage from '~/pages/common/applyPledgeStep/FirstPage';
+import { useFunnel } from '~/hooks/useFunnel';
 
 const GroupParticipateStep = () => {
-  const navigate = useNavigate();
-
-  const onPrev = () => navigate('/group/myInformationStep');
-  const onNext = () => navigate('/common/privacyPolicyStep');
+  const { Funnel, currentPage, PageHandler } = useFunnel({
+    pageNumberList: [1],
+    nextStep: { path: '/common/privacyPolicyStep' },
+    prevStep: { path: '/group/myInformationStep' },
+  });
 
   return (
-    <>
-      <Header
+    <PageLayout>
+      <PageLayout.Header
         title={'02. 팅 참여하기'}
         isProgress={true}
         totalStep={3}
         currentStep={2}
       />
-      <Col justify={'space-between'} align={'center'}>
-        <div>미팅 종류 선택 페이지</div>
-        <Footer currentPage={1} totalPage={1} onNext={onNext} onPrev={onPrev} />
-      </Col>
-    </>
+      <Funnel>
+        <Funnel.Page pageNumber={1}>
+          <FirstPage />
+        </Funnel.Page>
+      </Funnel>
+      <PageLayout.Footer
+        currentPage={1}
+        totalPage={1}
+        onNext={PageHandler.onNext}
+        onPrev={PageHandler.onPrev}
+      />
+    </PageLayout>
   );
 };
 

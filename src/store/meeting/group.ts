@@ -59,3 +59,4 @@ const initialState: GroupState = {
 };
 
 export const groupApplyAtom = atom<GroupState>(initialState);
+groupApplyAtom.debugLabel = 'groupApplyAtom';
