@@ -54,7 +54,7 @@ export const DropdownOptions = styled.div`
 `;
 
 export const DropdownOption = styled.div`
-  ${() => typographies.GoThicButtonM};
+  ${typographies.GoThicButtonM};
   padding: 8px 0;
   color: ${colors.Gray475};
   cursor: pointer;
