@@ -5,7 +5,7 @@ import IconButton from '~/components/buttons/iconButton/IconButton';
 import Text from '~/components/typography/Text';
 import Pad from '~/components/layout/Pad';
 
-export type ProgressHeaderProps = {
+export type HeaderProps = {
   title: string;
   isBackArrow?: boolean;
   isProgress?: boolean;
@@ -19,7 +19,7 @@ const Header = ({
   isProgress = false,
   currentStep,
   totalStep,
-}: ProgressHeaderProps) => {
+}: HeaderProps) => {
   const navigate = useNavigate();
   return (
     <S.Container isProgress={isProgress}>
@@ -31,7 +31,9 @@ const Header = ({
             }
             width={24}
             height={25.5}
-            onClick={() => navigate('/')}
+            onClick={() =>
+              isBackArrow ? navigate('/common/branchGateWay') : navigate('/')
+            }
           />
           <Text label={title} color={'White'} typography={'NeoTitleM'} />
           <S.DummyBox />
