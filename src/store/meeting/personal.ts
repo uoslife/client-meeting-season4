@@ -1,6 +1,6 @@
 import { ApplyData, ApplyQuestionArrType } from '~/types/apply.type';
 import { atom } from 'jotai';
-import { initialCommonState } from '~/store/meeting/common';
+import { CommonState, initialCommonState } from '~/store/meeting/common';
 
 export type PersonalState = {
   info_drink: ApplyData<string[]>;
@@ -19,9 +19,9 @@ export type PersonalState = {
   prefer_smoking: ApplyData<string>;
   prefer_animal: ApplyData<string[]>;
   prefer_mbti: ApplyData<string[]>;
-};
+} & CommonState;
 
-const initialState: PersonalState = {
+const initialPersonalState: PersonalState = {
   ...initialCommonState,
   info_religion: {
     title_kr: '종교',
@@ -127,5 +127,23 @@ const initialState: PersonalState = {
   },
 };
 
-export const personalApplyAtom = atom<PersonalState>(initialState);
-personalApplyAtom.debugLabel = 'personalApplyAtom';
+export type PersonalItemName = keyof PersonalState;
+
+type PersonalApplyAtoms = {
+  [key in PersonalItemName]: ReturnType<typeof atom<PersonalState[key]>>;
+};
+
+export const personalApplyAtoms = (() => {
+  const state = {} as PersonalApplyAtoms;
+  (
+    Object.keys(initialPersonalState) as (keyof typeof initialPersonalState)[]
+  ).map(key => {
+    Object.assign(state, {
+      [key]: {
+        ...atom<PersonalState[typeof key]>(initialPersonalState[key]),
+        debugLabel: key,
+      },
+    });
+  });
+  return state;
+})();
