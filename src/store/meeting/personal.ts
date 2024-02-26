@@ -1,69 +1,48 @@
 import { ApplyQuestionArrType } from '~/types/apply.type';
-import { atom } from 'jotai';
-import { CommonState, initialCommonState } from '~/store/meeting/common';
+import { PrimitiveAtom, atom } from 'jotai';
+import { CommonState, commonAtoms } from '~/store/meeting/common';
 
-export type PersonalState = {
-  info_drink: string[];
-  info_religion: string;
-  info_smoking: string;
-  info_animal: string[];
-  info_mbti: string[];
-  info_interests: string[];
-  info_question: ApplyQuestionArrType;
-  prefer_age: string[];
-  prefer_height: string[];
-  prefer_studentType: string[];
-  prefer_univ: string[];
-  prefer_drink: string[];
-  prefer_religion: string;
-  prefer_smoking: string;
-  prefer_animal: string[];
-  prefer_mbti: string[];
+export type PesronalApplyAtoms = {
+  info_drink: PrimitiveAtom<string[]>;
+  info_religion: PrimitiveAtom<string>;
+  info_smoking: PrimitiveAtom<string>;
+  info_animal: PrimitiveAtom<string[]>;
+  info_mbti: PrimitiveAtom<string[]>;
+  info_interests: PrimitiveAtom<string[]>;
+  info_question: PrimitiveAtom<ApplyQuestionArrType>;
+  prefer_age: PrimitiveAtom<string[]>;
+  prefer_height: PrimitiveAtom<string[]>;
+  prefer_studentType: PrimitiveAtom<string[]>;
+  prefer_univ: PrimitiveAtom<string[]>;
+  prefer_drink: PrimitiveAtom<string[]>;
+  prefer_religion: PrimitiveAtom<string>;
+  prefer_smoking: PrimitiveAtom<string>;
+  prefer_animal: PrimitiveAtom<string[]>;
+  prefer_mbti: PrimitiveAtom<string[]>;
 } & CommonState;
 
-const initialPersonalState: PersonalState = {
-  ...initialCommonState,
-  info_religion: '',
-  info_smoking: '',
-  info_drink: [''],
-  info_animal: [''],
-  info_mbti: ['', '', '', ''],
-  info_interests: [''],
-  info_question: [
+export const personalApplyAtoms: PesronalApplyAtoms = {
+  ...commonAtoms,
+  info_religion: atom(''),
+  info_smoking: atom(''),
+  info_drink: atom(['']),
+  info_animal: atom(['']),
+  info_mbti: atom(['', '', '', '']),
+  info_interests: atom(['']),
+  info_question: atom([
     { label: '', order: 0 },
     { label: '', order: 1 },
     { label: '', order: 2 },
     { label: '', order: 3 },
     { label: '', order: 4 },
-  ],
-  prefer_age: [''],
-  prefer_height: [''],
-  prefer_studentType: [''],
-  prefer_univ: [''],
-  prefer_smoking: '',
-  prefer_religion: '',
-  prefer_drink: [''],
-  prefer_animal: [''],
-  prefer_mbti: [''],
+  ]),
+  prefer_age: atom(['']),
+  prefer_height: atom(['']),
+  prefer_studentType: atom(['']),
+  prefer_univ: atom(['']),
+  prefer_smoking: atom(''),
+  prefer_religion: atom(''),
+  prefer_drink: atom(['']),
+  prefer_animal: atom(['']),
+  prefer_mbti: atom(['']),
 };
-
-export type PersonalItemName = keyof PersonalState;
-
-type PersonalApplyAtoms = {
-  [key in PersonalItemName]: ReturnType<typeof atom<PersonalState[key]>>;
-};
-
-export const personalApplyAtoms = (() => {
-  const state = {} as PersonalApplyAtoms;
-  (
-    Object.keys(initialPersonalState) as (keyof typeof initialPersonalState)[]
-  ).map(key => {
-    Object.assign(state, {
-      [key]: {
-        ...atom<PersonalState[typeof key]>(initialPersonalState[key]),
-        debugLabel: key,
-      },
-    });
-  });
-  return state;
-})();
