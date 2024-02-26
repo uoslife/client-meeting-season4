@@ -22,7 +22,7 @@ const MyRomanceStep = () => {
   const setIsPageFinished = useSetAtom(pageFinishAtom);
 
   // 현재 페이지의 label값이 truthy value라면 Next Button 활성화
-  setIsPageFinished(!!questionState.data[currentPage - 1].label);
+  setIsPageFinished(!!questionState[currentPage - 1].label);
 
   return (
     <PageLayout>

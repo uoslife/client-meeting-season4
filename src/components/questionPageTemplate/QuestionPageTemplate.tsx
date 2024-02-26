@@ -28,11 +28,11 @@ const QuestionPageTemplate = ({
     personalApplyAtoms.info_question,
   );
 
-  const questionStateItemLabel = questionState.data[index].label;
+  const questionStateItemLabel = questionState[index].label;
 
   const optionButtonHandlerGenerator = (label: string) => () => {
     setQuestionState(draft => {
-      draft.data[index].label = label;
+      draft[index].label = label;
     });
   };
 
