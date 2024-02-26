@@ -1,6 +1,6 @@
 import { ChangeEvent } from 'react';
 import * as S from './TextInput.style';
-import IconButton from '../buttons/iconButton/IconButton';
+import IconButton from '../../buttons/iconButton/IconButton';
 
 export type InputProps = {
   type?: string;
