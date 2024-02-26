@@ -5,25 +5,37 @@ import Row from '../layout/Row';
 import PageLayout from '../layout/page/PageLayout';
 import QuestionLabel from './QuestionLabel';
 import Text from '../typography/Text';
-import { useToggleSelect } from '~/hooks/useToggleSelect';
+import { personalApplyAtoms } from '~/store/meeting';
+import { useImmerAtom } from 'jotai-immer';
 
 type QuestionPageTemplateProps = {
   imageSource: string;
   question: string;
-  answer1: string;
-  answer2: string;
-  number: number;
-} & Pick<ReturnType<typeof useToggleSelect>, 'checkSelectedValues' | 'select'>;
+  answerOption1: string;
+  answerOption2: string;
+  questionNumber: number;
+};
 
 const QuestionPageTemplate = ({
   imageSource,
-  checkSelectedValues,
-  select,
-  answer1,
-  answer2,
+  answerOption1,
+  answerOption2,
   question,
-  number,
+  questionNumber,
 }: QuestionPageTemplateProps) => {
+  const index = questionNumber - 1;
+  const [questionState, setQuestionState] = useImmerAtom(
+    personalApplyAtoms.info_question,
+  );
+
+  const questionStateItemLabel = questionState.data[index].label;
+
+  const optionButtonHandlerGenerator = (label: string) => () => {
+    setQuestionState(draft => {
+      draft.data[index].label = label;
+    });
+  };
+
   return (
     <PageLayout.DoubleCardBody
       topCardPadding="36px 39px"
@@ -33,7 +45,7 @@ const QuestionPageTemplate = ({
         <Row>
           <Col gap={28}>
             <Col gap={12}>
-              <QuestionLabel number={number} />
+              <QuestionLabel questionNumber={questionNumber} />
               <Paddler left={4}>
                 <Text
                   color="Secondary900"
@@ -46,22 +58,38 @@ const QuestionPageTemplate = ({
               <RoundButton
                 label=""
                 height={56}
-                status={checkSelectedValues(0) ? 'active' : 'inactive'}
-                onClick={select(0)}>
+                status={
+                  questionStateItemLabel === answerOption1
+                    ? 'active'
+                    : 'inactive'
+                }
+                onClick={optionButtonHandlerGenerator(answerOption1)}>
                 <Text
-                  color={checkSelectedValues(0) ? 'White' : 'Primary500'}
-                  label={answer1}
+                  color={
+                    questionStateItemLabel === answerOption1
+                      ? 'White'
+                      : 'Primary500'
+                  }
+                  label={answerOption1}
                   typography="NeoButtonL"
                 />
               </RoundButton>
               <RoundButton
                 label=""
                 height={56}
-                status={checkSelectedValues(1) ? 'active' : 'inactive'}
-                onClick={select(1)}>
+                status={
+                  questionStateItemLabel === answerOption2
+                    ? 'active'
+                    : 'inactive'
+                }
+                onClick={optionButtonHandlerGenerator(answerOption2)}>
                 <Text
-                  color={checkSelectedValues(1) ? 'White' : 'Primary500'}
-                  label={answer2}
+                  color={
+                    questionStateItemLabel === answerOption2
+                      ? 'White'
+                      : 'Primary500'
+                  }
+                  label={answerOption2}
                   typography="NeoButtonL"
                 />
               </RoundButton>

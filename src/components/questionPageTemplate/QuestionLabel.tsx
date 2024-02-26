@@ -1,12 +1,12 @@
 import styled from '@emotion/styled';
 import Text from '../typography/Text';
 
-const QuestionLabel = ({ number }: { number: number }) => {
+const QuestionLabel = ({ questionNumber }: { questionNumber: number }) => {
   return (
     <S.Container>
       <S.LeftArea>
         <Text
-          label={`Q${number}.`}
+          label={`Q${questionNumber}.`}
           typography="GoThicTitleS"
           size={14}
           color="LightBlue"
