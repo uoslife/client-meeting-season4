@@ -6,17 +6,21 @@ meetingTypeAtom.debugLabel = 'meetingTypeAtom';
 export const univTypeAtom = atom<'HUFS' | 'KHU' | 'UOS' | null>(null);
 univTypeAtom.debugLabel = 'univTypeAtom';
 
-export type CommonState = {
-  info_nickname: PrimitiveAtom<string>;
-  info_gender: PrimitiveAtom<string>;
-  info_age: PrimitiveAtom<number>;
-  info_height: PrimitiveAtom<number>;
-  info_kakaoId: PrimitiveAtom<string>;
-  info_major: PrimitiveAtom<string>;
-  info_studentType: PrimitiveAtom<string>;
+export type CommonApplyInfo = {
+  info_nickname: string;
+  info_gender: string;
+  info_age: number;
+  info_height: number;
+  info_kakaoId: string;
+  info_major: string;
+  info_studentType: string;
 };
 
-export const commonAtoms: CommonState = {
+export type CommonApplyAtoms = {
+  [key in keyof CommonApplyInfo]: PrimitiveAtom<CommonApplyInfo[key]>;
+};
+
+export const commonApplyAtoms: CommonApplyAtoms = {
   info_nickname: atom(''),
   info_gender: atom(''),
   info_age: atom(0),

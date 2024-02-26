@@ -1,19 +1,23 @@
 import { ApplyQuestionArrType } from '~/types/apply.type';
-import { PrimitiveAtom, atom } from 'jotai';
-import { CommonState, commonAtoms } from '~/store/meeting/common';
+import { atom } from 'jotai';
+import { CommonApplyAtoms, commonApplyAtoms } from '.';
 
-export type GroupAtoms = {
-  code: PrimitiveAtom<string>;
-  info_name: PrimitiveAtom<string>;
-  info_preferDay: PrimitiveAtom<string[]>;
-  info_question: PrimitiveAtom<ApplyQuestionArrType>;
-  prefer_age: PrimitiveAtom<string[]>;
-  prefer_major: PrimitiveAtom<string[]>;
-  prefer_atmosphere: PrimitiveAtom<string>;
-} & CommonState;
+export type GroupApplyInfo = {
+  code: string;
+  info_name: string;
+  info_preferDay: string[];
+  info_question: ApplyQuestionArrType;
+  prefer_age: string[];
+  prefer_major: string[];
+  prefer_atmosphere: string;
+};
+
+export type GroupApplyAtoms = {
+  [key in keyof GroupApplyInfo]: ReturnType<typeof atom<GroupApplyInfo[key]>>;
+} & CommonApplyAtoms;
 
 export const groupApplyAtoms = {
-  ...commonAtoms,
+  ...commonApplyAtoms,
   code: atom(''),
   info_name: atom(''),
   info_preferDay: atom(['']),
@@ -27,3 +31,7 @@ export const groupApplyAtoms = {
   prefer_major: atom(['']),
   prefer_atmosphere: atom(''),
 };
+
+for (const key in groupApplyAtoms) {
+  groupApplyAtoms[key as keyof GroupApplyAtoms].debugLabel = key;
+}
