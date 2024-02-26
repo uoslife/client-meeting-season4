@@ -7,10 +7,10 @@ import { Combine } from '~/types/utils.type';
 
 export type DropdownInputProps = Combine<
   {
-    value: string | number;
-    setValue: Dispatch<SetStateAction<string | number>>;
+    value: string;
+    setValue: Dispatch<SetStateAction<string>>;
     label: string;
-    options: number[] | string[];
+    options: string[];
   },
   React.ComponentProps<'button'>
 >;
@@ -23,7 +23,7 @@ const DropdownInput = ({
 }: DropdownInputProps) => {
   const [showOption, setShowOption] = useState(false);
 
-  const onClickOptionSelect = (selectedOption: number | string) => () => {
+  const onClickOptionSelect = (selectedOption: string) => () => {
     setValue(selectedOption);
     setShowOption(false);
   };
@@ -34,13 +34,7 @@ const DropdownInput = ({
         onClick={() => setShowOption(!showOption)}
         showOption={showOption}>
         <Text
-          label={
-            value
-              ? typeof value === 'number'
-                ? value.toString()
-                : value
-              : label
-          }
+          label={value ? value : label}
           color={!value ? 'Gray300' : 'Gray500'}
           typography={'PretendardRegular'}
         />
@@ -57,7 +51,7 @@ const DropdownInput = ({
       {showOption && (
         <S.Dropdown>
           <S.DropdownOptions>
-            {options.map((val: string | number) => {
+            {options.map((val: string) => {
               return (
                 <S.DropdownOption onClick={onClickOptionSelect(val)} key={val}>
                   {val}
