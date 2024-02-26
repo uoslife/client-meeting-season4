@@ -1,6 +1,6 @@
 import { ApplyData, ApplyQuestionArrType } from '~/types/apply.type';
 import { atom } from 'jotai';
-import { initialCommonState } from '~/store/meeting/common';
+import { CommonState, initialCommonState } from '~/store/meeting/common';
 
 export type GroupState = {
   code: string;
@@ -10,9 +10,9 @@ export type GroupState = {
   prefer_age: ApplyData<string[]>;
   prefer_major: ApplyData<string[]>;
   prefer_atmosphere: ApplyData<string>;
-};
+} & CommonState;
 
-const initialState: GroupState = {
+const initialGroupState: GroupState = {
   ...initialCommonState,
   code: '',
   info_name: {
@@ -58,5 +58,21 @@ const initialState: GroupState = {
   },
 };
 
-export const groupApplyAtom = atom<GroupState>(initialState);
-groupApplyAtom.debugLabel = 'groupApplyAtom';
+export type GroupItemName = keyof GroupState;
+
+type GroupApplyAtoms = {
+  [key in GroupItemName]: ReturnType<typeof atom<GroupState[key]>>;
+};
+
+export const groupApplyAtoms = (() => {
+  const state = {} as GroupApplyAtoms;
+  (Object.keys(initialGroupState) as GroupItemName[]).map(key => {
+    Object.assign(state, {
+      [key]: {
+        ...atom<GroupState[typeof key]>(initialGroupState[key]),
+        debugLabel: key,
+      },
+    });
+  });
+  return state;
+})();
