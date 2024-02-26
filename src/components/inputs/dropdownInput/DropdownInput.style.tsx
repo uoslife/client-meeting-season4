@@ -21,8 +21,8 @@ export const InputWrapper = styled.div<{ showOption: boolean }>`
   width: 100%;
   padding: 12px 20px;
   border: 1px solid
-    ${props =>
-      props.showOption ? `${colors.Primary500}` : `${colors.Gray300}`};
+    ${({ showOption }) =>
+      showOption ? `${colors.Primary500}` : `${colors.Gray300}`};
   border-radius: ${props => (props.showOption ? '10px 10px 0px 0px' : '10px')};
   cursor: pointer;
 `;
