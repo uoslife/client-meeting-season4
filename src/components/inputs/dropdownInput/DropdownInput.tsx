@@ -57,9 +57,9 @@ const DropdownInput = ({
       {showOption && (
         <S.Dropdown>
           <S.DropdownOptions>
-            {options.map((val: string | number, i) => {
+            {options.map((val: string | number) => {
               return (
-                <S.DropdownOption onClick={onClickOptionSelect(val)} key={i}>
+                <S.DropdownOption onClick={onClickOptionSelect(val)} key={val}>
                   {val}
                 </S.DropdownOption>
               );
