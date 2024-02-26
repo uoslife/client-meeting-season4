@@ -1,13 +1,13 @@
 import { atom, useAtomValue } from 'jotai';
 import { useMemo } from 'react';
-import { PersonalState, personalApplyAtoms } from '~/store/meeting';
+import { PersonalApplyInfo, personalApplyAtoms } from '~/store/meeting';
 
 const usePersonalEntireValue = () => {
   return useAtomValue(
     useMemo(
       () => ({
         ...atom(get => {
-          const personalInfo = {} as PersonalState;
+          const personalInfo = {} as PersonalApplyInfo;
           Object.entries(personalApplyAtoms).map(([key, value]) => {
             Object.assign(personalInfo, {
               [key]: get<unknown>(value),

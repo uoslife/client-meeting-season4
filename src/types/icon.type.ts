@@ -6,7 +6,8 @@ export type normalType =
   | 'footerButton-disabled'
   | 'check'
   | 'headerButton-home'
-  | 'headerButton-backArrow';
+  | 'headerButton-backArrow'
+  | 'dropdown';
 
 // 동물상
 export type animalKeyType =
