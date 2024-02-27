@@ -18,6 +18,7 @@ type QuestionPageTemplateProps = {
   questionNumber: number;
 };
 
+// TODO: 각 버튼의 중복되는 부분 리팩토링, 두 개보다 많은 옵션을 가지는 경우에 대응하기
 const QuestionPageTemplate = ({
   imageSource,
   answerOption1,
@@ -32,7 +33,7 @@ const QuestionPageTemplate = ({
   const setIsPageFinished = useSetAtom(pageFinishAtom);
 
   const { selectedAnswerOption } = questionListState[index];
-  // 현재 페이지의 label값이 truthy value라면 Next Button 활성화
+  // 현재 페이지의 selectedAnswerOption값이 truthy value라면 Next Button 활성화
   setIsPageFinished(!!selectedAnswerOption);
 
   const selectAnswerOption = (answerOption: string) => {
