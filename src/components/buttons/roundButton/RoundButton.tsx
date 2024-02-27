@@ -4,8 +4,8 @@ import { Combine } from '~/types/utils.type';
 export type RoundButtonProps = Combine<
   {
     status: 'active' | 'inactive' | 'disabled';
-    borderType?: 'primary' | 'black' | 'none';
-    label: string;
+    label?: string;
+    borderType?: 'primary' | 'black' | 'sky';
     width?: number | 'full';
     height?: number;
     onClick: () => void;
@@ -18,8 +18,8 @@ export type RoundButtonProps = Combine<
 const RoundButton = ({
   status,
   label,
-  width = 'full',
-  height = 40,
+  height = 56,
+  width,
   onClick,
   hasBorder = false,
   borderType = 'primary',
@@ -32,8 +32,8 @@ const RoundButton = ({
       hasBorder={hasBorder}
       onClick={onClick}
       status={status}
-      width={width}
       height={height}
+      width={width}
       borderType={borderType}
       {...props}>
       <span>{label}</span>
