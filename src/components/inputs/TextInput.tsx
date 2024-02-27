@@ -10,6 +10,7 @@ export type InputProps = {
   onClick?: () => void;
   onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
   isAuthentication?: boolean;
+  children?: React.ReactNode;
 };
 
 const TextInput = ({
@@ -20,6 +21,7 @@ const TextInput = ({
   onClick,
   onChange,
   isAuthentication,
+  children,
 }: InputProps) => {
   return (
     <S.Container status={status}>
@@ -39,6 +41,7 @@ const TextInput = ({
           onClick={onClick}
         />
       </S.Icon>
+      {children}
     </S.Container>
   );
 };
