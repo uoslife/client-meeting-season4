@@ -89,6 +89,7 @@ const SecondPage = () => {
         </Row>
         {tryValidate && (
           <Row gap={8}>
+            {/*TODO: 인증번호가 숫자인지 문자인지 백엔드쪽에 확인해서 input type 제한 걸기*/}
             <TextInput
               placeholder={'인증번호 입력'}
               value={validateCodeValue}
