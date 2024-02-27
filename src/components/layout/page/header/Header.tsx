@@ -9,16 +9,16 @@ export type HeaderProps = {
   title: string;
   isBackArrow?: boolean;
   isProgress?: boolean;
-  totalPage?: number;
-  currentPage?: number;
+  totalStep?: number;
+  currentStep?: number;
 };
 
 const Header = ({
   title,
   isBackArrow = false,
   isProgress = false,
-  currentPage,
-  totalPage,
+  currentStep,
+  totalStep,
 }: HeaderProps) => {
   const navigate = useNavigate();
   return (
@@ -42,9 +42,9 @@ const Header = ({
 
       {isProgress && (
         <S.ProgressContainer>
-          <S.ProgressBar size={(currentPage! / totalPage!) * 100} />
+          <S.ProgressBar size={(currentStep! / totalStep!) * 100} />
           <Text
-            label={`${currentPage} / ${totalPage}`}
+            label={`${currentStep} / ${totalStep}`}
             color={'Primary200'}
             typography={'PFLabelM'}
           />

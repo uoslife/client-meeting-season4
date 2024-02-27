@@ -7,6 +7,8 @@ import QuestionLabel from './QuestionLabel';
 import Text from '../typography/Text';
 import { personalApplyAtoms } from '~/store/meeting';
 import { useImmerAtom } from 'jotai-immer';
+import { useSetAtom } from 'jotai';
+import { pageFinishAtom } from '~/store/funnel';
 
 type QuestionPageTemplateProps = {
   imageSource: string;
@@ -24,15 +26,18 @@ const QuestionPageTemplate = ({
   questionNumber,
 }: QuestionPageTemplateProps) => {
   const index = questionNumber - 1;
-  const [questionState, setQuestionState] = useImmerAtom(
+  const [questionListState, setQuestionListState] = useImmerAtom(
     personalApplyAtoms.info_question,
   );
+  const setIsPageFinished = useSetAtom(pageFinishAtom);
 
-  const questionStateItemLabel = questionState[index].label;
+  const { selectedAnswerOption } = questionListState[index];
+  // 현재 페이지의 label값이 truthy value라면 Next Button 활성화
+  setIsPageFinished(!!selectedAnswerOption);
 
-  const optionButtonHandlerGenerator = (label: string) => () => {
-    setQuestionState(draft => {
-      draft[index].label = label;
+  const selectAnswerOption = (answerOption: string) => {
+    setQuestionListState(draft => {
+      draft[index].selectedAnswerOption = answerOption;
     });
   };
 
@@ -59,14 +64,12 @@ const QuestionPageTemplate = ({
                 label=""
                 height={56}
                 status={
-                  questionStateItemLabel === answerOption1
-                    ? 'active'
-                    : 'inactive'
+                  selectedAnswerOption === answerOption1 ? 'active' : 'inactive'
                 }
-                onClick={optionButtonHandlerGenerator(answerOption1)}>
+                onClick={() => selectAnswerOption(answerOption1)}>
                 <Text
                   color={
-                    questionStateItemLabel === answerOption1
+                    selectedAnswerOption === answerOption1
                       ? 'White'
                       : 'Primary500'
                   }
@@ -78,14 +81,12 @@ const QuestionPageTemplate = ({
                 label=""
                 height={56}
                 status={
-                  questionStateItemLabel === answerOption2
-                    ? 'active'
-                    : 'inactive'
+                  selectedAnswerOption === answerOption2 ? 'active' : 'inactive'
                 }
-                onClick={optionButtonHandlerGenerator(answerOption2)}>
+                onClick={() => selectAnswerOption(answerOption2)}>
                 <Text
                   color={
-                    questionStateItemLabel === answerOption2
+                    selectedAnswerOption === answerOption2
                       ? 'White'
                       : 'Primary500'
                   }
