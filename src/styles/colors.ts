@@ -23,6 +23,8 @@ export const colors = {
   Blue: '#005E9E',
 
   Secondary800: '#656D78',
+  Secondary900: '#3B4046',
 
   LightBlue: '#4EB1CB',
+  SubBlue: '#005E9E',
 };
