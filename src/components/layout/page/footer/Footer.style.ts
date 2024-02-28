@@ -8,8 +8,8 @@ type SInnerProps = Pick<
   FooterPropsType,
   | 'innerPadding'
   | 'backgroundColorName'
-  | 'bottomBorderRadius'
-  | 'horizontalBorder'
+  | 'borderBottomRadius'
+  | 'borderExceptTop'
 >;
 
 const S = {
@@ -36,18 +36,19 @@ const S = {
         background: ${colors[backgroundColorName]};
       `}
 
-    ${({ horizontalBorder }) =>
-      horizontalBorder &&
+    ${({ borderExceptTop }) =>
+      borderExceptTop &&
       css`
-        border-left: ${horizontalBorder};
-        border-right: ${horizontalBorder};
+        border-left: ${borderExceptTop};
+        border-right: ${borderExceptTop};
+        border-bottom: ${borderExceptTop};
       `}
 
-      ${({ bottomBorderRadius }) =>
-      bottomBorderRadius &&
+    ${({ borderBottomRadius }) =>
+      borderBottomRadius &&
       css`
-        border-bottom-left-radius: ${bottomBorderRadius}px;
-        border-bottom-right-radius: ${bottomBorderRadius}px;
+        border-bottom-left-radius: ${borderBottomRadius}px;
+        border-bottom-right-radius: ${borderBottomRadius}px;
       `}
   `,
 };

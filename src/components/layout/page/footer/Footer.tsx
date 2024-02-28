@@ -10,8 +10,8 @@ export type FooterPropsType = {
   currentPage: number;
   onPrev: () => void;
   onNext: () => void;
-  horizontalBorder?: string;
-  bottomBorderRadius?: number;
+  borderExceptTop?: string;
+  borderBottomRadius?: number;
   outerPadding?: string;
   innerPadding?: string;
   backgroundColorName?: colorType;
@@ -22,8 +22,8 @@ const Footer = ({
   currentPage,
   onPrev,
   onNext,
-  bottomBorderRadius = 0,
-  horizontalBorder,
+  borderBottomRadius = 0,
+  borderExceptTop,
   outerPadding = '15px 29px',
   innerPadding = '24px 20px',
   backgroundColorName = 'White',
@@ -33,8 +33,8 @@ const Footer = ({
   return (
     <S.Outer outerPadding={outerPadding}>
       <S.Inner
-        horizontalBorder={horizontalBorder}
-        bottomBorderRadius={bottomBorderRadius}
+        borderExceptTop={borderExceptTop}
+        borderBottomRadius={borderBottomRadius}
         innerPadding={innerPadding}
         backgroundColorName={backgroundColorName}>
         <IconButton
