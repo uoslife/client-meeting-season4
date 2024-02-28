@@ -1,11 +1,15 @@
 import * as S from './RoundButton.style';
 import { Combine } from '~/types/utils.type';
+import Text from '~/components/typography/Text';
+import { colorType, typographyType } from '~/types/style.type';
 
 export type RoundButtonProps = Combine<
   {
-    status: 'active' | 'inactive' | 'disabled';
-    borderType?: 'primary' | 'black' | 'none';
+    status: 'active' | 'inactive' | 'disabled' | 'cancel';
+    borderType?: 'primary' | 'black' | 'gray' | 'none';
     label: string;
+    textColor: colorType;
+    textTypography: typographyType;
     width?: number | 'full';
     height?: number;
     onClick: () => void;
@@ -18,6 +22,8 @@ export type RoundButtonProps = Combine<
 const RoundButton = ({
   status,
   label,
+  textColor,
+  textTypography,
   width = 'full',
   height = 40,
   onClick,
@@ -36,7 +42,7 @@ const RoundButton = ({
       height={height}
       borderType={borderType}
       {...props}>
-      <span>{label}</span>
+      <Text label={label} color={textColor} typography={textTypography} />
       {children}
     </S.Button>
   );

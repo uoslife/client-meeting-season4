@@ -3,7 +3,10 @@ import { colors } from '~/styles/colors';
 import { RoundButtonProps } from './RoundButton';
 import { css } from '@emotion/react';
 
-type StyledProps = Omit<RoundButtonProps, 'label'>;
+type StyledProps = Omit<
+  RoundButtonProps,
+  'label' | 'textColor' | 'textTypography'
+>;
 
 export const Button = styled.button<StyledProps>`
   display: flex;
@@ -26,6 +29,8 @@ const checkBorderType = (borderType: RoundButtonProps['borderType']) => {
       return `${colors.Primary500}`;
     case 'black':
       return `${colors.Gray500}`;
+    case 'gray':
+      return `${colors.Gray50}`;
     case 'none':
       return null;
     default:
@@ -49,6 +54,11 @@ const checkStatusType = (status: RoundButtonProps['status']) => {
       return css`
         background-color: ${colors.Primary200};
         color: ${colors.White};
+      `;
+    case 'cancel':
+      return css`
+        background-color: ${colors.Gray50};
+        color: ${colors.Secondary800};
       `;
     default:
       return '';
