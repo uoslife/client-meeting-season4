@@ -1,5 +1,4 @@
 import { atom } from 'jotai';
-import { PrimitiveAtom } from 'jotai/vanilla';
 
 export const meetingTypeAtom = atom<'group' | 'personal' | null>(null);
 meetingTypeAtom.debugLabel = 'meetingTypeAtom';
@@ -17,7 +16,7 @@ export type CommonApplyInfo = {
 };
 
 export type CommonApplyAtoms = {
-  [key in keyof CommonApplyInfo]: PrimitiveAtom<CommonApplyInfo[key]>;
+  [key in keyof CommonApplyInfo]: ReturnType<typeof atom<CommonApplyInfo[key]>>;
 };
 
 export const commonApplyAtoms: CommonApplyAtoms = {

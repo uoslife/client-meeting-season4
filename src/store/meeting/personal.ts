@@ -1,6 +1,6 @@
 import { ApplyQuestionArrType } from '~/types/apply.type';
 import { atom } from 'jotai';
-import { CommonApplyAtoms, commonApplyAtoms } from '.';
+import { CommonApplyAtoms, CommonApplyInfo, commonApplyAtoms } from '.';
 
 export type PersonalApplyInfo = {
   info_drink: string[];
@@ -19,7 +19,7 @@ export type PersonalApplyInfo = {
   prefer_smoking: string;
   prefer_animal: string[];
   prefer_mbti: string[];
-};
+} & CommonApplyInfo;
 
 export type PesronalApplyAtoms = {
   [key in keyof PersonalApplyInfo]: ReturnType<
