@@ -1,19 +1,39 @@
-import { Outlet } from 'react-router-dom';
+import UnivVerificationStep from '~/pages/common/univVerificationStep/Step';
+import BranchGatewayStep from '~/pages/common/branchGatewayStep/Step';
+import PaymentStep from '~/pages/common/paymentStep/Step';
+import PrivacyPolicyStep from '~/pages/common/privacyPolicyStep/Step';
+import FinishApplyStep from '~/pages/common/finishApplyStep/Step';
+import CheckApplyInfoStep from '~/pages/common/checkApplyInfoStep/Step';
+import LandingStep from '~/pages/common/landingStep/Step';
 
 const commonRoutes = [
   {
     path: '/',
-    element: <div>initPage</div>,
+    element: <LandingStep />,
   },
   {
-    path: '/sub',
-    element: <Outlet />,
-    children: [
-      {
-        path: 'dummy',
-        element: <div>dummy</div>,
-      },
-    ],
+    path: '/common/univVerificationStep',
+    element: <UnivVerificationStep />,
+  },
+  {
+    path: '/common/branchGateWayStep',
+    element: <BranchGatewayStep />,
+  },
+  {
+    path: '/common/privacyPolicyStep',
+    element: <PrivacyPolicyStep />,
+  },
+  {
+    path: '/common/paymentStep',
+    element: <PaymentStep />,
+  },
+  {
+    path: '/common/checkApplyInfoStep',
+    element: <CheckApplyInfoStep />,
+  },
+  {
+    path: '/common/finishApplyStep',
+    element: <FinishApplyStep />,
   },
   {
     path: '*',
