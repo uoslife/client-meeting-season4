@@ -16,11 +16,13 @@ const BranchGatewayStep = () => {
   return (
     <PageLayout>
       <PageLayout.Header title={'시대팅 종류 선택'} isProgress={false} />
-      <Funnel>
-        <Funnel.Page pageNumber={1}>
-          <FirstPage />
-        </Funnel.Page>
-      </Funnel>
+      <PageLayout.SingleCardBody>
+        <Funnel>
+          <Funnel.Page pageNumber={1}>
+            <FirstPage />
+          </Funnel.Page>
+        </Funnel>
+      </PageLayout.SingleCardBody>
       <PageLayout.Footer
         currentPage={currentPage}
         totalPage={1}
