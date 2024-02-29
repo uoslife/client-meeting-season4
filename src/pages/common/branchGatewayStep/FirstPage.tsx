@@ -11,6 +11,7 @@ import Row from '~/components/layout/Row';
 import Checkbox from '~/components/buttons/checkbox/Checkbox';
 import IconButton from '~/components/buttons/iconButton/IconButton';
 import { useImmerAtom } from 'jotai-immer';
+import { useNavigate } from 'react-router-dom';
 
 const MEETING_TYPE_BUTTONS = [
   {
@@ -28,6 +29,7 @@ const FirstPage = () => {
   const [meetingTypeCheckValue, setMeetingTypeCheckValue] =
     useImmerAtom(meetingTypeCheckAtom);
   const setIsPageFinished = useSetAtom(pageFinishAtom);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (meetingTypeCheckValue.every(value => value)) setIsPageFinished(true);
@@ -87,7 +89,12 @@ const FirstPage = () => {
               typography={'PretendardRegular'}
             />
           </Row>
-          <IconButton iconName={'arrow-black'} height={10} width={6} />
+          <IconButton
+            iconName={'arrow-black'}
+            height={10}
+            width={6}
+            onClick={() => navigate('/common/privacyPolicyStep')}
+          />
         </Row>
         <Row align={'center'} gap={8}>
           <Checkbox
