@@ -1,12 +1,18 @@
 import PageLayout from '~/components/layout/page/PageLayout';
 import { useFunnel } from '~/hooks/useFunnel';
 import FirstPage from './FirstPage';
+import { meetingTypeAtom } from '~/store/meeting';
+import { useAtomValue } from 'jotai';
 
 const BranchGatewayStep = () => {
+  const meetingTypeValue = useAtomValue(meetingTypeAtom);
   const { Funnel, currentPage, PageHandler } = useFunnel({
     pageNumberList: [1],
     nextStep: {
-      path: '/group/myInformationStep',
+      path:
+        meetingTypeValue === 'group'
+          ? '/group/myInformationStep'
+          : '/personal/myInformationStep',
     },
     prevStep: {
       path: '/common/univVerificationStep',
