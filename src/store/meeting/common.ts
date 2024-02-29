@@ -6,6 +6,9 @@ meetingTypeAtom.debugLabel = 'meetingTypeAtom';
 export const univTypeAtom = atom<'HUFS' | 'KHU' | 'UOS' | null>(null);
 univTypeAtom.debugLabel = 'univTypeAtom';
 
+export const meetingTypeCheckAtom = atom([false, false]);
+meetingTypeCheckAtom.debugLabel = 'meetingTypeCheckAtom';
+
 export type CommonApplyInfo = {
   info_nickname: string;
   info_gender: string;
