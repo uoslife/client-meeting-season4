@@ -31,6 +31,11 @@ const FirstPage = () => {
   const setIsPageFinished = useSetAtom(pageFinishAtom);
   const navigate = useNavigate();
 
+  const handleSetMeetingTypeCheckValue = (order: number) =>
+    setMeetingTypeCheckValue(draft => {
+      draft[order] = !draft[order];
+    });
+
   useEffect(() => {
     if (meetingTypeCheckValue.every(value => value)) setIsPageFinished(true);
     else setIsPageFinished(false);
@@ -72,16 +77,14 @@ const FirstPage = () => {
       </Paddler>
       <Col gap={8}>
         <Row align={'center'} justify={'space-between'}>
-          <Row gap={8}>
+          <Row
+            align={'center'}
+            gap={8}
+            onClick={() => handleSetMeetingTypeCheckValue(0)}>
             <Checkbox
               checked={meetingTypeCheckValue[0]}
               height={16}
               width={16}
-              onClick={() =>
-                setMeetingTypeCheckValue(draft => {
-                  draft[0] = !draft[0];
-                })
-              }
             />
             <Text
               label={'개인정보 활용 정보 제공에 동의합니다.'}
@@ -96,17 +99,11 @@ const FirstPage = () => {
             onClick={() => navigate('/common/privacyPolicyStep')}
           />
         </Row>
-        <Row align={'center'} gap={8}>
-          <Checkbox
-            checked={meetingTypeCheckValue[1]}
-            height={16}
-            width={16}
-            onClick={() =>
-              setMeetingTypeCheckValue(draft => {
-                draft[1] = !draft[1];
-              })
-            }
-          />
+        <Row
+          align={'center'}
+          gap={8}
+          onClick={() => handleSetMeetingTypeCheckValue(1)}>
+          <Checkbox checked={meetingTypeCheckValue[1]} height={16} width={16} />
           <Text
             label={'경희대, 외대, 시립대 재학생 인증을 완료하였습니다.'}
             color={'Gray300'}

@@ -2,7 +2,7 @@ import S from './Checkbox.style';
 
 export type CheckboxProps = {
   checked: boolean;
-  onClick: () => void;
+  onClick?: () => void;
   height?: number;
   width?: number;
 };
