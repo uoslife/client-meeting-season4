@@ -1,6 +1,6 @@
 import { atom } from 'jotai';
 
-export const meetingTypeAtom = atom<'group' | 'personal' | null>(null);
+export const meetingTypeAtom = atom<'group' | 'personal' | null>('group');
 meetingTypeAtom.debugLabel = 'meetingTypeAtom';
 export const univTypeAtom = atom<'HUFS' | 'KHU' | 'UOS' | null>(null);
 univTypeAtom.debugLabel = 'univTypeAtom';
