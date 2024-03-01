@@ -5,8 +5,9 @@ import ThirdPage from './ThirdPapge';
 import ForthPage from './ForthPage';
 import FifthPage from './FifthPage';
 import PageLayout from '~/components/layout/page/PageLayout';
+import SixthPage from '~/pages/personal/myInformationStep/SixthPage';
 
-const PAGE_NUMBER = [1, 2, 3, 4, 5];
+const PAGE_NUMBER = [1, 2, 3, 4, 5, 6];
 
 const GroupInformationStep = () => {
   const { Funnel, currentPage, PageHandler } = useFunnel({
@@ -39,6 +40,9 @@ const GroupInformationStep = () => {
         </Funnel.Page>
         <Funnel.Page pageNumber={5}>
           <FifthPage />
+        </Funnel.Page>
+        <Funnel.Page pageNumber={6}>
+          <SixthPage />
         </Funnel.Page>
       </Funnel>
       <PageLayout.Footer
