@@ -9,7 +9,7 @@ export type DirectoryItemViewType = {
   content: string;
 };
 
-type ListComponentProps = { items: DirectoryItemViewType[] };
+export type DirectoryStyledInfoListProps = { items: DirectoryItemViewType[] };
 
 type ItemComponentProps = DirectoryItemViewType;
 
@@ -30,7 +30,7 @@ const DirectoryStyledInfoItem = ({ name, content }: ItemComponentProps) => {
   );
 };
 
-const DirectoryStyledInfoList = ({ items }: ListComponentProps) => {
+const DirectoryStyledInfoList = ({ items }: DirectoryStyledInfoListProps) => {
   return (
     <Col gap={16}>
       {items.map((item, index) => (

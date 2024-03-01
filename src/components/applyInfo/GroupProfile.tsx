@@ -4,7 +4,7 @@ import Row from '../layout/Row';
 import Text from '../typography/Text';
 import ProfileInfoItems, { ProfileInfoItemType } from './ProfileInfoItems';
 
-type GroupProfileProps = {
+export type GroupProfileProps = {
   groupNameLabel: string;
   genderAndAgeLabel: string;
   otherLabels: ProfileInfoItemType[];
@@ -36,7 +36,7 @@ const GroupProfile = ({
 export default GroupProfile;
 
 const S = {
-  // TODO: 들어갈 일러스트 확정되면 대체
+  // TODO: 일러스트(확정 후)로 대체
   TopBox: styled.div`
     height: 192px;
     width: 100%;
