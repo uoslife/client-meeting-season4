@@ -42,7 +42,6 @@ const AnswerOptionButton = ({
   </RoundButton>
 );
 
-// TODO: 각 버튼의 중복되는 부분 리팩토링, 두 개보다 많은 옵션을 가지는 경우에 대응하기
 const QuestionPageTemplate = ({
   meetingType,
   imageSource,
