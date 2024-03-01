@@ -7,6 +7,8 @@ import { colors } from '~/styles/colors';
 import { meetingTypeAtom } from '~/store/meeting';
 
 const PersonalCheckApplyInfoStep = () => {
+  // TODO: 모달 컴포넌트와 관리 로직
+
   const { Funnel, currentPage, PageHandler } = useFunnel({
     pageNumberList: [1],
     nextStep: { path: '/common/finishApplyStep' },
@@ -39,6 +41,7 @@ const PersonalCheckApplyInfoStep = () => {
         onPrev={PageHandler.onPrev}
         onNext={PageHandler.onNext}
       />
+      {/* 여기에 Modal 넣기 */}
     </PageLayout>
   );
 };

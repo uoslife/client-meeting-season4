@@ -6,6 +6,8 @@ import { useSetAtom } from 'jotai';
 import { colors } from '~/styles/colors';
 
 const GroupCheckApplyInfoStep = () => {
+  // TODO: 모달 컴포넌트와 관리 로직
+
   const { Funnel, currentPage, PageHandler } = useFunnel({
     pageNumberList: [1],
     nextStep: { path: '/common/finishApplyStep' },
@@ -33,6 +35,7 @@ const GroupCheckApplyInfoStep = () => {
         onPrev={PageHandler.onPrev}
         onNext={PageHandler.onNext}
       />
+      {/* 여기에 Modal 넣기 */}
     </PageLayout>
   );
 };
