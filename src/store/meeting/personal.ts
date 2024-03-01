@@ -1,6 +1,6 @@
 import { ApplyQuestionArrType } from '~/types/apply.type';
 import { atom } from 'jotai';
-import { CommonApplyAtoms, commonApplyAtoms } from '.';
+import { CommonApplyAtoms, CommonApplyInfo, commonApplyAtoms } from '.';
 
 export type PersonalApplyInfo = {
   info_drink: string[];
@@ -19,7 +19,7 @@ export type PersonalApplyInfo = {
   prefer_smoking: string;
   prefer_animal: string[];
   prefer_mbti: string[];
-};
+} & CommonApplyInfo;
 
 export type PesronalApplyAtoms = {
   [key in keyof PersonalApplyInfo]: ReturnType<
@@ -36,11 +36,11 @@ export const personalApplyAtoms: PesronalApplyAtoms = {
   info_mbti: atom(['', '', '', '']),
   info_interests: atom(['']),
   info_question: atom([
-    { label: '', order: 0 },
-    { label: '', order: 1 },
-    { label: '', order: 2 },
-    { label: '', order: 3 },
-    { label: '', order: 4 },
+    { selectedAnswerOption: '', order: 0 },
+    { selectedAnswerOption: '', order: 1 },
+    { selectedAnswerOption: '', order: 2 },
+    { selectedAnswerOption: '', order: 3 },
+    { selectedAnswerOption: '', order: 4 },
   ]),
   prefer_age: atom(['']),
   prefer_height: atom(['']),
