@@ -1,12 +1,12 @@
 import PageLayout from '~/components/layout/page/PageLayout';
-import FirstPage from './FirstPage';
 import { useFunnel } from '~/hooks/useFunnel';
 import { pageFinishAtom } from '~/store/funnel';
 import { useAtomValue, useSetAtom } from 'jotai';
 import { colors } from '~/styles/colors';
+import FirstPage from './FirstPage';
 import { meetingTypeAtom } from '~/store/meeting';
 
-const PersonalCheckApplyInfoStep = () => {
+const CheckApplyInfoStep = () => {
   // TODO: 모달 컴포넌트와 관리 로직
 
   const { Funnel, currentPage, PageHandler } = useFunnel({
@@ -17,10 +17,10 @@ const PersonalCheckApplyInfoStep = () => {
 
   useSetAtom(pageFinishAtom)(true);
 
-  const isMeetingTypeGroup = useAtomValue(meetingTypeAtom) === 'group';
-  const headerTitle = isMeetingTypeGroup
-    ? `07. 신청 정보 확인하기`
-    : `06. 신청 정보 확인하기`;
+  const headerTitle =
+    useAtomValue(meetingTypeAtom) === 'group'
+      ? '07. 신청 정보 확인하기'
+      : '06. 신청 정보 확인하기';
 
   return (
     <PageLayout>
@@ -47,4 +47,4 @@ const PersonalCheckApplyInfoStep = () => {
 };
 // meetingType이 group일 때, personal일 때의 분기 처리가 필요.
 
-export default PersonalCheckApplyInfoStep;
+export default CheckApplyInfoStep;

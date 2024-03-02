@@ -6,7 +6,6 @@ import GroupCreateStep from '~/pages/group/groupCreateStep/Step';
 import GroupParticipateStep from '~/pages/group/groupParticipateStep/Step';
 import GroupInformationStep from '~/pages/group/groupInformationStep/Step';
 import GroupPreferStep from '~/pages/group/groupPreferStep/Step';
-import GroupCheckApplyInfoStep from '~/pages/group/checkApplyInfoStep/Step';
 
 const groupRoutes = [
   {
@@ -40,10 +39,6 @@ const groupRoutes = [
   {
     path: '/group/groupPreferTypeStep',
     element: <MyPreferTypeStep />,
-  },
-  {
-    path: '/group/checkApplyInfoStep',
-    element: <GroupCheckApplyInfoStep />,
   },
 ];
 
