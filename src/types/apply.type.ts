@@ -1,4 +1,4 @@
 export type ApplyQuestionArrType = Array<{
-  selectedAnswerOption: string;
+  label: string;
   order: number;
 }>;
