@@ -12,7 +12,10 @@ export const univTypeAtom = atomWithStorage<'HUFS' | 'KHU' | 'UOS' | null>(
 );
 univTypeAtom.debugLabel = 'univTypeAtom';
 
-export const meetingTypeCheckAtom = atom([false, false]);
+export const meetingTypeCheckAtom = atomWithStorage('meetingTypeCheck', [
+  false,
+  false,
+]);
 meetingTypeCheckAtom.debugLabel = 'meetingTypeCheckAtom';
 
 export type CommonApplyInfo = {
