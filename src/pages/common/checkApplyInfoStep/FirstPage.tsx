@@ -35,12 +35,12 @@ const usePersonalDoubleCardProps = (): CustomDoubleCardProps => {
 const useGroupDoubleCardProps = (): CustomDoubleCardProps => {
   const groupEntireValue = useGroupEntireValue();
 
-  const { directoryStyledInfoItems: bottomCardItems, ...profileProps } =
+  const { directoryStyledInfoItems: topCardItems, ...profileProps } =
     RawIntoView.group_info(groupEntireValue, {
       itemsIncludeKakaoId: true,
     });
 
-  const { directoryStyledInfoItems: topCardItems } =
+  const { directoryStyledInfoItems: bottomCardItems } =
     RawIntoView.group_prefer(groupEntireValue);
 
   return {
