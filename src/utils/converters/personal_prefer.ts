@@ -1,7 +1,7 @@
-import { DirectoryItemViewType } from '~/components/applyInfo/DirectoryStyledInfoList';
+import { BottomCardProps } from '~/components/applyInfo/CustomDoubleCard';
 import { PersonalApplyInfo } from '~/store/meeting';
 
-export type PersonalPreferRawData = Pick<
+type PersonalPreferRawData = Pick<
   PersonalApplyInfo,
   | 'prefer_age'
   | 'prefer_animal'
@@ -13,9 +13,7 @@ export type PersonalPreferRawData = Pick<
   | 'prefer_univ'
 >;
 
-export type PersonalPreferViewData = {
-  directoryStyledInfoItems: DirectoryItemViewType[];
-};
+type PersonalPreferViewData = BottomCardProps;
 
 const convertPersonalPreferRawIntoView = ({
   prefer_age,
@@ -28,7 +26,7 @@ const convertPersonalPreferRawIntoView = ({
   prefer_univ,
 }: PersonalPreferRawData): PersonalPreferViewData => {
   return {
-    directoryStyledInfoItems: [
+    directoryViewItems: [
       {
         name: '나이 / 키',
         content: `${prefer_age[0]}-${prefer_age[1]}세 / ${prefer_height[0]}-${prefer_height[1]}cm`,

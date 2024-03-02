@@ -5,57 +5,68 @@ import PageLayout from '~/components/layout/page/PageLayout';
 import usePersonalEntireValue from '~/hooks/usePersonalEntireValue';
 import { useAtomValue } from 'jotai';
 import { meetingTypeAtom, univTypeAtom } from '~/store/meeting';
-import { CustomDoubleCardProps } from '~/components/applyInfo/CustomDoubleCard';
+import { ApplyInfoCustomDoubleCardProps } from '~/components/applyInfo/CustomDoubleCard';
 import useGroupEntireValue from '~/hooks/useGroupEntireValue';
 import RawIntoView from '~/utils/converters/RawIntoView';
 
-const usePersonalDoubleCardProps = (): CustomDoubleCardProps => {
+const usePersonal = (): ApplyInfoCustomDoubleCardProps => {
   const personalEntireValue = usePersonalEntireValue();
   const univ = useAtomValue(univTypeAtom)!;
 
-  const { directoryStyledInfoItems: topCardItems, ...profileProps } =
+  const { directoryViewItems: topCardItems, profileProps } =
     RawIntoView.personal_info(
       { ...personalEntireValue, univ },
       { itemsIncludeKakaoId: true },
     );
 
-  const { directoryStyledInfoItems: bottomCardItems } =
-    RawIntoView.personal_prefer({
-      ...personalEntireValue,
-    });
+  const { directoryViewItems: bottomCardItems } = RawIntoView.personal_prefer({
+    ...personalEntireValue,
+  });
 
   return {
-    meetingType: 'personal',
-    ...profileProps,
-    topCardItems,
-    bottomCardItems,
+    topCardProps: {
+      cardTopLabel: '내 정보',
+      directoryViewItems: topCardItems,
+      profileProps,
+    },
+    bottomCardProps: {
+      directoryViewItems: bottomCardItems,
+    },
   };
 };
 
-const useGroupDoubleCardProps = (): CustomDoubleCardProps => {
+const useGroup = (): ApplyInfoCustomDoubleCardProps => {
   const groupEntireValue = useGroupEntireValue();
+  const univ = useAtomValue(univTypeAtom)!;
 
-  const { directoryStyledInfoItems: topCardItems, ...profileProps } =
-    RawIntoView.group_info(groupEntireValue, {
-      itemsIncludeKakaoId: true,
-    });
+  const { directoryViewItems: topCardItems, profileProps } =
+    RawIntoView.group_info(
+      { ...groupEntireValue, univ },
+      {
+        itemsIncludeKakaoId: true,
+      },
+    );
 
-  const { directoryStyledInfoItems: bottomCardItems } =
+  const { directoryViewItems: bottomCardItems } =
     RawIntoView.group_prefer(groupEntireValue);
 
   return {
-    meetingType: 'group',
-    ...profileProps,
-    topCardItems,
-    bottomCardItems,
+    topCardProps: {
+      directoryViewItems: topCardItems,
+      cardTopLabel: '우리 팅 정보',
+      profileProps,
+    },
+    bottomCardProps: {
+      directoryViewItems: bottomCardItems,
+    },
   };
 };
 
 const FirstPage = () => {
   const meetingType = useAtomValue(meetingTypeAtom)!;
-  const customDoubleCardProps = {
-    personal: usePersonalDoubleCardProps(),
-    group: useGroupDoubleCardProps(),
+  const ApplyInfoCustomDoubleCardProps = {
+    personal: usePersonal(),
+    group: useGroup(),
   }[meetingType];
 
   return (
@@ -63,7 +74,7 @@ const FirstPage = () => {
       <Paddler left={5} right={5} top={24}>
         <Col gap={16}>
           <ApplyInfo.CheckPageTopSaying />
-          <ApplyInfo.CustomDoubleCard {...customDoubleCardProps} />
+          <ApplyInfo.CustomDoubleCard {...ApplyInfoCustomDoubleCardProps} />
         </Col>
       </Paddler>
     </PageLayout.SingleCardBody>

@@ -29,17 +29,17 @@ const ProfileInfoItems = ({ items }: { items: ProfileInfoItemType[] }) => {
 };
 
 export type ProfileProps = {
-  genderAndAgeLabel: string;
-  otherLabels: ProfileInfoItemType[];
-  nameLabel: string;
   meetingType: 'personal' | 'group';
+  nameLabel: string;
+  genderAndAgeLabel: string;
+  otherInfoItems: ProfileInfoItemType[];
 };
 
 const Profile = ({
   meetingType,
   genderAndAgeLabel,
   nameLabel,
-  otherLabels,
+  otherInfoItems,
 }: ProfileProps) => {
   switch (meetingType) {
     case 'personal':
@@ -55,7 +55,7 @@ const Profile = ({
                 typography="PFLabelS"
               />
             </Row>
-            <ProfileInfoItems items={otherLabels} />
+            <ProfileInfoItems items={otherInfoItems} />
           </Col>
         </Row>
       );
@@ -73,7 +73,7 @@ const Profile = ({
                 typography="PFLabelS"
               />
             </Row>
-            <ProfileInfoItems items={otherLabels} />
+            <ProfileInfoItems items={otherInfoItems} />
           </Col>
         </Col>
       );

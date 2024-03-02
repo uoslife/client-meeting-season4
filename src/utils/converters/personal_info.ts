@@ -1,8 +1,7 @@
-import { DirectoryItemViewType } from '~/components/applyInfo/DirectoryStyledInfoList';
-import { ProfileInfoItemType } from '~/components/applyInfo/Profile';
+import { TopCardProps } from '~/components/applyInfo/CustomDoubleCard';
 import { PersonalApplyInfo } from '~/store/meeting';
 
-export type PersonalInfoRawData = Pick<
+type PersonalInfoRawData = Pick<
   PersonalApplyInfo,
   | 'info_age'
   | 'info_gender'
@@ -19,12 +18,7 @@ export type PersonalInfoRawData = Pick<
   | 'info_question'
 > & { univ: 'HUFS' | 'KHU' | 'UOS' };
 
-export type GroupInfoViewData = {
-  profileGenderAndAgeLabel: string;
-  profileNameLabel: string;
-  profileLabelItems: ProfileInfoItemType[];
-  directoryStyledInfoItems: DirectoryItemViewType[];
-};
+type PersonalInfoViewData = TopCardProps;
 
 const convertPersonalInfoRawIntoView = (
   {
@@ -44,41 +38,45 @@ const convertPersonalInfoRawIntoView = (
     univ,
   }: PersonalInfoRawData,
   options?: { itemsIncludeKakaoId?: boolean },
-): GroupInfoViewData => {
+): PersonalInfoViewData => {
   return {
-    profileNameLabel: info_nickname,
-    profileGenderAndAgeLabel: `(${info_gender === '여자' ? '♀' : '♂'}), ${info_age}세(평균 나이)`,
-    profileLabelItems: [
-      {
-        name: '키',
-        content: `${info_height}cm (보강 필요)`,
-      },
-      {
-        name: '학교',
-        content: {
-          HUFS: '한국외대',
-          KHU: '경희대',
-          UOS: '서울시립대',
-        }[univ],
-      },
-      {
-        name: '학과',
-        content: info_major,
-      },
-      {
-        name: '신분',
-        content: info_studentType,
-      },
-      ...(options?.itemsIncludeKakaoId
-        ? [
-            {
-              name: '카카오톡 ID',
-              content: info_kakaoId,
-            },
-          ]
-        : []),
-    ],
-    directoryStyledInfoItems: [
+    cardTopLabel: '내 정보',
+    profileProps: {
+      meetingType: 'personal',
+      genderAndAgeLabel: `(${info_gender === '여자' ? '♀' : '♂'}), ${info_age}세(평균 나이)`,
+      nameLabel: info_nickname,
+      otherInfoItems: [
+        {
+          name: '키',
+          content: `${info_height}cm (보강 필요)`,
+        },
+        {
+          name: '학교',
+          content: {
+            HUFS: '한국외대',
+            KHU: '경희대',
+            UOS: '서울시립대',
+          }[univ],
+        },
+        {
+          name: '학과',
+          content: info_major,
+        },
+        {
+          name: '신분',
+          content: info_studentType,
+        },
+        ...(options?.itemsIncludeKakaoId
+          ? [
+              {
+                name: '카카오톡 ID',
+                content: info_kakaoId,
+              },
+            ]
+          : []),
+      ],
+    },
+    directoryViewItems: [
       {
         name: '흡연 여부',
         content: info_smoking,

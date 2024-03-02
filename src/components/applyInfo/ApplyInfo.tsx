@@ -1,8 +1,8 @@
 import Card, { CardStyleProps } from '../card/Card';
-import DirectoryStyledInfoList from './DirectoryStyledInfoList';
+import DirectoryViewInfoList from './DirectoryViewInfoList';
 import CheckPageTopSaying from './CheckPageTopSayings';
-import CustomDoubleCard from './CustomDoubleCard';
 import Profile from './Profile';
+import ApplyInfoCustomDoubleCard from './CustomDoubleCard';
 
 const cardStyle: CardStyleProps = {
   padding: '32px 20px 24px',
@@ -17,10 +17,10 @@ const StyledCard = ({ children }: { children: React.ReactNode }) => (
 );
 
 const ApplyInfo = {
-  List: DirectoryStyledInfoList,
+  List: DirectoryViewInfoList,
+  CustomDoubleCard: ApplyInfoCustomDoubleCard,
   StyledCard,
   CheckPageTopSaying,
-  CustomDoubleCard,
   Profile,
 };
 

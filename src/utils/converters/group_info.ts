@@ -1,8 +1,7 @@
-import { DirectoryItemViewType } from '~/components/applyInfo/DirectoryStyledInfoList';
-import { ProfileInfoItemType } from '~/components/applyInfo/Profile';
+import { TopCardProps } from '~/components/applyInfo/CustomDoubleCard';
 import { GroupApplyInfo } from '~/store/meeting';
 
-export type GroupInfoRawData = Pick<
+type GroupInfoRawData = Pick<
   GroupApplyInfo,
   | 'info_question'
   | 'info_age'
@@ -14,15 +13,9 @@ export type GroupInfoRawData = Pick<
   | 'info_preferDay'
   | 'info_nickname'
   | 'info_major'
-  // TODO: 학교 타입 추가
->;
+> & { univ: 'HUFS' | 'KHU' | 'UOS' };
 
-export type GroupInfoViewData = {
-  profileGenderAndAgeLabel: string;
-  profileNameLabel: string;
-  profileLabelItems: ProfileInfoItemType[];
-  directoryStyledInfoItems: DirectoryItemViewType[];
-};
+type GroupInfoViewData = TopCardProps;
 
 const convertGroupInfoRawIntoView = (
   {
@@ -38,8 +31,40 @@ const convertGroupInfoRawIntoView = (
   options?: { itemsIncludeKakaoId?: boolean },
 ): GroupInfoViewData => {
   return {
-    profileGenderAndAgeLabel: `(${info_gender === '여자' ? '♀' : '♂'}), ${info_age}세(평균 나이)`,
-    directoryStyledInfoItems: [
+    cardTopLabel: '우리 팅 정보',
+    profileProps: {
+      meetingType: 'group',
+      genderAndAgeLabel: `(${info_gender === '여자' ? '♀' : '♂'}), ${info_age}세(평균 나이)`,
+      nameLabel: info_nickname,
+      otherInfoItems: [
+        {
+          name: '학교',
+          content: 'TEMP, TEMP, TEMP(교체 필요)',
+        },
+        {
+          name: '학과',
+          content: `${info_major}(교체 필요)`,
+        },
+        {
+          name: '신분',
+          content: `${info_studentType}(교체 필요)`,
+        },
+        {
+          name: '선호 요일',
+          content: info_preferDay.join(', '),
+        },
+        // kakaoId 추가
+        ...(options?.itemsIncludeKakaoId
+          ? [
+              {
+                name: '카카오톡 ID',
+                content: info_kakaoId,
+              },
+            ]
+          : []),
+      ],
+    },
+    directoryViewItems: [
       {
         name: 'Q&A. 분위기',
         content: info_question[0].label,
@@ -57,34 +82,6 @@ const convertGroupInfoRawIntoView = (
         content: info_question[3].label,
       },
     ],
-    profileLabelItems: [
-      {
-        name: '학교',
-        content: 'TEMP, TEMP, TEMP(교체 필요)',
-      },
-      {
-        name: '학과',
-        content: `${info_major}(교체 필요)`,
-      },
-      {
-        name: '신분',
-        content: `${info_studentType}(교체 필요)`,
-      },
-      {
-        name: '선호 요일',
-        content: info_preferDay.join(', '),
-      },
-      // kakaoId 추가
-      ...(options?.itemsIncludeKakaoId
-        ? [
-            {
-              name: '카카오톡 ID',
-              content: info_kakaoId,
-            },
-          ]
-        : []),
-    ],
-    profileNameLabel: info_nickname,
   };
 };
 

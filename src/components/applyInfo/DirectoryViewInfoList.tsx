@@ -4,16 +4,18 @@ import Paddler from '../layout/Pad';
 import Row from '../layout/Row';
 import Text from '../typography/Text';
 
-export type DirectoryItemViewType = {
+export type DirectoryViewItemType = {
   name: string;
   content: string;
 };
 
-export type DirectoryStyledInfoListProps = { items: DirectoryItemViewType[] };
+export type DirectoryViewInfoListProps = {
+  items: DirectoryViewItemType[];
+};
 
-type ItemComponentProps = DirectoryItemViewType;
+type ItemComponentProps = DirectoryViewItemType;
 
-const DirectoryStyledInfoItem = ({ name, content }: ItemComponentProps) => {
+const DirectoryViewInfoItem = ({ name, content }: ItemComponentProps) => {
   return (
     <Col gap={8}>
       <Row gap={6} align="center">
@@ -32,11 +34,11 @@ const DirectoryStyledInfoItem = ({ name, content }: ItemComponentProps) => {
   );
 };
 
-const DirectoryStyledInfoList = ({ items }: DirectoryStyledInfoListProps) => {
+const DirectoryViewInfoList = ({ items }: DirectoryViewInfoListProps) => {
   return (
     <Col gap={16}>
       {items.map((item, index) => (
-        <DirectoryStyledInfoItem
+        <DirectoryViewInfoItem
           key={index}
           name={item.name}
           content={item.content}
@@ -46,4 +48,4 @@ const DirectoryStyledInfoList = ({ items }: DirectoryStyledInfoListProps) => {
   );
 };
 
-export default DirectoryStyledInfoList;
+export default DirectoryViewInfoList;

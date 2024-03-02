@@ -1,13 +1,11 @@
-import { DirectoryItemViewType } from '~/components/applyInfo/DirectoryStyledInfoList';
+import { BottomCardProps } from '~/components/applyInfo/CustomDoubleCard';
 import { GroupApplyInfo } from '~/store/meeting';
 
-export type GroupPreferRawData = Pick<
+type GroupPreferRawData = Pick<
   GroupApplyInfo,
   'prefer_age' | 'prefer_atmosphere' | 'prefer_major'
 >;
-export type GroupPreferViewData = {
-  directoryStyledInfoItems: DirectoryItemViewType[];
-};
+type GroupPreferViewData = BottomCardProps;
 
 const convertGroupPreferRawIntoView = ({
   prefer_age,
@@ -15,7 +13,7 @@ const convertGroupPreferRawIntoView = ({
   prefer_major,
 }: GroupPreferRawData): GroupPreferViewData => {
   return {
-    directoryStyledInfoItems: [
+    directoryViewItems: [
       {
         name: '나이',
         content: prefer_age.join(', '),
