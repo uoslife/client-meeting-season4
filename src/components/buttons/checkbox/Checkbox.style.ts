@@ -2,12 +2,12 @@ import styled from '@emotion/styled';
 import { colors } from '~/styles/colors';
 import { CheckboxProps } from './Checkbox';
 
-type SWrapperProps = Pick<CheckboxProps, 'checked'>;
+type SWrapperProps = Omit<CheckboxProps, 'onClick'>;
 
 const S = {
   Wrapper: styled.div<SWrapperProps>`
-    height: 24px;
-    width: 24px;
+    height: ${({ height }) => `${height}px`};
+    width: ${({ width }) => `${width}px`};
     border-radius: 2px;
     border: 0.5px solid ${colors.Gray500};
     background: ${colors.White};

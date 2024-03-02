@@ -20,7 +20,7 @@ const RoundButton = ({
   status,
   label,
   width = 'full',
-  height = 40,
+  height = 56,
   onClick,
   hasBorder = false,
   borderType = 'primary',

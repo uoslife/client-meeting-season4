@@ -12,6 +12,9 @@ export const univTypeAtom = atomWithStorage<'HUFS' | 'KHU' | 'UOS' | null>(
 );
 univTypeAtom.debugLabel = 'univTypeAtom';
 
+export const meetingTypeCheckAtom = atom([false, false]);
+meetingTypeCheckAtom.debugLabel = 'meetingTypeCheckAtom';
+
 export type CommonApplyInfo = {
   myInfo_nickname: string;
   myInfo_gender: string;
