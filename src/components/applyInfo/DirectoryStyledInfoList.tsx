@@ -16,9 +16,11 @@ type ItemComponentProps = DirectoryItemViewType;
 const DirectoryStyledInfoItem = ({ name, content }: ItemComponentProps) => {
   return (
     <Col gap={8}>
-      <Row gap={4} align="center">
+      <Row gap={6} align="center">
         <IconButton iconName="directory/directory" format="png" />
-        <Text color="SubBlue" typography="GoThicTitleS" label={name} />
+        <Paddler top={4}>
+          <Text color="SubBlue" typography="GoThicTitleS" label={name} />
+        </Paddler>
       </Row>
       <Paddler left={16}>
         <Row gap={16}>
