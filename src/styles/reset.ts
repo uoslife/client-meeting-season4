@@ -3,7 +3,7 @@ import NeoDunggeunmoPro from '/fonts/NeoDunggeunmoPro-Regular.ttf';
 import PFstardust from '/fonts/PFstardust.ttf';
 import PretendardRegular from '/fonts/Pretendard-Regular.ttf';
 import GothicA1Regular from '/fonts/GothicA1-Regular.ttf';
-import LeferiBaseRegular from '/fonts/LeferiBaseRegular.ttf';
+import LeferiBaseRegular from '/fonts/LeferiBaseBold.ttf';
 
 const reset = css`
   * {
