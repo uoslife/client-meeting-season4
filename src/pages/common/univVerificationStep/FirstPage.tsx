@@ -3,25 +3,28 @@ import Text from '~/components/typography/Text';
 import Row from '~/components/layout/Row';
 import IconButton from '~/components/buttons/iconButton/IconButton';
 import { useAtom, useSetAtom } from 'jotai';
-import { groupApplyAtom, univTypeAtom } from '~/store/meeting';
+import {
+  commonApplyAtoms,
+  groupApplyAtom,
+  univTypeAtom,
+} from '~/store/meeting';
 import { useEffect } from 'react';
 import { pageFinishAtom } from '~/store/funnel';
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
 import { colors } from '~/styles/colors';
-import { useImmerAtom } from 'jotai-immer';
 
 const UNIV_SELECTION_LIST = ['KHU', 'HUFS'] as const;
 
 const FirstPage = () => {
-  const [univAtom, setUnivAtom] = useAtom(univTypeAtom);
+  const [univValue, setUnivValue] = useAtom(univTypeAtom);
   const setIsPageFinished = useSetAtom(pageFinishAtom);
 
   useEffect(() => {
-    if (univAtom) {
+    if (univValue) {
       setIsPageFinished(true);
     }
-  }, [univAtom, setUnivAtom]);
+  }, [univValue, setUnivValue]);
 
   // jotai 전역 변수가 groupApplyAtom처럼 객체라면 아래 코드처럼 useImmerAtom을 사용해보세요!
   // const [nickname, setNickname] = useImmerAtom(groupApplyAtom);
@@ -45,8 +48,8 @@ const FirstPage = () => {
           return (
             <UnivSelectContainer
               key={`${univ} - ${index}`}
-              isClicked={univAtom === univ}
-              onClick={() => setUnivAtom(univ)}>
+              isClicked={univValue === univ}
+              onClick={() => setUnivValue(univ)}>
               <IconButton
                 iconName={`univSelection/${univ}`}
                 format={'png'}
