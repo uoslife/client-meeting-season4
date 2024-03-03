@@ -28,7 +28,7 @@ export const Input = styled.input<InputStyledProps>`
   font-family: 'GothicA1Type-Regular';
   font-size: 14px;
   font-weight: 400;
-  line-height: 20px;
+  line-height: 19.5px;
   text-align: left;
 
   &::placeholder {

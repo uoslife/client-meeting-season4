@@ -1,1 +1,4 @@
-export type ApplyQuestionArrType = Array<{ label: string; order: number }>;
+export type ApplyQuestionArrType = Array<{
+  label: string;
+  order: number;
+}>;

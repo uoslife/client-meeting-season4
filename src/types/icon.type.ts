@@ -7,7 +7,9 @@ export type normalType =
   | 'check'
   | 'headerButton-home'
   | 'headerButton-backArrow'
-  | 'dropdown';
+  | 'participationModal-human'
+  | 'dropdown'
+  | 'arrow-black';
 
 // 동물상
 export type animalKeyType =

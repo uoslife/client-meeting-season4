@@ -16,9 +16,19 @@ export type CardProps = {
   scroll?: boolean;
 } & CardStyleProps;
 
-const Card = ({ children, scroll, padding, ...styleProps }: CardProps) => {
+const Card = ({
+  children,
+  scroll,
+  padding,
+  borderRadius,
+  ...styleProps
+}: CardProps) => {
   return (
-    <S.Outer padding={padding} scroll={scroll} {...styleProps}>
+    <S.Outer
+      padding={padding}
+      scroll={scroll}
+      borderRadius={borderRadius}
+      {...styleProps}>
       <S.Inner scroll={scroll}>{children}</S.Inner>
     </S.Outer>
   );
@@ -26,7 +36,7 @@ const Card = ({ children, scroll, padding, ...styleProps }: CardProps) => {
 
 export default Card;
 
-type SWrapperProps = Pick<
+type SOuterProps = Pick<
   CardProps,
   | 'backgroundColorName'
   | 'borderColorName'
@@ -34,11 +44,12 @@ type SWrapperProps = Pick<
   | 'borderWidth'
   | 'padding'
   | 'scroll'
-  | 'padding'
 >;
 
+type SInnerProps = Pick<CardProps, 'scroll'>;
+
 const S = {
-  Outer: styled.div<SWrapperProps>`
+  Outer: styled.div<SOuterProps>`
     border: solid ${({ borderColorName }) => colors[borderColorName]};
     border-radius: ${({ borderRadius }) => borderRadius}px;
     border-width: ${({ borderWidth }) => borderWidth}px;
@@ -54,8 +65,14 @@ const S = {
         flex: 1;
         height: 0;
       `}
+
+    ${({ padding }) =>
+      padding &&
+      css`
+        padding: ${padding};
+      `}
   `,
-  Inner: styled.div<Pick<CardProps, 'scroll'>>`
+  Inner: styled.div<SInnerProps>`
     ${({ scroll }) =>
       scroll &&
       css`
@@ -64,7 +81,6 @@ const S = {
       `}
 
     height: 100%;
-    padding: 36px 20px;
 
     display: flex;
     flex-direction: column;
