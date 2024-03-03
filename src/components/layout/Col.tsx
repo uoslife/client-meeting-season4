@@ -53,11 +53,5 @@ const Container = styled.div<ColProps>`
   align-items: ${({ align }) => align};
   gap: ${({ gap }) => gap}px;
   padding: ${({ padding }) => padding};
-  height: 100%;
   width: 100%;
-  ${fill =>
-    fill &&
-    css`
-      flex: 1;
-    `}
 `;

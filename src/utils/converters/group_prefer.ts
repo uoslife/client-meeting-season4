@@ -3,28 +3,28 @@ import { GroupApplyInfo } from '~/store/meeting';
 
 type GroupPreferRawData = Pick<
   GroupApplyInfo,
-  'prefer_age' | 'prefer_atmosphere' | 'prefer_major'
+  'groupPrefer_age' | 'groupPrefer_atmosphere' | 'groupPrefer_univ'
 >;
 type GroupPreferViewData = BottomCardProps;
 
 const convertGroupPreferRawIntoView = ({
-  prefer_age,
-  prefer_atmosphere,
-  prefer_major,
+  groupPrefer_age,
+  groupPrefer_atmosphere,
+  groupPrefer_univ,
 }: GroupPreferRawData): GroupPreferViewData => {
   return {
     directoryViewItems: [
       {
         name: '나이',
-        content: prefer_age.join(', '),
+        content: groupPrefer_age.join(', '),
       },
       {
         name: '선호 대학',
-        content: `${prefer_major}?(교체 필요)`,
+        content: `${groupPrefer_univ.join(', ')}?(교체 필요)`,
       },
       {
         name: '분위기',
-        content: prefer_atmosphere,
+        content: groupPrefer_atmosphere,
       },
     ],
   };

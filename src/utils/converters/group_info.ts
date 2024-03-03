@@ -3,30 +3,30 @@ import { GroupApplyInfo } from '~/store/meeting';
 
 type GroupInfoRawData = Pick<
   GroupApplyInfo,
-  | 'info_question'
-  | 'info_age'
-  | 'info_gender'
-  | 'info_studentType'
-  | 'info_height'
-  | 'info_name'
-  | 'info_kakaoId'
-  | 'info_preferDay'
-  | 'info_nickname'
-  | 'info_major'
+  | 'groupInfo_question'
+  | 'myInfo_age'
+  | 'myInfo_gender'
+  | 'myInfo_studentType'
+  | 'myInfo_height'
+  | 'groupInfo_name'
+  | 'myInfo_kakaoId'
+  | 'groupInfo_preferDay'
+  | 'myInfo_nickname'
+  | 'myInfo_major'
 > & { univ: 'HUFS' | 'KHU' | 'UOS' };
 
 type GroupInfoViewData = TopCardProps;
 
 const convertGroupInfoRawIntoView = (
   {
-    info_age,
-    info_gender,
-    info_studentType,
-    info_kakaoId,
-    info_nickname,
-    info_preferDay,
-    info_question,
-    info_major,
+    myInfo_age,
+    myInfo_gender,
+    myInfo_studentType,
+    myInfo_kakaoId,
+    myInfo_nickname,
+    groupInfo_preferDay,
+    groupInfo_question,
+    myInfo_major,
   }: GroupInfoRawData,
   options?: { itemsIncludeKakaoId?: boolean },
 ): GroupInfoViewData => {
@@ -34,8 +34,8 @@ const convertGroupInfoRawIntoView = (
     cardTopLabel: '우리 팅 정보',
     profileProps: {
       meetingType: 'group',
-      genderAndAgeLabel: `(${info_gender === '여자' ? '♀' : '♂'}), ${info_age}세(평균 나이)`,
-      nameLabel: info_nickname,
+      genderAndAgeLabel: `(${myInfo_gender === '여자' ? '♀' : '♂'}), ${myInfo_age}세(평균 나이)`,
+      nameLabel: myInfo_nickname,
       otherInfoItems: [
         {
           name: '학교',
@@ -43,22 +43,22 @@ const convertGroupInfoRawIntoView = (
         },
         {
           name: '학과',
-          content: `${info_major}(교체 필요)`,
+          content: `${myInfo_major}(교체 필요)`,
         },
         {
           name: '신분',
-          content: `${info_studentType}(교체 필요)`,
+          content: `${myInfo_studentType}(교체 필요)`,
         },
         {
           name: '선호 요일',
-          content: info_preferDay.join(', '),
+          content: groupInfo_preferDay.join(', '),
         },
         // kakaoId 추가
         ...(options?.itemsIncludeKakaoId
           ? [
               {
                 name: '카카오톡 ID',
-                content: info_kakaoId,
+                content: myInfo_kakaoId,
               },
             ]
           : []),
@@ -67,19 +67,19 @@ const convertGroupInfoRawIntoView = (
     directoryViewItems: [
       {
         name: 'Q&A. 분위기',
-        content: info_question[0].label,
+        content: groupInfo_question[0].label,
       },
       {
         name: 'Q&A. 미팅',
-        content: info_question[1].label,
+        content: groupInfo_question[1].label,
       },
       {
         name: 'Q&A. 술',
-        content: info_question[2].label,
+        content: groupInfo_question[2].label,
       },
       {
         name: 'Q&A. 미팅 동기',
-        content: info_question[3].label,
+        content: groupInfo_question[3].label,
       },
     ],
   };

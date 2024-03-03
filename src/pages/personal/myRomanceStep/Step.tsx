@@ -1,7 +1,7 @@
 import { useFunnel } from '~/hooks/useFunnel';
 import FirstPage from './FirstPage';
 import SecondPage from './SecondPage';
-import ThirdPage from './ThirdPapge';
+import ThirdPage from './ThirdPage';
 import ForthPage from './ForthPage';
 import FifthPage from './FifthPage';
 import PageLayout from '~/components/layout/page/PageLayout';
@@ -11,7 +11,7 @@ const PAGE_NUMBER = [1, 2, 3, 4, 5];
 const MyRomanceStep = () => {
   const { Funnel, currentPage, PageHandler } = useFunnel({
     pageNumberList: PAGE_NUMBER,
-    nextStep: { path: '/personal/mypPreferTypeStep' },
+    nextStep: { path: '/personal/myPreferTypeStep' },
     prevStep: { path: '/personal/myInformationStep' },
   });
 

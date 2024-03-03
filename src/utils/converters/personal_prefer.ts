@@ -3,49 +3,49 @@ import { PersonalApplyInfo } from '~/store/meeting';
 
 type PersonalPreferRawData = Pick<
   PersonalApplyInfo,
-  | 'prefer_age'
-  | 'prefer_animal'
-  | 'prefer_drink'
-  | 'prefer_height'
-  | 'prefer_mbti'
-  | 'prefer_studentType'
-  | 'prefer_smoking'
-  | 'prefer_univ'
+  | 'personalPrefer_age'
+  | 'personalPrefer_animal'
+  | 'personalPrefer_drink'
+  | 'personalPrefer_height'
+  | 'personalPrefer_mbti'
+  | 'personalPrefer_studentType'
+  | 'personalPrefer_smoking'
+  | 'personalPrefer_univ'
 >;
 
 type PersonalPreferViewData = BottomCardProps;
 
 const convertPersonalPreferRawIntoView = ({
-  prefer_age,
-  prefer_animal,
-  prefer_drink,
-  prefer_height,
-  prefer_mbti,
-  prefer_smoking,
-  prefer_studentType,
-  prefer_univ,
+  personalPrefer_age,
+  personalPrefer_animal,
+  personalPrefer_drink,
+  personalPrefer_height,
+  personalPrefer_mbti,
+  personalPrefer_smoking,
+  personalPrefer_studentType,
+  personalPrefer_univ,
 }: PersonalPreferRawData): PersonalPreferViewData => {
   return {
     directoryViewItems: [
       {
         name: '나이 / 키',
-        content: `${prefer_age[0]}-${prefer_age[1]}세 / ${prefer_height[0]}-${prefer_height[1]}cm`,
+        content: `${personalPrefer_age[0]}-${personalPrefer_age[1]}세 / ${personalPrefer_height[0]}-${personalPrefer_height[1]}cm`,
       },
       {
         name: '신분',
-        content: prefer_studentType.join(', '),
+        content: personalPrefer_studentType.join(', '),
       },
       {
         name: '선호 대학',
-        content: prefer_univ.join(', '),
+        content: personalPrefer_univ.join(', '),
       },
       {
         name: '흡연 여부 / 음주 횟수',
-        content: `${prefer_smoking} / 1달에 ${prefer_drink[0]}-${prefer_drink[1]}회`,
+        content: `${personalPrefer_smoking} / 1달에 ${personalPrefer_drink[0]}-${personalPrefer_drink[1]}회`,
       },
       {
         name: '동물상 및 MBTI',
-        content: `${prefer_animal} / ${prefer_mbti.join(', ')}`,
+        content: `${personalPrefer_animal} / ${personalPrefer_mbti.join(', ')}`,
       },
     ],
   };
