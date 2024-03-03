@@ -2,7 +2,7 @@ import { atomWithStorage } from 'jotai/utils';
 
 export const meetingTypeAtom = atomWithStorage<'group' | 'personal' | null>(
   'meeting_type',
-  'personal',
+  null,
 );
 meetingTypeAtom.debugLabel = 'meetingTypeAtom';
 export const univTypeAtom = atomWithStorage<'HUFS' | 'KHU' | 'UOS' | null>(
