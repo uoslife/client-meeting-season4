@@ -5,8 +5,7 @@ const S = {
   EntireContainer: styled.div`
     position: relative;
     width: 100%;
-    height: 15px;
-    margin-top: 100px;
+    height: 8px;
 
     /* Origin: "node_modules\rc-slider\assets\index.css") */
     .rc-slider {
