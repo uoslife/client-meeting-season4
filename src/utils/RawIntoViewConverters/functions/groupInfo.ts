@@ -10,6 +10,7 @@ const convertGroupInfoRawIntoView: RawIntoViewConverterType['groupInfo'] = (
     groupInfo_preferDay,
     groupInfo_question,
     myInfo_major,
+    univ,
   },
   options,
 ) => ({
@@ -21,15 +22,15 @@ const convertGroupInfoRawIntoView: RawIntoViewConverterType['groupInfo'] = (
     otherInfoItems: [
       {
         name: '학교',
-        content: 'TEMP, TEMP, TEMP(교체 필요)',
+        content: univ,
       },
       {
         name: '학과',
-        content: `${myInfo_major}(교체 필요)`,
+        content: `${myInfo_major}(조정 필요)`,
       },
       {
         name: '신분',
-        content: `${myInfo_studentType}(교체 필요)`,
+        content: `${myInfo_studentType}(조정 필요)`,
       },
       {
         name: '선호 요일',
