@@ -17,11 +17,13 @@ const GroupPreferStep = () => {
         totalStep={7}
         currentStep={4}
       />
-      <Funnel>
-        <Funnel.Page pageNumber={1}>
-          <FirstPage />
-        </Funnel.Page>
-      </Funnel>
+      <PageLayout.SingleCardBody>
+        <Funnel>
+          <Funnel.Page pageNumber={1}>
+            <FirstPage />
+          </Funnel.Page>
+        </Funnel>
+      </PageLayout.SingleCardBody>
       <PageLayout.Footer
         currentPage={currentPage}
         totalPage={1}
