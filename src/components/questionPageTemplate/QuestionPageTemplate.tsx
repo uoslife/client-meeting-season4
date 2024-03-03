@@ -20,11 +20,11 @@ type QuestionPageTemplateProps = {
 
 const AnswerOptionButton = ({
   value,
-  selectedAnswerOption,
+  label,
   select,
 }: {
   value: string;
-  selectedAnswerOption: string;
+  label: string;
   select: (value: string) => void;
 }) => (
   <RoundButton
@@ -32,10 +32,10 @@ const AnswerOptionButton = ({
     textColor="Gray000"
     label=""
     height={56}
-    status={selectedAnswerOption === value ? 'active' : 'inactive'}
+    status={label === value ? 'active' : 'inactive'}
     onClick={() => select(value)}>
     <Text
-      color={selectedAnswerOption === value ? 'White' : 'Primary500'}
+      color={label === value ? 'White' : 'Primary500'}
       label={value}
       typography="NeoButtonL"
     />
@@ -52,18 +52,18 @@ const QuestionPageTemplate = ({
   const index = questionNumber - 1;
   const [questionListState, setQuestionListState] = useImmerAtom(
     meetingType === 'group'
-      ? groupApplyAtoms.info_question
-      : personalApplyAtoms.info_question,
+      ? groupApplyAtoms.groupInfo_question
+      : personalApplyAtoms.personalInfo_question,
   );
   const setIsPageFinished = useSetAtom(pageFinishAtom);
 
-  const { selectedAnswerOption } = questionListState[index];
+  const { label } = questionListState[index];
   // 현재 페이지의 selectedAnswerOption값이 truthy value라면 Next Button 활성화
-  setIsPageFinished(!!selectedAnswerOption);
+  setIsPageFinished(!!label);
 
   const select = (answerOption: string) => {
     setQuestionListState(draft => {
-      draft[index].selectedAnswerOption = answerOption;
+      draft[index].label = answerOption;
     });
   };
 
@@ -88,7 +88,7 @@ const QuestionPageTemplate = ({
             <Col gap={8}>
               {answerOptions.map(option => (
                 <AnswerOptionButton
-                  selectedAnswerOption={selectedAnswerOption}
+                  label={label}
                   select={select}
                   value={option}
                   key={option}
