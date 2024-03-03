@@ -1,3 +1,4 @@
+import { css } from '@emotion/react';
 import * as S from './DropdownInput.style';
 
 import { Dispatch, SetStateAction, useState } from 'react';
@@ -29,7 +30,10 @@ const DropdownInput = ({
   };
 
   return (
-    <div>
+    <div
+      css={css`
+        width: 100%;
+      `}>
       <S.InputWrapper
         onClick={() => setShowOption(!showOption)}
         showOption={showOption}>
