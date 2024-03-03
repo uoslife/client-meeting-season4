@@ -24,19 +24,6 @@ export const GrayHandler = styled.div`
   background-color: ${colors.Secondary200};
 `;
 
-export const ParticipantCounterWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  margin-bottom: 24px;
-  gap: 4px;
-`;
-
-export const DivLine = styled.div`
-  width: 100%;
-  margin-bottom: 16px;
-  border-top: 1px solid ${colors.Secondary200};
-`;
-
 export const ButtonWrapper = styled.div`
   display: flex;
   justify-content: center;
