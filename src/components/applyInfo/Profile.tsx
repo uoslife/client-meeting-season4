@@ -28,7 +28,7 @@ const ProfileInfoItems = ({ items }: { items: ProfileInfoItemType[] }) => {
   );
 };
 
-export type ProfileProps = {
+export type ProfileViewData = {
   meetingType: 'personal' | 'group';
   nameLabel: string;
   genderAndAgeLabel: string;
@@ -40,7 +40,7 @@ const Profile = ({
   genderAndAgeLabel,
   nameLabel,
   otherInfoItems,
-}: ProfileProps) => {
+}: ProfileViewData) => {
   switch (meetingType) {
     case 'personal':
       return (

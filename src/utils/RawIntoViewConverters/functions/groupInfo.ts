@@ -15,7 +15,7 @@ const convertGroupInfoRawIntoView: RawIntoViewConverterType['groupInfo'] = (
   options,
 ) => ({
   cardTopLabel: '우리 팅 정보',
-  profileProps: {
+  profileViewData: {
     meetingType: 'group',
     genderAndAgeLabel: `(${myInfo_gender === '여자' ? '♀' : '♂'}), ${myInfo_age}세(평균 나이)`,
     nameLabel: myInfo_nickname,
@@ -37,7 +37,7 @@ const convertGroupInfoRawIntoView: RawIntoViewConverterType['groupInfo'] = (
         content: groupInfo_preferDay.join(', '),
       },
       // kakaoId 추가
-      ...(options?.itemsIncludeKakaoId
+      ...(options?.profileItemsIncludeKakaoId
         ? [
             {
               name: '카카오톡 ID',

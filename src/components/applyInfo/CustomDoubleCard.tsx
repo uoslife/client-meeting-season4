@@ -10,7 +10,7 @@ type TopCardProps = InfoViewDataType;
 const TopCard = ({
   directoryViewItems,
   cardTopLabel,
-  profileProps,
+  profileViewData,
 }: TopCardProps) => (
   <ApplyInfo.StyledCard>
     <Col gap={20}>
@@ -20,7 +20,7 @@ const TopCard = ({
           label={cardTopLabel}
           typography="NeoTitleM"
         />
-        <ApplyInfo.Profile {...profileProps} />
+        <ApplyInfo.Profile {...profileViewData} />
       </Col>
       <ApplyInfo.DirectoryViewInfoList items={directoryViewItems} />
     </Col>

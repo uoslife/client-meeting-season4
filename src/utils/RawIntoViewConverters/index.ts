@@ -16,12 +16,12 @@ import {
 export type RawIntoViewConverterType = {
   groupInfo: (
     data: GroupInfoRawDataType,
-    options?: { itemsIncludeKakaoId?: boolean },
+    options?: { profileItemsIncludeKakaoId?: boolean },
   ) => InfoViewDataType;
   groupPrefer: (data: GroupPreferRawDataType) => PreferViewDataType;
   personalInfo: (
     data: PersonalInfoRawDataType,
-    options?: { itemsIncludeKakaoId?: boolean },
+    options?: { profileItemsIncludeKakaoId?: boolean },
   ) => InfoViewDataType;
   personalPrefer: (data: PersonalPreferRawDataType) => PreferViewDataType;
 };

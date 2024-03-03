@@ -1,5 +1,5 @@
 import { DirectoryViewItemType } from '~/components/applyInfo/DirectoryViewInfoList';
-import { ProfileProps } from '~/components/applyInfo/Profile';
+import { ProfileViewData } from '~/components/applyInfo/Profile';
 import { GroupApplyInfo, PersonalApplyInfo } from '~/store/meeting';
 
 export type GroupInfoRawDataType = Pick<
@@ -34,7 +34,7 @@ export type PersonalInfoRawDataType = Pick<
 > & { univ: 'HUFS' | 'KHU' | 'UOS' };
 
 export type InfoViewDataType = {
-  profileProps: ProfileProps;
+  profileViewData: ProfileViewData;
   cardTopLabel: string;
   directoryViewItems: DirectoryViewItemType[];
 };

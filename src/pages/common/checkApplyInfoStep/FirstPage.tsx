@@ -41,10 +41,10 @@ const usePersonal = (): ApplyInfoCustomDoubleCardProps => {
   };
   const univ = useAtomValue(univTypeAtom)!;
 
-  const { directoryViewItems: topCardItems, profileProps } =
+  const { directoryViewItems: topCardItems, profileViewData } =
     RawIntoViewConverters.personalInfo(
       { ...mockPersonalInfoRawData, univ },
-      { itemsIncludeKakaoId: true },
+      { profileItemsIncludeKakaoId: true },
     );
 
   const mockPersonalPreferRawData: PersonalPreferRawDataType = {
@@ -64,7 +64,7 @@ const usePersonal = (): ApplyInfoCustomDoubleCardProps => {
     topCardProps: {
       cardTopLabel: '내 정보',
       directoryViewItems: topCardItems,
-      profileProps,
+      profileViewData,
     },
     bottomCardProps: {
       directoryViewItems: bottomCardItems,
@@ -100,11 +100,11 @@ const useGroup = (): ApplyInfoCustomDoubleCardProps => {
     groupPrefer_univ: ['HUFS'],
   };
 
-  const { directoryViewItems: topCardItems, profileProps } =
+  const { directoryViewItems: topCardItems, profileViewData } =
     RawIntoViewConverters.groupInfo(
       { ...mockGroupInfoRawData, univ },
       {
-        itemsIncludeKakaoId: true,
+        profileItemsIncludeKakaoId: true,
       },
     );
 
@@ -115,7 +115,7 @@ const useGroup = (): ApplyInfoCustomDoubleCardProps => {
     topCardProps: {
       directoryViewItems: topCardItems,
       cardTopLabel: '우리 팅 정보',
-      profileProps,
+      profileViewData,
     },
     bottomCardProps: {
       directoryViewItems: bottomCardItems,

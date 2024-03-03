@@ -18,10 +18,10 @@ const convertPersonalInfoRawIntoView: RawIntoViewConverterType['personalInfo'] =
       personalInfo_smoking,
       univ,
     },
-    options?: { itemsIncludeKakaoId?: boolean },
+    options?: { profileItemsIncludeKakaoId?: boolean },
   ) => ({
     cardTopLabel: '내 정보',
-    profileProps: {
+    profileViewData: {
       meetingType: 'personal',
       genderAndAgeLabel: `(${myInfo_gender === '여자' ? '♀' : '♂'}), ${myInfo_age}세(평균 나이)`,
       nameLabel: myInfo_nickname,
@@ -46,7 +46,7 @@ const convertPersonalInfoRawIntoView: RawIntoViewConverterType['personalInfo'] =
           name: '신분',
           content: myInfo_studentType,
         },
-        ...(options?.itemsIncludeKakaoId
+        ...(options?.profileItemsIncludeKakaoId
           ? [
               {
                 name: '카카오톡 ID',
