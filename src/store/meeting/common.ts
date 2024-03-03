@@ -1,18 +1,31 @@
-import { atom } from 'jotai';
+import { PrimitiveAtom } from 'jotai/vanilla';
+import { atomWithStorage } from 'jotai/utils';
 
-export const meetingTypeAtom = atom<'group' | 'personal' | null>(null);
+export const meetingTypeAtom = atomWithStorage<'group' | 'personal' | null>(
+  'meeting_type',
+  null,
+);
 meetingTypeAtom.debugLabel = 'meetingTypeAtom';
-export const univTypeAtom = atom<'HUFS' | 'KHU' | 'UOS' | null>(null);
+export const univTypeAtom = atomWithStorage<'HUFS' | 'KHU' | 'UOS' | null>(
+  'univ_type',
+  null,
+);
 univTypeAtom.debugLabel = 'univTypeAtom';
 
+export const meetingTypeCheckAtom = atomWithStorage('meetingTypeCheck', [
+  false,
+  false,
+]);
+meetingTypeCheckAtom.debugLabel = 'meetingTypeCheckAtom';
+
 export type CommonApplyInfo = {
-  info_nickname: string;
-  info_gender: string;
-  info_age: number;
-  info_height: number;
-  info_kakaoId: string;
-  info_major: string;
-  info_studentType: string;
+  myInfo_nickname: string;
+  myInfo_gender: string;
+  myInfo_age: number;
+  myInfo_height: number;
+  myInfo_kakaoId: string;
+  myInfo_major: string;
+  myInfo_studentType: string;
 };
 
 export type CommonApplyAtoms = {
@@ -20,11 +33,11 @@ export type CommonApplyAtoms = {
 };
 
 export const commonApplyAtoms: CommonApplyAtoms = {
-  info_nickname: atom(''),
-  info_gender: atom(''),
-  info_age: atom(0),
-  info_height: atom(0),
-  info_kakaoId: atom(''),
-  info_major: atom(''),
-  info_studentType: atom(''),
+  myInfo_nickname: atomWithStorage('myInfo_nickname', ''),
+  myInfo_gender: atomWithStorage('myInfo_gender', ''),
+  myInfo_age: atomWithStorage('myInfo_age', 0),
+  myInfo_height: atomWithStorage('myInfo_height', 0),
+  myInfo_kakaoId: atomWithStorage('myInfo_kakaoId', ''),
+  myInfo_major: atomWithStorage('myInfo_major', ''),
+  myInfo_studentType: atomWithStorage('myInfo_studentType', ''),
 };

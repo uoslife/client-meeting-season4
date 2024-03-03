@@ -1,56 +1,58 @@
 import { ApplyQuestionArrType } from '~/types/apply.type';
-import { atom } from 'jotai';
-import { CommonApplyAtoms, CommonApplyInfo, commonApplyAtoms } from '.';
+import { CommonApplyAtoms, commonApplyAtoms } from '.';
+import { atomWithStorage } from 'jotai/utils';
 
 export type PersonalApplyInfo = {
-  info_drink: string[];
-  info_religion: string;
-  info_smoking: string;
-  info_animal: string[];
-  info_mbti: string[];
-  info_interests: string[];
-  info_question: ApplyQuestionArrType;
-  prefer_age: string[];
-  prefer_height: string[];
-  prefer_studentType: string[];
-  prefer_univ: string[];
-  prefer_drink: string[];
-  prefer_religion: string;
-  prefer_smoking: string;
-  prefer_animal: string[];
-  prefer_mbti: string[];
-} & CommonApplyInfo;
+  personalInfo_drink: string[];
+  personalInfo_religion: string;
+  personalInfo_smoking: string;
+  personalInfo_animal: string[];
+  personalInfo_mbti: string[];
+  personalInfo_interests: string[];
+  personalInfo_question: ApplyQuestionArrType;
+  personalPrefer_age: string[];
+  personalPrefer_height: string[];
+  personalPrefer_studentType: string[];
+  personalPrefer_univ: string[];
+  personalPrefer_drink: string[];
+  personalPrefer_religion: string;
+  personalPrefer_smoking: string;
+  personalPrefer_animal: string[];
+  personalPrefer_mbti: string[];
+};
 
 export type PesronalApplyAtoms = {
   [key in keyof PersonalApplyInfo]: ReturnType<
-    typeof atom<PersonalApplyInfo[key]>
+    typeof atomWithStorage<PersonalApplyInfo[key]>
   >;
 } & CommonApplyAtoms;
 
 export const personalApplyAtoms: PesronalApplyAtoms = {
   ...commonApplyAtoms,
-  info_religion: atom(''),
-  info_smoking: atom(''),
-  info_drink: atom(['']),
-  info_animal: atom(['']),
-  info_mbti: atom(['', '', '', '']),
-  info_interests: atom(['']),
-  info_question: atom([
-    { selectedAnswerOption: '', order: 0 },
-    { selectedAnswerOption: '', order: 1 },
-    { selectedAnswerOption: '', order: 2 },
-    { selectedAnswerOption: '', order: 3 },
-    { selectedAnswerOption: '', order: 4 },
+  personalInfo_drink: atomWithStorage('personalInfo_drink', ['']),
+  personalInfo_smoking: atomWithStorage('personalInfo_smoking', ''),
+  personalInfo_religion: atomWithStorage('personalInfo_religion', ''),
+  personalInfo_animal: atomWithStorage('personalInfo_animal', ['']),
+  personalInfo_mbti: atomWithStorage('personalInfo_mbti', ['', '', '', '']),
+  personalInfo_interests: atomWithStorage('personalInfo_interests', ['']),
+  personalInfo_question: atomWithStorage('personalInfo_question', [
+    { label: '', order: 0 },
+    { label: '', order: 1 },
+    { label: '', order: 2 },
+    { label: '', order: 3 },
+    { label: '', order: 4 },
   ]),
-  prefer_age: atom(['']),
-  prefer_height: atom(['']),
-  prefer_studentType: atom(['']),
-  prefer_univ: atom(['']),
-  prefer_smoking: atom(''),
-  prefer_religion: atom(''),
-  prefer_drink: atom(['']),
-  prefer_animal: atom(['']),
-  prefer_mbti: atom(['']),
+  personalPrefer_age: atomWithStorage('personalPrefer_age', ['']),
+  personalPrefer_height: atomWithStorage('personalPrefer_height', ['']),
+  personalPrefer_studentType: atomWithStorage('personalPrefer_studentType', [
+    '',
+  ]),
+  personalPrefer_univ: atomWithStorage('personalPrefer_univ', ['']),
+  personalPrefer_smoking: atomWithStorage('personalPrefer_smoking', ''),
+  personalPrefer_religion: atomWithStorage('personalPrefer_religion', ''),
+  personalPrefer_drink: atomWithStorage('personalPrefer_drink', ['']),
+  personalPrefer_animal: atomWithStorage('personalPrefer_animal', ['']),
+  personalPrefer_mbti: atomWithStorage('personalPrefer_mbti', ['']),
 };
 
 for (const key in personalApplyAtoms) {
