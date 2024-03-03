@@ -9,16 +9,23 @@ import { typographies } from '~/styles/typographies';
 const FirstPage = () => {
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [code, setCode] = useState('');
+  const [isError, setIsError] = useState(false);
 
   const handleInputValue = (e: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = e.target.value;
     setCode(inputValue.toUpperCase());
   };
 
+  const showStatusMessage = () => {
+    if (code.length != 4) return '';
+    return isError ? '유효하지 않는 코드입니다.' : '유효한 코드입니다';
+  };
+
   useEffect(() => {
     const input = inputRef.current;
     !!input && input.focus();
   }, [inputRef]);
+
   return (
     <Col align={'center'} gap={20} padding={'36px 20px'}>
       <Text
@@ -30,10 +37,18 @@ const FirstPage = () => {
         `}
       />
       <S.Container onClick={() => inputRef.current?.focus()}>
-        <S.Code active={!!code && code.length === 1}>{code?.[0]}</S.Code>
-        <S.Code active={!!code && code.length === 2}>{code?.[1]}</S.Code>
-        <S.Code active={!!code && code.length === 3}>{code?.[2]}</S.Code>
-        <S.Code active={!!code && code.length === 4}>{code?.[3]}</S.Code>
+        <S.Code isError={isError} active={!!code && code.length === 1}>
+          {code?.[0]}
+        </S.Code>
+        <S.Code isError={isError} active={!!code && code.length === 2}>
+          {code?.[1]}
+        </S.Code>
+        <S.Code isError={isError} active={!!code && code.length === 3}>
+          {code?.[2]}
+        </S.Code>
+        <S.Code isError={isError} active={!!code && code.length === 4}>
+          {code?.[3]}
+        </S.Code>
         <S.Input
           type="text"
           maxLength={4}
@@ -42,6 +57,11 @@ const FirstPage = () => {
           onChange={handleInputValue}
         />
       </S.Container>
+      <Text
+        label={showStatusMessage()}
+        color={isError ? 'Red200' : 'Primary500'}
+        typography={'NeoButtonS'}
+      />
     </Col>
   );
 };
@@ -57,7 +77,7 @@ const S = {
     align-items: center;
     justify-content: center;
   `,
-  Code: styled.div<{ active: boolean }>`
+  Code: styled.div<{ active: boolean; isError: boolean }>`
     ${() => typographies.NeoLabel};
     font-size: 60px;
     color: ${colors.Secondary900};
@@ -71,6 +91,12 @@ const S = {
       active &&
       css`
         border-color: ${colors.Primary300};
+      `};
+
+    ${({ isError }) =>
+      isError &&
+      css`
+        border-color: ${colors.Red200};
       `};
   `,
   Input: styled.input`
