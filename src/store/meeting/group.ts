@@ -1,5 +1,5 @@
 import { ApplyQuestionArrType } from '~/types/apply.type';
-import { CommonApplyAtoms, CommonApplyInfo, commonApplyAtoms } from '.';
+import { CommonApplyInfo, commonApplyAtoms } from '.';
 import { atomWithStorage } from 'jotai/utils';
 
 export type GroupApplyInfo = {
@@ -16,7 +16,7 @@ export type GroupApplyAtoms = {
   [key in keyof GroupApplyInfo]: ReturnType<
     typeof atomWithStorage<GroupApplyInfo[key]>
   >;
-} & CommonApplyAtoms;
+};
 
 export const groupApplyAtoms: GroupApplyAtoms = {
   ...commonApplyAtoms,
