@@ -40,5 +40,5 @@ export const ButtonWrapper = styled.div`
   align-items: flex-start;
   width: 100%;
   gap: 8px;
-  padding: 16px 24px 20px 24px;
+  padding: 16px 0px 20px 0px;
 `;

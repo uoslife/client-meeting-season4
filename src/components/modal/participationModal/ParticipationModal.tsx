@@ -1,5 +1,5 @@
-import Text from '~/components/typography/Text';
 import * as S from './ParticipationModal.style';
+import Text from '~/components/typography/Text';
 import RoundButton from '~/components/buttons/roundButton/RoundButton';
 import IconButton from '~/components/buttons/iconButton/IconButton';
 
@@ -50,7 +50,7 @@ const ParticipationModal = ({
         <Text
           label={`${currentParticipant}/${maxParticipant}`}
           color={'Secondary700'}
-          typography={'PretendardRegular'} //글씨체 수정
+          typography={'PFLabelL'} //글씨체 수정
           weight={500}
           size={16}
         />
@@ -71,16 +71,12 @@ const ParticipationModal = ({
           height={52}
           onClick={cancelButtonClicked}
           label={'취소'}
-          textColor={'Secondary800'}
-          textTypography={'NeoTitleM'}
         />
         <RoundButton
           status={'active'}
           height={52}
           onClick={joinButtonClicked}
           label={'참여'}
-          textColor={'White'}
-          textTypography={'NeoTitleM'}
         />
       </S.ButtonWrapper>
     </S.Container>
