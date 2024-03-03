@@ -11,7 +11,7 @@ const CheckAfterAleadyAppliedStep = () => {
   // 저장된 정보가 없다면 인증 페이지로 리다이렉트
   if (!savedViewInfo) {
     // TODO: 인증 페이지로 수정
-    navigate('/common/landingStep');
+    navigate('/common/verifyForCheckAfterAleadyAppliedStep');
     return null;
   }
 

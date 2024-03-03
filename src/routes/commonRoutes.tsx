@@ -6,6 +6,7 @@ import FinishApplyStep from '~/pages/common/finishApplyStep/Step';
 import LandingStep from '~/pages/common/landingStep/Step';
 import CheckApplyInfoStep from '~/pages/common/checkApplyInfoStep/Step';
 import CheckAfterAleadyAppliedStep from '~/pages/common/checkAfterAleadyAppliedStep/Step';
+import VerifyForCheckAfterAleadyAppliedStep from '~/pages/common/verifyForCheckAfterAleadyAppliedStep/Step';
 
 const commonRoutes = [
   {
@@ -35,6 +36,10 @@ const commonRoutes = [
   {
     path: '/common/finishApplyStep',
     element: <FinishApplyStep />,
+  },
+  {
+    path: '/common/verifyForCheckAfterAleadyAppliedStep',
+    element: <VerifyForCheckAfterAleadyAppliedStep />,
   },
   {
     path: '/common/checkAfterAleadyAppliedStep',
