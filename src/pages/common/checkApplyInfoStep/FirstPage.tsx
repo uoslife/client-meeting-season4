@@ -4,8 +4,12 @@ import Paddler from '~/components/layout/Pad';
 import PageLayout from '~/components/layout/page/PageLayout';
 // import usePersonalEntireValue from '~/hooks/usePersonalEntireValue';
 // import useGroupEntireValue from '~/hooks/useGroupEntireValue';
-import { useAtomValue } from 'jotai';
-import { meetingTypeAtom, univTypeAtom } from '~/store/meeting';
+import { useAtomValue, useSetAtom } from 'jotai';
+import {
+  meetingTypeAtom,
+  savedApplyInfoViewAtom,
+  univTypeAtom,
+} from '~/store/meeting';
 import { ApplyInfoCustomDoubleCardProps } from '~/components/applyInfo/CustomDoubleCard';
 import RawIntoViewConverters from '~/utils/RawIntoViewConverters';
 import {
@@ -125,17 +129,18 @@ const useGroup = (): ApplyInfoCustomDoubleCardProps => {
 
 const FirstPage = () => {
   const meetingType = useAtomValue(meetingTypeAtom)!;
-  const ApplyInfoCustomDoubleCardProps = {
+  const props = {
     personal: usePersonal(),
     group: useGroup(),
   }[meetingType];
+  useSetAtom(savedApplyInfoViewAtom)(props);
 
   return (
     <PageLayout.SingleCardBody theme="BG_GREY" cardPadding="8px 0 80px">
       <Paddler left={5} right={5} top={24}>
         <Col gap={16}>
           <ApplyInfo.CheckPageTopSaying />
-          <ApplyInfo.CustomDoubleCard {...ApplyInfoCustomDoubleCardProps} />
+          <ApplyInfo.CustomDoubleCard {...props} />
         </Col>
       </Paddler>
     </PageLayout.SingleCardBody>

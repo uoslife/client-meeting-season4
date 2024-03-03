@@ -5,6 +5,7 @@ import PrivacyPolicyStep from '~/pages/common/privacyPolicyStep/Step';
 import FinishApplyStep from '~/pages/common/finishApplyStep/Step';
 import LandingStep from '~/pages/common/landingStep/Step';
 import CheckApplyInfoStep from '~/pages/common/checkApplyInfoStep/Step';
+import CheckAfterAleadyAppliedStep from '~/pages/common/checkAfterAleadyAppliedStep/Step';
 
 const commonRoutes = [
   {
@@ -28,12 +29,16 @@ const commonRoutes = [
     element: <PaymentStep />,
   },
   {
+    path: '/common/checkApplyInfoStep',
+    element: <CheckApplyInfoStep />,
+  },
+  {
     path: '/common/finishApplyStep',
     element: <FinishApplyStep />,
   },
   {
-    path: '/common/checkApplyInfoStep',
-    element: <CheckApplyInfoStep />,
+    path: '/common/checkAfterAleadyAppliedStep',
+    element: <CheckAfterAleadyAppliedStep />,
   },
   {
     path: '*',

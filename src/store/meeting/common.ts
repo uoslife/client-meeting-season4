@@ -1,4 +1,5 @@
 import { atomWithStorage } from 'jotai/utils';
+import { ApplyInfoCustomDoubleCardProps } from '~/components/applyInfo/CustomDoubleCard';
 
 export const meetingTypeAtom = atomWithStorage<'group' | 'personal' | null>(
   'meeting_type',
@@ -16,6 +17,13 @@ export const meetingTypeCheckAtom = atomWithStorage('meetingTypeCheck', [
   false,
 ]);
 meetingTypeCheckAtom.debugLabel = 'meetingTypeCheckAtom';
+
+export const savedApplyInfoViewAtom =
+  atomWithStorage<ApplyInfoCustomDoubleCardProps | null>(
+    'savedApplyInfoView',
+    null,
+  );
+savedApplyInfoViewAtom.debugLabel = 'savedApplyInfoViewAtom';
 
 export type CommonApplyInfo = {
   myInfo_nickname: string;
