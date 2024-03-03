@@ -19,7 +19,8 @@ const FirstPage = () => {
     groupApplyAtoms.groupPrefer_atmosphere,
   );
 
-  const isAllInputsFilled = age && preferUniversity && preferAtmosphere;
+  const isAllInputsFilled =
+    age && preferUniversity.length > 1 && preferAtmosphere;
   const setIsPageFinished = useSetAtom(pageFinishAtom);
   setIsPageFinished(!!isAllInputsFilled);
 
@@ -80,30 +81,28 @@ const FirstPage = () => {
                 `}
               />
             </Col>
-            {/* <Col gap={8}>
-              <RoundButton
-                label="경희대학교"
-
-                status={preferUniversity === '경희대학교' ? 'active' : 'inactive'}
-                onClick={() => setPreferUniversity('경희대학교')}
-              />
-              <RoundButton
-                label="서울시립대학교"
-
-                status={
-                  preferUniversity === '서울시립대학교' ? 'active' : 'inactive'
-                }
-                onClick={() => setPreferUniversity('서울시립대학교')}
-              />
-              <RoundButton
-                label="한국외국어대학교"
-
-                status={
-                  preferUniversity === '한국외국어대학교' ? 'active' : 'inactive'
-                }
-                onClick={() => setPreferUniversity('한국외국어대학교')}
-              />
-            </Col> */}
+            <Col gap={8}>
+              {['경희대학교', '서울시립대학교', '한국외국어대학교'].map(
+                univ => (
+                  <RoundButton
+                    key={univ}
+                    label={univ}
+                    status={
+                      preferUniversity.includes(univ) ? 'active' : 'inactive'
+                    }
+                    onClick={() => {
+                      if (preferUniversity.includes(univ)) {
+                        setPreferUniversity(
+                          preferUniversity.filter(u => u !== univ),
+                        );
+                      } else {
+                        setPreferUniversity([...preferUniversity, univ]);
+                      }
+                    }}
+                  />
+                ),
+              )}
+            </Col>
           </Col>
           <Col gap={28} align="center">
             <Text
