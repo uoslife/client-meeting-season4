@@ -8,7 +8,7 @@ export type GroupApplyInfo = {
   info_preferDay: string[];
   info_question: ApplyQuestionArrType;
   prefer_age: string[];
-  prefer_univ: string;
+  prefer_univ: string[];
   prefer_atmosphere: string;
 };
 
@@ -28,7 +28,7 @@ export const groupApplyAtoms = {
     { label: '', order: 3 },
   ]),
   prefer_age: atom(['']),
-  prefer_univ: atom(''),
+  prefer_univ: atom(['']),
   prefer_atmosphere: atom(''),
 };
 
