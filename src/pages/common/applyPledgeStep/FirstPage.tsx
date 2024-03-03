@@ -13,10 +13,10 @@ import { pageFinishAtom } from '~/store/funnel';
 const FirstPage = () => {
   const { rangeHandler: ageHandler, rangeValue: age } = useRangeState([20, 30]);
   const [preferUniversity, setPreferUniversity] = useAtom(
-    groupApplyAtoms.prefer_univ,
+    groupApplyAtoms.groupPrefer_univ,
   );
   const [preferAtmosphere, setPreferAtmosphere] = useAtom(
-    groupApplyAtoms.prefer_atmosphere,
+    groupApplyAtoms.groupPrefer_atmosphere,
   );
 
   const isAllInputsFilled = age && preferUniversity && preferAtmosphere;
@@ -79,16 +79,16 @@ const FirstPage = () => {
               `}
             />
           </Col>
-          <Col gap={8}>
+          {/* <Col gap={8}>
             <RoundButton
               label="경희대학교"
-              height={56}
+
               status={preferUniversity === '경희대학교' ? 'active' : 'inactive'}
               onClick={() => setPreferUniversity('경희대학교')}
             />
             <RoundButton
               label="서울시립대학교"
-              height={56}
+
               status={
                 preferUniversity === '서울시립대학교' ? 'active' : 'inactive'
               }
@@ -96,13 +96,13 @@ const FirstPage = () => {
             />
             <RoundButton
               label="한국외국어대학교"
-              height={56}
+
               status={
                 preferUniversity === '한국외국어대학교' ? 'active' : 'inactive'
               }
               onClick={() => setPreferUniversity('한국외국어대학교')}
             />
-          </Col>
+          </Col> */}
         </Col>
         <Col gap={28} align="center">
           <Text
@@ -114,19 +114,16 @@ const FirstPage = () => {
           <Col gap={8}>
             <RoundButton
               label="활발한 편"
-              height={56}
               status={preferAtmosphere === '활발한 편' ? 'active' : 'inactive'}
               onClick={() => setPreferAtmosphere('활발한 편')}
             />
             <RoundButton
               label="차분한 편"
-              height={56}
               status={preferAtmosphere === '차분한 편' ? 'active' : 'inactive'}
               onClick={() => setPreferAtmosphere('차분한 편')}
             />
             <RoundButton
               label="둘 다 좋아요!"
-              height={56}
               status={
                 preferAtmosphere === '둘 다 좋아요!' ? 'active' : 'inactive'
               }
