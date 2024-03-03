@@ -29,7 +29,7 @@ export type CommonApplyInfo = {
 };
 
 export type CommonApplyAtoms = {
-  [key in keyof CommonApplyInfo]: PrimitiveAtom<CommonApplyInfo[key]>;
+  [key in keyof CommonApplyInfo]: ReturnType<typeof atom<CommonApplyInfo[key]>>;
 };
 
 export const commonApplyAtoms: CommonApplyAtoms = {

@@ -5,40 +5,65 @@ import Row from '../layout/Row';
 import PageLayout from '../layout/page/PageLayout';
 import QuestionLabel from './QuestionLabel';
 import Text from '../typography/Text';
-import { personalApplyAtoms } from '~/store/meeting';
+import { groupApplyAtoms, personalApplyAtoms } from '~/store/meeting';
 import { useImmerAtom } from 'jotai-immer';
 import { useSetAtom } from 'jotai';
 import { pageFinishAtom } from '~/store/funnel';
 
 type QuestionPageTemplateProps = {
+  meetingType: 'group' | 'personal';
   imageSource: string;
   question: string;
-  answerOption1: string;
-  answerOption2: string;
+  answerOptions: string[];
   questionNumber: number;
 };
 
-// TODO: 각 버튼의 중복되는 부분 리팩토링, 두 개보다 많은 옵션을 가지는 경우에 대응하기
+const AnswerOptionButton = ({
+  value,
+  label,
+  select,
+}: {
+  value: string;
+  label: string;
+  select: (value: string) => void;
+}) => (
+  <RoundButton
+    textTypography="GoThicBodyS"
+    textColor="Gray000"
+    label=""
+    height={56}
+    status={label === value ? 'active' : 'inactive'}
+    onClick={() => select(value)}>
+    <Text
+      color={label === value ? 'White' : 'Primary500'}
+      label={value}
+      typography="NeoButtonL"
+    />
+  </RoundButton>
+);
+
 const QuestionPageTemplate = ({
+  meetingType,
   imageSource,
-  answerOption1,
-  answerOption2,
+  answerOptions,
   question,
   questionNumber,
 }: QuestionPageTemplateProps) => {
   const index = questionNumber - 1;
   const [questionListState, setQuestionListState] = useImmerAtom(
-    personalApplyAtoms.info_question,
+    meetingType === 'group'
+      ? groupApplyAtoms.groupInfo_question
+      : personalApplyAtoms.personalInfo_question,
   );
   const setIsPageFinished = useSetAtom(pageFinishAtom);
 
-  const { selectedAnswerOption } = questionListState[index];
+  const { label } = questionListState[index];
   // 현재 페이지의 selectedAnswerOption값이 truthy value라면 Next Button 활성화
-  setIsPageFinished(!!selectedAnswerOption);
+  setIsPageFinished(!!label);
 
-  const selectAnswerOption = (answerOption: string) => {
+  const select = (answerOption: string) => {
     setQuestionListState(draft => {
-      draft[index].selectedAnswerOption = answerOption;
+      draft[index].label = answerOption;
     });
   };
 
@@ -61,40 +86,14 @@ const QuestionPageTemplate = ({
               </Paddler>
             </Col>
             <Col gap={8}>
-              <RoundButton
-                label=""
-                height={56}
-                status={
-                  selectedAnswerOption === answerOption1 ? 'active' : 'inactive'
-                }
-                onClick={() => selectAnswerOption(answerOption1)}>
-                <Text
-                  color={
-                    selectedAnswerOption === answerOption1
-                      ? 'White'
-                      : 'Primary500'
-                  }
-                  label={answerOption1}
-                  typography="NeoButtonL"
+              {answerOptions.map(option => (
+                <AnswerOptionButton
+                  label={label}
+                  select={select}
+                  value={option}
+                  key={option}
                 />
-              </RoundButton>
-              <RoundButton
-                label=""
-                height={56}
-                status={
-                  selectedAnswerOption === answerOption2 ? 'active' : 'inactive'
-                }
-                onClick={() => selectAnswerOption(answerOption2)}>
-                <Text
-                  color={
-                    selectedAnswerOption === answerOption2
-                      ? 'White'
-                      : 'Primary500'
-                  }
-                  label={answerOption2}
-                  typography="NeoButtonL"
-                />
-              </RoundButton>
+              ))}
             </Col>
           </Col>
         </Row>
