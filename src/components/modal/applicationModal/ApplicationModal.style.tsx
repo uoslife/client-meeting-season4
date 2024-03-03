@@ -2,6 +2,9 @@ import styled from '@emotion/styled';
 import { colors } from '~/styles/colors';
 
 export const Container = styled.div`
+  position: fixed;
+  bottom: 0;
+  z-index: 9999;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
