@@ -3,7 +3,7 @@ import Paddler from '~/components/layout/Pad';
 import Col from '~/components/layout/Col';
 import Row from '~/components/layout/Row';
 import Text from '~/components/typography/Text';
-import RoundButton from '~/components/buttons/roundButton/RoundButton';
+import MbtiButton from '~/components/buttons/mbtiButton/MbtiButton';
 import { useAtom, useSetAtom } from 'jotai';
 import { personalApplyAtoms } from '~/store/meeting';
 import { pageFinishAtom } from '~/store/funnel';
@@ -39,7 +39,6 @@ const Fifthpage = () => {
                   size={18}
                 />
               </Col>
-              {/* 이 버튼 디자인은 대체.. */}
               <Col gap={8}>
                 <Text
                   label={'Q. 처음 보는 사람을 만났을 때 나는'}
@@ -49,22 +48,21 @@ const Fifthpage = () => {
                   size={14}
                 />
                 <Row gap={12}>
-                  <RoundButton
+                  <MbtiButton
                     status={mbti[0] === 'E' ? 'active' : 'inactive'}
-                    label={'E 외향적'}
-                    height={56}
+                    alphabet={'E'}
+                    label={'외향적'}
                     onClick={() =>
                       setMbti(prevMbti => updateMbti(prevMbti, 0, 'E'))
                     }
-                    borderType="primary"></RoundButton>
-                  <RoundButton
+                  />
+                  <MbtiButton
                     status={mbti[0] === 'I' ? 'active' : 'inactive'}
-                    label={'I 내향적'}
-                    height={56}
+                    alphabet={'I'}
+                    label={'내향적'}
                     onClick={() =>
                       setMbti(prevMbti => updateMbti(prevMbti, 0, 'I'))
                     }
-                    borderType="primary"
                   />
                 </Row>
               </Col>
@@ -77,22 +75,21 @@ const Fifthpage = () => {
                   size={14}
                 />
                 <Row gap={12}>
-                  <RoundButton
+                  <MbtiButton
                     status={mbti[1] === 'S' ? 'active' : 'inactive'}
-                    label={'S 현실적'}
-                    height={56}
+                    alphabet={'S'}
+                    label={'현실적'}
                     onClick={() =>
                       setMbti(prevMbti => updateMbti(prevMbti, 1, 'S'))
                     }
-                    borderType="primary"></RoundButton>
-                  <RoundButton
+                  />
+                  <MbtiButton
                     status={mbti[1] === 'N' ? 'active' : 'inactive'}
-                    label={'N 직관적'}
-                    height={56}
+                    alphabet={'N'}
+                    label={'직관적'}
                     onClick={() =>
                       setMbti(prevMbti => updateMbti(prevMbti, 1, 'N'))
                     }
-                    borderType="primary"
                   />
                 </Row>
               </Col>
@@ -105,22 +102,21 @@ const Fifthpage = () => {
                   size={14}
                 />
                 <Row gap={12}>
-                  <RoundButton
+                  <MbtiButton
                     status={mbti[2] === 'T' ? 'active' : 'inactive'}
-                    label={'T 이성적'}
-                    height={56}
+                    alphabet={'T'}
+                    label={'이성적'}
                     onClick={() =>
                       setMbti(prevMbti => updateMbti(prevMbti, 2, 'T'))
                     }
-                    borderType="primary"></RoundButton>
-                  <RoundButton
+                  />
+                  <MbtiButton
                     status={mbti[2] === 'F' ? 'active' : 'inactive'}
-                    label={'F 감성적'}
-                    height={56}
+                    alphabet={'F'}
+                    label={'감성적'}
                     onClick={() =>
                       setMbti(prevMbti => updateMbti(prevMbti, 2, 'F'))
                     }
-                    borderType="primary"
                   />
                 </Row>
               </Col>
@@ -133,22 +129,21 @@ const Fifthpage = () => {
                   size={14}
                 />
                 <Row gap={12}>
-                  <RoundButton
+                  <MbtiButton
                     status={mbti[3] === 'J' ? 'active' : 'inactive'}
-                    label={'J 계획적'}
-                    height={56}
+                    alphabet={'J'}
+                    label={'계획적'}
                     onClick={() =>
                       setMbti(prevMbti => updateMbti(prevMbti, 3, 'J'))
                     }
-                    borderType="primary"></RoundButton>
-                  <RoundButton
+                  />
+                  <MbtiButton
                     status={mbti[3] === 'P' ? 'active' : 'inactive'}
-                    label={'P 즉흥적'}
-                    height={56}
+                    alphabet={'P'}
+                    label={'즉흥적'}
                     onClick={() =>
                       setMbti(prevMbti => updateMbti(prevMbti, 3, 'P'))
                     }
-                    borderType="primary"
                   />
                 </Row>
               </Col>
