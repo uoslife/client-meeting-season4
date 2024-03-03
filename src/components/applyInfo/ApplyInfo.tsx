@@ -17,7 +17,7 @@ const StyledCard = ({ children }: { children: React.ReactNode }) => (
 );
 
 const ApplyInfo = {
-  List: DirectoryViewInfoList,
+  DirectoryViewInfoList,
   CustomDoubleCard: ApplyInfoCustomDoubleCard,
   StyledCard,
   CheckPageTopSaying,

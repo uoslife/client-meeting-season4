@@ -22,7 +22,7 @@ const TopCard = ({
         />
         <ApplyInfo.Profile {...profileProps} />
       </Col>
-      <ApplyInfo.List items={directoryViewItems} />
+      <ApplyInfo.DirectoryViewInfoList items={directoryViewItems} />
     </Col>
   </ApplyInfo.StyledCard>
 );
@@ -33,7 +33,7 @@ const BottomCard = ({ directoryViewItems }: BottomCardProps) => (
   <ApplyInfo.StyledCard>
     <Col gap={12}>
       <Text color="Secondary900" label="선호 사항" typography="NeoTitleM" />
-      <ApplyInfo.List items={directoryViewItems} />
+      <ApplyInfo.DirectoryViewInfoList items={directoryViewItems} />
     </Col>
   </ApplyInfo.StyledCard>
 );
