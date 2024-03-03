@@ -1,4 +1,4 @@
-import * as S from './Interest.style';
+import * as S from './InterestButton.style';
 import IconButton from '../iconButton/IconButton';
 import Text from '~/components/typography/Text';
 import { interestKeyType } from '~/types/icon.type';
