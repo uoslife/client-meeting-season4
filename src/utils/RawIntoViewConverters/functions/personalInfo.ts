@@ -1,45 +1,25 @@
-import { TopCardProps } from '~/components/applyInfo/CustomDoubleCard';
-import { PersonalApplyInfo } from '~/store/meeting';
+import { RawIntoViewConverterType } from '..';
 
-type PersonalInfoRawData = Pick<
-  PersonalApplyInfo,
-  | 'myInfo_age'
-  | 'myInfo_gender'
-  | 'myInfo_height'
-  | 'myInfo_major'
-  | 'myInfo_studentType'
-  | 'myInfo_kakaoId'
-  | 'myInfo_nickname'
-  | 'personalInfo_smoking'
-  | 'personalInfo_drink'
-  | 'personalInfo_interests'
-  | 'personalInfo_animal'
-  | 'personalInfo_mbti'
-  | 'personalInfo_question'
-> & { univ: 'HUFS' | 'KHU' | 'UOS' };
-
-type PersonalInfoViewData = TopCardProps;
-
-const convertPersonalInfoRawIntoView = (
-  {
-    myInfo_age,
-    myInfo_gender,
-    myInfo_height,
-    myInfo_kakaoId,
-    myInfo_major,
-    myInfo_nickname,
-    myInfo_studentType,
-    personalInfo_animal,
-    personalInfo_drink,
-    personalInfo_interests,
-    personalInfo_mbti,
-    personalInfo_question,
-    personalInfo_smoking,
-    univ,
-  }: PersonalInfoRawData,
-  options?: { itemsIncludeKakaoId?: boolean },
-): PersonalInfoViewData => {
-  return {
+const convertPersonalInfoRawIntoView: RawIntoViewConverterType['personalInfo'] =
+  (
+    {
+      myInfo_age,
+      myInfo_gender,
+      myInfo_height,
+      myInfo_kakaoId,
+      myInfo_major,
+      myInfo_nickname,
+      myInfo_studentType,
+      personalInfo_animal,
+      personalInfo_drink,
+      personalInfo_interests,
+      personalInfo_mbti,
+      personalInfo_question,
+      personalInfo_smoking,
+      univ,
+    },
+    options?: { itemsIncludeKakaoId?: boolean },
+  ) => ({
     cardTopLabel: '내 정보',
     profileProps: {
       meetingType: 'personal',
@@ -114,7 +94,6 @@ const convertPersonalInfoRawIntoView = (
         content: personalInfo_question[4].label,
       },
     ],
-  };
-};
+  });
 
 export default convertPersonalInfoRawIntoView;

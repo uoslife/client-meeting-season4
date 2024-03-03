@@ -1,15 +1,11 @@
+import { InfoViewDataType } from '~/utils/RawIntoViewConverters/types/info.type';
 import CardConnector from '../card/connectedTwoCards/CardConnector';
 import Col from '../layout/Col';
 import Text from '../typography/Text';
 import ApplyInfo from './ApplyInfo';
-import { DirectoryViewItemType } from './DirectoryViewInfoList';
-import { ProfileProps } from './Profile';
+import { PreferViewDataType } from '~/utils/RawIntoViewConverters/types/prefer.type';
 
-export type TopCardProps = {
-  profileProps: ProfileProps;
-  cardTopLabel: string;
-  directoryViewItems: DirectoryViewItemType[];
-};
+type TopCardProps = InfoViewDataType;
 
 const TopCard = ({
   directoryViewItems,
@@ -31,9 +27,7 @@ const TopCard = ({
   </ApplyInfo.StyledCard>
 );
 
-export type BottomCardProps = {
-  directoryViewItems: DirectoryViewItemType[];
-};
+type BottomCardProps = PreferViewDataType;
 
 const BottomCard = ({ directoryViewItems }: BottomCardProps) => (
   <ApplyInfo.StyledCard>

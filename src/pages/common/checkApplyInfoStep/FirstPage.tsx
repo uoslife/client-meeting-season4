@@ -7,21 +7,22 @@ import { useAtomValue } from 'jotai';
 import { meetingTypeAtom, univTypeAtom } from '~/store/meeting';
 import { ApplyInfoCustomDoubleCardProps } from '~/components/applyInfo/CustomDoubleCard';
 import useGroupEntireValue from '~/hooks/useGroupEntireValue';
-import RawIntoView from '~/utils/converters/RawIntoView';
+import RawIntoViewConverters from '~/utils/RawIntoViewConverters';
 
 const usePersonal = (): ApplyInfoCustomDoubleCardProps => {
   const personalEntireValue = usePersonalEntireValue();
   const univ = useAtomValue(univTypeAtom)!;
 
   const { directoryViewItems: topCardItems, profileProps } =
-    RawIntoView.personal_info(
+    RawIntoViewConverters.personalInfo(
       { ...personalEntireValue, univ },
       { itemsIncludeKakaoId: true },
     );
 
-  const { directoryViewItems: bottomCardItems } = RawIntoView.personal_prefer({
-    ...personalEntireValue,
-  });
+  const { directoryViewItems: bottomCardItems } =
+    RawIntoViewConverters.personalPrefer({
+      ...personalEntireValue,
+    });
 
   return {
     topCardProps: {
@@ -40,7 +41,7 @@ const useGroup = (): ApplyInfoCustomDoubleCardProps => {
   const univ = useAtomValue(univTypeAtom)!;
 
   const { directoryViewItems: topCardItems, profileProps } =
-    RawIntoView.group_info(
+    RawIntoViewConverters.groupInfo(
       { ...groupEntireValue, univ },
       {
         itemsIncludeKakaoId: true,
@@ -48,7 +49,7 @@ const useGroup = (): ApplyInfoCustomDoubleCardProps => {
     );
 
   const { directoryViewItems: bottomCardItems } =
-    RawIntoView.group_prefer(groupEntireValue);
+    RawIntoViewConverters.groupPrefer(groupEntireValue);
 
   return {
     topCardProps: {
