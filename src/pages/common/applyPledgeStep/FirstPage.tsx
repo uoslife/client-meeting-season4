@@ -9,9 +9,11 @@ import Text from '~/components/typography/Text';
 import useRangeState from '~/hooks/useRangeState';
 import { groupApplyAtoms } from '~/store/meeting';
 import { pageFinishAtom } from '~/store/funnel';
+import { useEffect } from 'react';
 
 const FirstPage = () => {
   const { rangeHandler: ageHandler, rangeValue: age } = useRangeState([20, 30]);
+  const [, setPreferAge] = useAtom(groupApplyAtoms.groupPrefer_age);
   const [preferUniversity, setPreferUniversity] = useAtom(
     groupApplyAtoms.groupPrefer_univ,
   );
@@ -23,6 +25,10 @@ const FirstPage = () => {
     age && preferUniversity.length > 1 && preferAtmosphere;
   const setIsPageFinished = useSetAtom(pageFinishAtom);
   setIsPageFinished(!!isAllInputsFilled);
+
+  useEffect(() => {
+    setPreferAge(age.map(String));
+  }, [age]);
 
   return (
     <Paddler top={36} right={20} bottom={24} left={20}>
