@@ -28,4 +28,5 @@ export const colors = {
   Blue: '#005E9E',
 
   LightBlue: '#4EB1CB',
+  SubBlue: '#005E9E',
 };

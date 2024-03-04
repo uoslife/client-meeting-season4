@@ -23,9 +23,7 @@ const DoubleCardBody = ({
               {...getCardStyleProps(fixedCardTheme)}
               children={topCardChildren}
             />
-            <S.ConnectorWrapper>
-              <CardConnector />
-            </S.ConnectorWrapper>
+            <CardConnector />
             <Card
               css={css`
                 flex: 1;
