@@ -19,13 +19,18 @@ const ThirdPage = () => {
   const [smoking, setSmoking] = useAtom(
     personalApplyAtoms.personalInfo_smoking,
   );
-  const { rangeHandler, rangeValue } = useRangeState([10, 17]);
+  const storedDrink = localStorage.getItem('personalInfo_drink');
+  const parsedDrink = storedDrink === null ? [10, 17] : JSON.parse(storedDrink);
+  const { rangeHandler: drinkHandler, rangeValue: drink } =
+    useRangeState(parsedDrink);
+  const [, setDrink] = useAtom(personalApplyAtoms.personalInfo_drink);
   const setIsPageFinished = useSetAtom(pageFinishAtom);
 
   useEffect(() => {
-    const isAllInputsFilled = religion && smoking && rangeValue;
+    setDrink(drink.map(Number));
+    const isAllInputsFilled = religion && smoking && drink;
     setIsPageFinished(!!isAllInputsFilled);
-  }, [religion, smoking, rangeValue]);
+  }, [religion, smoking, drink]);
 
   return (
     <PageLayout.SingleCardBody
@@ -126,7 +131,7 @@ const ThirdPage = () => {
                 {/* 슬라이더 수정 이후 gap 값 수정 */}
                 <Col gap={17} align="center">
                   <Text
-                    label={`${rangeValue[0]} - ${rangeValue[1]} 회`}
+                    label={`${drink[0]} - ${drink[1]} 회`}
                     color={'Primary500'}
                     typography={'LeferiBaseRegular'}
                     weight={700}
@@ -135,8 +140,8 @@ const ThirdPage = () => {
                   {/* 슬라이더 수정 이후 패딩 값 수정*/}
                   <Col padding="15px">
                     <RangeSlider
-                      value={rangeValue}
-                      onChange={rangeHandler}
+                      value={drink}
+                      onChange={drinkHandler}
                       min={0}
                       max={25}
                       markStep={5}

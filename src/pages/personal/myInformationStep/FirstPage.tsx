@@ -14,8 +14,11 @@ import { pageFinishAtom } from '~/store/funnel';
 import { AGE_LIST, HEIGHT_LIST } from '~/constants';
 
 const FirstPage = () => {
-  const { inputValue: name, handleInputChange: handleNameChange } =
-    useInput('');
+  const storedName = localStorage.getItem('myInfo_nickname') || '';
+  const { inputValue: name, handleInputChange: handleNameChange } = useInput(
+    storedName.replace(/["']/g, ''),
+  );
+  const [, setName] = useAtom(personalApplyAtoms.myInfo_nickname);
   const [gender, setGender] = useAtom(personalApplyAtoms.myInfo_gender);
   const [age, setAge] = useAtom(personalApplyAtoms.myInfo_age);
   const [height, setHeight] = useAtom(personalApplyAtoms.myInfo_height);
@@ -64,7 +67,10 @@ const FirstPage = () => {
                   value={name}
                   status={'default'}
                   placeholder={'이름 입력'}
-                  onChange={handleNameChange}
+                  onChange={e => {
+                    handleNameChange(e);
+                    setName(e.target.value);
+                  }}
                 />
               </Col>
               <Col gap={28} align="center">

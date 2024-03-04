@@ -12,19 +12,24 @@ import { personalApplyAtoms } from '~/store/meeting';
 import { pageFinishAtom } from '~/store/funnel';
 
 const SecondPage = () => {
+  const storedKakaoId = localStorage.getItem('myInfo_kakaoId') || '';
   const { inputValue: kakaoId, handleInputChange: handleKakaoIdChange } =
-    useInput('');
-  const { inputValue: department, handleInputChange: handleDepartmentChange } =
-    useInput('');
+    useInput(storedKakaoId.replace(/["']/g, ''));
+  const [, setKakaoId] = useAtom(personalApplyAtoms.myInfo_kakaoId);
+  const storedMajor = localStorage.getItem('myInfo_major') || '';
+  const { inputValue: major, handleInputChange: handleMajorChange } = useInput(
+    storedMajor.replace(/["']/g, ''),
+  );
+  const [, setMajor] = useAtom(personalApplyAtoms.myInfo_major);
   const [studentType, setStudentType] = useAtom(
     personalApplyAtoms.myInfo_studentType,
   );
   const setIsPageFinished = useSetAtom(pageFinishAtom);
 
   useEffect(() => {
-    const isAllInputsFilled = kakaoId && department && studentType;
+    const isAllInputsFilled = kakaoId && major && studentType;
     setIsPageFinished(!!isAllInputsFilled);
-  }, [kakaoId, department, studentType]);
+  }, [kakaoId, major, studentType]);
 
   return (
     <PageLayout.SingleCardBody
@@ -69,7 +74,10 @@ const SecondPage = () => {
                   value={kakaoId}
                   status={'default'}
                   placeholder={'카카오톡 ID 입력'}
-                  onChange={handleKakaoIdChange}
+                  onChange={e => {
+                    handleKakaoIdChange(e);
+                    setKakaoId(e.target.value);
+                  }}
                 />
               </Col>
               <Col gap={28}>
@@ -99,10 +107,13 @@ const SecondPage = () => {
                   </Col>
                 </Col>
                 <TextInput
-                  value={department}
+                  value={major}
                   status={'default'}
                   placeholder={'학과명 입력 (2글자 이상)'}
-                  onChange={handleDepartmentChange}
+                  onChange={e => {
+                    handleMajorChange(e);
+                    setMajor(e.target.value);
+                  }}
                 />
               </Col>
               <Col gap={28} align="center">

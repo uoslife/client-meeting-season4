@@ -7,18 +7,27 @@ import GridWrapper from '~/components/layout/gridWrapper/GridWrapper';
 import AnimalButton from '~/components/buttons/animalButton/AnimalButton';
 import { ANIMALS, ANIMALS_NAME } from '~/constants';
 import { useToggleSelect } from '~/hooks/useToggleSelect';
-import { useSetAtom } from 'jotai';
+import { useAtom, useSetAtom } from 'jotai';
 import { pageFinishAtom } from '~/store/funnel';
 import { useEffect } from 'react';
+import { personalApplyAtoms } from '~/store/meeting';
 
 const ForthPage = () => {
-  const { selectedValues, select, checkSelectedValues } = useToggleSelect(2);
+  const storedAnimal = localStorage.getItem('personalInfo_animal');
+  const parsedAnimal = storedAnimal === null ? [] : JSON.parse(storedAnimal);
+  const {
+    selectedValues: animal,
+    select: selectAnimal,
+    checkSelectedValues: checkAnimal,
+  } = useToggleSelect<string>(2, parsedAnimal);
+  const [, setAnimal] = useAtom(personalApplyAtoms.personalInfo_animal);
   const setIsPageFinished = useSetAtom(pageFinishAtom);
 
   useEffect(() => {
-    const isAllInputsFilled = selectedValues.length > 0;
+    setAnimal(animal);
+    const isAllInputsFilled = animal.length > 0;
     setIsPageFinished(!!isAllInputsFilled);
-  }, [selectedValues]);
+  }, [animal]);
 
   return (
     <PageLayout.SingleCardBody
@@ -49,9 +58,9 @@ const ForthPage = () => {
                   <AnimalButton
                     key={i}
                     animalType={animal}
-                    isActive={checkSelectedValues(animal)}
+                    isActive={checkAnimal(animal)}
                     label={ANIMALS_NAME[animal]}
-                    onMouseDown={select(animal)}
+                    onMouseDown={selectAnimal(animal)}
                   />
                 ))}
               </GridWrapper>

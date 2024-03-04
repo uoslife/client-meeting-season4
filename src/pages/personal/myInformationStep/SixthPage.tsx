@@ -6,19 +6,29 @@ import Text from '~/components/typography/Text';
 import GridWrapper from '~/components/layout/gridWrapper/GridWrapper';
 import { INTEREST, INTEREST_NAME } from '~/constants';
 import { useToggleSelect } from '~/hooks/useToggleSelect';
-import { useSetAtom } from 'jotai';
+import { useAtom, useSetAtom } from 'jotai';
 import { pageFinishAtom } from '~/store/funnel';
 import InterestButton from '~/components/buttons/interestButton/InterestButton';
 import { useEffect } from 'react';
+import { personalApplyAtoms } from '~/store/meeting';
 
 const SixthPage = () => {
-  const { selectedValues, select, checkSelectedValues } = useToggleSelect(3);
+  const storedInterest = localStorage.getItem('personalInfo_interests');
+  const parsedInterest =
+    storedInterest === null ? [] : JSON.parse(storedInterest);
+  const {
+    selectedValues: interest,
+    select: selectInterest,
+    checkSelectedValues: checkInterest,
+  } = useToggleSelect<string>(3, parsedInterest);
+  const [, setInterests] = useAtom(personalApplyAtoms.personalInfo_interests);
   const setIsPageFinished = useSetAtom(pageFinishAtom);
 
   useEffect(() => {
-    const isAllInputsFilled = selectedValues.length === 3;
+    setInterests(interest);
+    const isAllInputsFilled = interest.length === 3;
     setIsPageFinished(!!isAllInputsFilled);
-  }, [selectedValues]);
+  }, [interest]);
 
   return (
     <PageLayout.SingleCardBody
@@ -38,9 +48,9 @@ const SixthPage = () => {
                   <InterestButton
                     key={i}
                     interestType={interest}
-                    isActive={checkSelectedValues(interest)}
+                    isActive={checkInterest(interest)}
                     label={INTEREST_NAME[interest]}
-                    onMouseDown={select(interest)}
+                    onMouseDown={selectInterest(interest)}
                   />
                 ))}
               </GridWrapper>

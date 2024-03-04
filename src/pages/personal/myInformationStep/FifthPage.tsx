@@ -23,7 +23,7 @@ const Fifthpage = () => {
   };
 
   useEffect(() => {
-    const isAllInputsFilled = mbti;
+    const isAllInputsFilled = mbti[0] && mbti[1] && mbti[2] && mbti[3];
     setIsPageFinished(!!isAllInputsFilled);
   }, [mbti]);
 

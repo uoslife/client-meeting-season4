@@ -3,7 +3,7 @@ import { CommonApplyAtoms, commonApplyAtoms } from '.';
 import { atomWithStorage } from 'jotai/utils';
 
 export type PersonalApplyInfo = {
-  personalInfo_drink: string[];
+  personalInfo_drink: number[];
   personalInfo_religion: string;
   personalInfo_smoking: string;
   personalInfo_animal: string[];
@@ -29,7 +29,7 @@ export type PesronalApplyAtoms = {
 
 export const personalApplyAtoms: PesronalApplyAtoms = {
   ...commonApplyAtoms,
-  personalInfo_drink: atomWithStorage('personalInfo_drink', ['']),
+  personalInfo_drink: atomWithStorage<number[]>('personalInfo_drink', []),
   personalInfo_smoking: atomWithStorage('personalInfo_smoking', ''),
   personalInfo_religion: atomWithStorage('personalInfo_religion', ''),
   personalInfo_animal: atomWithStorage('personalInfo_animal', ['']),
