@@ -34,7 +34,6 @@ export const Icon = styled.div`
 `;
 
 export const Dropdown = styled.div`
-  max-width: 414px;
   width: 100%;
   margin: 0 auto;
   display: flex;

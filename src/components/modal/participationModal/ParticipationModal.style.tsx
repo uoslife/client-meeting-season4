@@ -25,7 +25,6 @@ export const upToDown = keyframes`
 `;
 
 export const Container = styled.div<{ isActive: boolean }>`
-  display: flex;
   position: fixed;
   bottom: 0;
   left: 0;

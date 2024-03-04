@@ -3,8 +3,8 @@ import BranchGatewayStep from '~/pages/common/branchGatewayStep/Step';
 import PaymentStep from '~/pages/common/paymentStep/Step';
 import PrivacyPolicyStep from '~/pages/common/privacyPolicyStep/Step';
 import FinishApplyStep from '~/pages/common/finishApplyStep/Step';
-import CheckApplyInfoStep from '~/pages/common/checkApplyInfoStep/Step';
 import LandingStep from '~/pages/common/landingStep/Step';
+import CheckApplyInfoStep from '~/pages/common/checkApplyInfoStep/Step';
 
 const commonRoutes = [
   {
@@ -28,12 +28,12 @@ const commonRoutes = [
     element: <PaymentStep />,
   },
   {
-    path: '/common/checkApplyInfoStep',
-    element: <CheckApplyInfoStep />,
-  },
-  {
     path: '/common/finishApplyStep',
     element: <FinishApplyStep />,
+  },
+  {
+    path: '/common/checkApplyInfoStep',
+    element: <CheckApplyInfoStep />,
   },
   {
     path: '*',

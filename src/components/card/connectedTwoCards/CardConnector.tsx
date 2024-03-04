@@ -10,10 +10,12 @@ const PairOfRings = () => (
 
 const CardConnector = () => {
   return (
-    <Row justify="space-between">
-      <PairOfRings />
-      <PairOfRings />
-    </Row>
+    <S.ConnectorWrapper>
+      <Row justify="space-between">
+        <PairOfRings />
+        <PairOfRings />
+      </Row>
+    </S.ConnectorWrapper>
   );
 };
 
@@ -31,5 +33,11 @@ const S = {
   PairContainer: styled.div`
     display: flex;
     gap: 4px;
+  `,
+  ConnectorWrapper: styled.div`
+    padding: 0 10%;
+    width: 100%;
+    margin: -11px;
+    z-index: 999;
   `,
 };

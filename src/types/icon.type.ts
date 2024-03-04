@@ -42,8 +42,12 @@ export type interestType = `interests/${interestKeyType}`;
 export type univSelectionKeyType = 'HUFS' | 'KHU';
 export type univSelectionType = `univSelection/${univSelectionKeyType}`;
 
+export type directoryKeyType = 'directory' | 'directory-connector';
+export type directoryType = `directory/${directoryKeyType}`;
+
 export type iconType =
   | normalType
   | animalType
   | interestType
-  | univSelectionType;
+  | univSelectionType
+  | directoryType;

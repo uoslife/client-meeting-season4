@@ -1,8 +1,9 @@
 import { ApplyQuestionArrType } from '~/types/apply.type';
-import { CommonApplyAtoms, commonApplyAtoms } from '.';
+import { CommonApplyInfo, commonApplyAtoms } from '.';
 import { atomWithStorage } from 'jotai/utils';
 
 export type GroupApplyInfo = {
+  groupRole_isLeader: boolean | null;
   groupJoin_code: string;
   groupInfo_name: string;
   groupInfo_preferDay: string[];
@@ -10,16 +11,20 @@ export type GroupApplyInfo = {
   groupPrefer_age: string[];
   groupPrefer_univ: string[];
   groupPrefer_atmosphere: string;
-};
+} & CommonApplyInfo;
 
 export type GroupApplyAtoms = {
   [key in keyof GroupApplyInfo]: ReturnType<
     typeof atomWithStorage<GroupApplyInfo[key]>
   >;
-} & CommonApplyAtoms;
+};
 
 export const groupApplyAtoms: GroupApplyAtoms = {
   ...commonApplyAtoms,
+  groupRole_isLeader: atomWithStorage<boolean | null>(
+    'groupRole_isLeader',
+    null,
+  ),
   groupJoin_code: atomWithStorage('groupJoin_code', ''),
   groupInfo_name: atomWithStorage('groupInfo_name', ''),
   groupInfo_preferDay: atomWithStorage('groupInfo_preferDay', ['']),
