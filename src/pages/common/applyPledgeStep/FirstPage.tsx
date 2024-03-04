@@ -29,7 +29,7 @@ const FirstPage = () => {
 
   useEffect(() => {
     const isAllInputsFilled =
-      age && preferUniversity.length > 1 && preferAtmosphere;
+      age && preferUniversity.length > 0 && preferAtmosphere;
     setIsPageFinished(!!isAllInputsFilled);
   }, [age, preferUniversity, preferAtmosphere]);
 

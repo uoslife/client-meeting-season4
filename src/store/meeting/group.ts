@@ -31,7 +31,7 @@ export const groupApplyAtoms: GroupApplyAtoms = {
   ]),
 
   groupPrefer_age: atomWithStorage('groupPrefer_age', ['']),
-  groupPrefer_univ: atomWithStorage('groupPrefer_univ', ['']),
+  groupPrefer_univ: atomWithStorage<string[]>('groupPrefer_univ', []),
   groupPrefer_atmosphere: atomWithStorage('groupPrefer_atmosphere', ''),
 };
 
