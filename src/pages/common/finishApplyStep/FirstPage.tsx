@@ -54,7 +54,9 @@ const FirstPage = () => {
         onClick={() => {
           navigate('/');
         }} // TODO: path 정해지면 수정하기
-      />
+      >
+        <img src="\images\icons\next-icon-white.svg" alt="next_icon" />
+      </RoundButton>
     </Paddler>
   );
 };
