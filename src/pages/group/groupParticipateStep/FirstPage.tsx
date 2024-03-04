@@ -72,7 +72,7 @@ const FirstPage = () => {
       </Col>
       <ParticipationModal
         isActive={isModal}
-        label={'asd'}
+        label={'api 팅원 이름 연결'}
         currentParticipant={1}
         maxParticipant={3}
         cancelButtonClicked={() => setIsModal(false)}
