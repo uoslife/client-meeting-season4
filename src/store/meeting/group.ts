@@ -3,6 +3,7 @@ import { CommonApplyInfo, commonApplyAtoms } from '.';
 import { atomWithStorage } from 'jotai/utils';
 
 export type GroupApplyInfo = {
+  groupRole_isLeader: boolean | null;
   groupJoin_code: string;
   groupInfo_name: string;
   groupInfo_preferDay: string[];
@@ -20,6 +21,10 @@ export type GroupApplyAtoms = {
 
 export const groupApplyAtoms: GroupApplyAtoms = {
   ...commonApplyAtoms,
+  groupRole_isLeader: atomWithStorage<boolean | null>(
+    'groupRole_isLeader',
+    null,
+  ),
   groupJoin_code: atomWithStorage('groupJoin_code', ''),
   groupInfo_name: atomWithStorage('groupInfo_name', ''),
   groupInfo_preferDay: atomWithStorage('groupInfo_preferDay', ['']),

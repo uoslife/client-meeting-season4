@@ -3,11 +3,7 @@ import Text from '~/components/typography/Text';
 import Row from '~/components/layout/Row';
 import IconButton from '~/components/buttons/iconButton/IconButton';
 import { useAtom, useSetAtom } from 'jotai';
-import {
-  commonApplyAtoms,
-  groupApplyAtom,
-  univTypeAtom,
-} from '~/store/meeting';
+import { univTypeAtom } from '~/store/meeting';
 import { useEffect } from 'react';
 import { pageFinishAtom } from '~/store/funnel';
 import styled from '@emotion/styled';
