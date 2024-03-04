@@ -1,7 +1,8 @@
-import * as S from './ParticipationModal.style';
 import Text from '~/components/typography/Text';
+import * as S from './ParticipationModal.style';
 import RoundButton from '~/components/buttons/roundButton/RoundButton';
 import IconButton from '~/components/buttons/iconButton/IconButton';
+import { useEffect, useState } from 'react';
 
 export type ParticipationModalType = {
   isActive: boolean;
@@ -20,67 +21,83 @@ const ParticipationModal = ({
   cancelButtonClicked,
   joinButtonClicked,
 }: ParticipationModalType) => {
-  return isActive ? (
-    <S.Container>
-      <S.GrayHandler />
-      <Text
-        label={'팅 이름'}
-        color={'Secondary700'}
-        typography={'PretendardRegular'}
-        weight={400}
-        size={14}
-        style={{ marginBottom: '14px' }}
-      />
-      <Text
-        label={`"${label}"`}
-        color={'Secondary900'}
-        typography={'NeoTitleM'}
-        weight={400}
-        size={18}
-        style={{ marginBottom: '8px' }}
-      />
-      <S.ParticipantCounterWrapper>
-        <IconButton
-          iconName="participationModal-human"
-          width={15}
-          height={15}
-          format="svg"
-          style={{ padding: '4.5px' }}
+  const [visible, setVisible] = useState(false);
+  const [initLoad, setInitLoad] = useState(false);
+
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      setVisible(isActive);
+    }, 150);
+    return () => clearTimeout(timeoutId);
+  }, [isActive]);
+
+  useEffect(() => {
+    if (visible && !initLoad) setInitLoad(true);
+  }, [visible]);
+
+  return (
+    initLoad && (
+      <S.Container isActive={visible}>
+        <S.GrayHandler />
+        <Text
+          label={'팅 이름'}
+          color={'Secondary700'}
+          typography={'PretendardRegular'}
+          weight={400}
+          size={14}
+          style={{ marginBottom: '14px' }}
         />
         <Text
-          label={`${currentParticipant}/${maxParticipant}`}
+          label={`"${label}"`}
+          color={'Secondary900'}
+          typography={'NeoTitleM'}
+          weight={400}
+          size={18}
+          style={{ marginBottom: '8px' }}
+        />
+        <S.ParticipantCounterWrapper>
+          <IconButton
+            iconName="participationModal-human"
+            width={15}
+            height={15}
+            format="svg"
+            style={{ padding: '4.5px' }}
+          />
+          <Text
+            label={`${currentParticipant}/${maxParticipant}`}
+            color={'Secondary700'}
+            typography={'PretendardRegular'} //글씨체 수정
+            weight={500}
+            size={16}
+          />
+        </S.ParticipantCounterWrapper>
+        <S.DivLine />
+        <Text
+          label={'팅에 참여 하시겠습니까?'}
           color={'Secondary700'}
-          typography={'PFLabelL'} //글씨체 수정
-          weight={500}
-          size={16}
+          typography={'GoThicTitleS'}
+          weight={700}
+          size={14}
+          style={{ marginBottom: '16px' }}
         />
-      </S.ParticipantCounterWrapper>
-      <S.DivLine />
-      <Text
-        label={'팅에 참여 하시겠습니까?'}
-        color={'Secondary700'}
-        typography={'GoThicTitleS'}
-        weight={700}
-        size={14}
-        style={{ marginBottom: '16px' }}
-      />
-      <S.ButtonWrapper>
-        <RoundButton
-          status={'cancel'}
-          borderType={'gray'}
-          height={52}
-          onClick={cancelButtonClicked}
-          label={'취소'}
-        />
-        <RoundButton
-          status={'active'}
-          height={52}
-          onClick={joinButtonClicked}
-          label={'참여'}
-        />
-      </S.ButtonWrapper>
-    </S.Container>
-  ) : null;
+        <S.ButtonWrapper>
+          <RoundButton
+            status={'cancel'}
+            borderType={'gray'}
+            height={52}
+            onClick={cancelButtonClicked}
+            label={'취소'}
+          />
+          <RoundButton
+            status={'active'}
+            height={52}
+            onClick={joinButtonClicked}
+            label={'참여'}
+          />
+        </S.ButtonWrapper>
+      </S.Container>
+    )
+  );
 };
 
 export default ParticipationModal;
