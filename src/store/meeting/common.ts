@@ -25,6 +25,7 @@ export type CommonApplyInfo = {
   myInfo_kakaoId: string;
   myInfo_major: string;
   myInfo_studentType: string;
+  myInfo_message: string;
 };
 
 export type CommonApplyAtoms = {
@@ -41,4 +42,5 @@ export const commonApplyAtoms: CommonApplyAtoms = {
   myInfo_kakaoId: atomWithStorage('myInfo_kakaoId', ''),
   myInfo_major: atomWithStorage('myInfo_major', ''),
   myInfo_studentType: atomWithStorage('myInfo_studentType', ''),
+  myInfo_message: atomWithStorage('myInfo_message', ''),
 };

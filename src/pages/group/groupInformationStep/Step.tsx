@@ -5,7 +5,7 @@ import ThirdPage from './ThirdPapge';
 import ForthPage from './ForthPage';
 import FifthPage from './FifthPage';
 import PageLayout from '~/components/layout/page/PageLayout';
-import SixthPage from '~/pages/personal/myInformationStep/SixthPage';
+import SixthPage from './SixthPage';
 
 const PAGE_NUMBER = [1, 2, 3, 4, 5, 6];
 
