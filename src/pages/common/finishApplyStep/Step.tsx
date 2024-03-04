@@ -12,7 +12,7 @@ const FinishApplyStep = () => {
   return (
     <PageLayout>
       <PageLayout.Header title={'신청 완료!'} isProgress={false} />
-      <PageLayout.SingleCardBody>
+      <PageLayout.SingleCardBody cardPadding={'0'}>
         <Funnel>
           <Funnel.Page pageNumber={1}>
             <FirstPage />
