@@ -1,5 +1,7 @@
+import Col from '~/components/layout/Col';
+
 const SecondPage = () => {
-  return <div>두 번쨰 페이지</div>;
+  return <Col align={'center'} gap={20} padding={'36px 20px'}></Col>;
 };
 
 export default SecondPage;
