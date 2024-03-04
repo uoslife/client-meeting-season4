@@ -6,10 +6,12 @@ import Text from '~/components/typography/Text';
 import TextInput from '~/components/inputs/textInput/TextInput';
 import RoundButton from '~/components/buttons/roundButton/RoundButton';
 import DropdownInput from '~/components/inputs/dropdownInput/DropdownInput';
+import { useEffect } from 'react';
 import { useInput } from '~/hooks/useInput';
 import { useAtom, useSetAtom } from 'jotai';
 import { personalApplyAtoms } from '~/store/meeting';
 import { pageFinishAtom } from '~/store/funnel';
+import { AGE_LIST, HEIGHT_LIST } from '~/constants';
 
 const FirstPage = () => {
   const { inputValue: name, handleInputChange: handleNameChange } =
@@ -17,10 +19,12 @@ const FirstPage = () => {
   const [gender, setGender] = useAtom(personalApplyAtoms.myInfo_gender);
   const [age, setAge] = useAtom(personalApplyAtoms.myInfo_age);
   const [height, setHeight] = useAtom(personalApplyAtoms.myInfo_height);
-
-  const isAllInputsFilled = name && gender && age && height;
   const setIsPageFinished = useSetAtom(pageFinishAtom);
-  setIsPageFinished(!!isAllInputsFilled);
+
+  useEffect(() => {
+    const isAllInputsFilled = name && gender && age && height;
+    setIsPageFinished(!!isAllInputsFilled);
+  }, [name, gender, age, height]);
 
   return (
     <PageLayout.SingleCardBody
@@ -110,18 +114,7 @@ const FirstPage = () => {
                     value={age}
                     setValue={age => setAge(age)}
                     label={'나이 선택'}
-                    options={[
-                      '20',
-                      '21',
-                      '22',
-                      '24',
-                      '25',
-                      '26',
-                      '27',
-                      '28',
-                      '29',
-                      '30~',
-                    ]}
+                    options={AGE_LIST}
                   />
                 </Col>
               </Col>
@@ -139,17 +132,7 @@ const FirstPage = () => {
                   value={height}
                   setValue={height => setHeight(height)}
                   label={'키 선택'}
-                  options={[
-                    '~150',
-                    '155',
-                    '160',
-                    '165',
-                    '170',
-                    '175',
-                    '180',
-                    '185',
-                    '190~',
-                  ]}
+                  options={HEIGHT_LIST}
                 />
               </Col>
             </Col>

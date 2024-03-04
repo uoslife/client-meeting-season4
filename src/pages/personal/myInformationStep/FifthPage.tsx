@@ -4,25 +4,28 @@ import Col from '~/components/layout/Col';
 import Row from '~/components/layout/Row';
 import Text from '~/components/typography/Text';
 import MbtiButton from '~/components/buttons/mbtiButton/MbtiButton';
-import { useAtom, useSetAtom } from 'jotai';
+import { useEffect } from 'react';
+import { useSetAtom } from 'jotai';
 import { personalApplyAtoms } from '~/store/meeting';
 import { pageFinishAtom } from '~/store/funnel';
+import { useImmerAtom } from 'jotai-immer';
 
 const Fifthpage = () => {
-  const [mbti, setMbti] = useAtom(personalApplyAtoms.personalInfo_mbti);
-  const updateMbti = (
-    prevMbti: string[],
-    order: number,
-    changeMbti: string,
-  ) => {
-    const newMbti = [...prevMbti];
-    newMbti[order] = changeMbti;
-    return newMbti;
+  const [mbti, setMbti] = useImmerAtom(personalApplyAtoms.personalInfo_mbti);
+  const setIsPageFinished = useSetAtom(pageFinishAtom);
+
+  const updateMbti = (order: number, changeMbti: string) => {
+    setMbti(prevMbti => {
+      const newMbti = [...prevMbti];
+      newMbti[order] = changeMbti;
+      return newMbti;
+    });
   };
 
-  const isAllInputsFilled = mbti;
-  const setIsPageFinished = useSetAtom(pageFinishAtom);
-  setIsPageFinished(!!isAllInputsFilled);
+  useEffect(() => {
+    const isAllInputsFilled = mbti;
+    setIsPageFinished(!!isAllInputsFilled);
+  }, [mbti]);
 
   return (
     <PageLayout.SingleCardBody
@@ -52,17 +55,13 @@ const Fifthpage = () => {
                     status={mbti[0] === 'E' ? 'active' : 'inactive'}
                     alphabet={'E'}
                     label={'외향적'}
-                    onClick={() =>
-                      setMbti(prevMbti => updateMbti(prevMbti, 0, 'E'))
-                    }
+                    onClick={() => updateMbti(0, 'E')}
                   />
                   <MbtiButton
                     status={mbti[0] === 'I' ? 'active' : 'inactive'}
                     alphabet={'I'}
                     label={'내향적'}
-                    onClick={() =>
-                      setMbti(prevMbti => updateMbti(prevMbti, 0, 'I'))
-                    }
+                    onClick={() => updateMbti(0, 'I')}
                   />
                 </Row>
               </Col>
@@ -79,17 +78,13 @@ const Fifthpage = () => {
                     status={mbti[1] === 'S' ? 'active' : 'inactive'}
                     alphabet={'S'}
                     label={'현실적'}
-                    onClick={() =>
-                      setMbti(prevMbti => updateMbti(prevMbti, 1, 'S'))
-                    }
+                    onClick={() => updateMbti(1, 'S')}
                   />
                   <MbtiButton
                     status={mbti[1] === 'N' ? 'active' : 'inactive'}
                     alphabet={'N'}
                     label={'직관적'}
-                    onClick={() =>
-                      setMbti(prevMbti => updateMbti(prevMbti, 1, 'N'))
-                    }
+                    onClick={() => updateMbti(1, 'N')}
                   />
                 </Row>
               </Col>
@@ -106,17 +101,13 @@ const Fifthpage = () => {
                     status={mbti[2] === 'T' ? 'active' : 'inactive'}
                     alphabet={'T'}
                     label={'이성적'}
-                    onClick={() =>
-                      setMbti(prevMbti => updateMbti(prevMbti, 2, 'T'))
-                    }
+                    onClick={() => updateMbti(2, 'T')}
                   />
                   <MbtiButton
                     status={mbti[2] === 'F' ? 'active' : 'inactive'}
                     alphabet={'F'}
                     label={'감성적'}
-                    onClick={() =>
-                      setMbti(prevMbti => updateMbti(prevMbti, 2, 'F'))
-                    }
+                    onClick={() => updateMbti(2, 'F')}
                   />
                 </Row>
               </Col>
@@ -133,17 +124,13 @@ const Fifthpage = () => {
                     status={mbti[3] === 'J' ? 'active' : 'inactive'}
                     alphabet={'J'}
                     label={'계획적'}
-                    onClick={() =>
-                      setMbti(prevMbti => updateMbti(prevMbti, 3, 'J'))
-                    }
+                    onClick={() => updateMbti(3, 'J')}
                   />
                   <MbtiButton
                     status={mbti[3] === 'P' ? 'active' : 'inactive'}
                     alphabet={'P'}
                     label={'즉흥적'}
-                    onClick={() =>
-                      setMbti(prevMbti => updateMbti(prevMbti, 3, 'P'))
-                    }
+                    onClick={() => updateMbti(3, 'P')}
                   />
                 </Row>
               </Col>

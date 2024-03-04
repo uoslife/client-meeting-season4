@@ -7,6 +7,7 @@ import RoundButton from '~/components/buttons/roundButton/RoundButton';
 import RangeSlider from '~/components/rangeSlider/RangeSlider';
 import useRangeState from '~/hooks/useRangeState';
 import { css } from '@emotion/react';
+import { useEffect } from 'react';
 import { useAtom, useSetAtom } from 'jotai';
 import { personalApplyAtoms } from '~/store/meeting';
 import { pageFinishAtom } from '~/store/funnel';
@@ -19,10 +20,12 @@ const ThirdPage = () => {
     personalApplyAtoms.personalInfo_smoking,
   );
   const { rangeHandler, rangeValue } = useRangeState([10, 17]);
-
-  const isAllInputsFilled = religion && smoking && rangeValue;
   const setIsPageFinished = useSetAtom(pageFinishAtom);
-  setIsPageFinished(!!isAllInputsFilled);
+
+  useEffect(() => {
+    const isAllInputsFilled = religion && smoking && rangeValue;
+    setIsPageFinished(!!isAllInputsFilled);
+  }, [religion, smoking, rangeValue]);
 
   return (
     <PageLayout.SingleCardBody

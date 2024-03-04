@@ -5,6 +5,7 @@ import Row from '~/components/layout/Row';
 import Text from '~/components/typography/Text';
 import TextInput from '~/components/inputs/textInput/TextInput';
 import RoundButton from '~/components/buttons/roundButton/RoundButton';
+import { useEffect } from 'react';
 import { useInput } from '~/hooks/useInput';
 import { useAtom, useSetAtom } from 'jotai';
 import { personalApplyAtoms } from '~/store/meeting';
@@ -18,10 +19,12 @@ const SecondPage = () => {
   const [studentType, setStudentType] = useAtom(
     personalApplyAtoms.myInfo_studentType,
   );
-
-  const isAllInputsFilled = kakaoId && department && studentType;
   const setIsPageFinished = useSetAtom(pageFinishAtom);
-  setIsPageFinished(!!isAllInputsFilled);
+
+  useEffect(() => {
+    const isAllInputsFilled = kakaoId && department && studentType;
+    setIsPageFinished(!!isAllInputsFilled);
+  }, [kakaoId, department, studentType]);
 
   return (
     <PageLayout.SingleCardBody

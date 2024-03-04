@@ -9,13 +9,16 @@ import { useToggleSelect } from '~/hooks/useToggleSelect';
 import { useSetAtom } from 'jotai';
 import { pageFinishAtom } from '~/store/funnel';
 import InterestButton from '~/components/buttons/interestButton/InterestButton';
+import { useEffect } from 'react';
 
 const SixthPage = () => {
   const { selectedValues, select, checkSelectedValues } = useToggleSelect(3);
-
-  const isAllInputsFilled = selectedValues.length === 3;
   const setIsPageFinished = useSetAtom(pageFinishAtom);
-  setIsPageFinished(!!isAllInputsFilled);
+
+  useEffect(() => {
+    const isAllInputsFilled = selectedValues.length === 3;
+    setIsPageFinished(!!isAllInputsFilled);
+  }, [selectedValues]);
 
   return (
     <PageLayout.SingleCardBody

@@ -9,13 +9,16 @@ import { ANIMALS, ANIMALS_NAME } from '~/constants';
 import { useToggleSelect } from '~/hooks/useToggleSelect';
 import { useSetAtom } from 'jotai';
 import { pageFinishAtom } from '~/store/funnel';
+import { useEffect } from 'react';
 
 const ForthPage = () => {
   const { selectedValues, select, checkSelectedValues } = useToggleSelect(2);
-
-  const isAllInputsFilled = selectedValues.length > 0;
   const setIsPageFinished = useSetAtom(pageFinishAtom);
-  setIsPageFinished(!!isAllInputsFilled);
+
+  useEffect(() => {
+    const isAllInputsFilled = selectedValues.length > 0;
+    setIsPageFinished(!!isAllInputsFilled);
+  }, [selectedValues]);
 
   return (
     <PageLayout.SingleCardBody
