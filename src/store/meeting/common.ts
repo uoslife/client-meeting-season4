@@ -1,4 +1,3 @@
-import { PrimitiveAtom } from 'jotai/vanilla';
 import { atomWithStorage } from 'jotai/utils';
 
 export const meetingTypeAtom = atomWithStorage<'group' | 'personal' | null>(
@@ -29,7 +28,9 @@ export type CommonApplyInfo = {
 };
 
 export type CommonApplyAtoms = {
-  [key in keyof CommonApplyInfo]: ReturnType<typeof atom<CommonApplyInfo[key]>>;
+  [key in keyof CommonApplyInfo]: ReturnType<
+    typeof atomWithStorage<CommonApplyInfo[key]>
+  >;
 };
 
 export const commonApplyAtoms: CommonApplyAtoms = {
