@@ -54,7 +54,7 @@ const FirstPage = () => {
                 color={'Primary500'}
                 typography={'LeferiBaseRegular'}
               />
-              <Paddler left={20} right={20} bottom={30}>
+              <Paddler left={20} right={20}>
                 <RangeSlider
                   value={age}
                   onChange={ageHandler}
