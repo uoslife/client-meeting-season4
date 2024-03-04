@@ -3,18 +3,21 @@ import { colors } from '~/styles/colors';
 import { RoundButtonProps } from './RoundButton';
 import { css } from '@emotion/react';
 
-type StyledProps = Omit<RoundButtonProps, 'label'>;
+type StyledProps = Omit<
+  RoundButtonProps,
+  'label' | 'textColor' | 'textTypography'
+>;
 
 export const Button = styled.button<StyledProps>`
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 12px 18px;
-  flex-shrink: 0;
+  gap: 8px;
+  padding: 8px 0;
+  width: ${({ width }) => (width === 'full' ? '100%' : `${width}px`)};
   height: ${({ height }) => `${height}px`};
-  width: ${({ width }) => `${width}px`};
   border: 1px solid ${({ borderType }) => checkBorderType(borderType)};
-  border-radius: ${({ borderType }) => (borderType === 'sky' ? 6 : 10)}px;
+  border-radius: ${({ borderType }) => (borderType === 'none' ? 6 : 10)}px;
   transition: 0.5s;
 
   ${({ status }) => checkStatusType(status)}
@@ -26,8 +29,10 @@ const checkBorderType = (borderType: RoundButtonProps['borderType']) => {
       return `${colors.Primary500}`;
     case 'black':
       return `${colors.Gray500}`;
-    case 'sky':
-      return `${colors.Primary200}`;
+    case 'gray':
+      return `${colors.Gray50}`;
+    case 'none':
+      return null;
     default:
       return null;
   }
@@ -38,17 +43,18 @@ const checkStatusType = (status: RoundButtonProps['status']) => {
     case 'active':
       return css`
         background-color: ${colors.Primary500};
-        color: ${colors.White};
       `;
     case 'inactive':
       return css`
         background-color: ${colors.White};
-        color: ${colors.Primary500};
       `;
     case 'disabled':
       return css`
         background-color: ${colors.Primary200};
-        color: ${colors.White};
+      `;
+    case 'cancel':
+      return css`
+        background-color: ${colors.Gray50};
       `;
     default:
       return '';

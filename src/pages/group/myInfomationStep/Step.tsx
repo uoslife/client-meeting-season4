@@ -9,7 +9,7 @@ const MyInformationStep = () => {
   const { Funnel, currentPage, PageHandler } = useFunnel({
     pageNumberList: PAGE_NUMBER,
     nextStep: { path: '/common/privacyPolicy' },
-    prevStep: { path: '/group/groupRoleSelectStep' },
+    prevStep: { path: '/common/branchGateWayStep' },
   });
 
   return (

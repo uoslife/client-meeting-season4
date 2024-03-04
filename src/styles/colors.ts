@@ -8,6 +8,7 @@ export const colors = {
   Gray300: '#959595',
   Gray400: '#656D78',
   Gray450: '#4A4A4Ae6',
+  Gray475: '#26282B',
   Gray500: '#4A4A4A',
 
   Primary100: '#EAF7FF',
@@ -19,9 +20,12 @@ export const colors = {
   Red100: '#FFECEF',
   Red200: '#F47F88',
 
-  Blue: '#005E9E',
-
+  Secondary200: '#DEE1E3',
+  Secondary700: '#808A98',
   Secondary800: '#656D78',
+  Secondary900: '#3B4046',
+
+  Blue: '#005E9E',
 
   LightBlue: '#4EB1CB',
 };

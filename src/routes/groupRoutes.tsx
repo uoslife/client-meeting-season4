@@ -1,4 +1,4 @@
-import MyInformationStep from '~/pages/personal/myInformationStep/Step';
+import MyInformationStep from '~/pages/group/myInfomationStep/Step';
 import MyRomanceStep from '~/pages/personal/myRomanceStep/Step';
 import MyPreferTypeStep from '~/pages/personal/myPreferTypeStep/Step';
 import GroupRoleSelectStep from '~/pages/group/groupRoleSelectStep/Step';

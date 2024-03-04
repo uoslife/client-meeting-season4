@@ -1,62 +1,44 @@
-import { atom } from 'jotai';
-import { ApplyData } from '~/types/apply.type';
+import { atomWithStorage } from 'jotai/utils';
 
-export const meetingTypeAtom = atom<'group' | 'personal' | null>(null);
+export const meetingTypeAtom = atomWithStorage<'group' | 'personal' | null>(
+  'meeting_type',
+  null,
+);
 meetingTypeAtom.debugLabel = 'meetingTypeAtom';
-export const univTypeAtom = atom<'HUFS' | 'KHU' | 'UOS' | null>(null);
+export const univTypeAtom = atomWithStorage<'HUFS' | 'KHU' | 'UOS' | null>(
+  'univ_type',
+  null,
+);
 univTypeAtom.debugLabel = 'univTypeAtom';
 
-export type CommonState = {
-  info_nickname: ApplyData<string>;
-  info_gender: ApplyData<string>;
-  info_age: ApplyData<number>;
-  info_height: ApplyData<number>;
-  info_kakaoId: ApplyData<string>;
-  info_major: ApplyData<string>;
-  info_studentType: ApplyData<string>;
+export const meetingTypeCheckAtom = atomWithStorage('meetingTypeCheck', [
+  false,
+  false,
+]);
+meetingTypeCheckAtom.debugLabel = 'meetingTypeCheckAtom';
+
+export type CommonApplyInfo = {
+  myInfo_nickname: string;
+  myInfo_gender: string;
+  myInfo_age: number;
+  myInfo_height: number;
+  myInfo_kakaoId: string;
+  myInfo_major: string;
+  myInfo_studentType: string;
 };
 
-export const initialCommonState: CommonState = {
-  info_nickname: {
-    title_kr: '닉네임',
-    title_en: 'nickname',
-    type: 'info',
-    data: '',
-  },
-  info_gender: {
-    title_kr: '성별',
-    title_en: 'gender',
-    type: 'info',
-    data: '',
-  },
-  info_age: {
-    title_kr: '나이',
-    title_en: 'age',
-    type: 'info',
-    data: 0,
-  },
-  info_height: {
-    title_kr: '키',
-    title_en: 'height',
-    type: 'info',
-    data: 0,
-  },
-  info_kakaoId: {
-    title_kr: '카카오톡 ID',
-    title_en: 'kakaoId',
-    type: 'info',
-    data: '',
-  },
-  info_major: {
-    title_kr: '학과',
-    title_en: 'major',
-    type: 'info',
-    data: '',
-  },
-  info_studentType: {
-    title_kr: '신분',
-    title_en: 'studentType',
-    type: 'info',
-    data: '',
-  },
+export type CommonApplyAtoms = {
+  [key in keyof CommonApplyInfo]: ReturnType<
+    typeof atomWithStorage<CommonApplyInfo[key]>
+  >;
+};
+
+export const commonApplyAtoms: CommonApplyAtoms = {
+  myInfo_nickname: atomWithStorage('myInfo_nickname', ''),
+  myInfo_gender: atomWithStorage('myInfo_gender', ''),
+  myInfo_age: atomWithStorage('myInfo_age', 0),
+  myInfo_height: atomWithStorage('myInfo_height', 0),
+  myInfo_kakaoId: atomWithStorage('myInfo_kakaoId', ''),
+  myInfo_major: atomWithStorage('myInfo_major', ''),
+  myInfo_studentType: atomWithStorage('myInfo_studentType', ''),
 };
