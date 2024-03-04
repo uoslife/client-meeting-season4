@@ -2,12 +2,12 @@ import Text from '~/components/typography/Text';
 import Col from '~/components/layout/Col';
 import Row from '~/components/layout/Row';
 import { css } from '@emotion/react';
-import TextInput from '~/components/inputs/TextInput';
 import RoundButton from '~/components/buttons/roundButton/RoundButton';
 import { useInput } from '~/hooks/useInput';
 import { useState } from 'react';
-import { useSetAtom } from 'jotai/index';
+import { useSetAtom } from 'jotai';
 import { pageFinishAtom } from '~/store/funnel';
+import TextInput from '~/components/inputs/textInput/TextInput';
 
 const SecondPage = () => {
   const setIsPageFinished = useSetAtom(pageFinishAtom);
@@ -77,8 +77,9 @@ const SecondPage = () => {
           <RoundButton
             onClick={handleTryValidate}
             status={inputValue ? 'active' : 'disabled'}
-            borderType={'sky'}
+            borderType={'gray'}
             height={44}
+            label={''}
             width={94}>
             <Text
               label={tryValidate ? '재전송' : '인증하기'}
@@ -100,7 +101,6 @@ const SecondPage = () => {
             <RoundButton
               onClick={() => setIsPageFinished(true)}
               status={'disabled'}
-              borderType={'sky'}
               height={44}
               width={94}>
               <Text label={'확인'} color={'White'} typography={'NeoButtonS'} />
