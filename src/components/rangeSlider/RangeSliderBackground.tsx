@@ -37,9 +37,9 @@ const getRowsInfo = () => {
   for (let i = 3; i < 6; i++) ret[i].backgroundColorName = 'Gray200';
   for (let i = 6; i < 8; i++) ret[i].backgroundColorName = 'Gray300';
 
-  ret[0].widthSubtrahend = ret[rowCount - 1 - 0].widthSubtrahend = 2.5;
-  ret[1].widthSubtrahend = ret[rowCount - 1 - 1].widthSubtrahend = 1.5;
-  ret[2].widthSubtrahend = ret[rowCount - 1 - 2].widthSubtrahend = 0.5;
+  ret[0].widthSubtrahend = ret[rowCount - 1 - 0].widthSubtrahend = 1.5;
+  ret[1].widthSubtrahend = ret[rowCount - 1 - 1].widthSubtrahend = 0.9;
+  ret[2].widthSubtrahend = ret[rowCount - 1 - 2].widthSubtrahend = 0.3;
   ret[3].widthSubtrahend = ret[rowCount - 1 - 3].widthSubtrahend = 0;
 
   return ret;
