@@ -9,7 +9,10 @@ export type normalType =
   | 'headerButton-backArrow'
   | 'participationModal-human'
   | 'dropdown'
-  | 'arrow-black';
+  | 'arrow-black'
+  | 'checkCircle-active'
+  | 'checkCircle-inactive'
+  | 'human-circle';
 
 // 동물상
 export type animalKeyType =
