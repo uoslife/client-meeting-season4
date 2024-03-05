@@ -31,6 +31,8 @@ const Text = ({
         font-weight: ${weight};
         white-space: pre-line;
         font-size: ${size}px;
+        word-break: keep-all;
+        text-align: center;
       `}
       {...props}>
       {label}
