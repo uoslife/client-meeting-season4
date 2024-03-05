@@ -21,14 +21,17 @@ const FirstPage = () => {
     groupApplyAtoms.groupPrefer_atmosphere,
   );
 
-  const isAllInputsFilled =
-    age && preferUniversity.length > 1 && preferAtmosphere;
   const setIsPageFinished = useSetAtom(pageFinishAtom);
-  setIsPageFinished(!!isAllInputsFilled);
 
   useEffect(() => {
     setPreferAge(age.map(String));
   }, [age]);
+
+  useEffect(() => {
+    const isAllInputsFilled =
+      age && preferUniversity.length > 0 && preferAtmosphere;
+    setIsPageFinished(!!isAllInputsFilled);
+  }, [age, preferUniversity, preferAtmosphere]);
 
   return (
     <Paddler top={36} right={20} bottom={24} left={20}>
