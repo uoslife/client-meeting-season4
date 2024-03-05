@@ -5,28 +5,31 @@ const S = {
   EntireContainer: styled.div`
     position: relative;
     width: 100%;
+    height: 36px;
+  `,
+  BackgroundContainer: styled.div`
+    position: absolute;
+    top: 0;
+    width: 100%;
     height: 8px;
+  `,
+  SliderContainer: styled.div`
+    position: absolute;
+    top: 0;
+    width: 100%;
 
     /* Origin: "node_modules\rc-slider\assets\index.css") */
     .rc-slider {
       position: relative;
       width: 100%;
       height: 100%;
-      padding: 5px 0;
-      border-radius: 6px;
+      height: 8px;
       touch-action: none;
       display: flex;
       align-items: center;
     }
     .rc-slider * {
       box-sizing: border-box;
-    }
-    .rc-slider-rail {
-      position: absolute;
-      width: 100%;
-      height: 4px;
-      background-color: transparent;
-      border-radius: 6px;
     }
     .rc-slider-track,
     .rc-slider-tracks {
@@ -64,25 +67,11 @@ const S = {
       cursor: pointer;
     }
   `,
-  BackgroundContainer: styled.div`
-    position: absolute;
-    top: 50%;
-    transform: translate(0, -50%);
-    width: 100%;
-    height: 100%;
-  `,
-  SliderContainer: styled.div`
-    position: absolute;
-    top: 50%;
-    transform: translate(0, -50%);
-    width: 100%;
-    height: 100%;
-  `,
   CustomHandleContainer: styled.div`
     height: 150%;
   `,
   MarkTextContainer: styled.div`
-    padding-top: 20px;
+    padding-top: 12px;
   `,
 };
 

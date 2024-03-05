@@ -1,7 +1,5 @@
-import Col from '~/components/layout/Col';
-import { useNavigate } from 'react-router-dom';
 import PageLayout from '~/components/layout/page/PageLayout';
-import FirstPage from '~/pages/common/applyPledgeStep/FirstPage';
+import FirstPage from './FirstPage';
 import { useFunnel } from '~/hooks/useFunnel';
 
 const GroupParticipateStep = () => {
@@ -19,13 +17,15 @@ const GroupParticipateStep = () => {
         totalStep={3}
         currentStep={2}
       />
-      <Funnel>
-        <Funnel.Page pageNumber={1}>
-          <FirstPage />
-        </Funnel.Page>
-      </Funnel>
+      <PageLayout.SingleCardBody>
+        <Funnel>
+          <Funnel.Page pageNumber={1}>
+            <FirstPage />
+          </Funnel.Page>
+        </Funnel>
+      </PageLayout.SingleCardBody>
       <PageLayout.Footer
-        currentPage={1}
+        currentPage={currentPage}
         totalPage={1}
         onNext={PageHandler.onNext}
         onPrev={PageHandler.onPrev}

@@ -12,8 +12,11 @@ import { pageFinishAtom } from '~/store/funnel';
 import { useEffect } from 'react';
 
 const FirstPage = () => {
-  const { rangeHandler: ageHandler, rangeValue: age } = useRangeState([20, 30]);
-  const [, setPreferAge] = useAtom(groupApplyAtoms.groupPrefer_age);
+  const storedAge = localStorage.getItem('groupPrefer_age');
+  const parsedAge = storedAge === null ? [20, 30] : JSON.parse(storedAge);
+  const { rangeHandler: ageHandler, rangeValue: age } =
+    useRangeState(parsedAge);
+  const setPreferAge = useSetAtom(groupApplyAtoms.groupPrefer_age);
   const [preferUniversity, setPreferUniversity] = useAtom(
     groupApplyAtoms.groupPrefer_univ,
   );
@@ -21,14 +24,17 @@ const FirstPage = () => {
     groupApplyAtoms.groupPrefer_atmosphere,
   );
 
-  const isAllInputsFilled =
-    age && preferUniversity.length > 1 && preferAtmosphere;
   const setIsPageFinished = useSetAtom(pageFinishAtom);
-  setIsPageFinished(!!isAllInputsFilled);
 
   useEffect(() => {
     setPreferAge(age.map(String));
   }, [age]);
+
+  useEffect(() => {
+    const isAllInputsFilled =
+      age && preferUniversity.length > 0 && preferAtmosphere;
+    setIsPageFinished(!!isAllInputsFilled);
+  }, [age, preferUniversity, preferAtmosphere]);
 
   return (
     <Paddler top={36} right={20} bottom={24} left={20}>
@@ -54,7 +60,7 @@ const FirstPage = () => {
                 color={'Primary500'}
                 typography={'LeferiBaseRegular'}
               />
-              <Paddler left={20} right={20} bottom={30}>
+              <Paddler left={20} right={20}>
                 <RangeSlider
                   value={age}
                   onChange={ageHandler}

@@ -2,7 +2,7 @@ import Col from '~/components/layout/Col';
 import Text from '~/components/typography/Text';
 import { useAtom, useSetAtom } from 'jotai';
 import { meetingTypeAtom, meetingTypeCheckAtom } from '~/store/meeting';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { pageFinishAtom } from '~/store/funnel';
 import RoundButton from '~/components/buttons/roundButton/RoundButton';
 import Paddler from '~/components/layout/Pad';
@@ -37,12 +37,18 @@ const FirstPage = () => {
     });
 
   useEffect(() => {
-    if (meetingTypeCheckValue.every(value => value)) setIsPageFinished(true);
+    if (meetingTypeCheckValue.every(value => value) && meetingTypeValue)
+      setIsPageFinished(true);
     else setIsPageFinished(false);
-  }, [meetingTypeCheckValue, setMeetingTypeCheckValue]);
+  }, [
+    meetingTypeCheckValue,
+    setMeetingTypeCheckValue,
+    meetingTypeValue,
+    setMeetingTypeValue,
+  ]);
 
   return (
-    <Col align={'center'} gap={20}>
+    <Col align={'center'} gap={20} padding={'36px 20px'}>
       <Col gap={12} align={'center'}>
         <Text
           label={'참여하고자 하는 미팅 종류를 선택해주세요'}
@@ -68,8 +74,6 @@ const FirstPage = () => {
               key={`${value.label} ${index}`}
               status={meetingTypeValue === value.type ? 'active' : 'inactive'}
               label={value.label}
-              textTypography={'NeoButtonL'}
-              textColor={'Primary500'}
               onClick={() => setMeetingTypeValue(value.type)}
             />
           ))}

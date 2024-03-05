@@ -11,7 +11,7 @@ const BranchGatewayStep = () => {
     nextStep: {
       path:
         meetingTypeValue === 'group'
-          ? '/group/myInformationStep'
+          ? '/group/groupRoleSelectStep'
           : '/personal/myInformationStep',
     },
     prevStep: {
