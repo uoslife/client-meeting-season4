@@ -12,7 +12,10 @@ import { pageFinishAtom } from '~/store/funnel';
 import { useEffect } from 'react';
 
 const FirstPage = () => {
-  const { rangeHandler: ageHandler, rangeValue: age } = useRangeState([20, 30]);
+  const storedAge = localStorage.getItem('groupPrefer_age');
+  const parsedAge = storedAge === null ? [20, 30] : JSON.parse(storedAge);
+  const { rangeHandler: ageHandler, rangeValue: age } =
+    useRangeState(parsedAge);
   const [, setPreferAge] = useAtom(groupApplyAtoms.groupPrefer_age);
   const [preferUniversity, setPreferUniversity] = useAtom(
     groupApplyAtoms.groupPrefer_univ,
