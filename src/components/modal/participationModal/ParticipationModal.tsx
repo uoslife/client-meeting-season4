@@ -1,5 +1,5 @@
-import Text from '~/components/typography/Text';
 import * as S from './ParticipationModal.style';
+import Text from '~/components/typography/Text';
 import RoundButton from '~/components/buttons/roundButton/RoundButton';
 import IconButton from '~/components/buttons/iconButton/IconButton';
 import { useEffect, useState } from 'react';
