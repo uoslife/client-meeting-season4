@@ -28,7 +28,7 @@ const SecondPage = () => {
   const setIsPageFinished = useSetAtom(pageFinishAtom);
 
   useEffect(() => {
-    const isAllInputsFilled = kakaoId && major && studentType;
+    const isAllInputsFilled = kakaoId && major.length > 1 && studentType;
     setIsPageFinished(!!isAllInputsFilled);
   }, [kakaoId, major, studentType]);
 
