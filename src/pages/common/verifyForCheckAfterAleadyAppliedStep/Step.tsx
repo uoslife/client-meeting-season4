@@ -15,7 +15,7 @@ const VerifyForCheckAfterAleadyAppliedStep = () => {
     <PageLayout>
       <PageLayout.Header title="신청 정보 확인하기" />
       <PageLayout.SingleCardBody>
-        인증페이지를만들어야하는데기획에혼선이있네요?
+        TODO: 이메일 인증 페이지 구현 필요
       </PageLayout.SingleCardBody>
       <PageLayout.Footer
         currentPage={1}
