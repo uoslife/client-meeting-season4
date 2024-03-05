@@ -16,7 +16,7 @@ const FirstPage = () => {
   const parsedAge = storedAge === null ? [20, 30] : JSON.parse(storedAge);
   const { rangeHandler: ageHandler, rangeValue: age } =
     useRangeState(parsedAge);
-  const [, setPreferAge] = useAtom(groupApplyAtoms.groupPrefer_age);
+  const setPreferAge = useSetAtom(groupApplyAtoms.groupPrefer_age);
   const [preferUniversity, setPreferUniversity] = useAtom(
     groupApplyAtoms.groupPrefer_univ,
   );
