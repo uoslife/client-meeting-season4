@@ -1,7 +1,9 @@
 import { useState } from 'react';
 
-export function useToggleSelect<T>(maxSelection?: number) {
-  const [selectedValues, setSelectedValues] = useState<T[]>([]);
+export function useToggleSelect<T>(maxSelection?: number, selectedArray?: T[]) {
+  const [selectedValues, setSelectedValues] = useState<T[]>(
+    selectedArray === undefined ? [] : selectedArray,
+  );
 
   const select = (value: T) => () => {
     if (selectedValues.includes(value)) {
