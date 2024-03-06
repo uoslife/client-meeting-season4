@@ -20,14 +20,16 @@ const GroupCreateStep = () => {
         currentStep={2}
         totalStep={7}
       />
-      <Funnel>
-        <Funnel.Page pageNumber={1}>
-          <FirstPage />
-        </Funnel.Page>
-        <Funnel.Page pageNumber={2}>
-          <SecondPage />
-        </Funnel.Page>
-      </Funnel>
+      <PageLayout.SingleCardBody>
+        <Funnel>
+          <Funnel.Page pageNumber={1}>
+            <FirstPage />
+          </Funnel.Page>
+          <Funnel.Page pageNumber={2}>
+            <SecondPage />
+          </Funnel.Page>
+        </Funnel>
+      </PageLayout.SingleCardBody>
       <PageLayout.Footer
         currentPage={currentPage}
         totalPage={PAGE_NUMBER.length}
