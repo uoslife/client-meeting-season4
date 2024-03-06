@@ -48,14 +48,9 @@ const ForthPage = () => {
                 />
                 <Col align="center">
                   <Text
-                    label={'특정 MBTI를 선택하는 것이 아닌 선호하는 유형을'}
-                    color={'Secondary800'}
-                    typography={'PretendardRegular'}
-                    weight={400}
-                    size={14}
-                  />
-                  <Text
-                    label={'모두 선택해 주세요. (ex. S, N 중복 선택 가능)'}
+                    label={
+                      '특정 MBTI를 선택하는 것이 아닌 선호하는 유형을 모두 선택해 주세요. (ex. S, N 중복 선택 가능)'
+                    }
                     color={'Secondary800'}
                     typography={'PretendardRegular'}
                     weight={400}
