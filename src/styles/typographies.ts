@@ -50,7 +50,7 @@ export const typographies = {
     font-size: 14px;
     line-height: 20px;
     font-weight: 700;
-    font-family: 'GothicA1Type-Regular';
+    font-family: 'GothicA1Type-Bold';
   `,
   GoThicBodyS: css`
     font-size: 14px;
