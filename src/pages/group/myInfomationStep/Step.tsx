@@ -6,10 +6,15 @@ import PageLayout from '~/components/layout/page/PageLayout';
 const PAGE_NUMBER = [1, 2];
 
 const MyInformationStep = () => {
+  const isLeader = localStorage.getItem('groupRole_isLeader');
+  console.log(isLeader);
   const { Funnel, currentPage, PageHandler } = useFunnel({
     pageNumberList: PAGE_NUMBER,
-    nextStep: { path: '/common/privacyPolicy' },
-    prevStep: { path: '/common/branchGateWayStep' },
+    nextStep:
+      isLeader === 'true'
+        ? { path: '/group/groupCreateStep' }
+        : { path: '/group/groupParticipateStep' },
+    prevStep: { path: '/group/groupRoleSelectStep' },
   });
 
   return (
