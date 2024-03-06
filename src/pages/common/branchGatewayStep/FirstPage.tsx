@@ -2,7 +2,7 @@ import Col from '~/components/layout/Col';
 import Text from '~/components/typography/Text';
 import { useAtom, useSetAtom } from 'jotai';
 import { meetingTypeAtom, meetingTypeCheckAtom } from '~/store/meeting';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { pageFinishAtom } from '~/store/funnel';
 import RoundButton from '~/components/buttons/roundButton/RoundButton';
 import Paddler from '~/components/layout/Pad';
