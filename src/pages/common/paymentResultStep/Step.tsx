@@ -12,18 +12,23 @@ type failedPaymentProps1 = {
 
 const PaymentResultStep = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [paymentStatus, setPaymentStatus] = useState<
     'success' | 'fail' | 'loading'
   >('loading');
   const [searchParams, setSearchParams] = useSearchParams();
-  const error_code = searchParams.get('error_code');
-  const error_msg = searchParams.get('error_msg');
-  const imp_uid = searchParams.get('imp_uid');
-  const merchant_uid = searchParams.get('merchant_uid');
 
   useEffect(() => {
+    const error_code = searchParams.get('error_code');
+    const error_msg = searchParams.get('error_msg');
+
+    if (error_code === 'F400' && error_msg?.includes('이미 승인 완료'))
+      return alert('이미 신청되었습니다!');
     if (error_code === 'F400') navigate('/common/paymentStep');
   }, []);
+  useEffect(() => {
+    console.log(location);
+  }, [location]);
 
   const setSortParams = () => {
     searchParams.set('error_msg', 'clear');
@@ -31,12 +36,12 @@ const PaymentResultStep = () => {
     return { errorMessage: searchParams.get('error_msg') ?? '' };
   };
 
-  useEffect(() => {
-    setTimeout(() => {
-      setPaymentStatus('fail');
-      setSortParams();
-    }, 3000);
-  }, []);
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     setPaymentStatus('fail');
+  //     setSortParams();
+  //   }, 3000);
+  // }, []);
 
   const handlePaymentStatus = ({ errorMessage }: failedPaymentProps1) => {
     switch (paymentStatus) {
