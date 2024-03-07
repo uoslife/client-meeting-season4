@@ -6,6 +6,10 @@ import SuccessPayment from '~/pages/common/paymentResultStep/SuccessPage';
 import FailPayment from '~/pages/common/paymentResultStep/FailPage';
 import LoadingPayment from '~/pages/common/paymentResultStep/LoadingPage';
 
+type failedPaymentProps1 = {
+  errorMessage?: string;
+};
+
 const PaymentResultStep = () => {
   const navigate = useNavigate();
   const [paymentStatus, setPaymentStatus] = useState<
@@ -21,18 +25,25 @@ const PaymentResultStep = () => {
     if (error_code === 'F400') navigate('/common/paymentStep');
   }, []);
 
+  const setSortParams = () => {
+    searchParams.set('error_msg', 'clear');
+    setSearchParams(searchParams);
+    return { errorMessage: searchParams.get('error_msg') ?? '' };
+  };
+
   useEffect(() => {
     setTimeout(() => {
-      setPaymentStatus('success');
-    }, 5000);
+      setPaymentStatus('fail');
+      setSortParams();
+    }, 3000);
   }, []);
 
-  const handlePaymentStatus = () => {
+  const handlePaymentStatus = ({ errorMessage }: failedPaymentProps1) => {
     switch (paymentStatus) {
       case 'success':
         return <SuccessPayment />;
       case 'fail':
-        return <FailPayment />;
+        return <FailPayment errorMessage={errorMessage} />;
       case 'loading':
         return <LoadingPayment />;
       default:
@@ -43,8 +54,8 @@ const PaymentResultStep = () => {
   return (
     <PageLayout>
       <PageLayout.Header title={'결제 결과'} isProgress={false} />
-      <PageLayout.SingleCardBody>
-        {handlePaymentStatus()}
+      <PageLayout.SingleCardBody cardPadding={'0'}>
+        {handlePaymentStatus(setSortParams()!)}
       </PageLayout.SingleCardBody>
     </PageLayout>
   );
