@@ -10,6 +10,7 @@ export type normalType =
   | 'participationModal-human'
   | 'dropdown'
   | 'arrow-black'
+  | 'payment-loading';
   | 'checkCircle-active'
   | 'checkCircle-inactive'
   | 'human-circle';
