@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 import { colors } from '~/styles/colors';
 import { keyframes } from '@emotion/react';
 
+
 export const downToUp = keyframes`
   0% {
     opacity: 0;
@@ -67,5 +68,5 @@ export const ButtonWrapper = styled.div`
   align-items: flex-start;
   width: 100%;
   gap: 8px;
-  padding: 16px 24px 20px 24px;
+  padding: 16px 0px 20px 0px;
 `;

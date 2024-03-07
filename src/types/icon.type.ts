@@ -11,6 +11,9 @@ export type normalType =
   | 'dropdown'
   | 'arrow-black'
   | 'payment-loading';
+  | 'checkCircle-active'
+  | 'checkCircle-inactive'
+  | 'human-circle';
 
 // 동물상
 export type animalKeyType =

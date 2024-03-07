@@ -1,12 +1,12 @@
 import PageLayout from '~/components/layout/page/PageLayout';
-import FirstPage from '~/pages/common/applyPledgeStep/FirstPage';
+import FirstPage from './FirstPage';
 import { useFunnel } from '~/hooks/useFunnel';
 
 const GroupPreferStep = () => {
   const { Funnel, currentPage, PageHandler } = useFunnel({
     pageNumberList: [1],
     nextStep: { path: '/group/groupInformationStep' },
-    prevStep: { path: '/common/privacyPolicyStep' },
+    prevStep: { path: '/common/applyPledgeStep' },
   });
 
   return (
@@ -17,11 +17,13 @@ const GroupPreferStep = () => {
         totalStep={7}
         currentStep={4}
       />
-      <Funnel>
-        <Funnel.Page pageNumber={1}>
-          <FirstPage />
-        </Funnel.Page>
-      </Funnel>
+      <PageLayout.SingleCardBody>
+        <Funnel>
+          <Funnel.Page pageNumber={1}>
+            <FirstPage />
+          </Funnel.Page>
+        </Funnel>
+      </PageLayout.SingleCardBody>
       <PageLayout.Footer
         currentPage={currentPage}
         totalPage={1}

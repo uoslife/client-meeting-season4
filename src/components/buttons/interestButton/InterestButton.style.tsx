@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { InterestButtonProps } from './Interest';
+import { InterestButtonProps } from './InterestButton';
 import { colors } from '~/styles/colors';
 
 type StyledProps = Pick<InterestButtonProps, 'isActive'>;
