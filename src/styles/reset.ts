@@ -1,6 +1,6 @@
 import { css } from '@emotion/react';
 import NeoDunggeunmoPro from '/fonts/NeoDunggeunmoPro-Regular.ttf';
-import PFstardust from '/fonts/PFstardust.ttf';
+import DOSGothic from '/fonts/DOSGothic.ttf';
 import PretendardRegular from '/fonts/Pretendard-Regular.ttf';
 import GothicA1Regular from '/fonts/GothicA1-Regular.ttf';
 import LeferiBaseRegular from '/fonts/LeferiBaseBold.ttf';
@@ -75,8 +75,8 @@ const reset = css`
     font-style: normal;
   }
   @font-face {
-    font-family: 'PFstardustType-Regular';
-    src: url(${PFstardust}) format('truetype');
+    font-family: 'DOSGothic-Regular';
+    src: url(${DOSGothic}) format('truetype');
     font-weight: normal;
     font-style: normal;
   }

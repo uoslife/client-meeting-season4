@@ -76,19 +76,19 @@ export const typographies = {
     font-size: 18px;
     line-height: 24px;
     font-weight: 500;
-    font-family: 'PFstardustType-Regular';
+    font-family: 'DOSGothic-Regular';
   `,
   PFLabelM: css`
     font-size: 14px;
     line-height: normal;
     font-weight: 400;
-    font-family: 'PFstardustType-Regular';
+    font-family: 'DOSGothic-Regular';
   `,
   PFLabelS: css`
     font-size: 12px;
     line-height: normal;
     font-weight: 400;
-    font-family: 'PFstardustType-Regular';
+    font-family: 'DOSGothic-Regular';
   `,
 
   // Pretendard
