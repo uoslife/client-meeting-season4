@@ -87,7 +87,6 @@ const ThirdPage = () => {
               status={inputValue ? 'active' : 'disabled'}
               borderType={'gray'}
               height={44}
-              label={''}
               width={94}>
               <Text
                 label={tryValidate ? '재전송' : '인증하기'}
@@ -109,6 +108,7 @@ const ThirdPage = () => {
               <RoundButton
                 onClick={() => setIsPageFinished(true)}
                 status={'disabled'}
+                borderType={'gray'}
                 height={44}
                 width={94}>
                 <Text
