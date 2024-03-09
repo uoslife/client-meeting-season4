@@ -9,6 +9,7 @@ import QuestionLabel from '~/components/questionPageTemplate/QuestionLabel';
 import RoundButton from '~/components/buttons/roundButton/RoundButton';
 import { colors } from '~/styles/colors';
 import styled from '@emotion/styled';
+import { SOCIAL_LINK } from '~/constants';
 
 type bottomCardChildrenProps = {
   onClickPrimary: () => void;
@@ -148,6 +149,12 @@ const BottomCardComponent = ({
           `}
         />
         <IconButton iconName={'share'} width={56} height={56} />
+        <Text
+          label={'(클릭 시 공유링크가 복사됩니다)'}
+          color={'Gray300'}
+          typography={'PretendardRegular'}
+          size={12}
+        />
       </Col>
     </Col>
   );
@@ -155,7 +162,7 @@ const BottomCardComponent = ({
 const FooterIconAreaComponent = () => {
   return (
     <Row align={'center'} justify={'center'} gap={20} padding={'0 0 2px 0'}>
-      <Row align={'center'} gap={6}>
+      <S.SocialLinkContainer href={SOCIAL_LINK.Kakaotalk} target="_blank">
         <Row justify={'flex-end'}>
           <IconButton iconName={'kakaotalk'} width={36} height={36} />
         </Row>
@@ -163,8 +170,8 @@ const FooterIconAreaComponent = () => {
           <Text label={'Kakaotalk'} typography="NeoLabel" color="White" />
           <Text label={'시대생'} typography="PFLabelM" color="White" />
         </Col>
-      </Row>
-      <Row align={'center'} gap={6}>
+      </S.SocialLinkContainer>
+      <S.SocialLinkContainer href={SOCIAL_LINK.Instagram} target="_blank">
         <IconButton iconName={'instagram'} width={42} height={42} />
         <Col justify={'center'} gap={4}>
           <Text label={'Instagram'} typography="NeoLabel" color="White" />
@@ -174,7 +181,7 @@ const FooterIconAreaComponent = () => {
             color="White"
           />
         </Col>
-      </Row>
+      </S.SocialLinkContainer>
     </Row>
   );
 };
@@ -182,5 +189,11 @@ const FooterIconAreaComponent = () => {
 const S = {
   HeaderDummyBox: styled.div`
     margin-top: 18px;
+  `,
+  SocialLinkContainer: styled.a`
+    display: flex;
+    align-items: center;
+    width: 100%;
+    gap: 6px;
   `,
 };
