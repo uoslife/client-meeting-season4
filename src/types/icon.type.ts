@@ -10,9 +10,13 @@ export type normalType =
   | 'participationModal-human'
   | 'dropdown'
   | 'arrow-black'
-  | 'payment-loading';
+  | 'payment-loading'
   | 'checkCircle-active'
   | 'checkCircle-inactive'
+  | 'musicNote-red'
+  | 'share'
+  | 'kakaotalk'
+  | 'instagram'
   | 'human-circle';
 
 // 동물상
