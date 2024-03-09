@@ -9,7 +9,7 @@ function App() {
   return (
     <>
       <GlobalStyle />
-      <DevTools position={'top-left'} />
+      <DevTools position={'top-right'} />
       <BrowserRouter>
         <Router />
       </BrowserRouter>
