@@ -19,8 +19,14 @@ type bottomCardChildrenProps = {
 const LandingStep = () => {
   const navigate = useNavigate();
 
-  const handleOnClickPrimary = () => navigate('/common/univVerificationStep');
-  const handleOnClickSecondary = () => navigate('/common/univVerificationStep');
+  const handleOnClickPrimary = () => {
+    navigate('/common/univVerificationStep');
+    // TODO : 이메일 토큰 인증 여부에 따라 라우팅 페이지 분기 처리
+  };
+  const handleOnClickSecondary = () => {
+    navigate('/common/univVerificationStep');
+    // TODO : 신청 정보 확인하기 페이지로 라우팅
+  };
 
   return (
     <PageLayout>
