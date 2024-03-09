@@ -10,6 +10,7 @@ import RoundButton from '~/components/buttons/roundButton/RoundButton';
 import { colors } from '~/styles/colors';
 import styled from '@emotion/styled';
 import { SOCIAL_LINK } from '~/constants';
+import toast, { Toaster } from 'react-hot-toast';
 
 type bottomCardChildrenProps = {
   onClickPrimary: () => void;
@@ -36,6 +37,7 @@ const LandingStep = () => {
         }
       />
       {<FooterIconAreaComponent />}
+      <Toaster />
     </PageLayout>
   );
 };
@@ -89,6 +91,12 @@ const BottomCardComponent = ({
   onClickPrimary,
   onClickSecondary,
 }: bottomCardChildrenProps) => {
+  const handleShareLink = () => {
+    navigator.clipboard.writeText(SOCIAL_LINK.Sharelink);
+    toast.error('널리 공유해주세요~!', {
+      icon: '😁',
+    });
+  };
   return (
     <Col gap={30}>
       <Col align={'center'} gap={32}>
@@ -148,9 +156,14 @@ const BottomCardComponent = ({
             text-align: center;
           `}
         />
-        <IconButton iconName={'share'} width={56} height={56} />
+        <IconButton
+          onClick={handleShareLink}
+          iconName={'share'}
+          width={56}
+          height={56}
+        />
         <Text
-          label={'(클릭 시 공유링크가 복사됩니다)'}
+          label={'(클릭 시, 공유링크가 복사됩니다)'}
           color={'Gray300'}
           typography={'PretendardRegular'}
           size={12}
