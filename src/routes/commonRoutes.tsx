@@ -8,7 +8,7 @@ import CheckApplyInfoStep from '~/pages/common/checkApplyInfoStep/Step';
 
 const commonRoutes = [
   {
-    path: '/',
+    path: '/common/landingStep',
     element: <LandingStep />,
   },
   {
@@ -16,7 +16,7 @@ const commonRoutes = [
     element: <UnivVerificationStep />,
   },
   {
-    path: '/common/branchGateWayStep',
+    path: '/common/branchGatewayStep',
     element: <BranchGatewayStep />,
   },
   {
@@ -39,6 +39,16 @@ const commonRoutes = [
     path: '*',
     element: <div>페이지를 찾을 수 없어요!</div>,
   },
-];
+] as const;
 
 export default commonRoutes;
+
+export type CommonPath = Extract<
+  (typeof commonRoutes)[number]['path'],
+  `/${string}`
+>;
+
+export type CommonPathPostfixes =
+  Extract<CommonPath, `/common/${string}`> extends `/common/${infer T}`
+    ? T
+    : never;

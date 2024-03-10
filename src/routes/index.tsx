@@ -23,3 +23,5 @@ const getRoutes = (routes: RouteType[]) => {
 export const Router = () => {
   return <Routes>{getRoutes(routesList)}</Routes>;
 };
+
+export type Pathname = (typeof routesList)[number]['path'];

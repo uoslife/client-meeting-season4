@@ -94,6 +94,16 @@ const groupRoutes = [
     path: '/group/groupPreferTypeStep',
     element: <MyPreferTypeStep />,
   },
-];
+] as const;
 
 export default groupRoutes;
+
+export type GroupPath = Extract<
+  (typeof groupRoutes)[number]['path'],
+  `/${string}`
+>;
+
+export type GroupPathPostfixes =
+  Extract<GroupPath, `/group/${string}`> extends `/group/${infer T}`
+    ? T
+    : never;

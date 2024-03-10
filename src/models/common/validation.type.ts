@@ -2,8 +2,8 @@ import { CommonData } from './data.type';
 
 // validator model
 export type CommonValidator = {
-  readonly [key in keyof CommonData]: {
-    readonly [key2 in keyof CommonData[key]]: (
+  [key in keyof CommonData]: {
+    [key2 in keyof CommonData[key]]: (
       pageInfo: CommonData[key][key2],
     ) => boolean;
   };
