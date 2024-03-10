@@ -40,7 +40,7 @@ export const commonDataAtoms: CommonDataAtoms = {
   },
   branchGatewayStep: {
     page1: atomWithStorage(
-      'univVerificationStep-page1',
+      'branchGatewayStep-page1',
       commonInitialData.branchGatewayStep.page1,
     ),
   },
