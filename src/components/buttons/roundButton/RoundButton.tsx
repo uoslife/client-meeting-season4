@@ -6,7 +6,7 @@ export type RoundButtonProps = Combine<
   {
     status: 'active' | 'inactive' | 'disabled' | 'cancel';
     borderType?: 'primary' | 'black' | 'gray' | 'none';
-    label: string;
+    label?: string;
     width?: number | 'full';
     height?: number;
     onClick: () => void;
@@ -51,11 +51,13 @@ const RoundButton = ({
       height={height}
       borderType={borderType}
       {...props}>
-      <Text
-        label={label}
-        color={handleTextColor(status)}
-        typography={'NeoButtonL'}
-      />
+      {label && (
+        <Text
+          label={label}
+          color={handleTextColor(status)}
+          typography={status === 'disabled' ? 'NeoButtonS' : 'NeoButtonL'}
+        />
+      )}
       {children}
     </S.Button>
   );

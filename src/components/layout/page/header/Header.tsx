@@ -8,6 +8,7 @@ import Pad from '~/components/layout/Pad';
 export type HeaderProps = {
   title: string;
   isBackArrow?: boolean;
+  backArrowNavigate?: string;
   isProgress?: boolean;
   totalStep?: number;
   currentStep?: number;
@@ -16,6 +17,7 @@ export type HeaderProps = {
 const Header = ({
   title,
   isBackArrow = false,
+  backArrowNavigate = '/common/branchGateWayStep',
   isProgress = false,
   currentStep,
   totalStep,
@@ -32,7 +34,7 @@ const Header = ({
             width={24}
             height={25.5}
             onClick={() =>
-              isBackArrow ? navigate('/common/branchGateWay') : navigate('/')
+              isBackArrow ? navigate(backArrowNavigate) : navigate('/')
             }
           />
           <Text label={title} color={'White'} typography={'NeoTitleM'} />

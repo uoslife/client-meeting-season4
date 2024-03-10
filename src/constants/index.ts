@@ -49,3 +49,37 @@ export enum INTEREST_NAME {
   'fashion' = '패션',
   'cooking' = '요리',
 }
+
+export const AGE_LIST = [
+  '20',
+  '21',
+  '22',
+  '23',
+  '24',
+  '25',
+  '26',
+  '27',
+  '28',
+  '29',
+  '30~',
+];
+
+export const HEIGHT_LIST = [
+  '~150',
+  '155',
+  '160',
+  '165',
+  '170',
+  '175',
+  '180',
+  '185',
+  '190~',
+];
+
+export const SOCIAL_LINK = {
+  Sharelink:
+    'https://www.instagram.com/p/Cskqlsyy9Ar/?utm_source=ig_web_copy_link&igshid=MmJiY2I4NDBkZg==',
+  Instagram: 'https://www.instagram.com/uoslife_official/',
+  Kakaotalk: 'https://pf.kakao.com/_gMEHK',
+  Uoslife: 'https://uoslife.com/',
+};
