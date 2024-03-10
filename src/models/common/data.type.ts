@@ -1,6 +1,6 @@
-import { Univ } from '~/models/options';
+import { atomWithStorage } from 'jotai/utils';
+import { Univ } from '../options';
 
-// data model
 export type CommonData = {
   univVerificationStep: {
     page1: {
@@ -21,18 +21,10 @@ export type CommonData = {
   };
 };
 
-// validator model
-export type CommonValidator = {
-  readonly [key in keyof CommonData]: {
-    readonly [key2 in keyof CommonData[key]]: (
-      pageInfo: CommonData[key][key2],
-    ) => boolean;
-  };
-};
-
-// validity atom value model
-export type CommonValidites = {
+export type CommonDataAtoms = {
   [key1 in keyof CommonData]: {
-    [key2 in keyof CommonData[key1]]: boolean;
+    [key2 in keyof CommonData[key1]]: ReturnType<
+      typeof atomWithStorage<CommonData[key1][key2]>
+    >;
   };
 };

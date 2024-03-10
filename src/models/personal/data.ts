@@ -1,4 +1,4 @@
-import { PersonalData } from './type';
+import { PersonalData } from './data.type';
 import { atomWithStorage } from 'jotai/utils';
 
 export const personalInitialData: PersonalData = {

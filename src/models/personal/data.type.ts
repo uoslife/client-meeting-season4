@@ -1,3 +1,4 @@
+import { atomWithStorage } from 'jotai/utils';
 import { InfoOptions } from '~/models/options';
 
 export type PersonalData = {
@@ -78,18 +79,10 @@ export type PersonalData = {
   };
 };
 
-// validator model
-export type PersonalValidator = {
+export type PersonalDataAtoms = {
   [key1 in keyof PersonalData]: {
-    [key2 in keyof PersonalData[key1]]: (
-      pageInfo: PersonalData[key1][key2],
-    ) => boolean;
-  };
-};
-
-// validity atom value model
-export type PersonalValidites = {
-  [key1 in keyof PersonalData]: {
-    [key2 in keyof PersonalData[key1]]: boolean;
+    [key2 in keyof PersonalData[key1]]: ReturnType<
+      typeof atomWithStorage<PersonalData[key1][key2]>
+    >;
   };
 };

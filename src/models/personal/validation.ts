@@ -1,6 +1,6 @@
 import { atom } from 'jotai';
-import { PersonalValidator, PersonalValidites } from './type';
 import { personalDataAtoms } from './data';
+import { PersonalValidator, PersonalValidites } from './validation.type';
 
 // used to check validity
 export const personalValidators: PersonalValidator = {

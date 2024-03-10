@@ -1,4 +1,4 @@
-import { CommonData } from './type';
+import { CommonData, CommonDataAtoms } from './data.type';
 import { atomWithStorage } from 'jotai/utils';
 
 // initial values
@@ -23,7 +23,7 @@ export const commonInitialData: CommonData = {
 };
 
 // page level atom: each holds data, write/read
-export const commonDataAtoms = {
+export const commonDataAtoms: CommonDataAtoms = {
   univVerificationStep: {
     page1: atomWithStorage(
       'univVerificationStep-page1',
@@ -40,7 +40,7 @@ export const commonDataAtoms = {
   },
   branchGatewayStep: {
     page1: atomWithStorage(
-      'univVerificationStep-page4',
+      'univVerificationStep-page1',
       commonInitialData.branchGatewayStep.page1,
     ),
   },

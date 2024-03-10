@@ -1,6 +1,6 @@
 import { atom } from 'jotai';
-import { CommonValidator, CommonValidites } from './type';
 import { commonDataAtoms } from './data';
+import { CommonValidator, CommonValidites } from './validation.type';
 
 // used to check validity
 export const commonValidators: CommonValidator = {
@@ -8,8 +8,8 @@ export const commonValidators: CommonValidator = {
     page1: ({ univType }) => !!univType,
     // page2: ({ checked }) => checked.every(Boolean),
     // page3: ({ verified }) => verified,
-    page2: ({ checked }) => true, // temp
-    page3: ({ verified }) => true, // temp
+    page2: () => true, // temp
+    page3: () => true, // temp
   },
   branchGatewayStep: {
     page1: ({ meetingType, checked }) =>
