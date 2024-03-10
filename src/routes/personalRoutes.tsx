@@ -12,7 +12,7 @@ const personalRoutes = [
     element: <MyRomanceStep />,
   },
   {
-    path: '/personal/mypPreferTypeStep',
+    path: '/personal/myPreferTypeStep',
     element: <MyPreferTypeStep />,
   },
 ];
