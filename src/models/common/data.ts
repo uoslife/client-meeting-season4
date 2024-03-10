@@ -1,5 +1,5 @@
-import { atom } from 'jotai';
 import { CommonData } from './type';
+import { atomWithStorage } from 'jotai/utils';
 
 // initial values
 export const commonInitialData: CommonData = {
@@ -25,11 +25,23 @@ export const commonInitialData: CommonData = {
 // page level atom: each holds data, write/read
 export const commonDataAtoms = {
   univVerificationStep: {
-    page1: atom(commonInitialData.univVerificationStep.page1),
-    page2: atom(commonInitialData.univVerificationStep.page2),
-    page3: atom(commonInitialData.univVerificationStep.page3),
+    page1: atomWithStorage(
+      'univVerificationStep-page1',
+      commonInitialData.univVerificationStep.page1,
+    ),
+    page2: atomWithStorage(
+      'univVerificationStep-page2',
+      commonInitialData.univVerificationStep.page2,
+    ),
+    page3: atomWithStorage(
+      'univVerificationStep-page3',
+      commonInitialData.univVerificationStep.page3,
+    ),
   },
   branchGatewayStep: {
-    page1: atom(commonInitialData.branchGatewayStep.page1),
+    page1: atomWithStorage(
+      'univVerificationStep-page4',
+      commonInitialData.branchGatewayStep.page1,
+    ),
   },
 };

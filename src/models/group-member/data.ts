@@ -1,5 +1,5 @@
-import { atom } from 'jotai';
 import { GroupMemberData } from './type';
+import { atomWithStorage } from 'jotai/utils';
 
 // initial values
 export const groupMemberInitialData: GroupMemberData = {
@@ -35,16 +35,31 @@ export const groupMemberInitialData: GroupMemberData = {
 // page level atom: each holds data, write/read
 export const groupMemberDataAtoms = {
   groupBranchStep: {
-    page1: atom(groupMemberInitialData.groupBranchStep.page1),
+    page1: atomWithStorage(
+      'groupBranchStep-page1',
+      groupMemberInitialData.groupBranchStep.page1,
+    ),
   },
   groupMemberMyInformationStep: {
-    page1: atom(groupMemberInitialData.groupMemberMyInformationStep.page1),
-    page2: atom(groupMemberInitialData.groupMemberMyInformationStep.page2),
+    page1: atomWithStorage(
+      'groupMemberMyInformationStep-page1',
+      groupMemberInitialData.groupMemberMyInformationStep.page1,
+    ),
+    page2: atomWithStorage(
+      'groupMemberMyInformationStep-page2',
+      groupMemberInitialData.groupMemberMyInformationStep.page2,
+    ),
   },
   groupParticipateStep: {
-    page1: atom(groupMemberInitialData.groupParticipateStep.page1),
+    page1: atomWithStorage(
+      'groupParticipateStep-page1',
+      groupMemberInitialData.groupParticipateStep.page1,
+    ),
   },
   groupMemberpledgeStep: {
-    page1: atom(groupMemberInitialData.groupMemberpledgeStep.page1),
+    page1: atomWithStorage(
+      'groupMemberpledgeStep-page1',
+      groupMemberInitialData.groupMemberpledgeStep.page1,
+    ),
   },
 };
