@@ -9,6 +9,7 @@ import { groupApplyAtoms, personalApplyAtoms } from '~/store/meeting';
 import { useImmerAtom } from 'jotai-immer';
 import { useSetAtom } from 'jotai';
 import { pageFinishAtom } from '~/store/funnel';
+import { useState } from 'react';
 
 type QuestionPageTemplateProps = {
   meetingType: 'group' | 'personal';

@@ -1,9 +1,10 @@
 import { useFunnel } from '~/hooks/useFunnel';
 import FirstPage from './FirstPage';
 import SecondPage from './SecondPage';
+import ThirdPage from './ThirdPage';
 import PageLayout from '~/components/layout/page/PageLayout';
 
-const PAGE_NUMBER = [1, 2];
+const PAGE_NUMBER = [1, 2, 3];
 
 const UnivVerificationStep = () => {
   const { Funnel, currentPage, PageHandler } = useFunnel({
@@ -25,6 +26,9 @@ const UnivVerificationStep = () => {
           </Funnel.Page>
           <Funnel.Page pageNumber={2}>
             <SecondPage />
+          </Funnel.Page>
+          <Funnel.Page pageNumber={3}>
+            <ThirdPage />
           </Funnel.Page>
         </Funnel>
       </PageLayout.SingleCardBody>
