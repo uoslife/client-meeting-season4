@@ -33,7 +33,6 @@ const AgreementItem = ({
         css={css`
           width: calc(100% - 36px);
         `}>
-        {/* 글꼴 weight 적용 추가해야함 */}
         <Text label={title} color={'Gray500'} typography={'GoThicTitleS'} />
         <Text
           label={content}
