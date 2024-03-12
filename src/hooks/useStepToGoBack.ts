@@ -10,20 +10,20 @@ const prevSteps: {
   [key in CombinedStep]: CombinedStep | null;
 } = {
   commonUnivVerificationStep: null,
-  commonBranchGatewayStep: 'commonUnivVerificationStep',
-  groupRoleSelectStep: 'commonBranchGatewayStep',
-  groupLeaderMyInformationStep: 'groupRoleSelectStep',
-  groupLeaderGroupCreateStep: 'groupLeaderMyInformationStep',
-  groupLeaderGroupInformationStep: 'groupLeaderGroupCreateStep',
-  groupLeaderPreferStep: 'groupLeaderGroupInformationStep',
-  groupLeaderPledgeStep: 'groupLeaderPreferStep',
-  groupMemberMyInformationStep: 'groupRoleSelectStep',
-  groupMemberParticipateStep: 'groupMemberMyInformationStep',
-  groupMemberPledgeStep: 'groupMemberParticipateStep',
-  personalMyInformationStep: 'commonBranchGatewayStep',
-  personalMyRomanceStep: 'personalMyInformationStep',
-  personalPreferInfoStep: 'personalMyRomanceStep',
-  personalPledgeStep: 'personalPreferInfoStep',
+  commonBranchGatewayStep: 'commonUnivVerificationStep', // /common/branchGatewayStep
+  groupRoleSelectStep: 'commonBranchGatewayStep', // /group/roleSelectStep
+  groupLeaderMyInformationStep: 'groupRoleSelectStep', // /group/leader/myInformationStep
+  groupLeaderGroupCreateStep: 'groupLeaderMyInformationStep', // /group/leader/createStep
+  groupLeaderGroupInformationStep: 'groupLeaderGroupCreateStep', // /group/leader/groupInformationStep
+  groupLeaderPreferStep: 'groupLeaderGroupInformationStep', // /group/leader/preferStep
+  groupLeaderPledgeStep: 'groupLeaderPreferStep', // /group/leader/pledgeStep
+  groupMemberMyInformationStep: 'groupRoleSelectStep', // /group/member/myInformationStep
+  groupMemberParticipateStep: 'groupMemberMyInformationStep', // /group/member/participateStep
+  groupMemberPledgeStep: 'groupMemberParticipateStep', // /group/member/pledgeStep
+  personalMyInformationStep: 'commonBranchGatewayStep', // /personal/myInformationStep
+  personalMyRomanceStep: 'personalMyInformationStep', // /personal/myRomanceStep
+  personalPreferInfoStep: 'personalMyRomanceStep', // /personal/myPreferTypeStep
+  personalPledgeStep: 'personalPreferInfoStep', // /personal/pledgeStep
 };
 
 /**
