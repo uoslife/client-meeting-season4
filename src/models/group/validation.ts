@@ -17,12 +17,12 @@ export const groupValidator: GroupValidator = {
       !!joinCode && otherMembers.every(joined => !!joined),
   },
   groupLeaderGroupInformationStep: {
-    page1: ({ preferDayOptions }) => preferDayOptions.length > 0,
+    page1: ({ preferDayOptions }) => preferDayOptions.length >= 2,
     page2: ({ answer }) => answer !== null,
     page3: ({ answer }) => answer !== null,
     page4: ({ answer }) => answer !== null,
     page5: ({ answer }) => answer !== null,
-    page6: ({ message }) => !!message,
+    page6: ({ message }) => message.length >= 10,
   },
   groupLeaderPledgeStep: {
     page1: ({ checked }) => checked.every(checked => checked),

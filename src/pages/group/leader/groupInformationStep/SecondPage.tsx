@@ -13,7 +13,7 @@ const SecondPage = () => {
   const select = (value: 0 | 1) => setPageState({ answer: value });
 
   const pageValidity = useAtomValue(combinedValidatiesAtoms)
-    .groupLeaderGroupInformationStep.page5;
+    .groupLeaderGroupInformationStep.page2;
   const setIsPageFinished = useSetAtom(pageFinishAtom);
   setIsPageFinished(pageValidity);
 

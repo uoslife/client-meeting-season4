@@ -1,11 +1,13 @@
-import { useAtom } from 'jotai';
+import { useAtom, useAtomValue, useSetAtom } from 'jotai';
 import PageLayout from '~/components/layout/page/PageLayout';
-import { personalApplyAtoms } from '~/store/meeting';
 import TextArea from '~/components/inputs/textarea/TextArea';
 import Paddler from '~/components/layout/Pad';
 import Col from '~/components/layout/Col';
 import Text from '~/components/typography/Text';
 import { css } from '@emotion/react';
+import { groupDataAtoms } from '~/models/group/data';
+import { pageFinishAtom } from '~/store/funnel';
+import { combinedValidatiesAtoms } from '~/models';
 
 const TopSayings = () => {
   return (
@@ -17,7 +19,9 @@ const TopSayings = () => {
       />
       <Text
         color="Gray400"
-        label="상대가 우리의 어떤 점을 알면 좋을까요?"
+        label={
+          '상대가 우리의 어떤 점을 알면 좋을까요? \n (10자 이상 작성해주세요.)'
+        }
         typography="GoThicBodyS"
       />
     </Col>
@@ -26,7 +30,16 @@ const TopSayings = () => {
 
 // 상대에게 전하는 첫 메시지에요.
 const SixthPage = () => {
-  const [message, setMessage] = useAtom(personalApplyAtoms.myInfo_message);
+  const [pageState, setPageState] = useAtom(
+    groupDataAtoms.groupLeaderGroupInformationStep.page6,
+  );
+
+  const { message } = pageState;
+
+  const setIsPageFinished = useSetAtom(pageFinishAtom);
+  const pageValidity = useAtomValue(combinedValidatiesAtoms)
+    .groupLeaderGroupInformationStep.page6;
+  setIsPageFinished(pageValidity);
 
   return (
     <PageLayout.SingleCardBody cardPadding="0 0 160px">
@@ -45,7 +58,8 @@ const SixthPage = () => {
           gap={32}>
           <TopSayings />
           <TextArea
-            onChange={e => setMessage(e.target.value)}
+            reset={() => setPageState({ message: '' })}
+            onChange={e => setPageState({ message: e.target.value })}
             value={message}
             placeholder={
               'ex. 우리가 좋아하는 것들은 어떤 게 있나요?\n(10자 이상 작성해주세요.)'

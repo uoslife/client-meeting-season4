@@ -1,12 +1,13 @@
 import { css } from '@emotion/react';
-import { useAtom, useSetAtom } from 'jotai';
+import { useAtom, useAtomValue, useSetAtom } from 'jotai';
 import Col from '~/components/layout/Col';
 import Paddler from '~/components/layout/Pad';
 import GridWrapper from '~/components/layout/gridWrapper/GridWrapper';
 import PageLayout from '~/components/layout/page/PageLayout';
 import Text from '~/components/typography/Text';
+import { combinedValidatiesAtoms } from '~/models';
+import { groupDataAtoms } from '~/models/group/data';
 import { pageFinishAtom } from '~/store/funnel';
-import { groupApplyAtoms } from '~/store/meeting';
 import { colorType } from '~/types/style.type';
 
 const TopSayings = () => {
@@ -68,41 +69,42 @@ const DayCircleButton = ({
 
 const DAYS = ['월', '화', '수', '목', '금', '토', '일'] as const;
 
-const DaySelector = () => {
-  const [preferDay, setPreferDay] = useAtom(
-    groupApplyAtoms.groupInfo_preferDay,
-  );
-
-  const toggle = (day: (typeof DAYS)[number]) =>
-    setPreferDay(prev =>
-      prev.includes(day) ? prev.filter(d => d !== day) : [...prev, day],
-    );
-
-  useSetAtom(pageFinishAtom)(preferDay.length >= 2);
-
-  return (
-    <GridWrapper row={2} column={4} rowGap={12}>
-      {DAYS.map(day => (
-        <DayCircleButton
-          key={day}
-          label={day}
-          selected={preferDay.includes(day)}
-          onClick={() => {
-            toggle(day);
-          }}
-        />
-      ))}
-    </GridWrapper>
-  );
-};
-
 const FirstPage = () => {
+  const [pageState, setPageState] = useAtom(
+    groupDataAtoms.groupLeaderGroupInformationStep.page1,
+  );
+
+  const { preferDayOptions: selectedOptions } = pageState;
+
+  const dayToggle = (day: (typeof DAYS)[number]) =>
+    setPageState(prev => ({
+      preferDayOptions: prev.preferDayOptions.includes(day)
+        ? prev.preferDayOptions.filter(d => d !== day)
+        : [...prev.preferDayOptions, day],
+    }));
+
+  const setIsPageFinished = useSetAtom(pageFinishAtom);
+  const pageValidity = useAtomValue(combinedValidatiesAtoms)
+    .groupLeaderGroupInformationStep.page1;
+  setIsPageFinished(pageValidity);
+
   return (
     <PageLayout.SingleCardBody>
       <Paddler top={36} left={20} right={20}>
         <Col gap={28} align="center">
           <TopSayings />
-          <DaySelector />
+          <GridWrapper row={2} column={4} rowGap={12}>
+            {DAYS.map(day => (
+              <DayCircleButton
+                key={day}
+                label={day}
+                selected={selectedOptions.includes(day)}
+                onClick={() => {
+                  dayToggle(day);
+                }}
+              />
+            ))}
+          </GridWrapper>
         </Col>
       </Paddler>
     </PageLayout.SingleCardBody>
