@@ -19,6 +19,8 @@ export const combinedValidatiesAtoms = atom<CombinedValidities>(get => ({
   ...get(commonValiditiesAtom),
 }));
 
+combinedValidatiesAtoms.debugLabel = 'combinedValidatiesAtoms';
+
 export type CombinedValidities = CommonValidites &
   GroupValidites &
   PersonalValidites;
