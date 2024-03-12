@@ -64,6 +64,7 @@ const SeventhPage = () => {
               setPageState(prev => ({ ...prev, message: e.target.value }))
             }
             value={message}
+            placeholder={'ex. 내가 좋아하는 것들은 어떤 게 있나요?'}
           />
         </Col>
       </Paddler>

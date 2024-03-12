@@ -20,7 +20,7 @@ const TopSayings = () => {
       <Text
         color="Gray400"
         label={
-          '상대가 우리의 어떤 점을 알면 좋을까요? \n (10자 이상 작성해주세요.)'
+          '상대가 나의 어떤 점을 알면 좋을까요? \n (10자 이상 작성해주세요.)'
         }
         typography="GoThicBodyS"
       />
@@ -61,9 +61,7 @@ const SixthPage = () => {
             reset={() => setPageState({ message: '' })}
             onChange={e => setPageState({ message: e.target.value })}
             value={message}
-            placeholder={
-              'ex. 우리가 좋아하는 것들은 어떤 게 있나요?\n(10자 이상 작성해주세요.)'
-            }
+            placeholder={'ex. 우리가 좋아하는 것들은 어떤 게 있나요?'}
           />
         </Col>
       </Paddler>
