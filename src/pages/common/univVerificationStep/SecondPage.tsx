@@ -1,21 +1,29 @@
-import PageLayout from '~/components/layout/page/PageLayout';
 import Paddler from '~/components/layout/Pad';
 import Col from '~/components/layout/Col';
 import Row from '~/components/layout/Row';
 import { useEffect } from 'react';
-import { useSetAtom } from 'jotai';
-import { personalApplyAtoms } from '~/store/meeting';
+import { useAtom, useAtomValue, useSetAtom } from 'jotai';
 import { pageFinishAtom } from '~/store/funnel';
 import Text from '~/components/typography/Text';
 import { css } from '@emotion/react';
+import { commonDataAtoms } from '~/models/common/data';
+import { combinedValidatiesAtoms } from '~/models';
 
 const SecondPage = () => {
+  const [, setPageState] = useAtom(
+    commonDataAtoms.commonUnivVerificationStep.page2,
+  );
+
+  const pageValidity = useAtomValue(combinedValidatiesAtoms)
+    .commonUnivVerificationStep.page2;
   const setIsPageFinished = useSetAtom(pageFinishAtom);
+  setIsPageFinished(pageValidity);
 
   useEffect(() => {
-    const isAllInputsFilled = true;
-    setIsPageFinished(!!isAllInputsFilled);
-  }, []);
+    setPageState({ checked: [true, true] });
+  }, [setPageState]);
+
+  // TODO: 체크 컴포넌트
 
   return (
     <Paddler top={36} right={20} bottom={24} left={20}>

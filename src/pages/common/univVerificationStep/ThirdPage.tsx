@@ -4,15 +4,32 @@ import Row from '~/components/layout/Row';
 import { css } from '@emotion/react';
 import RoundButton from '~/components/buttons/roundButton/RoundButton';
 import { useInput } from '~/hooks/useInput';
-import { useState } from 'react';
-import { useSetAtom } from 'jotai';
+import { useEffect, useState } from 'react';
+import { useAtom, useAtomValue, useSetAtom } from 'jotai';
 import { pageFinishAtom } from '~/store/funnel';
 import TextInput from '~/components/inputs/textInput/TextInput';
 import Paddler from '~/components/layout/Pad';
+import { combinedValidatiesAtoms } from '~/models';
+import { commonDataAtoms } from '~/models/common/data';
 
 const ThirdPage = () => {
-  const storedUnivType = localStorage.getItem('univ_type');
   const setIsPageFinished = useSetAtom(pageFinishAtom);
+  const storedUnivType = useAtomValue(
+    commonDataAtoms.commonUnivVerificationStep.page1,
+  ).univType;
+  const pageValidity = useAtomValue(combinedValidatiesAtoms)
+    .commonUnivVerificationStep.page3;
+  setIsPageFinished(pageValidity);
+
+  const [, setPageState] = useAtom(
+    commonDataAtoms.commonUnivVerificationStep.page3,
+  );
+
+  // TODO: 해당 코드 삭제, 실제 상태와 연동
+  useEffect(() => {
+    setPageState({ verified: true });
+  }, [setPageState]);
+
   const { inputValue, _, handleInputChange } = useInput('');
   const {
     inputValue: validateCodeValue,
@@ -72,9 +89,7 @@ const ThirdPage = () => {
               isAuthentication={true}
               onChange={handleInputChange}>
               <Text
-                label={
-                  storedUnivType === '"KHU"' ? '@khu.ac.kr' : '@hufs.ac.kr'
-                }
+                label={storedUnivType === 'KHU' ? '@khu.ac.kr' : '@hufs.ac.kr'}
                 color={'Gray400'}
                 typography={'GoThicButtonM'}
                 css={css`
