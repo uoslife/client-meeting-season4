@@ -1,9 +1,32 @@
+import { css } from '@emotion/react';
 import { useAtom, useAtomValue, useSetAtom } from 'jotai';
+import TextArea from '~/components/inputs/textarea/TextArea';
+import Col from '~/components/layout/Col';
 import Paddler from '~/components/layout/Pad';
 import PageLayout from '~/components/layout/page/PageLayout';
+import Text from '~/components/typography/Text';
 import { combinedValidatiesAtoms } from '~/models';
 import { personalDataAtoms } from '~/models/personal/data';
 import { pageFinishAtom } from '~/store/funnel';
+
+const TopSayings = () => {
+  return (
+    <Col gap={12} align="center">
+      <Text
+        color="Gray500"
+        label="15. 상대에게 전하는 첫 메시지예요."
+        typography="NeoTitleM"
+      />
+      <Text
+        color="Gray400"
+        label={
+          '상대가 우리의 어떤 점을 알면 좋을까요? \n (10자 이상 작성해주세요.)'
+        }
+        typography="GoThicBodyS"
+      />
+    </Col>
+  );
+};
 
 const SeventhPage = () => {
   const [pageState, setPageState] = useAtom(
@@ -18,13 +41,31 @@ const SeventhPage = () => {
 
   return (
     <PageLayout.SingleCardBody>
-      <Paddler top={36} right={20} bottom={24} left={20}>
-        <input
-          onChange={e =>
-            setPageState(prev => ({ ...prev, message: e.target.value }))
-          }
-          value={message}
-        />
+      <Paddler
+        css={css`
+          flex: 1;
+        `}
+        top={36}
+        right={20}
+        bottom={24}
+        left={20}>
+        <Col
+          align="center"
+          css={css`
+            flex: 1;
+          `}
+          gap={32}>
+          <TopSayings />
+          <TextArea
+            reset={() => {
+              setPageState(prev => ({ ...prev, message: '' }));
+            }}
+            onChange={e =>
+              setPageState(prev => ({ ...prev, message: e.target.value }))
+            }
+            value={message}
+          />
+        </Col>
       </Paddler>
     </PageLayout.SingleCardBody>
   );

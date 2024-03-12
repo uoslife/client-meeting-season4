@@ -14,7 +14,7 @@ const TopSayings = () => {
     <Col gap={12} align="center">
       <Text
         color="Gray500"
-        label="15. 상대에게 전하는 첫 메시지예요."
+        label="상대에게 전하는 첫 메시지예요."
         typography="NeoTitleM"
       />
       <Text

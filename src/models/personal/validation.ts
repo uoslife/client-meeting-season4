@@ -13,7 +13,7 @@ export const personalValidators: PersonalValidator = {
     page4: ({ animalOptions }) => animalOptions.length > 0,
     page5: ({ mbti }) => !!mbti[0] && !!mbti[1] && !!mbti[2] && !!mbti[3],
     page6: ({ interestOptions }) => interestOptions.length === 3,
-    page7: ({ message }) => !!message,
+    page7: ({ message }) => message.length >= 10,
   },
   personalMyRomanceStep: {
     page1: ({ answer }) => answer !== null,

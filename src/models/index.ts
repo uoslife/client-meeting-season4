@@ -1,5 +1,5 @@
 import { atom } from 'jotai';
-import { GroupLeaderValiditesAtom } from './group/validation';
+import { groupLeaderValiditesAtom } from './group/validation';
 import { personalValiditiesAtom } from './personal/validation';
 import { CommonData } from './common/data.type';
 import { GroupData } from './group/data.type';
@@ -14,7 +14,7 @@ export type CombinedData = CommonData & GroupData & PersonalData;
 export type CombinedStep = keyof CombinedData;
 
 export const combinedValidatiesAtoms = atom<CombinedValidities>(get => ({
-  ...get(GroupLeaderValiditesAtom),
+  ...get(groupLeaderValiditesAtom),
   ...get(personalValiditiesAtom),
   ...get(commonValiditiesAtom),
 }));

@@ -43,7 +43,7 @@ export const groupValidator: GroupValidator = {
   },
 };
 
-export const GroupLeaderValiditesAtom = atom<GroupValidites>(get => ({
+export const groupLeaderValiditesAtom = atom<GroupValidites>(get => ({
   groupLeaderGroupCreateStep: {
     page1: groupValidator.groupLeaderGroupCreateStep.page1(
       get(groupDataAtoms.groupLeaderGroupCreateStep.page1),
