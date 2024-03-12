@@ -5,30 +5,23 @@ import Row from '~/components/layout/Row';
 import Text from '~/components/typography/Text';
 import GridWrapper from '~/components/layout/gridWrapper/GridWrapper';
 import { INTEREST, INTEREST_NAME } from '~/constants';
-import { useToggleSelect } from '~/hooks/useToggleSelect';
-import { useAtom, useSetAtom } from 'jotai';
+import { useAtom, useAtomValue, useSetAtom } from 'jotai';
 import { pageFinishAtom } from '~/store/funnel';
 import InterestButton from '~/components/buttons/interestButton/InterestButton';
-import { useEffect } from 'react';
-import { personalApplyAtoms } from '~/store/meeting';
+import { personalDataAtoms } from '~/models/personal/data';
+import { combinedValidatiesAtoms } from '~/models';
 
 const SixthPage = () => {
-  const storedInterest = localStorage.getItem('personalInfo_interests');
-  const parsedInterest =
-    storedInterest === null ? [] : JSON.parse(storedInterest);
-  const {
-    selectedValues: interest,
-    select: selectInterest,
-    checkSelectedValues: checkInterest,
-  } = useToggleSelect<string>(3, parsedInterest);
-  const [, setInterests] = useAtom(personalApplyAtoms.personalInfo_interests);
-  const setIsPageFinished = useSetAtom(pageFinishAtom);
+  const [pageState, setPageState] = useAtom(
+    personalDataAtoms.myInformationStep.page6,
+  );
 
-  useEffect(() => {
-    setInterests(interest);
-    const isAllInputsFilled = interest.length === 3;
-    setIsPageFinished(!!isAllInputsFilled);
-  }, [interest]);
+  const { interestOptions } = pageState;
+
+  const pageValidity = useAtomValue(combinedValidatiesAtoms).myInformationStep
+    .page6;
+  const setIsPageFinished = useSetAtom(pageFinishAtom);
+  setIsPageFinished(!!pageValidity);
 
   return (
     <PageLayout.SingleCardBody
@@ -48,9 +41,22 @@ const SixthPage = () => {
                   <InterestButton
                     key={i}
                     interestType={interest}
-                    isActive={checkInterest(interest)}
+                    isActive={interestOptions.includes(interest)}
                     label={INTEREST_NAME[interest]}
-                    onMouseDown={selectInterest(interest)}
+                    onMouseDown={() => {
+                      if (interestOptions.includes(interest))
+                        setPageState(prev => ({
+                          ...prev,
+                          interestOptions: interestOptions.filter(
+                            option => option !== interest,
+                          ),
+                        }));
+                      else if (interestOptions.length < 3)
+                        setPageState(prev => ({
+                          ...prev,
+                          interestOptions: [...interestOptions, interest],
+                        }));
+                    }}
                   />
                 ))}
               </GridWrapper>

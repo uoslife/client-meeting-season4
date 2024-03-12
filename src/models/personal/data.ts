@@ -24,7 +24,7 @@ export const personalInitialData: PersonalData = {
       animalOptions: [],
     },
     page5: {
-      mbti: null,
+      mbti: [],
     },
     page6: {
       interestOptions: [],

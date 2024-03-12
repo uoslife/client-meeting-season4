@@ -1,3 +1,5 @@
+import { interestKeyType } from '~/types/icon.type';
+
 export type Univ = 'HUFS' | 'KHU' | 'UOS';
 
 export type GenderOption = 'F' | 'M';
@@ -16,16 +18,6 @@ export type AnimalOption =
   | 'monkey'
   | 'dinosaur'
   | 'chick';
-
-export type InterestOption =
-  | '음악감상'
-  | '영화감상'
-  | '운동'
-  | '요리'
-  | '독서'
-  | '게임'
-  | '여행'
-  | '기타';
 
 export type MBTIOption = string; // TODO: 백엔드와 협의 후 변경
 
@@ -48,11 +40,11 @@ export type InfoOptions = {
   smokingOptions: boolean[];
   drinkRange: [number, number];
   animalOptions: AnimalOption[];
-  mbti: null | MBTIOption;
+  mbti: string[] | MBTIOption;
   mbtiOptions: MBTIOption[];
   univs: Univ[];
   studentTypes: StudentOption[];
-  interestOptions: InterestOption[];
+  interestOptions: interestKeyType[];
   message: string;
   atmosphere: string;
   preferDayOptions: PreferDay[];
