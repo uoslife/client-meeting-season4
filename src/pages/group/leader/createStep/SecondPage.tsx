@@ -1,45 +1,48 @@
 import Col from '~/components/layout/Col';
 import Text from '~/components/typography/Text';
 import { css } from '@emotion/react';
-import { useAtom, useAtomValue } from 'jotai';
-import { groupApplyAtoms } from '~/store/meeting';
-import { useEffect, useState } from 'react';
+import { useAtom, useAtomValue, useSetAtom } from 'jotai';
+import { useEffect } from 'react';
 import { colors } from '~/styles/colors';
 import Row from '~/components/layout/Row';
 import IconButton from '~/components/buttons/iconButton/IconButton';
 import styled from '@emotion/styled';
-
-const TEAM_JOIN_STATUS = [
-  {
-    name: '호랑이 (본인)',
-    isJoin: true,
-  },
-  {
-    name: '낙타',
-    isJoin: false,
-  },
-  {
-    name: '곰돌이',
-    isJoin: false,
-  },
-];
+import { groupDataAtoms } from '~/models/group/data';
+import { pageFinishAtom } from '~/store/funnel';
+import { combinedValidatiesAtoms } from '~/models';
 
 const SecondPage = () => {
-  const [codeValue, setCodeValue] = useAtom(groupApplyAtoms.groupJoin_code);
-  const temaNameValue = useAtomValue(groupApplyAtoms.groupInfo_name);
-  const [teamJoinStatusValue, setTeamJoinStatusValue] =
-    useState(TEAM_JOIN_STATUS);
+  const { nickname } = useAtomValue(
+    groupDataAtoms.groupLeaderMyInformationStep.page1,
+  );
+  const { teamName } = useAtomValue(
+    groupDataAtoms.groupLeaderGroupCreateStep.page1,
+  );
+  const [pageState, setPageState] = useAtom(
+    groupDataAtoms.groupLeaderGroupCreateStep.page2,
+  );
+  const { joinCode, otherMembers } = pageState;
 
-  // 코드 api에서 받아오기
   useEffect(() => {
-    setCodeValue('8250');
-  }, []);
+    setPageState(prev => ({ ...prev, joinCode: 'TEMP' }));
+    setPageState(prev => ({
+      ...prev,
+      otherMembers: ['김팅원', '박팅원'],
+    }));
+  }, [setPageState]);
+
+  const entireTeamMembers: (string | null)[] = [nickname, ...otherMembers];
+
+  const setIsPageFinished = useSetAtom(pageFinishAtom);
+  const pageValidity = useAtomValue(combinedValidatiesAtoms)
+    .groupLeaderGroupCreateStep.page2;
+  setIsPageFinished(pageValidity);
 
   return (
     <Col align={'center'} gap={24} padding={'36px 20px'}>
       <Col gap={12} align={'center'}>
         <Text
-          label={codeValue}
+          label={joinCode ?? '팅 코드 생성 중입니다'}
           color={'Gray500'}
           typography={'NeoTitleM'}
           size={60}
@@ -79,7 +82,7 @@ const SecondPage = () => {
       <Col align={'center'} gap={8}>
         <Text label={'팅 이름'} color={'Gray500'} typography={'GoThicBodyS'} />
         <Text
-          label={`" ${temaNameValue} "`}
+          label={`" ${teamName} "`}
           color={'Gray500'}
           typography={'NeoTitleM'}
         />
@@ -108,9 +111,9 @@ const SecondPage = () => {
         </Row>
         <S.TeamJoinStatus>
           <Col gap={24}>
-            {teamJoinStatusValue.map((value, index) => {
+            {entireTeamMembers.map((memberName, index) => {
               return (
-                <Row key={`${value} + ${index}`}>
+                <Row key={`${memberName} + ${index}`}>
                   <Row align={'center'} gap={8}>
                     <IconButton
                       iconName={'human-circle'}
@@ -118,20 +121,20 @@ const SecondPage = () => {
                       height={20}
                     />
                     <Text
-                      label={value.name}
+                      label={memberName ?? ''}
                       color={'Gray500'}
                       typography={'GoThicTitleS'}
                     />
                   </Row>
                   <Row align={'center'} justify={'flex-end'} gap={8}>
                     <Text
-                      label={value.isJoin ? '입장완료' : '미입장'}
-                      color={value.isJoin ? 'Primary500' : 'Gray200'}
+                      label={memberName !== null ? '입장완료' : '미입장'}
+                      color={memberName !== null ? 'Primary500' : 'Gray200'}
                       typography={'GoThicBodyS'}
                     />
                     <IconButton
                       iconName={
-                        value.isJoin
+                        memberName !== null
                           ? 'checkCircle-active'
                           : 'checkCircle-inactive'
                       }

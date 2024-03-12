@@ -2,24 +2,28 @@ import Col from '~/components/layout/Col';
 import Text from '~/components/typography/Text';
 import { css } from '@emotion/react';
 import TextInput from '~/components/inputs/textInput/TextInput';
-import { useAtom } from 'jotai';
-import { groupApplyAtoms } from '~/store/meeting';
-import { ChangeEvent, useEffect } from 'react';
+import { useAtom, useAtomValue } from 'jotai';
+import { ChangeEvent } from 'react';
 import { useSetAtom } from 'jotai';
 import { pageFinishAtom } from '~/store/funnel';
+import { groupDataAtoms } from '~/models/group/data';
+import { combinedValidatiesAtoms } from '~/models';
 
 const FirstPage = () => {
-  const [teamNameValue, setTeamNameValue] = useAtom(
-    groupApplyAtoms.groupInfo_name,
+  const [pageState, setPageState] = useAtom(
+    groupDataAtoms.groupLeaderGroupCreateStep.page1,
   );
-  const setIsPageFinished = useSetAtom(pageFinishAtom);
-  const handleOnChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setTeamNameValue(e.target.value);
+  const { teamName } = pageState;
+  const onChangeTeamName = (e: ChangeEvent<HTMLInputElement>) => {
+    console.log(123123);
+    console.log(e.target.value);
+    setPageState(prev => ({ ...prev, teamName: e.target.value }));
   };
 
-  useEffect(() => {
-    setIsPageFinished(teamNameValue.length >= 2);
-  }, [teamNameValue]);
+  const setIsPageFinished = useSetAtom(pageFinishAtom);
+  const pageValidity = useAtomValue(combinedValidatiesAtoms)
+    .groupLeaderGroupCreateStep.page1;
+  setIsPageFinished(pageValidity);
 
   return (
     <Col align={'center'} gap={20} padding={'36px 20px'}>
@@ -42,8 +46,8 @@ const FirstPage = () => {
         />
       </Col>
       <TextInput
-        value={teamNameValue}
-        onChange={handleOnChange}
+        value={teamName}
+        onChange={onChangeTeamName}
         status={'default'}
         placeholder={'팅 이름 입력 (2글자 이상)'}
       />

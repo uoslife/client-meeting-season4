@@ -13,8 +13,8 @@ export const groupValidator: GroupValidator = {
   },
   groupLeaderGroupCreateStep: {
     page1: ({ teamName }) => !!teamName,
-    page2: ({ joinCode, memberJoined }) =>
-      !!joinCode && memberJoined.every(joined => joined),
+    page2: ({ joinCode, otherMembers }) =>
+      !!joinCode && otherMembers.every(joined => !!joined),
   },
   groupLeaderGroupInformationStep: {
     page1: ({ preferDayOptions }) => preferDayOptions.length > 0,

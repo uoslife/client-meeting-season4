@@ -34,8 +34,8 @@ export type GroupData = {
       teamName: string;
     };
     page2: {
-      joinCode: string;
-      memberJoined: [boolean, boolean, boolean];
+      joinCode: string | null;
+      otherMembers: [string | null, string | null];
     };
   };
   // 03. 우리 팅 정보 입력하기
