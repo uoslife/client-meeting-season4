@@ -5,31 +5,31 @@ import PageLayout from '~/components/layout/page/PageLayout';
 
 const PAGE_NUMBER = [1, 2];
 
-const GroupCreateStep = () => {
+const GroupLeaderMyInformationStep = () => {
+  const isLeader = localStorage.getItem('groupRole_isLeader');
+  console.log(isLeader);
   const { Funnel, currentPage, PageHandler } = useFunnel({
     pageNumberList: PAGE_NUMBER,
-    nextStep: { path: '/common/privacyPolicy' },
-    prevStep: { path: '/group/myInformationStep' },
+    prevStep: { path: '/group/roleSelectStep' },
+    nextStep: { path: '/group/leader/createStep' },
   });
 
   return (
     <PageLayout>
       <PageLayout.Header
-        title={'02. 팅 만들기'}
+        title={'01. 나의 정보 입력하기'}
         isProgress={true}
-        currentStep={2}
+        currentStep={1}
         totalStep={7}
       />
-      <PageLayout.SingleCardBody>
-        <Funnel>
-          <Funnel.Page pageNumber={1}>
-            <FirstPage />
-          </Funnel.Page>
-          <Funnel.Page pageNumber={2}>
-            <SecondPage />
-          </Funnel.Page>
-        </Funnel>
-      </PageLayout.SingleCardBody>
+      <Funnel>
+        <Funnel.Page pageNumber={1}>
+          <FirstPage />
+        </Funnel.Page>
+        <Funnel.Page pageNumber={2}>
+          <SecondPage />
+        </Funnel.Page>
+      </Funnel>
       <PageLayout.Footer
         currentPage={currentPage}
         totalPage={PAGE_NUMBER.length}
@@ -40,4 +40,4 @@ const GroupCreateStep = () => {
   );
 };
 
-export default GroupCreateStep;
+export default GroupLeaderMyInformationStep;

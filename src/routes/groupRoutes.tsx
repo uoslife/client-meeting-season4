@@ -1,16 +1,17 @@
-import MyInformationStep from '~/pages/group/myInfomationStep/Step';
-import MyRomanceStep from '~/pages/personal/myRomanceStep/Step';
-import MyPreferTypeStep from '~/pages/personal/myPreferTypeStep/Step';
-import GroupRoleSelectStep from '~/pages/group/groupRoleSelectStep/Step';
-import GroupCreateStep from '~/pages/group/groupCreateStep/Step';
-import GroupParticipateStep from '~/pages/group/groupParticipateStep/Step';
-import GroupInformationStep from '~/pages/group/groupInformationStep/Step';
-import GroupPreferStep from '~/pages/group/groupPreferStep/Step';
+import GroupRoleSelectStep from '~/pages/group/roleSelectStep/Step';
+import GroupLeaderMyInformationStep from '~/pages/group/leader/myInfomationStep/Step';
+import GroupLeaderGroupInformationStep from '~/pages/group/leader/groupInformationStep/Step';
+import GroupLeaderPreferStep from '~/pages/group/leader/preferStep/Step';
+import GroupLeaderCreateStep from '~/pages/group/leader/createStep/Step';
+import GroupLeaderPledgeStep from '~/pages/group/leader/pledgeStep/Step';
+import GroupMemberMyInformationStep from '~/pages/group/member/myInformationStep/Step';
+import GroupMemberParticipateStep from '~/pages/group/member/participateStep/Step';
+import GroupMemberPledgeStep from '~/pages/group/member/pledgeStep/Step';
 
 const groupRoutes = [
   {
     // 모임을 만드시나요? 참여하시나요?
-    path: '/group/groupRoleSelectStep',
+    path: '/group/roleSelectStep',
     element: <GroupRoleSelectStep />,
   },
 
@@ -21,32 +22,27 @@ const groupRoutes = [
   {
     // 1. 나의 정보 입력하기
     path: '/group/leader/myInformationStep',
-    element: <MyInformationStep />, // .
+    element: <GroupLeaderMyInformationStep />, // .
   },
   {
     // 2. 팅 만들기
-    path: '/group/leader/groupCreateStep',
-    element: <GroupCreateStep />,
+    path: '/group/leader/createStep',
+    element: <GroupLeaderCreateStep />,
   },
   {
     // 3. 우리 팅 정보 입력하기
     path: '/group/leader/groupInformationStep',
-    element: <></>, // .
+    element: <GroupLeaderGroupInformationStep />, // .
   },
   {
     // 4. 만나고 싶은 팅 정보 입력하기
     path: '/group/leader/preferStep',
-    element: <></>, // .
+    element: <GroupLeaderPreferStep />, // .
   },
   {
     // 5. 시대팅 이용 서약
     path: '/group/leader/pledgeStep',
-    element: <></>, // .
-  },
-  {
-    // 6. 신청 정보 확인하기
-    path: '/group/leader/checkApplyInfoStep',
-    element: <></>, // .
+    element: <GroupLeaderPledgeStep />, // .
   },
 
   //--------------------------------------------------------//
@@ -59,41 +55,23 @@ const groupRoutes = [
 
   {
     // 1. 나의 정보 입력하기
-    path: 'group/member/myInformationStep',
-    element: <></>,
+    path: '/group/member/myInformationStep',
+    element: <GroupMemberMyInformationStep />,
   },
   {
     // 2. 팅 참여하기
     path: '/group/member/participateStep',
-    element: <GroupParticipateStep />,
+    element: <GroupMemberParticipateStep />,
   },
   {
     // 3. 시대팅 이용 서약
     path: '/group/member/pledgeStep',
-    element: <></>,
+    element: <GroupMemberPledgeStep />,
   },
 
   //--------------------------------------------------------//
   //---------------------- 이상 팅원 ------------------------//
   //--------------------------------------------------------//
-
-  // deprecated or 잘 바꿔서 재활용
-  {
-    path: '/group/groupPreferStep',
-    element: <GroupPreferStep />,
-  },
-  {
-    path: '/group/groupInformationStep',
-    element: <GroupInformationStep />,
-  },
-  {
-    path: '/group/groupRomanceStep',
-    element: <MyRomanceStep />,
-  },
-  {
-    path: '/group/groupPreferTypeStep',
-    element: <MyPreferTypeStep />,
-  },
 ] as const;
 
 export default groupRoutes;

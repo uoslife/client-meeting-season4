@@ -7,11 +7,11 @@ import PageLayout from '~/components/layout/page/PageLayout';
 
 const PAGE_NUMBER = [1, 2, 3, 4];
 
-const MyPreferTypeStep = () => {
+const PersonalMyPreferTypeStep = () => {
   const { Funnel, currentPage, PageHandler } = useFunnel({
     pageNumberList: PAGE_NUMBER,
-    nextStep: { path: '/common/privacyPolicy' },
-    prevStep: { path: '/personal/myRomance' },
+    prevStep: { path: '/personal/myRomanceStep' },
+    nextStep: { path: '/personal/pledgeStep' },
   });
 
   return (
@@ -46,4 +46,4 @@ const MyPreferTypeStep = () => {
   );
 };
 
-export default MyPreferTypeStep;
+export default PersonalMyPreferTypeStep;

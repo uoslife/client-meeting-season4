@@ -16,7 +16,7 @@ type bottomCardChildrenProps = {
   onClickPrimary: () => void;
   onClickSecondary: () => void;
 };
-const LandingStep = () => {
+const CommonLandingStep = () => {
   const navigate = useNavigate();
 
   const handleOnClickPrimary = () => {
@@ -48,7 +48,7 @@ const LandingStep = () => {
   );
 };
 
-export default LandingStep;
+export default CommonLandingStep;
 
 const TopCardComponent = () => {
   return (

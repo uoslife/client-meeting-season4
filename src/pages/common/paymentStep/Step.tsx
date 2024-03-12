@@ -2,7 +2,7 @@ import PageLayout from '~/components/layout/page/PageLayout';
 import FirstPage from './FirstPage';
 import { useFunnel } from '~/hooks/useFunnel';
 
-const PaymentStep = () => {
+const CommonPaymentStep = () => {
   const { Funnel, currentPage, PageHandler } = useFunnel({
     pageNumberList: [1],
     nextStep: { path: '/common/finishApplyStep' },
@@ -30,4 +30,4 @@ const PaymentStep = () => {
   );
 };
 
-export default PaymentStep;
+export default CommonPaymentStep;

@@ -6,11 +6,11 @@ import PageLayout from '~/components/layout/page/PageLayout';
 
 const PAGE_NUMBER = [1, 2, 3];
 
-const UnivVerificationStep = () => {
+const CommonUnivVerificationStep = () => {
   const { Funnel, currentPage, PageHandler } = useFunnel({
     pageNumberList: PAGE_NUMBER,
-    nextStep: { path: '/common/branchGateWayStep' },
-    prevStep: { path: '/' },
+    nextStep: { path: '/common/branchGatewayStep' },
+    prevStep: { path: '/common/landingStep' },
   });
 
   return (
@@ -42,4 +42,4 @@ const UnivVerificationStep = () => {
   );
 };
 
-export default UnivVerificationStep;
+export default CommonUnivVerificationStep;

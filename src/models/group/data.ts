@@ -4,7 +4,7 @@ import { GroupData, GroupDataAtoms } from './data.type';
 // initial values
 export const groupInitialData: GroupData = {
   // 모임을 만드시나요? 참여하시나요?
-  groupRoleSelectStep: {
+  roleSelectStep: {
     page1: {
       isLeader: null,
     },
@@ -103,11 +103,11 @@ export const groupInitialData: GroupData = {
   //--------------------------------------------------------//
 };
 
-export const groupLeaderDataAtoms: GroupDataAtoms = {
-  groupRoleSelectStep: {
+export const groupDataAtoms: GroupDataAtoms = {
+  roleSelectStep: {
     page1: atomWithStorage(
-      'groupRoleSelectStep-page1',
-      groupInitialData.groupRoleSelectStep.page1,
+      'roleSelectStep-page1',
+      groupInitialData.roleSelectStep.page1,
     ),
   },
   groupLeaderMyInformationStep: {

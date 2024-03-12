@@ -1,44 +1,53 @@
-import UnivVerificationStep from '~/pages/common/univVerificationStep/Step';
-import BranchGatewayStep from '~/pages/common/branchGatewayStep/Step';
-import PaymentStep from '~/pages/common/paymentStep/Step';
-import PrivacyPolicyStep from '~/pages/common/privacyPolicyStep/Step';
-import FinishApplyStep from '~/pages/common/finishApplyStep/Step';
-import LandingStep from '~/pages/common/landingStep/Step';
-import CheckApplyInfoStep from '~/pages/common/checkApplyInfoStep/Step';
-import PaymentResultStep from '~/pages/common/paymentResultStep/Step';
+import CommonUnivVerificationStep from '~/pages/common/univVerificationStep/Step';
+import CommonBranchGatewayStep from '~/pages/common/branchGatewayStep/Step';
+import CommonPaymentStep from '~/pages/common/paymentStep/Step';
+import CommonPrivacyPolicyStep from '~/pages/common/privacyPolicyStep/Step';
+import CommonFinishApplyStep from '~/pages/common/finishApplyStep/Step';
+import CommonLandingStep from '~/pages/common/landingStep/Step';
+import CommonCheckApplyInfoStep from '~/pages/common/checkApplyInfoStep/Step';
+import CommonPaymentResultStep from '~/pages/common/paymentResultStep/Step';
 
 const commonRoutes = [
+  //--------------------------------------------------------//
+  //----------------- 이하 1:1 / 3:3 분기 전 ----------------//
+  //--------------------------------------------------------//
+
   {
     path: '/common/landingStep',
-    element: <LandingStep />,
+    element: <CommonLandingStep />,
   },
   {
     path: '/common/univVerificationStep',
-    element: <UnivVerificationStep />,
+    element: <CommonUnivVerificationStep />,
   },
   {
     path: '/common/branchGatewayStep',
-    element: <BranchGatewayStep />,
+    element: <CommonBranchGatewayStep />,
   },
   {
     path: '/common/privacyPolicyStep',
-    element: <PrivacyPolicyStep />,
+    element: <CommonPrivacyPolicyStep />,
   },
+
+  //--------------------------------------------------------//
+  //----------------- 이상 1:1 / 3:3 분기 전 ----------------//
+  //--------------------------------------------------------//
+
   {
     path: '/common/paymentStep',
-    element: <PaymentStep />,
+    element: <CommonPaymentStep />,
   },
   {
     path: '/common/paymentResultStep',
-    element: <PaymentResultStep />,
+    element: <CommonPaymentResultStep />,
   },
   {
     path: '/common/finishApplyStep',
-    element: <FinishApplyStep />,
+    element: <CommonFinishApplyStep />,
   },
   {
     path: '/common/checkApplyInfoStep',
-    element: <CheckApplyInfoStep />,
+    element: <CommonCheckApplyInfoStep />,
   },
   {
     path: '*',

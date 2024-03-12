@@ -9,11 +9,11 @@ import SixthPage from '~/pages/personal/myInformationStep/SixthPage';
 
 const PAGE_NUMBER = [1, 2, 3, 4, 5, 6];
 
-const GroupInformationStep = () => {
+const GroupLeaderGroupInformationStep = () => {
   const { Funnel, currentPage, PageHandler } = useFunnel({
     pageNumberList: PAGE_NUMBER,
-    nextStep: { path: '/group/groupPreferStep' },
-    prevStep: { path: '/common/branchGateWayStep' },
+    prevStep: { path: '/group/leader/createStep' },
+    nextStep: { path: '/group/leader/preferStep' },
     // 기획에게 뒤로 가기 시, 팅 참여 항목으로 다시 돌아가게끔 할 것인지 물어보기
   });
 
@@ -55,4 +55,4 @@ const GroupInformationStep = () => {
   );
 };
 
-export default GroupInformationStep;
+export default GroupLeaderGroupInformationStep;

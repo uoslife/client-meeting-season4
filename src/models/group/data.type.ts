@@ -4,7 +4,7 @@ import { InfoOptions } from '../options';
 // data model
 export type GroupData = {
   // 모임을 만드시나요? 참여하시나요?
-  groupRoleSelectStep: {
+  roleSelectStep: {
     page1: { isLeader: null | boolean };
   };
 

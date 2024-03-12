@@ -17,7 +17,7 @@ export type HeaderProps = {
 const Header = ({
   title,
   isBackArrow = false,
-  backArrowNavigate = '/common/branchGateWayStep',
+  backArrowNavigate = '/common/branchGatewayStep',
   isProgress = false,
   currentStep,
   totalStep,

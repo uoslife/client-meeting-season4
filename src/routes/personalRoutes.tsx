@@ -1,23 +1,24 @@
-import MyInformationStep from '~/pages/personal/myInformationStep/Step';
-import MyRomanceStep from '~/pages/personal/myRomanceStep/Step';
-import MyPreferTypeStep from '~/pages/personal/myPreferTypeStep/Step';
+import PersonalMyInformationStep from '~/pages/personal/myInformationStep/Step';
+import PersonalMyRomanceStep from '~/pages/personal/myRomanceStep/Step';
+import PersonalMyPreferTypeStep from '~/pages/personal/myPreferTypeStep/Step';
+import PersonalPledgeStep from '~/pages/personal/pledgeStep/Step';
 
 const personalRoutes = [
   {
     path: '/personal/myInformationStep',
-    element: <MyInformationStep />,
+    element: <PersonalMyInformationStep />,
   },
   {
     path: '/personal/myRomanceStep',
-    element: <MyRomanceStep />,
+    element: <PersonalMyRomanceStep />,
   },
   {
-    path: '/personal/preferInfoStep',
-    element: <MyPreferTypeStep />,
+    path: '/personal/myPreferTypeStep',
+    element: <PersonalMyPreferTypeStep />,
   },
   {
     path: '/personal/pledgeStep',
-    element: <></>,
+    element: <PersonalPledgeStep />,
   },
 ] as const;
 

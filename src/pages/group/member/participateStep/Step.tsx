@@ -2,20 +2,20 @@ import PageLayout from '~/components/layout/page/PageLayout';
 import FirstPage from './FirstPage';
 import { useFunnel } from '~/hooks/useFunnel';
 
-const GroupPreferStep = () => {
+const GroupMemberParticipateStep = () => {
   const { Funnel, currentPage, PageHandler } = useFunnel({
     pageNumberList: [1],
-    nextStep: { path: '/group/groupInformationStep' },
-    prevStep: { path: '/common/applyPledgeStep' },
+    prevStep: { path: '/group/member/myInformationStep' },
+    nextStep: { path: '/group/member/pledgeStep' },
   });
 
   return (
     <PageLayout>
       <PageLayout.Header
-        title={'04. 만나고 싶은 팅 정보 입력하기'}
+        title={'02. 팅 참여하기'}
         isProgress={true}
-        totalStep={7}
-        currentStep={4}
+        totalStep={3}
+        currentStep={2}
       />
       <PageLayout.SingleCardBody>
         <Funnel>
@@ -34,4 +34,4 @@ const GroupPreferStep = () => {
   );
 };
 
-export default GroupPreferStep;
+export default GroupMemberParticipateStep;

@@ -1,12 +1,12 @@
 import Col from '~/components/layout/Col';
 import Text from '~/components/typography/Text';
 import { useAtom, useSetAtom } from 'jotai';
-import { groupApplyAtoms } from '~/store/meeting';
 import { useEffect } from 'react';
 import { pageFinishAtom } from '~/store/funnel';
 import RoundButton from '~/components/buttons/roundButton/RoundButton';
 import Paddler from '~/components/layout/Pad';
 import { css } from '@emotion/react';
+import { groupDataAtoms } from '~/models/group/data';
 
 const GROUP_ROLE_BUTTONS = [
   {
@@ -20,15 +20,16 @@ const GROUP_ROLE_BUTTONS = [
 ] as const;
 
 const FirstPage = () => {
-  const [isLeaderValue, setIsLeaderValue] = useAtom(
-    groupApplyAtoms.groupRole_isLeader,
+  const [pageState, setPageState] = useAtom(
+    groupDataAtoms.roleSelectStep.page1,
   );
+
   const setIsPageFinished = useSetAtom(pageFinishAtom);
 
   useEffect(() => {
-    if (isLeaderValue != null) setIsPageFinished(true);
+    if (pageState.isLeader != null) setIsPageFinished(true);
     else setIsPageFinished(false);
-  }, [isLeaderValue, setIsLeaderValue]);
+  }, [pageState.isLeader]);
 
   return (
     <Col align={'center'} gap={20} padding={'36px 20px'}>
@@ -66,9 +67,11 @@ const FirstPage = () => {
           {GROUP_ROLE_BUTTONS.map((value, index) => (
             <RoundButton
               key={`${value.label} ${index}`}
-              status={isLeaderValue === value.isLeader ? 'active' : 'inactive'}
+              status={
+                pageState.isLeader === value.isLeader ? 'active' : 'inactive'
+              }
               label={value.label}
-              onClick={() => setIsLeaderValue(value.isLeader)}
+              onClick={() => setPageState({ isLeader: value.isLeader })}
             />
           ))}
         </Col>

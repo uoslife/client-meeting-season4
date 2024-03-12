@@ -1,0 +1,40 @@
+import { useFunnel } from '~/hooks/useFunnel';
+import PageLayout from '~/components/layout/page/PageLayout';
+
+const PAGE_NUMBER = [1];
+
+const FirstPage = () => {
+  return null;
+};
+
+const PersonalPledgeStep = () => {
+  const { Funnel, currentPage, PageHandler } = useFunnel({
+    pageNumberList: PAGE_NUMBER,
+    prevStep: { path: '/personal/myPreferTypeStep' },
+    nextStep: { path: '/common/checkApplyInfoStep' },
+  });
+
+  return (
+    <PageLayout>
+      <PageLayout.Header
+        title={'04. 시대팅 이용 서약'}
+        isProgress={true}
+        currentStep={2}
+        totalStep={6}
+      />
+      <Funnel>
+        <Funnel.Page pageNumber={1}>
+          <FirstPage />
+        </Funnel.Page>
+      </Funnel>
+      <PageLayout.Footer
+        currentPage={currentPage}
+        totalPage={PAGE_NUMBER.length}
+        onNext={PageHandler.onNext}
+        onPrev={PageHandler.onPrev}
+      />
+    </PageLayout>
+  );
+};
+
+export default PersonalPledgeStep;

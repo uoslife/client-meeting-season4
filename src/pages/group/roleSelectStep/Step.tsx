@@ -1,22 +1,25 @@
 import PageLayout from '~/components/layout/page/PageLayout';
 import FirstPage from './FirstPage';
 import { useFunnel } from '~/hooks/useFunnel';
+import { groupDataAtoms } from '~/models/group/data';
+import { useAtomValue } from 'jotai';
 
-const GroupParticipateStep = () => {
+const GroupRoleSelectStep = () => {
+  const pageState = useAtomValue(groupDataAtoms.roleSelectStep.page1);
+
   const { Funnel, currentPage, PageHandler } = useFunnel({
-    pageNumberList: [1],
-    nextStep: { path: '/common/privacyPolicyStep' },
-    prevStep: { path: '/group/myInformationStep' },
+    pageNumberList: [1] as const,
+    prevStep: { path: '/common/branchGatewayStep' },
+    nextStep: {
+      path: pageState.isLeader
+        ? '/group/leader/myInformationStep'
+        : '/group/member/myInformationStep',
+    },
   });
 
   return (
     <PageLayout>
-      <PageLayout.Header
-        title={'02. 팅 참여하기'}
-        isProgress={true}
-        totalStep={3}
-        currentStep={2}
-      />
+      <PageLayout.Header title={'3:3 미팅'} isProgress={false} />
       <PageLayout.SingleCardBody>
         <Funnel>
           <Funnel.Page pageNumber={1}>
@@ -34,4 +37,4 @@ const GroupParticipateStep = () => {
   );
 };
 
-export default GroupParticipateStep;
+export default GroupRoleSelectStep;
