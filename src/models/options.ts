@@ -34,9 +34,9 @@ export type PreferDay = string;
 export type InfoOptions = {
   nickname: string;
   gender: null | GenderOption;
-  age: null | string;
+  age: string;
   ageRange: [number, number];
-  height: null | string;
+  height: string;
   heightRange: [number, number];
   kakaoId: string;
   phone: string;
