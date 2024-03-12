@@ -1,12 +1,12 @@
 import Col from '~/components/layout/Col';
 import Text from '~/components/typography/Text';
-import { useAtom, useSetAtom } from 'jotai';
-import { useEffect } from 'react';
+import { useAtom, useAtomValue, useSetAtom } from 'jotai';
 import { pageFinishAtom } from '~/store/funnel';
 import RoundButton from '~/components/buttons/roundButton/RoundButton';
 import Paddler from '~/components/layout/Pad';
 import { css } from '@emotion/react';
 import { groupDataAtoms } from '~/models/group/data';
+import { combinedValidatiesAtoms } from '~/models';
 
 const GROUP_ROLE_BUTTONS = [
   {
@@ -21,15 +21,13 @@ const GROUP_ROLE_BUTTONS = [
 
 const FirstPage = () => {
   const [pageState, setPageState] = useAtom(
-    groupDataAtoms.roleSelectStep.page1,
+    groupDataAtoms.groupRoleSelectStep.page1,
   );
 
   const setIsPageFinished = useSetAtom(pageFinishAtom);
-
-  useEffect(() => {
-    if (pageState.isLeader != null) setIsPageFinished(true);
-    else setIsPageFinished(false);
-  }, [pageState.isLeader]);
+  const pageValidity = useAtomValue(combinedValidatiesAtoms).groupRoleSelectStep
+    .page1;
+  setIsPageFinished(pageValidity);
 
   return (
     <Col align={'center'} gap={20} padding={'36px 20px'}>

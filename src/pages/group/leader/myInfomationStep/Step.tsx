@@ -6,14 +6,11 @@ import PageLayout from '~/components/layout/page/PageLayout';
 const PAGE_NUMBER = [1, 2];
 
 const GroupLeaderMyInformationStep = () => {
-  const isLeader = localStorage.getItem('groupRole_isLeader');
-  console.log(isLeader);
   const { Funnel, currentPage, PageHandler } = useFunnel({
     pageNumberList: PAGE_NUMBER,
     prevStep: { path: '/group/roleSelectStep' },
     nextStep: { path: '/group/leader/createStep' },
   });
-
   return (
     <PageLayout>
       <PageLayout.Header

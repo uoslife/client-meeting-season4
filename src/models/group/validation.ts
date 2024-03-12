@@ -4,10 +4,10 @@ import { GroupValidites, GroupValidator } from './validation.type';
 
 export const groupValidator: GroupValidator = {
   groupRoleSelectStep: {
-    page1: ({ isLeader }) => !!isLeader,
+    page1: ({ isLeader }) => isLeader !== null,
   },
   groupLeaderMyInformationStep: {
-    page1: ({ age, gender, nickname }) => !!age && !!gender && nickname !== '',
+    page1: ({ age, gender, name }) => !!age && !!gender && name !== '',
     page2: ({ kakaoId, major, phone, studentType }) =>
       !!kakaoId && !!major && !!phone && !!studentType,
   },
@@ -31,7 +31,7 @@ export const groupValidator: GroupValidator = {
     page1: ({ atmosphere, univs }) => atmosphere !== '' && univs.length > 0,
   },
   groupMemberMyInformationStep: {
-    page1: ({ nickname }) => !!nickname,
+    page1: ({ name }) => !!name,
     page2: ({ kakaoId, major }) => !!kakaoId && !!major,
   },
   groupMemberParticipateStep: {

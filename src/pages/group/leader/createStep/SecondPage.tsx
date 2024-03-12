@@ -12,7 +12,7 @@ import { pageFinishAtom } from '~/store/funnel';
 import { combinedValidatiesAtoms } from '~/models';
 
 const SecondPage = () => {
-  const { nickname } = useAtomValue(
+  const { name } = useAtomValue(
     groupDataAtoms.groupLeaderMyInformationStep.page1,
   );
   const { teamName } = useAtomValue(
@@ -31,7 +31,7 @@ const SecondPage = () => {
     }));
   }, [setPageState]);
 
-  const entireTeamMembers: (string | null)[] = [nickname, ...otherMembers];
+  const entireTeamMembers: (string | null)[] = [name, ...otherMembers];
 
   const setIsPageFinished = useSetAtom(pageFinishAtom);
   const pageValidity = useAtomValue(combinedValidatiesAtoms)

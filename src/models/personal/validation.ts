@@ -5,8 +5,8 @@ import { PersonalValidator, PersonalValidites } from './validation.type';
 // used to check validity
 export const personalValidators: PersonalValidator = {
   personalMyInformationStep: {
-    page1: ({ nickname, gender, age, height }) =>
-      nickname !== '' && !!gender && !!age && !!height,
+    page1: ({ name, gender, age, height }) =>
+      name !== '' && !!gender && !!age && !!height,
     page2: ({ kakaoId, major, phone, studentType }) =>
       kakaoId !== '' && phone !== '' && major !== '' && !!studentType,
     page3: ({ religion, smoking }) => !!religion && smoking !== null,

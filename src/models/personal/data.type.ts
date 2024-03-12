@@ -6,7 +6,7 @@ export type PersonalData = {
   personalMyInformationStep: {
     page1: Pick<
       InfoOptions,
-      | 'nickname' // 1
+      | 'name' // 1
       | 'gender' // 2
       | 'age' // 3
       | 'height' // 4

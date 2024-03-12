@@ -17,7 +17,7 @@ export const groupInitialData: GroupData = {
   // 1. 나의 정보 입력하기
   groupLeaderMyInformationStep: {
     page1: {
-      nickname: '',
+      name: '',
       gender: null,
       age: '20',
     },
@@ -75,7 +75,7 @@ export const groupInitialData: GroupData = {
   // 1. 나의 정보 입력하기
   groupMemberMyInformationStep: {
     page1: {
-      nickname: '',
+      name: '',
       gender: null,
       age: '',
     },

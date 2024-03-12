@@ -16,7 +16,7 @@ const FirstPage = () => {
   const [pageState, setPageState] = useAtom(
     personalDataAtoms.personalMyInformationStep.page1,
   );
-  const { age, gender, height, nickname } = pageState;
+  const { age, gender, height, name } = pageState;
   const setIsPageFinished = useSetAtom(pageFinishAtom);
 
   const pageValidity = useAtomValue(combinedValidatiesAtoms)
@@ -58,13 +58,13 @@ const FirstPage = () => {
                   </Col>
                 </Col>
                 <TextInput
-                  value={nickname}
+                  value={name}
                   status={'default'}
                   placeholder={'이름 입력'}
                   onChange={e => {
                     setPageState(prev => ({
                       ...prev,
-                      nickname: e.target.value,
+                      name: e.target.value,
                     }));
                   }}
                 />

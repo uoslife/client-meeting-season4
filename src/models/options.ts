@@ -24,7 +24,7 @@ export type MBTIOption = string; // TODO: 백엔드와 협의 후 변경
 export type PreferDay = string;
 
 export type InfoOptions = {
-  nickname: string;
+  name: string;
   gender: null | GenderOption;
   age: string;
   ageRange: [number, number];

@@ -16,7 +16,7 @@ export type GroupData = {
   groupLeaderMyInformationStep: {
     page1: Pick<
       InfoOptions,
-      | 'nickname' // 1. 이름(실명)을 입력해 주세요.
+      | 'name' // 1. 이름(실명)을 입력해 주세요.
       | 'gender' // 2. 성별을 선택해 주세요.
       | 'age' // 3. 나이를 선택해 주세요.
     >;
@@ -81,7 +81,7 @@ export type GroupData = {
   groupMemberMyInformationStep: {
     page1: Pick<
       InfoOptions,
-      | 'nickname' // 1. 이름(실명)을 입력해 주세요.
+      | 'name' // 1. 이름(실명)을 입력해 주세요.
       | 'gender' // 2. 성별을 선택해 주세요.
       | 'age' // 3. 나이를 선택해 주세요.
     >;

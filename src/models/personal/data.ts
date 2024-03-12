@@ -4,7 +4,7 @@ import { atomWithStorage } from 'jotai/utils';
 export const personalInitialData: PersonalData = {
   personalMyInformationStep: {
     page1: {
-      nickname: '',
+      name: '',
       gender: null,
       age: '20',
       height: '180',
