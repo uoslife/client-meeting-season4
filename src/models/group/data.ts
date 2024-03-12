@@ -76,11 +76,10 @@ export const groupInitialData: GroupData = {
   groupMemberMyInformationStep: {
     page1: {
       name: '',
-      gender: null,
+      kakaoId: '',
       age: '',
     },
     page2: {
-      kakaoId: '',
       major: '',
       studentType: null,
     },
@@ -88,7 +87,7 @@ export const groupInitialData: GroupData = {
   // 2. 팅 참여하기
   groupMemberParticipateStep: {
     page1: {
-      joinCode: '',
+      verified: false,
     },
   },
   // 3. 시대팅 이용 서약

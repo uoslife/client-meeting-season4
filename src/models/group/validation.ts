@@ -36,7 +36,7 @@ export const groupValidator: GroupValidator = {
     page2: ({ major, studentType }) => major !== '' && studentType !== null,
   },
   groupMemberParticipateStep: {
-    page1: ({ joinCode }) => !!joinCode,
+    page1: ({ verified }) => verified,
   },
   groupMemberPledgeStep: {
     page1: ({ checked }) => checked.every(checked => checked),

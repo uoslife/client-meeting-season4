@@ -94,7 +94,7 @@ export type GroupData = {
   // 02. 팅 만들기
   groupMemberParticipateStep: {
     page1: {
-      joinCode: string;
+      verified: boolean;
     };
   };
   // 03. 시대팅 이용 서약

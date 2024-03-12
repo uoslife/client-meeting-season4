@@ -6,11 +6,19 @@ import { useEffect, useRef, useState } from 'react';
 import { colors } from '~/styles/colors';
 import { typographies } from '~/styles/typographies';
 import ParticipationModal from '~/components/modal/participationModal/ParticipationModal';
+import { groupDataAtoms } from '~/models/group/data';
+import { useAtomValue, useSetAtom } from 'jotai';
+import { pageFinishAtom } from '~/store/funnel';
+import { combinedValidatiesAtoms } from '~/models';
 
 const FirstPage = () => {
+  const setPageState = useSetAtom(
+    groupDataAtoms.groupMemberParticipateStep.page1,
+  );
+
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [code, setCode] = useState('');
-  const [isError, setIsError] = useState(false);
+  const [isError] = useState(false);
   const [isModal, setIsModal] = useState(false);
 
   const handleInputValue = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -31,6 +39,11 @@ const FirstPage = () => {
   useEffect(() => {
     if (code.length === 4) setIsModal(true);
   }, [code, setCode]);
+
+  const setIsPageFinished = useSetAtom(pageFinishAtom);
+  const pageValidity = useAtomValue(combinedValidatiesAtoms)
+    .groupMemberParticipateStep.page1;
+  setIsPageFinished(pageValidity);
 
   return (
     <>
@@ -76,7 +89,10 @@ const FirstPage = () => {
         currentParticipant={1}
         maxParticipant={3}
         cancelButtonClicked={() => setIsModal(false)}
-        joinButtonClicked={() => setIsModal(false)}
+        joinButtonClicked={() => {
+          setIsModal(false);
+          setPageState({ verified: true });
+        }}
       />
     </>
   );
