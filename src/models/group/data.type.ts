@@ -13,7 +13,7 @@ export type GroupData = {
   //--------------------------------------------------------//
 
   // 01. 나의 정보 입력하기
-  groupLeaderMyInformationStep: {
+  leaderMyInformationStep: {
     page1: Pick<
       InfoOptions,
       | 'nickname' // 1. 이름(실명)을 입력해 주세요.
@@ -29,7 +29,7 @@ export type GroupData = {
     >;
   };
   // 02. 팅 만들기
-  groupLeaderGroupCreateStep: {
+  leaderGroupCreateStep: {
     page1: {
       teamName: string;
     };
@@ -39,14 +39,14 @@ export type GroupData = {
     };
   };
   // 03. 우리 팅 정보 입력하기
-  groupLeaderGroupInformationStep: {
+  leaderGroupInformationStep: {
     page1: Pick<InfoOptions, 'preferDayOptions'>;
     page6: {
       message: string;
     };
   } & { [key in 'page2' | 'page3' | 'page4' | 'page5']: { answer: string } };
   // 04. 만나고 싶은 팅 정보 입력하기
-  groupLeaderPreferStep: {
+  leaderPreferStep: {
     page1: Pick<
       InfoOptions,
       | 'ageRange' // 1
@@ -55,7 +55,7 @@ export type GroupData = {
     >;
   };
   // 05. 시대팅 이용 서약
-  groupLeaderPledgeStep: {
+  leaderPledgeStep: {
     page1: {
       checked: [boolean, boolean, boolean];
     };
@@ -70,7 +70,7 @@ export type GroupData = {
   //--------------------------------------------------------//
 
   // 01. 나의 정보 입력하기
-  groupMemberMyInformationStep: {
+  memberMyInformationStep: {
     page1: Pick<
       InfoOptions,
       | 'nickname' // 1. 이름(실명)을 입력해 주세요.
@@ -85,13 +85,13 @@ export type GroupData = {
     >;
   };
   // 02. 팅 만들기
-  groupMemberParticipateStep: {
+  memberParticipateStep: {
     page1: {
       joinCode: string;
     };
   };
   // 03. 시대팅 이용 서약
-  groupMemberPledgeStep: {
+  memberPledgeStep: {
     page1: {
       checked: [boolean, boolean, boolean];
     };

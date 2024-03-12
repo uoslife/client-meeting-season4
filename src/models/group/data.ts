@@ -15,7 +15,7 @@ export const groupInitialData: GroupData = {
   //--------------------------------------------------------//
 
   // 1. 나의 정보 입력하기
-  groupLeaderMyInformationStep: {
+  leaderMyInformationStep: {
     page1: {
       nickname: '',
       gender: null,
@@ -29,7 +29,7 @@ export const groupInitialData: GroupData = {
     },
   },
   // 2. 팅 만들기
-  groupLeaderGroupCreateStep: {
+  leaderGroupCreateStep: {
     page1: {
       teamName: '',
     },
@@ -39,7 +39,7 @@ export const groupInitialData: GroupData = {
     },
   },
   // 3. 우리 팅 정보 입력하기
-  groupLeaderGroupInformationStep: {
+  leaderGroupInformationStep: {
     page1: {
       preferDayOptions: [],
     },
@@ -50,7 +50,7 @@ export const groupInitialData: GroupData = {
     page6: { message: '' },
   },
   // 4. 만나고 싶은 팅 정보 입력하기
-  groupLeaderPreferStep: {
+  leaderPreferStep: {
     page1: {
       ageRange: [20, 21],
       univs: [],
@@ -58,7 +58,7 @@ export const groupInitialData: GroupData = {
     },
   },
   // 5. 시대팅 이용 서약
-  groupLeaderPledgeStep: {
+  leaderPledgeStep: {
     page1: {
       checked: [false, false, false],
     },
@@ -73,7 +73,7 @@ export const groupInitialData: GroupData = {
   //--------------------------------------------------------//
 
   // 1. 나의 정보 입력하기
-  groupMemberMyInformationStep: {
+  memberMyInformationStep: {
     page1: {
       nickname: '',
       gender: null,
@@ -86,13 +86,13 @@ export const groupInitialData: GroupData = {
     },
   },
   // 2. 팅 참여하기
-  groupMemberParticipateStep: {
+  memberParticipateStep: {
     page1: {
       joinCode: '',
     },
   },
   // 3. 시대팅 이용 서약
-  groupMemberPledgeStep: {
+  memberPledgeStep: {
     page1: {
       checked: [false, false, false],
     },
@@ -110,84 +110,84 @@ export const groupDataAtoms: GroupDataAtoms = {
       groupInitialData.roleSelectStep.page1,
     ),
   },
-  groupLeaderMyInformationStep: {
+  leaderMyInformationStep: {
     page1: atomWithStorage(
       'groupLeaderMyInformationStep-page1',
-      groupInitialData.groupLeaderMyInformationStep.page1,
+      groupInitialData.leaderMyInformationStep.page1,
     ),
     page2: atomWithStorage(
       'groupLeaderMyInformationStep-page2',
-      groupInitialData.groupLeaderMyInformationStep.page2,
+      groupInitialData.leaderMyInformationStep.page2,
     ),
   },
-  groupLeaderGroupCreateStep: {
+  leaderGroupCreateStep: {
     page1: atomWithStorage(
       'groupLeaderGroupCreateStep-page1',
-      groupInitialData.groupLeaderGroupCreateStep.page1,
+      groupInitialData.leaderGroupCreateStep.page1,
     ),
     page2: atomWithStorage(
       'groupLeaderGroupCreateStep-page2',
-      groupInitialData.groupLeaderGroupCreateStep.page2,
+      groupInitialData.leaderGroupCreateStep.page2,
     ),
   },
-  groupLeaderGroupInformationStep: {
+  leaderGroupInformationStep: {
     page1: atomWithStorage(
       'groupLeaderGroupInformationStep-page1',
-      groupInitialData.groupLeaderGroupInformationStep.page1,
+      groupInitialData.leaderGroupInformationStep.page1,
     ),
     page2: atomWithStorage(
       'groupLeaderGroupInformationStep-page2',
-      groupInitialData.groupLeaderGroupInformationStep.page2,
+      groupInitialData.leaderGroupInformationStep.page2,
     ),
     page3: atomWithStorage(
       'groupLeaderGroupInformationStep-page3',
-      groupInitialData.groupLeaderGroupInformationStep.page3,
+      groupInitialData.leaderGroupInformationStep.page3,
     ),
     page4: atomWithStorage(
       'groupLeaderGroupInformationStep-page4',
-      groupInitialData.groupLeaderGroupInformationStep.page4,
+      groupInitialData.leaderGroupInformationStep.page4,
     ),
     page5: atomWithStorage(
       'groupLeaderGroupInformationStep-page5',
-      groupInitialData.groupLeaderGroupInformationStep.page5,
+      groupInitialData.leaderGroupInformationStep.page5,
     ),
     page6: atomWithStorage(
       'groupLeaderGroupInformationStep-page6',
-      groupInitialData.groupLeaderGroupInformationStep.page6,
+      groupInitialData.leaderGroupInformationStep.page6,
     ),
   },
-  groupLeaderPreferStep: {
+  leaderPreferStep: {
     page1: atomWithStorage(
       'groupLeaderPreferStep-page1',
-      groupInitialData.groupLeaderPreferStep.page1,
+      groupInitialData.leaderPreferStep.page1,
     ),
   },
-  groupLeaderPledgeStep: {
+  leaderPledgeStep: {
     page1: atomWithStorage(
       'groupLeaderPledgeStep-page1',
-      groupInitialData.groupLeaderPledgeStep.page1,
+      groupInitialData.leaderPledgeStep.page1,
     ),
   },
-  groupMemberMyInformationStep: {
+  memberMyInformationStep: {
     page1: atomWithStorage(
       'groupMemberMyInformationStep-page1',
-      groupInitialData.groupMemberMyInformationStep.page1,
+      groupInitialData.memberMyInformationStep.page1,
     ),
     page2: atomWithStorage(
       'groupMemberMyInformationStep-page2',
-      groupInitialData.groupMemberMyInformationStep.page2,
+      groupInitialData.memberMyInformationStep.page2,
     ),
   },
-  groupMemberParticipateStep: {
+  memberParticipateStep: {
     page1: atomWithStorage(
       'groupMemberParticipateStep-page1',
-      groupInitialData.groupMemberParticipateStep.page1,
+      groupInitialData.memberParticipateStep.page1,
     ),
   },
-  groupMemberPledgeStep: {
+  memberPledgeStep: {
     page1: atomWithStorage(
       'groupMemberPledgeStep-page1',
-      groupInitialData.groupMemberPledgeStep.page1,
+      groupInitialData.memberPledgeStep.page1,
     ),
   },
 };

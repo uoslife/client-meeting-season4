@@ -4,7 +4,7 @@ import { PersonalValidator, PersonalValidites } from './validation.type';
 
 // used to check validity
 export const personalValidators: PersonalValidator = {
-  personalMyInformationStep: {
+  myInformationStep: {
     page1: ({ nickname, gender, age, height }) =>
       nickname !== '' && !!gender && !!age && !!height,
     page2: ({ kakaoId, major, phone, studentType }) =>
@@ -15,17 +15,17 @@ export const personalValidators: PersonalValidator = {
     page6: ({ interestOptions }) => interestOptions.length === 0,
     page7: ({ message }) => !!message,
   },
-  personalMyRomanceStep: {
+  myRomanceStep: {
     page1: ({ answer }) => !!answer,
     page2: ({ answer }) => !!answer,
     page3: ({ answer }) => !!answer,
     page4: ({ answer }) => !!answer,
     page5: ({ answer }) => !!answer,
   },
-  personalPledgeStep: {
+  pledgeStep: {
     page1: ({ checked }) => checked.every(check => check),
   },
-  personalPreferInfoStep: {
+  preferInfoStep: {
     page1: ({ studentTypes }) => studentTypes.length > 0,
     page2: ({ religionOptions, smokingOptions, univs }) =>
       univs.length > 0 &&
@@ -38,63 +38,63 @@ export const personalValidators: PersonalValidator = {
 
 // holds entire Validity, read-only, entire level
 export const personalValiditiesAtom = atom<PersonalValidites>(get => ({
-  personalMyInformationStep: {
-    page1: personalValidators.personalMyInformationStep.page1(
-      get(personalDataAtoms.personalMyInformationStep.page1),
+  myInformationStep: {
+    page1: personalValidators.myInformationStep.page1(
+      get(personalDataAtoms.myInformationStep.page1),
     ),
-    page2: personalValidators.personalMyInformationStep.page2(
-      get(personalDataAtoms.personalMyInformationStep.page2),
+    page2: personalValidators.myInformationStep.page2(
+      get(personalDataAtoms.myInformationStep.page2),
     ),
-    page3: personalValidators.personalMyInformationStep.page3(
-      get(personalDataAtoms.personalMyInformationStep.page3),
+    page3: personalValidators.myInformationStep.page3(
+      get(personalDataAtoms.myInformationStep.page3),
     ),
-    page4: personalValidators.personalMyInformationStep.page4(
-      get(personalDataAtoms.personalMyInformationStep.page4),
+    page4: personalValidators.myInformationStep.page4(
+      get(personalDataAtoms.myInformationStep.page4),
     ),
-    page5: personalValidators.personalMyInformationStep.page5(
-      get(personalDataAtoms.personalMyInformationStep.page5),
+    page5: personalValidators.myInformationStep.page5(
+      get(personalDataAtoms.myInformationStep.page5),
     ),
-    page6: personalValidators.personalMyInformationStep.page6(
-      get(personalDataAtoms.personalMyInformationStep.page6),
+    page6: personalValidators.myInformationStep.page6(
+      get(personalDataAtoms.myInformationStep.page6),
     ),
-    page7: personalValidators.personalMyInformationStep.page7(
-      get(personalDataAtoms.personalMyInformationStep.page7),
-    ),
-  },
-  personalMyRomanceStep: {
-    page1: personalValidators.personalMyRomanceStep.page1(
-      get(personalDataAtoms.personalMyRomanceStep.page1),
-    ),
-    page2: personalValidators.personalMyRomanceStep.page2(
-      get(personalDataAtoms.personalMyRomanceStep.page2),
-    ),
-    page3: personalValidators.personalMyRomanceStep.page3(
-      get(personalDataAtoms.personalMyRomanceStep.page3),
-    ),
-    page4: personalValidators.personalMyRomanceStep.page4(
-      get(personalDataAtoms.personalMyRomanceStep.page4),
-    ),
-    page5: personalValidators.personalMyRomanceStep.page5(
-      get(personalDataAtoms.personalMyRomanceStep.page5),
+    page7: personalValidators.myInformationStep.page7(
+      get(personalDataAtoms.myInformationStep.page7),
     ),
   },
-  personalPledgeStep: {
-    page1: personalValidators.personalPledgeStep.page1(
-      get(personalDataAtoms.personalPledgeStep.page1),
+  myRomanceStep: {
+    page1: personalValidators.myRomanceStep.page1(
+      get(personalDataAtoms.myRomanceStep.page1),
+    ),
+    page2: personalValidators.myRomanceStep.page2(
+      get(personalDataAtoms.myRomanceStep.page2),
+    ),
+    page3: personalValidators.myRomanceStep.page3(
+      get(personalDataAtoms.myRomanceStep.page3),
+    ),
+    page4: personalValidators.myRomanceStep.page4(
+      get(personalDataAtoms.myRomanceStep.page4),
+    ),
+    page5: personalValidators.myRomanceStep.page5(
+      get(personalDataAtoms.myRomanceStep.page5),
     ),
   },
-  personalPreferInfoStep: {
-    page1: personalValidators.personalPreferInfoStep.page1(
-      get(personalDataAtoms.personalPreferInfoStep.page1),
+  pledgeStep: {
+    page1: personalValidators.pledgeStep.page1(
+      get(personalDataAtoms.pledgeStep.page1),
     ),
-    page2: personalValidators.personalPreferInfoStep.page2(
-      get(personalDataAtoms.personalPreferInfoStep.page2),
+  },
+  preferInfoStep: {
+    page1: personalValidators.preferInfoStep.page1(
+      get(personalDataAtoms.preferInfoStep.page1),
     ),
-    page3: personalValidators.personalPreferInfoStep.page3(
-      get(personalDataAtoms.personalPreferInfoStep.page3),
+    page2: personalValidators.preferInfoStep.page2(
+      get(personalDataAtoms.preferInfoStep.page2),
     ),
-    page4: personalValidators.personalPreferInfoStep.page4(
-      get(personalDataAtoms.personalPreferInfoStep.page4),
+    page3: personalValidators.preferInfoStep.page3(
+      get(personalDataAtoms.preferInfoStep.page3),
+    ),
+    page4: personalValidators.preferInfoStep.page4(
+      get(personalDataAtoms.preferInfoStep.page4),
     ),
   },
 }));
