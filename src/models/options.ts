@@ -7,15 +7,15 @@ export type StudentOption = '학부생' | '대학원생' | '졸업생';
 export type ReligionOption = '기독교' | '천주교' | '불교' | '무교' | '기타';
 
 export type AnimalOption =
-  | 'Dog'
-  | 'Cat'
-  | 'Rabbit'
-  | 'Fox'
-  | 'Bear'
-  | 'Hamster'
-  | 'Monkey'
-  | 'Dinosaur'
-  | 'Chick';
+  | 'dog'
+  | 'cat'
+  | 'rabbit'
+  | 'fox'
+  | 'bear'
+  | 'hamster'
+  | 'monkey'
+  | 'dinosaur'
+  | 'chick';
 
 export type InterestOption =
   | '음악감상'
