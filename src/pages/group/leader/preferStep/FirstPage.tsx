@@ -1,40 +1,27 @@
 import { css } from '@emotion/react';
-import { useAtom, useSetAtom } from 'jotai';
+import { useAtomValue, useSetAtom } from 'jotai';
 import RoundButton from '~/components/buttons/roundButton/RoundButton';
 import Col from '~/components/layout/Col';
 import Paddler from '~/components/layout/Pad';
 import Row from '~/components/layout/Row';
 import RangeSlider from '~/components/rangeSlider/RangeSlider';
 import Text from '~/components/typography/Text';
-import useRangeState from '~/hooks/useRangeState';
-import { groupApplyAtoms } from '~/store/meeting';
 import { pageFinishAtom } from '~/store/funnel';
-import { useEffect } from 'react';
+import { combinedValidatiesAtoms } from '~/models';
+import { groupDataAtoms } from '~/models/group/data';
+import { useImmerAtom } from 'jotai-immer';
 
 const FirstPage = () => {
-  const storedAge = localStorage.getItem('groupPrefer_age');
-  const parsedAge = storedAge === null ? [20, 30] : JSON.parse(storedAge);
-  const { rangeHandler: ageHandler, rangeValue: age } =
-    useRangeState(parsedAge);
-  const setPreferAge = useSetAtom(groupApplyAtoms.groupPrefer_age);
-  const [preferUniversity, setPreferUniversity] = useAtom(
-    groupApplyAtoms.groupPrefer_univ,
+  const [pageState, setPageState] = useImmerAtom(
+    groupDataAtoms.groupLeaderPreferStep.page1,
   );
-  const [preferAtmosphere, setPreferAtmosphere] = useAtom(
-    groupApplyAtoms.groupPrefer_atmosphere,
-  );
+
+  const { ageRange, atmosphere, univs } = pageState;
 
   const setIsPageFinished = useSetAtom(pageFinishAtom);
-
-  useEffect(() => {
-    setPreferAge(age.map(String));
-  }, [age]);
-
-  useEffect(() => {
-    const isAllInputsFilled =
-      age && preferUniversity.length > 0 && preferAtmosphere;
-    setIsPageFinished(!!isAllInputsFilled);
-  }, [age, preferUniversity, preferAtmosphere]);
+  const pageValidity = useAtomValue(combinedValidatiesAtoms)
+    .groupLeaderPreferStep.page1;
+  setIsPageFinished(pageValidity);
 
   return (
     <Paddler top={36} right={20} bottom={24} left={20}>
@@ -56,14 +43,18 @@ const FirstPage = () => {
             </Col>
             <Col gap={32} align={'center'}>
               <Text
-                label={`${age[0]}-${age[1]} 세`}
+                label={`${ageRange[0]}-${ageRange[1]} 세`}
                 color={'Primary500'}
                 typography={'LeferiBaseRegular'}
               />
               <Paddler left={20} right={20}>
                 <RangeSlider
-                  value={age}
-                  onChange={ageHandler}
+                  value={ageRange}
+                  onChange={value => {
+                    setPageState(prev => {
+                      prev.ageRange = value;
+                    });
+                  }}
                   min={20}
                   max={30}
                   step={1}
@@ -94,26 +85,24 @@ const FirstPage = () => {
               />
             </Col>
             <Col gap={8}>
-              {['경희대학교', '서울시립대학교', '한국외국어대학교'].map(
-                univ => (
-                  <RoundButton
-                    key={univ}
-                    label={univ}
-                    status={
-                      preferUniversity.includes(univ) ? 'active' : 'inactive'
+              {(['UOS', 'KHU', 'HUFS'] as const).map(univ => (
+                <RoundButton
+                  key={univ}
+                  label={univ}
+                  status={univs.includes(univ) ? 'active' : 'inactive'}
+                  onClick={() => {
+                    if (univs.includes(univ)) {
+                      setPageState(draft => {
+                        draft.univs = draft.univs.filter(u => u !== univ);
+                      });
+                    } else {
+                      setPageState(draft => {
+                        draft.univs.push(univ);
+                      });
                     }
-                    onClick={() => {
-                      if (preferUniversity.includes(univ)) {
-                        setPreferUniversity(
-                          preferUniversity.filter(u => u !== univ),
-                        );
-                      } else {
-                        setPreferUniversity([...preferUniversity, univ]);
-                      }
-                    }}
-                  />
-                ),
-              )}
+                  }}
+                />
+              ))}
             </Col>
           </Col>
           <Col gap={28} align="center">
@@ -126,24 +115,30 @@ const FirstPage = () => {
             <Col gap={8}>
               <RoundButton
                 label="활발한 편"
-                status={
-                  preferAtmosphere === '활발한 편' ? 'active' : 'inactive'
+                status={atmosphere === '활발한 편' ? 'active' : 'inactive'}
+                onClick={() =>
+                  setPageState(draft => {
+                    draft.atmosphere = '활발한 편';
+                  })
                 }
-                onClick={() => setPreferAtmosphere('활발한 편')}
               />
               <RoundButton
                 label="차분한 편"
-                status={
-                  preferAtmosphere === '차분한 편' ? 'active' : 'inactive'
+                status={atmosphere === '차분한 편' ? 'active' : 'inactive'}
+                onClick={() =>
+                  setPageState(draft => {
+                    draft.atmosphere = '차분한 편';
+                  })
                 }
-                onClick={() => setPreferAtmosphere('차분한 편')}
               />
               <RoundButton
                 label="둘 다 좋아요!"
-                status={
-                  preferAtmosphere === '둘 다 좋아요!' ? 'active' : 'inactive'
+                status={atmosphere === '둘 다 좋아요!' ? 'active' : 'inactive'}
+                onClick={() =>
+                  setPageState(draft => {
+                    draft.atmosphere = '둘 다 좋아요!';
+                  })
                 }
-                onClick={() => setPreferAtmosphere('둘 다 좋아요!')}
               />
             </Col>
           </Col>

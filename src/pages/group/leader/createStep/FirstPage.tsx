@@ -15,8 +15,6 @@ const FirstPage = () => {
   );
   const { teamName } = pageState;
   const onChangeTeamName = (e: ChangeEvent<HTMLInputElement>) => {
-    console.log(123123);
-    console.log(e.target.value);
     setPageState(prev => ({ ...prev, teamName: e.target.value }));
   };
 
