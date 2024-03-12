@@ -6,7 +6,7 @@ const TeamMeamberFinishApplyStep = () => {
   const { Funnel } = useFunnel({
     pageNumberList: [1],
     nextStep: { path: '/' },
-    prevStep: { path: '/common/checkApplyInfoStep' },
+    prevStep: { path: '/common/useAgreementStep' },
   });
 
   return (

@@ -1,19 +1,44 @@
 import PageLayout from '~/components/layout/page/PageLayout';
 import FirstPage from './FirstPage';
 import { useFunnel } from '~/hooks/useFunnel';
+import { useAtomValue } from 'jotai';
+import { groupApplyAtoms, meetingTypeAtom } from '~/store/meeting';
 
 const UseAgreementStep = () => {
+  const meetingType = useAtomValue(meetingTypeAtom);
+  const isLeader = useAtomValue(groupApplyAtoms.groupRole_isLeader);
+
+  let headerTitle = '04. 시대팅 이용 서약';
+  if (meetingType === 'group') {
+    headerTitle = isLeader ? '05. 시대팅 이용 서약' : '03. 시대팅 이용 서약';
+  }
+
+  let prevStepPath;
+  if (meetingType !== 'group') {
+    prevStepPath = '/personal/myPreferTypeStep';
+  } else if (isLeader) {
+    prevStepPath = '/group/groupPreferStep';
+  } else {
+    prevStepPath = '/group/groupParticipateStep';
+  }
+
+  let nextStepPath;
+  if (meetingType === 'group' && !isLeader) {
+    nextStepPath = '/group/teamMemberFinishApplyStep';
+  } else {
+    nextStepPath = '/common/checkApplyInfoStep';
+  }
+
   const { Funnel, currentPage, PageHandler } = useFunnel({
     pageNumberList: [1],
-    // TODO: 상황에 따른 라우팅 분기처리
-    nextStep: { path: '/common/checkApplyInfoStep' },
-    prevStep: { path: '/common/checkApplyInfoStep' },
+    nextStep: { path: nextStepPath },
+    prevStep: { path: prevStepPath },
   });
 
   return (
     <PageLayout>
       <PageLayout.Header
-        title={'05. 시대팅 이용 서약'} //TODO: 상황에 따른 title 분기처리
+        title={headerTitle}
         isProgress={true}
         totalStep={1}
         currentStep={1}
