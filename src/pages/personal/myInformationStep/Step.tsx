@@ -6,8 +6,9 @@ import ForthPage from './ForthPage';
 import FifthPage from './FifthPage';
 import SixthPage from './SixthPage';
 import PageLayout from '~/components/layout/page/PageLayout';
+import SeventhPage from './SeventhPage';
 
-const PAGE_NUMBER = [1, 2, 3, 4, 5, 6];
+const PAGE_NUMBER = [1, 2, 3, 4, 5, 6, 7];
 
 const PersonalMyInformationStep = () => {
   const { Funnel, currentPage, PageHandler } = useFunnel({
@@ -21,7 +22,7 @@ const PersonalMyInformationStep = () => {
         title={'01. 나의 정보 입력하기'}
         isProgress={true}
         currentStep={1}
-        totalStep={6}
+        totalStep={7}
       />
       <Funnel>
         <Funnel.Page pageNumber={1}>
@@ -41,6 +42,9 @@ const PersonalMyInformationStep = () => {
         </Funnel.Page>
         <Funnel.Page pageNumber={6}>
           <SixthPage />
+        </Funnel.Page>
+        <Funnel.Page pageNumber={7}>
+          <SeventhPage />
         </Funnel.Page>
       </Funnel>
       <PageLayout.Footer
