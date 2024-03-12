@@ -9,10 +9,15 @@ type TextAreaProps = {
   reset: () => void;
 };
 
-const TextArea = ({ value, placeholder, onChange }: TextAreaProps) => (
+const TextArea = ({ value, placeholder, onChange, reset }: TextAreaProps) => (
   <S.Container>
     <S.XIconWrapper>
-      <IconButton width={20} height={20} iconName="clearButton" />
+      <IconButton
+        onClick={reset}
+        width={20}
+        height={20}
+        iconName="clearButton"
+      />
     </S.XIconWrapper>
     <S.Input value={value} onChange={onChange} placeholder={placeholder} />
   </S.Container>
