@@ -5,32 +5,23 @@ import Row from '~/components/layout/Row';
 import Text from '~/components/typography/Text';
 import RoundButton from '~/components/buttons/roundButton/RoundButton';
 import RangeSlider from '~/components/rangeSlider/RangeSlider';
-import useRangeState from '~/hooks/useRangeState';
 import { css } from '@emotion/react';
-import { useEffect } from 'react';
-import { useAtom, useSetAtom } from 'jotai';
-import { personalApplyAtoms } from '~/store/meeting';
+import { useAtom, useAtomValue, useSetAtom } from 'jotai';
 import { pageFinishAtom } from '~/store/funnel';
+import { personalDataAtoms } from '~/models/personal/data';
+import { combinedValidatiesAtoms } from '~/models';
 
 const ThirdPage = () => {
-  const [religion, setReligion] = useAtom(
-    personalApplyAtoms.personalInfo_religion,
+  const [pageState, setPageState] = useAtom(
+    personalDataAtoms.myInformationStep.page3,
   );
-  const [smoking, setSmoking] = useAtom(
-    personalApplyAtoms.personalInfo_smoking,
-  );
-  const storedDrink = localStorage.getItem('personalInfo_drink');
-  const parsedDrink = storedDrink === null ? [10, 17] : JSON.parse(storedDrink);
-  const { rangeHandler: drinkHandler, rangeValue: drink } =
-    useRangeState(parsedDrink);
-  const [, setDrink] = useAtom(personalApplyAtoms.personalInfo_drink);
-  const setIsPageFinished = useSetAtom(pageFinishAtom);
 
-  useEffect(() => {
-    setDrink(drink.map(Number));
-    const isAllInputsFilled = religion && smoking && drink;
-    setIsPageFinished(!!isAllInputsFilled);
-  }, [religion, smoking, drink]);
+  const pageValidity = useAtomValue(combinedValidatiesAtoms).myInformationStep
+    .page3;
+  const setIsPageFinished = useSetAtom(pageFinishAtom);
+  setIsPageFinished(!!pageValidity);
+
+  const { drinkRange, religion, smoking } = pageState;
 
   return (
     <PageLayout.SingleCardBody
@@ -48,18 +39,23 @@ const ThirdPage = () => {
                 />
                 <Col gap={12}>
                   <Row gap={12}>
+                    {/* TODO: 반복되는 요소 리팩토링 */}
                     <RoundButton
                       status={religion === '기독교' ? 'active' : 'inactive'}
                       label={'기독교'}
                       height={56}
-                      onClick={() => setReligion('기독교')}
+                      onClick={() =>
+                        setPageState(prev => ({ ...prev, religion: '기독교' }))
+                      }
                       borderType="primary"
                     />
                     <RoundButton
                       status={religion === '천주교' ? 'active' : 'inactive'}
                       label={'천주교'}
                       height={56}
-                      onClick={() => setReligion('천주교')}
+                      onClick={() =>
+                        setPageState(prev => ({ ...prev, religion: '천주교' }))
+                      }
                       borderType="primary"
                     />
                   </Row>
@@ -68,14 +64,18 @@ const ThirdPage = () => {
                       status={religion === '불교' ? 'active' : 'inactive'}
                       label={'불교'}
                       height={56}
-                      onClick={() => setReligion('불교')}
+                      onClick={() =>
+                        setPageState(prev => ({ ...prev, religion: '불교' }))
+                      }
                       borderType="primary"
                     />
                     <RoundButton
                       status={religion === '무교' ? 'active' : 'inactive'}
                       label={'무교'}
                       height={56}
-                      onClick={() => setReligion('무교')}
+                      onClick={() =>
+                        setPageState(prev => ({ ...prev, religion: '무교' }))
+                      }
                       borderType="primary"
                     />
                   </Row>
@@ -84,7 +84,9 @@ const ThirdPage = () => {
                       status={religion === '기타' ? 'active' : 'inactive'}
                       label={'기타'}
                       height={56}
-                      onClick={() => setReligion('기타')}
+                      onClick={() =>
+                        setPageState(prev => ({ ...prev, religion: '기타' }))
+                      }
                       borderType="primary"
                     />
                     <div
@@ -105,17 +107,21 @@ const ThirdPage = () => {
                 />
                 <Col gap={12}>
                   <RoundButton
-                    status={smoking === '흡연' ? 'active' : 'inactive'}
+                    status={smoking === true ? 'active' : 'inactive'}
                     label={'흡연'}
                     height={56}
-                    onClick={() => setSmoking('흡연')}
+                    onClick={() =>
+                      setPageState(prev => ({ ...prev, smoking: true }))
+                    }
                     borderType="primary"
                   />
                   <RoundButton
-                    status={smoking === '비흡연' ? 'active' : 'inactive'}
+                    status={smoking === false ? 'active' : 'inactive'}
                     label={'비흡연'}
                     height={56}
-                    onClick={() => setSmoking('비흡연')}
+                    onClick={() =>
+                      setPageState(prev => ({ ...prev, smoking: false }))
+                    }
                     borderType="primary"
                   />
                 </Col>
@@ -131,7 +137,7 @@ const ThirdPage = () => {
                 {/* 슬라이더 수정 이후 gap 값 수정 */}
                 <Col gap={17} align="center">
                   <Text
-                    label={`${drink[0]} - ${drink[1]} 회`}
+                    label={`${drinkRange[0]} - ${drinkRange[1]} 회`}
                     color={'Primary500'}
                     typography={'LeferiBaseRegular'}
                     weight={700}
@@ -140,8 +146,10 @@ const ThirdPage = () => {
                   {/* 슬라이더 수정 이후 패딩 값 수정*/}
                   <Col padding="15px">
                     <RangeSlider
-                      value={drink}
-                      onChange={drinkHandler}
+                      value={drinkRange}
+                      onChange={value => {
+                        setPageState(prev => ({ ...prev, drinkRange: value }));
+                      }}
                       min={0}
                       max={25}
                       markStep={5}
