@@ -31,8 +31,9 @@ export const groupValidator: GroupValidator = {
     page1: ({ atmosphere, univs }) => atmosphere !== '' && univs.length > 0,
   },
   groupMemberMyInformationStep: {
-    page1: ({ name }) => !!name,
-    page2: ({ kakaoId, major }) => !!kakaoId && !!major,
+    page1: ({ name, age, kakaoId }) =>
+      name !== '' && age !== null && kakaoId !== '',
+    page2: ({ major, studentType }) => major !== '' && studentType !== null,
   },
   groupMemberParticipateStep: {
     page1: ({ joinCode }) => !!joinCode,

@@ -5,32 +5,22 @@ import Row from '~/components/layout/Row';
 import Text from '~/components/typography/Text';
 import TextInput from '~/components/inputs/textInput/TextInput';
 import RoundButton from '~/components/buttons/roundButton/RoundButton';
-import { useInput } from '~/hooks/useInput';
-import { useAtom, useSetAtom } from 'jotai';
-import { groupApplyAtoms } from '~/store/meeting';
+import { useAtom, useAtomValue, useSetAtom } from 'jotai';
 import { pageFinishAtom } from '~/store/funnel';
-import { useEffect } from 'react';
+import { combinedValidatiesAtoms } from '~/models';
+import { groupDataAtoms } from '~/models/group/data';
 
 const SecondPage = () => {
-  const storedKakaoId = localStorage.getItem('myInfo_kakaoId') || '';
-  const { inputValue: kakaoId, handleInputChange: handleKakaoIdChange } =
-    useInput(storedKakaoId.replace(/["']/g, ''));
-  const [, setKakaoId] = useAtom(groupApplyAtoms.myInfo_kakaoId);
-  const storedMajor = localStorage.getItem('myInfo_major') || '';
-  const { inputValue: major, handleInputChange: handleMajorChange } = useInput(
-    storedMajor.replace(/["']/g, ''),
+  const [pageState, setPageState] = useAtom(
+    groupDataAtoms.groupLeaderMyInformationStep.page2,
   );
-  const [, setMajor] = useAtom(groupApplyAtoms.myInfo_major);
-  const [studentType, setStudentType] = useAtom(
-    groupApplyAtoms.myInfo_studentType,
-  );
+
+  const { kakaoId, major, phone, studentType } = pageState;
 
   const setIsPageFinished = useSetAtom(pageFinishAtom);
-
-  useEffect(() => {
-    const isAllInputsFilled = kakaoId && major.length > 1 && studentType;
-    setIsPageFinished(!!isAllInputsFilled);
-  }, [kakaoId, major, studentType]);
+  const pageValidity = useAtomValue(combinedValidatiesAtoms)
+    .groupLeaderMyInformationStep.page2;
+  setIsPageFinished(pageValidity);
 
   return (
     <PageLayout.SingleCardBody
@@ -78,15 +68,44 @@ const SecondPage = () => {
                   status={'default'}
                   placeholder={'카카오톡 ID 입력'}
                   onChange={e => {
-                    handleKakaoIdChange(e);
-                    setKakaoId(e.target.value);
+                    setPageState(prev => ({
+                      ...prev,
+                      kakaoId: e.target.value,
+                    }));
                   }}
                 />
               </Col>
               <Col gap={28}>
                 <Col gap={12} align="center">
                   <Text
-                    label={'5. 학과를 입력해 주세요'}
+                    label={'5. 본인의 전화번호를 입력해 주세요.'}
+                    color={'Gray500'}
+                    typography={'NeoTitleM'}
+                    weight={400}
+                    size={18}
+                  />
+                  <Text
+                    label={'매칭 완료 알림을 위한 수단으로 사용됩니다.'}
+                    color={'Gray400'}
+                    typography={'GoThicBodyS'}
+                    weight={400}
+                    size={14}
+                  />
+                </Col>
+                {/* TODO: 정규표현식 검증 로직 */}
+                <TextInput
+                  value={phone}
+                  status={'default'}
+                  placeholder={'전화번호 입력'}
+                  onChange={e => {
+                    setPageState(prev => ({ ...prev, phone: e.target.value }));
+                  }}
+                />
+              </Col>
+              <Col gap={28}>
+                <Col gap={12} align="center">
+                  <Text
+                    label={'6. 학과를 입력해 주세요'}
                     color={'Gray500'}
                     typography={'NeoTitleM'}
                     weight={400}
@@ -114,14 +133,13 @@ const SecondPage = () => {
                   status={'default'}
                   placeholder={'학과명 입력 (2글자 이상)'}
                   onChange={e => {
-                    handleMajorChange(e);
-                    setMajor(e.target.value);
+                    setPageState(prev => ({ ...prev, major: e.target.value }));
                   }}
                 />
               </Col>
               <Col gap={28} align="center">
                 <Text
-                  label={'6. 신분을 선택해 주세요'}
+                  label={'7. 신분을 선택해 주세요'}
                   color={'Gray500'}
                   typography={'NeoTitleM'}
                   weight={400}
@@ -132,21 +150,33 @@ const SecondPage = () => {
                     status={studentType === '학부생' ? 'active' : 'inactive'}
                     label={'학부생'}
                     height={56}
-                    onClick={() => setStudentType('학부생')}
+                    onClick={() =>
+                      setPageState(prev => ({ ...prev, studentType: '학부생' }))
+                    }
                     borderType="primary"
                   />
                   <RoundButton
                     status={studentType === '대학원생' ? 'active' : 'inactive'}
                     label={'대학원생'}
                     height={56}
-                    onClick={() => setStudentType('대학원생')}
+                    onClick={() =>
+                      setPageState(prev => ({
+                        ...prev,
+                        studentType: '대학원생',
+                      }))
+                    }
                     borderType="primary"
                   />
                   <RoundButton
                     status={studentType === '졸업생' ? 'active' : 'inactive'}
                     label={'졸업생'}
                     height={56}
-                    onClick={() => setStudentType('졸업생')}
+                    onClick={() =>
+                      setPageState(prev => ({
+                        ...prev,
+                        studentType: '졸업생',
+                      }))
+                    }
                     borderType="primary"
                   />
                 </Col>

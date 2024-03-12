@@ -82,14 +82,13 @@ export type GroupData = {
     page1: Pick<
       InfoOptions,
       | 'name' // 1. 이름(실명)을 입력해 주세요.
-      | 'gender' // 2. 성별을 선택해 주세요.
-      | 'age' // 3. 나이를 선택해 주세요.
+      | 'age' // 2. 나이를 선택해 주세요.
+      | 'kakaoId' // 3. 본인의 카카오톡 ID를 입력해 주세요.
     >;
     page2: Pick<
       InfoOptions,
-      | 'kakaoId' // 4. 본인의 카카오톡 ID를 입력해 주세요.
-      | 'major' // 5. 본인의 학과를 입력해 주세요.
-      | 'studentType' // 6. 본인의 신분을 선택해 주세요.
+      | 'major' // 4. 본인의 학과를 입력해 주세요.
+      | 'studentType' // 5. 본인의 신분을 선택해 주세요.
     >;
   };
   // 02. 팅 만들기
