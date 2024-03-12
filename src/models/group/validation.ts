@@ -3,20 +3,20 @@ import { groupDataAtoms } from './data';
 import { GroupValidites, GroupValidator } from './validation.type';
 
 export const groupValidator: GroupValidator = {
-  roleSelectStep: {
+  groupRoleSelectStep: {
     page1: ({ isLeader }) => !!isLeader,
   },
-  leaderMyInformationStep: {
+  groupLeaderMyInformationStep: {
     page1: ({ age, gender, nickname }) => !!age && !!gender && nickname !== '',
     page2: ({ kakaoId, major, phone, studentType }) =>
       !!kakaoId && !!major && !!phone && !!studentType,
   },
-  leaderGroupCreateStep: {
+  groupLeaderGroupCreateStep: {
     page1: ({ teamName }) => !!teamName,
     page2: ({ joinCode, memberJoined }) =>
       !!joinCode && memberJoined.every(joined => joined),
   },
-  leaderGroupInformationStep: {
+  groupLeaderGroupInformationStep: {
     page1: ({ preferDayOptions }) => preferDayOptions.length > 0,
     page2: ({ answer }) => !!answer,
     page3: ({ answer }) => !!answer,
@@ -24,92 +24,92 @@ export const groupValidator: GroupValidator = {
     page5: ({ answer }) => !!answer,
     page6: ({ message }) => !!message,
   },
-  leaderPledgeStep: {
+  groupLeaderPledgeStep: {
     page1: ({ checked }) => checked.every(checked => checked),
   },
-  leaderPreferStep: {
+  groupLeaderPreferStep: {
     page1: ({ atmosphere, univs }) => atmosphere !== '' && univs.length > 0,
   },
-  memberMyInformationStep: {
+  groupMemberMyInformationStep: {
     page1: ({ nickname }) => !!nickname,
     page2: ({ kakaoId, major }) => !!kakaoId && !!major,
   },
-  memberParticipateStep: {
+  groupMemberParticipateStep: {
     page1: ({ joinCode }) => !!joinCode,
   },
-  memberPledgeStep: {
+  groupMemberPledgeStep: {
     page1: ({ checked }) => checked.every(checked => checked),
   },
 };
 
 export const GroupLeaderValiditesAtom = atom<GroupValidites>(get => ({
-  leaderGroupCreateStep: {
-    page1: groupValidator.leaderGroupCreateStep.page1(
-      get(groupDataAtoms.leaderGroupCreateStep.page1),
+  groupLeaderGroupCreateStep: {
+    page1: groupValidator.groupLeaderGroupCreateStep.page1(
+      get(groupDataAtoms.groupLeaderGroupCreateStep.page1),
     ),
-    page2: groupValidator.leaderGroupCreateStep.page2(
-      get(groupDataAtoms.leaderGroupCreateStep.page2),
-    ),
-  },
-  leaderGroupInformationStep: {
-    page1: groupValidator.leaderGroupInformationStep.page1(
-      get(groupDataAtoms.leaderGroupInformationStep.page1),
-    ),
-    page2: groupValidator.leaderGroupInformationStep.page2(
-      get(groupDataAtoms.leaderGroupInformationStep.page2),
-    ),
-    page3: groupValidator.leaderGroupInformationStep.page3(
-      get(groupDataAtoms.leaderGroupInformationStep.page3),
-    ),
-    page4: groupValidator.leaderGroupInformationStep.page4(
-      get(groupDataAtoms.leaderGroupInformationStep.page4),
-    ),
-    page5: groupValidator.leaderGroupInformationStep.page5(
-      get(groupDataAtoms.leaderGroupInformationStep.page5),
-    ),
-    page6: groupValidator.leaderGroupInformationStep.page6(
-      get(groupDataAtoms.leaderGroupInformationStep.page6),
+    page2: groupValidator.groupLeaderGroupCreateStep.page2(
+      get(groupDataAtoms.groupLeaderGroupCreateStep.page2),
     ),
   },
-  leaderMyInformationStep: {
-    page1: groupValidator.leaderMyInformationStep.page1(
-      get(groupDataAtoms.leaderMyInformationStep.page1),
+  groupLeaderGroupInformationStep: {
+    page1: groupValidator.groupLeaderGroupInformationStep.page1(
+      get(groupDataAtoms.groupLeaderGroupInformationStep.page1),
     ),
-    page2: groupValidator.leaderMyInformationStep.page2(
-      get(groupDataAtoms.leaderMyInformationStep.page2),
+    page2: groupValidator.groupLeaderGroupInformationStep.page2(
+      get(groupDataAtoms.groupLeaderGroupInformationStep.page2),
     ),
-  },
-  leaderPledgeStep: {
-    page1: groupValidator.leaderPledgeStep.page1(
-      get(groupDataAtoms.leaderPledgeStep.page1),
+    page3: groupValidator.groupLeaderGroupInformationStep.page3(
+      get(groupDataAtoms.groupLeaderGroupInformationStep.page3),
     ),
-  },
-  leaderPreferStep: {
-    page1: groupValidator.leaderPreferStep.page1(
-      get(groupDataAtoms.leaderPreferStep.page1),
+    page4: groupValidator.groupLeaderGroupInformationStep.page4(
+      get(groupDataAtoms.groupLeaderGroupInformationStep.page4),
     ),
-  },
-  memberMyInformationStep: {
-    page1: groupValidator.memberMyInformationStep.page1(
-      get(groupDataAtoms.memberMyInformationStep.page1),
+    page5: groupValidator.groupLeaderGroupInformationStep.page5(
+      get(groupDataAtoms.groupLeaderGroupInformationStep.page5),
     ),
-    page2: groupValidator.memberMyInformationStep.page2(
-      get(groupDataAtoms.memberMyInformationStep.page2),
+    page6: groupValidator.groupLeaderGroupInformationStep.page6(
+      get(groupDataAtoms.groupLeaderGroupInformationStep.page6),
     ),
   },
-  memberParticipateStep: {
-    page1: groupValidator.memberParticipateStep.page1(
-      get(groupDataAtoms.memberParticipateStep.page1),
+  groupLeaderMyInformationStep: {
+    page1: groupValidator.groupLeaderMyInformationStep.page1(
+      get(groupDataAtoms.groupLeaderMyInformationStep.page1),
+    ),
+    page2: groupValidator.groupLeaderMyInformationStep.page2(
+      get(groupDataAtoms.groupLeaderMyInformationStep.page2),
     ),
   },
-  memberPledgeStep: {
-    page1: groupValidator.memberPledgeStep.page1(
-      get(groupDataAtoms.memberPledgeStep.page1),
+  groupLeaderPledgeStep: {
+    page1: groupValidator.groupLeaderPledgeStep.page1(
+      get(groupDataAtoms.groupLeaderPledgeStep.page1),
     ),
   },
-  roleSelectStep: {
-    page1: groupValidator.roleSelectStep.page1(
-      get(groupDataAtoms.roleSelectStep.page1),
+  groupLeaderPreferStep: {
+    page1: groupValidator.groupLeaderPreferStep.page1(
+      get(groupDataAtoms.groupLeaderPreferStep.page1),
+    ),
+  },
+  groupMemberMyInformationStep: {
+    page1: groupValidator.groupMemberMyInformationStep.page1(
+      get(groupDataAtoms.groupMemberMyInformationStep.page1),
+    ),
+    page2: groupValidator.groupMemberMyInformationStep.page2(
+      get(groupDataAtoms.groupMemberMyInformationStep.page2),
+    ),
+  },
+  groupMemberParticipateStep: {
+    page1: groupValidator.groupMemberParticipateStep.page1(
+      get(groupDataAtoms.groupMemberParticipateStep.page1),
+    ),
+  },
+  groupMemberPledgeStep: {
+    page1: groupValidator.groupMemberPledgeStep.page1(
+      get(groupDataAtoms.groupMemberPledgeStep.page1),
+    ),
+  },
+  groupRoleSelectStep: {
+    page1: groupValidator.groupRoleSelectStep.page1(
+      get(groupDataAtoms.groupRoleSelectStep.page1),
     ),
   },
 }));

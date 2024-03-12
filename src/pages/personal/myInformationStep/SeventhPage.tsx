@@ -7,13 +7,13 @@ import { pageFinishAtom } from '~/store/funnel';
 
 const SeventhPage = () => {
   const [pageState, setPageState] = useAtom(
-    personalDataAtoms.myInformationStep.page7,
+    personalDataAtoms.personalMyInformationStep.page7,
   );
 
   const { message } = pageState;
   const setIsPageFinished = useSetAtom(pageFinishAtom);
-  const pageValidity = useAtomValue(combinedValidatiesAtoms).myInformationStep
-    .page7;
+  const pageValidity = useAtomValue(combinedValidatiesAtoms)
+    .personalMyInformationStep.page7;
   setIsPageFinished(!!pageValidity);
 
   return (

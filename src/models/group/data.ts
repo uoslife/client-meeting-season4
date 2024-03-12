@@ -4,7 +4,7 @@ import { GroupData, GroupDataAtoms } from './data.type';
 // initial values
 export const groupInitialData: GroupData = {
   // 모임을 만드시나요? 참여하시나요?
-  roleSelectStep: {
+  groupRoleSelectStep: {
     page1: {
       isLeader: null,
     },
@@ -15,7 +15,7 @@ export const groupInitialData: GroupData = {
   //--------------------------------------------------------//
 
   // 1. 나의 정보 입력하기
-  leaderMyInformationStep: {
+  groupLeaderMyInformationStep: {
     page1: {
       nickname: '',
       gender: null,
@@ -29,7 +29,7 @@ export const groupInitialData: GroupData = {
     },
   },
   // 2. 팅 만들기
-  leaderGroupCreateStep: {
+  groupLeaderGroupCreateStep: {
     page1: {
       teamName: '',
     },
@@ -39,7 +39,7 @@ export const groupInitialData: GroupData = {
     },
   },
   // 3. 우리 팅 정보 입력하기
-  leaderGroupInformationStep: {
+  groupLeaderGroupInformationStep: {
     page1: {
       preferDayOptions: [],
     },
@@ -50,7 +50,7 @@ export const groupInitialData: GroupData = {
     page6: { message: '' },
   },
   // 4. 만나고 싶은 팅 정보 입력하기
-  leaderPreferStep: {
+  groupLeaderPreferStep: {
     page1: {
       ageRange: [20, 21],
       univs: [],
@@ -58,7 +58,7 @@ export const groupInitialData: GroupData = {
     },
   },
   // 5. 시대팅 이용 서약
-  leaderPledgeStep: {
+  groupLeaderPledgeStep: {
     page1: {
       checked: [false, false, false],
     },
@@ -73,7 +73,7 @@ export const groupInitialData: GroupData = {
   //--------------------------------------------------------//
 
   // 1. 나의 정보 입력하기
-  memberMyInformationStep: {
+  groupMemberMyInformationStep: {
     page1: {
       nickname: '',
       gender: null,
@@ -86,13 +86,13 @@ export const groupInitialData: GroupData = {
     },
   },
   // 2. 팅 참여하기
-  memberParticipateStep: {
+  groupMemberParticipateStep: {
     page1: {
       joinCode: '',
     },
   },
   // 3. 시대팅 이용 서약
-  memberPledgeStep: {
+  groupMemberPledgeStep: {
     page1: {
       checked: [false, false, false],
     },
@@ -104,90 +104,90 @@ export const groupInitialData: GroupData = {
 };
 
 export const groupDataAtoms: GroupDataAtoms = {
-  roleSelectStep: {
+  groupRoleSelectStep: {
     page1: atomWithStorage(
-      'roleSelectStep-page1',
-      groupInitialData.roleSelectStep.page1,
+      'groupRoleSelectStep-page1',
+      groupInitialData.groupRoleSelectStep.page1,
     ),
   },
-  leaderMyInformationStep: {
+  groupLeaderMyInformationStep: {
     page1: atomWithStorage(
       'groupLeaderMyInformationStep-page1',
-      groupInitialData.leaderMyInformationStep.page1,
+      groupInitialData.groupLeaderMyInformationStep.page1,
     ),
     page2: atomWithStorage(
       'groupLeaderMyInformationStep-page2',
-      groupInitialData.leaderMyInformationStep.page2,
+      groupInitialData.groupLeaderMyInformationStep.page2,
     ),
   },
-  leaderGroupCreateStep: {
+  groupLeaderGroupCreateStep: {
     page1: atomWithStorage(
       'groupLeaderGroupCreateStep-page1',
-      groupInitialData.leaderGroupCreateStep.page1,
+      groupInitialData.groupLeaderGroupCreateStep.page1,
     ),
     page2: atomWithStorage(
       'groupLeaderGroupCreateStep-page2',
-      groupInitialData.leaderGroupCreateStep.page2,
+      groupInitialData.groupLeaderGroupCreateStep.page2,
     ),
   },
-  leaderGroupInformationStep: {
+  groupLeaderGroupInformationStep: {
     page1: atomWithStorage(
       'groupLeaderGroupInformationStep-page1',
-      groupInitialData.leaderGroupInformationStep.page1,
+      groupInitialData.groupLeaderGroupInformationStep.page1,
     ),
     page2: atomWithStorage(
       'groupLeaderGroupInformationStep-page2',
-      groupInitialData.leaderGroupInformationStep.page2,
+      groupInitialData.groupLeaderGroupInformationStep.page2,
     ),
     page3: atomWithStorage(
       'groupLeaderGroupInformationStep-page3',
-      groupInitialData.leaderGroupInformationStep.page3,
+      groupInitialData.groupLeaderGroupInformationStep.page3,
     ),
     page4: atomWithStorage(
       'groupLeaderGroupInformationStep-page4',
-      groupInitialData.leaderGroupInformationStep.page4,
+      groupInitialData.groupLeaderGroupInformationStep.page4,
     ),
     page5: atomWithStorage(
       'groupLeaderGroupInformationStep-page5',
-      groupInitialData.leaderGroupInformationStep.page5,
+      groupInitialData.groupLeaderGroupInformationStep.page5,
     ),
     page6: atomWithStorage(
       'groupLeaderGroupInformationStep-page6',
-      groupInitialData.leaderGroupInformationStep.page6,
+      groupInitialData.groupLeaderGroupInformationStep.page6,
     ),
   },
-  leaderPreferStep: {
+  groupLeaderPreferStep: {
     page1: atomWithStorage(
       'groupLeaderPreferStep-page1',
-      groupInitialData.leaderPreferStep.page1,
+      groupInitialData.groupLeaderPreferStep.page1,
     ),
   },
-  leaderPledgeStep: {
+  groupLeaderPledgeStep: {
     page1: atomWithStorage(
       'groupLeaderPledgeStep-page1',
-      groupInitialData.leaderPledgeStep.page1,
+      groupInitialData.groupLeaderPledgeStep.page1,
     ),
   },
-  memberMyInformationStep: {
+  groupMemberMyInformationStep: {
     page1: atomWithStorage(
       'groupMemberMyInformationStep-page1',
-      groupInitialData.memberMyInformationStep.page1,
+      groupInitialData.groupMemberMyInformationStep.page1,
     ),
     page2: atomWithStorage(
       'groupMemberMyInformationStep-page2',
-      groupInitialData.memberMyInformationStep.page2,
+      groupInitialData.groupMemberMyInformationStep.page2,
     ),
   },
-  memberParticipateStep: {
+  groupMemberParticipateStep: {
     page1: atomWithStorage(
       'groupMemberParticipateStep-page1',
-      groupInitialData.memberParticipateStep.page1,
+      groupInitialData.groupMemberParticipateStep.page1,
     ),
   },
-  memberPledgeStep: {
+  groupMemberPledgeStep: {
     page1: atomWithStorage(
       'groupMemberPledgeStep-page1',
-      groupInitialData.memberPledgeStep.page1,
+      groupInitialData.groupMemberPledgeStep.page1,
     ),
   },
 };

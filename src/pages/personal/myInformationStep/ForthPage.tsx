@@ -13,13 +13,13 @@ import { combinedValidatiesAtoms } from '~/models';
 
 const ForthPage = () => {
   const [pageState, setPageState] = useAtom(
-    personalDataAtoms.myInformationStep.page4,
+    personalDataAtoms.personalMyInformationStep.page4,
   );
 
   const { animalOptions } = pageState;
 
-  const pageValidity = useAtomValue(combinedValidatiesAtoms).myInformationStep
-    .page4;
+  const pageValidity = useAtomValue(combinedValidatiesAtoms)
+    .personalMyInformationStep.page4;
   const setIsPageFinished = useSetAtom(pageFinishAtom);
   setIsPageFinished(!!pageValidity);
 

@@ -3,7 +3,7 @@ import { InfoOptions } from '~/models/options';
 
 export type PersonalData = {
   // 01. 나의 정보 입력하기
-  myInformationStep: {
+  personalMyInformationStep: {
     page1: Pick<
       InfoOptions,
       | 'nickname' // 1
@@ -42,13 +42,13 @@ export type PersonalData = {
     >;
   };
   // 02. 나의 연애 스타일 알아보기
-  myRomanceStep: {
+  personalMyRomanceStep: {
     [key in 'page1' | 'page2' | 'page3' | 'page4' | 'page5']: {
       answer: null | 0 | 1;
     };
   };
   // 03. 선호하는 상대 정보 입력하기
-  preferInfoStep: {
+  personalPreferInfoStep: {
     page1: Pick<
       InfoOptions,
       | 'ageRange' // 1
@@ -72,7 +72,7 @@ export type PersonalData = {
     >;
   };
   // 04. 시대팅 이용 서약
-  pledgeStep: {
+  personalPledgeStep: {
     page1: {
       checked: [boolean, boolean, boolean];
     };

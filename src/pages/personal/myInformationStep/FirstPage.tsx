@@ -14,13 +14,13 @@ import { combinedValidatiesAtoms } from '~/models';
 
 const FirstPage = () => {
   const [pageState, setPageState] = useAtom(
-    personalDataAtoms.myInformationStep.page1,
+    personalDataAtoms.personalMyInformationStep.page1,
   );
   const { age, gender, height, nickname } = pageState;
   const setIsPageFinished = useSetAtom(pageFinishAtom);
 
-  const pageValidity = useAtomValue(combinedValidatiesAtoms).myInformationStep
-    .page1;
+  const pageValidity = useAtomValue(combinedValidatiesAtoms)
+    .personalMyInformationStep.page1;
   setIsPageFinished(!!pageValidity);
 
   return (

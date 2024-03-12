@@ -5,7 +5,7 @@ import { groupDataAtoms } from '~/models/group/data';
 import { useAtomValue } from 'jotai';
 
 const GroupRoleSelectStep = () => {
-  const pageState = useAtomValue(groupDataAtoms.roleSelectStep.page1);
+  const pageState = useAtomValue(groupDataAtoms.groupRoleSelectStep.page1);
 
   const { Funnel, currentPage, PageHandler } = useFunnel({
     pageNumberList: [1] as const,

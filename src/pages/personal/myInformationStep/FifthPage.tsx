@@ -11,7 +11,7 @@ import { combinedValidatiesAtoms } from '~/models';
 
 const Fifthpage = () => {
   const [pageState, setPageState] = useAtom(
-    personalDataAtoms.myInformationStep.page5,
+    personalDataAtoms.personalMyInformationStep.page5,
   );
 
   const { mbti } = pageState;
@@ -22,8 +22,8 @@ const Fifthpage = () => {
     setPageState(prev => ({ ...prev, mbti: newMbtiState }));
   };
 
-  const pageValidity = useAtomValue(combinedValidatiesAtoms).myInformationStep
-    .page5;
+  const pageValidity = useAtomValue(combinedValidatiesAtoms)
+    .personalMyInformationStep.page5;
   const setIsPageFinished = useSetAtom(pageFinishAtom);
   setIsPageFinished(!!pageValidity);
 

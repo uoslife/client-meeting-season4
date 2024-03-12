@@ -13,13 +13,13 @@ import { combinedValidatiesAtoms } from '~/models';
 
 const SixthPage = () => {
   const [pageState, setPageState] = useAtom(
-    personalDataAtoms.myInformationStep.page6,
+    personalDataAtoms.personalMyInformationStep.page6,
   );
 
   const { interestOptions } = pageState;
 
-  const pageValidity = useAtomValue(combinedValidatiesAtoms).myInformationStep
-    .page6;
+  const pageValidity = useAtomValue(combinedValidatiesAtoms)
+    .personalMyInformationStep.page6;
   const setIsPageFinished = useSetAtom(pageFinishAtom);
   setIsPageFinished(!!pageValidity);
 

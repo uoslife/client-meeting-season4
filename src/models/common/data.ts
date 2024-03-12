@@ -3,7 +3,7 @@ import { atomWithStorage } from 'jotai/utils';
 
 // initial values
 export const commonInitialData: CommonData = {
-  univVerificationStep: {
+  commonUnivVerificationStep: {
     page1: {
       univType: null,
     },
@@ -14,7 +14,7 @@ export const commonInitialData: CommonData = {
       verified: false,
     },
   },
-  branchGatewayStep: {
+  commonBranchGatewayStep: {
     page1: {
       meetingType: null,
       checked: [false, false],
@@ -24,24 +24,24 @@ export const commonInitialData: CommonData = {
 
 // page level atom: each holds data, write/read
 export const commonDataAtoms: CommonDataAtoms = {
-  univVerificationStep: {
+  commonUnivVerificationStep: {
     page1: atomWithStorage(
-      'univVerificationStep-page1',
-      commonInitialData.univVerificationStep.page1,
+      'commonUnivVerificationStep-page1',
+      commonInitialData.commonUnivVerificationStep.page1,
     ),
     page2: atomWithStorage(
-      'univVerificationStep-page2',
-      commonInitialData.univVerificationStep.page2,
+      'commonUnivVerificationStep-page2',
+      commonInitialData.commonUnivVerificationStep.page2,
     ),
     page3: atomWithStorage(
-      'univVerificationStep-page3',
-      commonInitialData.univVerificationStep.page3,
+      'commonUnivVerificationStep-page3',
+      commonInitialData.commonUnivVerificationStep.page3,
     ),
   },
-  branchGatewayStep: {
+  commonBranchGatewayStep: {
     page1: atomWithStorage(
-      'branchGatewayStep-page1',
-      commonInitialData.branchGatewayStep.page1,
+      'commonBranchGatewayStep-page1',
+      commonInitialData.commonBranchGatewayStep.page1,
     ),
   },
 };

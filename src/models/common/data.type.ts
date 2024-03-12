@@ -2,7 +2,7 @@ import { atomWithStorage } from 'jotai/utils';
 import { Univ } from '../options';
 
 export type CommonData = {
-  univVerificationStep: {
+  commonUnivVerificationStep: {
     page1: {
       univType: Univ | null;
     };
@@ -13,7 +13,7 @@ export type CommonData = {
       verified: boolean;
     };
   };
-  branchGatewayStep: {
+  commonBranchGatewayStep: {
     page1: {
       meetingType: 'group' | 'personal' | null;
       checked: [boolean, boolean];

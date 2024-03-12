@@ -12,12 +12,12 @@ import { combinedValidatiesAtoms } from '~/models';
 
 const SecondPage = () => {
   const [pageState, setPageState] = useAtom(
-    personalDataAtoms.myInformationStep.page2,
+    personalDataAtoms.personalMyInformationStep.page2,
   );
   const { kakaoId, major, studentType, phone } = pageState;
 
-  const pageValidity = useAtomValue(combinedValidatiesAtoms).myInformationStep
-    .page2;
+  const pageValidity = useAtomValue(combinedValidatiesAtoms)
+    .personalMyInformationStep.page2;
   const setIsPageFinished = useSetAtom(pageFinishAtom);
   setIsPageFinished(!!pageValidity);
 
