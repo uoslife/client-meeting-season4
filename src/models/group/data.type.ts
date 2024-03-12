@@ -44,7 +44,15 @@ export type GroupData = {
     page6: {
       message: string;
     };
-  } & { [key in 'page2' | 'page3' | 'page4' | 'page5']: { answer: string } };
+  } & {
+    [key in 'page4' | 'page5']: {
+      answer: 0 | 1 | 2 | null;
+    };
+  } & {
+    [key in 'page2' | 'page3']: {
+      answer: 0 | 1 | null;
+    };
+  };
   // 04. 만나고 싶은 팅 정보 입력하기
   groupLeaderPreferStep: {
     page1: Pick<

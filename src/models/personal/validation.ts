@@ -16,11 +16,11 @@ export const personalValidators: PersonalValidator = {
     page7: ({ message }) => !!message,
   },
   personalMyRomanceStep: {
-    page1: ({ answer }) => !!answer,
-    page2: ({ answer }) => !!answer,
-    page3: ({ answer }) => !!answer,
-    page4: ({ answer }) => !!answer,
-    page5: ({ answer }) => !!answer,
+    page1: ({ answer }) => answer !== null,
+    page2: ({ answer }) => answer !== null,
+    page3: ({ answer }) => answer !== null,
+    page4: ({ answer }) => answer !== null,
+    page5: ({ answer }) => answer !== null,
   },
   personalPledgeStep: {
     page1: ({ checked }) => checked.every(check => check),

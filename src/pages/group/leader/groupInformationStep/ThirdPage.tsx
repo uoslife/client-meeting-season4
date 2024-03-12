@@ -4,9 +4,9 @@ import { combinedValidatiesAtoms } from '~/models';
 import { groupDataAtoms } from '~/models/group/data';
 import { pageFinishAtom } from '~/store/funnel';
 
-const SecondPage = () => {
+const ThirdPage = () => {
   const [pageState, setPageState] = useAtom(
-    groupDataAtoms.groupLeaderGroupInformationStep.page2,
+    groupDataAtoms.groupLeaderGroupInformationStep.page3,
   );
 
   const { answer: selectedValue } = pageState;
@@ -20,15 +20,18 @@ const SecondPage = () => {
   return (
     <QuestionPageTemplate
       meetingType="group"
-      questionNumber={1}
+      questionNumber={2}
       select={select}
       selectedValue={selectedValue}
-      answerOptionLabels={['활발ㅎŁ 편○l에요', 'ㅊr분ㅎŁ 편○l에요']}
-      question="우리 팅의 분위기는..."
+      answerOptionLabels={[
+        'ㄷト같○l 술게임을 ㈛ヱ 싶ㄷr..',
+        '술보ㄷト 너와의 ㄷН화가 ㈛ヱ 싶다..',
+      ]}
+      question="우리 팅은 미팅에서..."
       // TODO: Change the image source
       imageSource="\images\personal\myRomanceStep\1.png"
     />
   );
 };
 
-export default SecondPage;
+export default ThirdPage;

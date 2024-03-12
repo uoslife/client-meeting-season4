@@ -43,10 +43,10 @@ export const groupInitialData: GroupData = {
     page1: {
       preferDayOptions: [],
     },
-    page2: { answer: '' },
-    page3: { answer: '' },
-    page4: { answer: '' },
-    page5: { answer: '' },
+    page2: { answer: null },
+    page3: { answer: null },
+    page4: { answer: null },
+    page5: { answer: null },
     page6: { message: '' },
   },
   // 4. 만나고 싶은 팅 정보 입력하기

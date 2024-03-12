@@ -18,10 +18,10 @@ export const groupValidator: GroupValidator = {
   },
   groupLeaderGroupInformationStep: {
     page1: ({ preferDayOptions }) => preferDayOptions.length > 0,
-    page2: ({ answer }) => !!answer,
-    page3: ({ answer }) => !!answer,
-    page4: ({ answer }) => !!answer,
-    page5: ({ answer }) => !!answer,
+    page2: ({ answer }) => answer !== null,
+    page3: ({ answer }) => answer !== null,
+    page4: ({ answer }) => answer !== null,
+    page5: ({ answer }) => answer !== null,
     page6: ({ message }) => !!message,
   },
   groupLeaderPledgeStep: {
