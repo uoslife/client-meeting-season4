@@ -11,8 +11,8 @@ export const personalValidators: PersonalValidator = {
       kakaoId !== '' && phone !== '' && major !== '' && !!studentType,
     page3: ({ religion, smoking }) => !!religion && smoking !== null,
     page4: ({ animalOptions }) => animalOptions.length > 0,
-    page5: ({ mbti }) => !!mbti,
-    page6: ({ interestOptions }) => interestOptions.length === 0,
+    page5: ({ mbti }) => !!mbti[0] && !!mbti[1] && !!mbti[2] && !!mbti[3],
+    page6: ({ interestOptions }) => interestOptions.length === 3,
     page7: ({ message }) => !!message,
   },
   myRomanceStep: {

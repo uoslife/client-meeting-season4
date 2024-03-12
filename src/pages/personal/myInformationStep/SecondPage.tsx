@@ -14,7 +14,7 @@ const SecondPage = () => {
   const [pageState, setPageState] = useAtom(
     personalDataAtoms.myInformationStep.page2,
   );
-  const { kakaoId, major, studentType } = pageState;
+  const { kakaoId, major, studentType, phone } = pageState;
 
   const pageValidity = useAtomValue(combinedValidatiesAtoms).myInformationStep
     .page2;
@@ -75,7 +75,36 @@ const SecondPage = () => {
               <Col gap={28}>
                 <Col gap={12} align="center">
                   <Text
-                    label={'6. 본인의 학과를 입력해 주세요.'}
+                    label={'6. 본인의 전화번호를 입력해 주세요.'}
+                    color={'Gray500'}
+                    typography={'NeoTitleM'}
+                    weight={400}
+                    size={18}
+                  />
+                  <Text
+                    label={'매칭 완료 알림을 위한 수단으로 사용됩니다.'}
+                    color={'Gray400'}
+                    typography={'GoThicBodyS'}
+                    weight={400}
+                    size={14}
+                  />
+                </Col>
+                <TextInput
+                  value={phone}
+                  status={'default'}
+                  placeholder={'전화번호 입력'}
+                  onChange={e => {
+                    setPageState(prev => ({
+                      ...prev,
+                      phone: e.target.value,
+                    }));
+                  }}
+                />
+              </Col>
+              <Col gap={28}>
+                <Col gap={12} align="center">
+                  <Text
+                    label={'7. 본인의 학과를 입력해 주세요.'}
                     color={'Gray500'}
                     typography={'NeoTitleM'}
                     weight={400}
@@ -112,7 +141,7 @@ const SecondPage = () => {
               </Col>
               <Col gap={28} align="center">
                 <Text
-                  label={'7. 본인의 신분을 선택해 주세요.'}
+                  label={'8. 본인의 신분을 선택해 주세요.'}
                   color={'Gray500'}
                   typography={'NeoTitleM'}
                   weight={400}
