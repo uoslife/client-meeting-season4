@@ -6,28 +6,22 @@ import Text from '~/components/typography/Text';
 import TextInput from '~/components/inputs/textInput/TextInput';
 import RoundButton from '~/components/buttons/roundButton/RoundButton';
 import DropdownInput from '~/components/inputs/dropdownInput/DropdownInput';
-import { useEffect } from 'react';
-import { useInput } from '~/hooks/useInput';
-import { useAtom, useSetAtom } from 'jotai';
-import { personalApplyAtoms } from '~/store/meeting';
+import { useAtom, useAtomValue, useSetAtom } from 'jotai';
 import { pageFinishAtom } from '~/store/funnel';
 import { AGE_LIST, HEIGHT_LIST } from '~/constants';
+import { personalDataAtoms } from '~/models/personal/data';
+import { combinedValidatiesAtoms } from '~/models';
 
 const FirstPage = () => {
-  const storedName = localStorage.getItem('myInfo_nickname') || '';
-  const { inputValue: name, handleInputChange: handleNameChange } = useInput(
-    storedName.replace(/["']/g, ''),
+  const [pageState, setPageState] = useAtom(
+    personalDataAtoms.myInformationStep.page1,
   );
-  const [, setName] = useAtom(personalApplyAtoms.myInfo_nickname);
-  const [gender, setGender] = useAtom(personalApplyAtoms.myInfo_gender);
-  const [age, setAge] = useAtom(personalApplyAtoms.myInfo_age);
-  const [height, setHeight] = useAtom(personalApplyAtoms.myInfo_height);
+  const { age, gender, height, nickname } = pageState;
   const setIsPageFinished = useSetAtom(pageFinishAtom);
 
-  useEffect(() => {
-    const isAllInputsFilled = name && gender && age && height;
-    setIsPageFinished(!!isAllInputsFilled);
-  }, [name, gender, age, height]);
+  const pageValidity = useAtomValue(combinedValidatiesAtoms).myInformationStep
+    .page1;
+  setIsPageFinished(!!pageValidity);
 
   return (
     <PageLayout.SingleCardBody
@@ -64,12 +58,14 @@ const FirstPage = () => {
                   </Col>
                 </Col>
                 <TextInput
-                  value={name}
+                  value={nickname}
                   status={'default'}
                   placeholder={'이름 입력'}
                   onChange={e => {
-                    handleNameChange(e);
-                    setName(e.target.value);
+                    setPageState(prev => ({
+                      ...prev,
+                      nickname: e.target.value,
+                    }));
                   }}
                 />
               </Col>
@@ -83,17 +79,21 @@ const FirstPage = () => {
                 />
                 <Col gap={8}>
                   <RoundButton
-                    status={gender === '남자' ? 'active' : 'inactive'}
+                    status={gender === 'M' ? 'active' : 'inactive'}
                     label={'남자'}
                     height={56}
-                    onClick={() => setGender('남자')}
+                    onClick={() =>
+                      setPageState(prev => ({ ...prev, gender: 'M' }))
+                    }
                     borderType="primary"
                   />
                   <RoundButton
-                    status={gender === '여자' ? 'active' : 'inactive'}
+                    status={gender === 'F' ? 'active' : 'inactive'}
                     label={'여자'}
                     height={56}
-                    onClick={() => setGender('여자')}
+                    onClick={() =>
+                      setPageState(prev => ({ ...prev, gender: 'F' }))
+                    }
                     borderType="primary"
                   />
                 </Col>
@@ -118,7 +118,9 @@ const FirstPage = () => {
                 <Col>
                   <DropdownInput
                     value={age}
-                    setValue={age => setAge(age)}
+                    setValue={age => {
+                      setPageState({ ...pageState, age });
+                    }}
                     label={'나이 선택'}
                     options={AGE_LIST}
                   />
@@ -136,7 +138,9 @@ const FirstPage = () => {
                 </Col>
                 <DropdownInput
                   value={height}
-                  setValue={height => setHeight(height)}
+                  setValue={height => {
+                    setPageState({ ...pageState, height });
+                  }}
                   label={'키 선택'}
                   options={HEIGHT_LIST}
                 />
