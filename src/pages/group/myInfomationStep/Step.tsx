@@ -7,7 +7,6 @@ const PAGE_NUMBER = [1, 2];
 
 const MyInformationStep = () => {
   const isLeader = localStorage.getItem('groupRole_isLeader');
-  console.log(isLeader);
   const { Funnel, currentPage, PageHandler } = useFunnel({
     pageNumberList: PAGE_NUMBER,
     nextStep:
