@@ -1,7 +1,6 @@
 import styled from '@emotion/styled';
 import { InputProps } from './TextInput';
 import { colors } from '~/styles/colors';
-import '/public/fonts/GothicA1-Regular.ttf';
 
 type InputStyledProps = Omit<InputProps, 'value'>;
 
@@ -24,8 +23,6 @@ export const Input = styled.input<InputStyledProps>`
   height: 100%;
   border: none;
 
-  //글씨체 컴포넌트 도입 후 수정
-  font-family: 'GothicA1Type-Regular';
   font-size: 14px;
   font-weight: 400;
   line-height: 19.5px;
