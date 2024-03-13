@@ -7,7 +7,7 @@ import RoundButton from '~/components/buttons/roundButton/RoundButton';
 import RangeSlider from '~/components/rangeSlider/RangeSlider';
 import useRangeState from '~/hooks/useRangeState';
 import { useEffect } from 'react';
-import { useAtom, useSetAtom } from 'jotai';
+import { useSetAtom } from 'jotai';
 import { personalApplyAtoms } from '~/store/meeting';
 import { pageFinishAtom } from '~/store/funnel';
 import { useToggleSelect } from '~/hooks/useToggleSelect';
@@ -17,14 +17,14 @@ const FirstPage = () => {
   const parsedAge = storedAge === null ? [24, 27] : JSON.parse(storedAge);
   const { rangeHandler: ageHandler, rangeValue: age } =
     useRangeState(parsedAge);
-  const [, setAge] = useAtom(personalApplyAtoms.personalPrefer_age);
+  const setAge = useSetAtom(personalApplyAtoms.personalPrefer_age);
 
   const storedHeight = localStorage.getItem('personalPrefer_height');
   const parsedHeight =
     storedHeight === null ? [165, 175] : JSON.parse(storedHeight);
   const { rangeHandler: heightHandler, rangeValue: height } =
     useRangeState(parsedHeight);
-  const [, setHeight] = useAtom(personalApplyAtoms.personalPrefer_height);
+  const setHeight = useSetAtom(personalApplyAtoms.personalPrefer_height);
 
   const storedStudentType = localStorage.getItem('personalPrefer_studentType');
   const parsedStudentType =
@@ -34,7 +34,7 @@ const FirstPage = () => {
     select,
     checkSelectedValues,
   } = useToggleSelect<string>(3, parsedStudentType);
-  const [, setStudentType] = useAtom(
+  const setStudentType = useSetAtom(
     personalApplyAtoms.personalPrefer_studentType,
   );
 

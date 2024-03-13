@@ -21,7 +21,7 @@ const SecondPage = () => {
     select: selectUniversity,
     checkSelectedValues: checkUniversity,
   } = useToggleSelect<string>(3, parsedUniversity);
-  const [, setUniversity] = useAtom(personalApplyAtoms.personalPrefer_univ);
+  const setUniversity = useSetAtom(personalApplyAtoms.personalPrefer_univ);
 
   const storedReligion = localStorage.getItem('personalPrefer_religion');
   const parsedReligion =
@@ -31,7 +31,7 @@ const SecondPage = () => {
     select: selectReligion,
     checkSelectedValues: checkReligion,
   } = useToggleSelect<string>(6, parsedReligion);
-  const [, setReligion] = useAtom(personalApplyAtoms.personalPrefer_religion);
+  const setReligion = useSetAtom(personalApplyAtoms.personalPrefer_religion);
 
   const [smoking, setSmoking] = useAtom(
     personalApplyAtoms.personalPrefer_smoking,
@@ -41,7 +41,7 @@ const SecondPage = () => {
   const parsedDrink = storedDrink === null ? [10, 17] : JSON.parse(storedDrink);
   const { rangeHandler: drinkHandler, rangeValue: drink } =
     useRangeState(parsedDrink);
-  const [, setDrink] = useAtom(personalApplyAtoms.personalPrefer_drink);
+  const setDrink = useSetAtom(personalApplyAtoms.personalPrefer_drink);
 
   const setIsPageFinished = useSetAtom(pageFinishAtom);
 

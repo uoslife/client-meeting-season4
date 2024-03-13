@@ -5,7 +5,7 @@ import Row from '~/components/layout/Row';
 import Text from '~/components/typography/Text';
 import MbtiButton from '~/components/buttons/mbtiButton/MbtiButton';
 import { useEffect } from 'react';
-import { useAtom, useSetAtom } from 'jotai';
+import { useSetAtom } from 'jotai';
 import { personalApplyAtoms } from '~/store/meeting';
 import { pageFinishAtom } from '~/store/funnel';
 import { useToggleSelect } from '~/hooks/useToggleSelect';
@@ -18,7 +18,7 @@ const ForthPage = () => {
     select: selectMbti,
     checkSelectedValues: checkMbti,
   } = useToggleSelect<string>(8, parsedMbti);
-  const [, setMbti] = useAtom(personalApplyAtoms.personalInfo_mbti);
+  const setMbti = useSetAtom(personalApplyAtoms.personalInfo_mbti);
 
   const setIsPageFinished = useSetAtom(pageFinishAtom);
 
@@ -71,13 +71,13 @@ const ForthPage = () => {
                     status={checkMbti('E') ? 'active' : 'inactive'}
                     alphabet={'E'}
                     label={'외향적'}
-                    onClick={() => selectMbti('E')()}
+                    onClick={selectMbti('E')}
                   />
                   <MbtiButton
                     status={checkMbti('I') ? 'active' : 'inactive'}
                     alphabet={'I'}
                     label={'내향적'}
-                    onClick={() => selectMbti('I')()}
+                    onClick={selectMbti('I')}
                   />
                 </Row>
               </Col>
@@ -94,13 +94,13 @@ const ForthPage = () => {
                     status={checkMbti('S') ? 'active' : 'inactive'}
                     alphabet={'S'}
                     label={'현실적'}
-                    onClick={() => selectMbti('S')()}
+                    onClick={selectMbti('S')}
                   />
                   <MbtiButton
                     status={checkMbti('N') ? 'active' : 'inactive'}
                     alphabet={'N'}
                     label={'직관적'}
-                    onClick={() => selectMbti('N')()}
+                    onClick={selectMbti('N')}
                   />
                 </Row>
               </Col>
@@ -117,13 +117,13 @@ const ForthPage = () => {
                     status={checkMbti('T') ? 'active' : 'inactive'}
                     alphabet={'T'}
                     label={'이성적'}
-                    onClick={() => selectMbti('T')()}
+                    onClick={selectMbti('T')}
                   />
                   <MbtiButton
                     status={checkMbti('F') ? 'active' : 'inactive'}
                     alphabet={'F'}
                     label={'감성적'}
-                    onClick={() => selectMbti('F')()}
+                    onClick={selectMbti('F')}
                   />
                 </Row>
               </Col>
@@ -140,13 +140,13 @@ const ForthPage = () => {
                     status={checkMbti('J') ? 'active' : 'inactive'}
                     alphabet={'J'}
                     label={'계획적'}
-                    onClick={() => selectMbti('J')()}
+                    onClick={selectMbti('J')}
                   />
                   <MbtiButton
                     status={checkMbti('P') ? 'active' : 'inactive'}
                     alphabet={'P'}
                     label={'즉흥적'}
-                    onClick={() => selectMbti('P')()}
+                    onClick={selectMbti('P')}
                   />
                 </Row>
               </Col>

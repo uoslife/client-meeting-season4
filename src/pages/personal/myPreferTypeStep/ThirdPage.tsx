@@ -7,7 +7,7 @@ import GridWrapper from '~/components/layout/gridWrapper/GridWrapper';
 import AnimalButton from '~/components/buttons/animalButton/AnimalButton';
 import { ANIMALS, ANIMALS_NAME } from '~/constants';
 import { useToggleSelect } from '~/hooks/useToggleSelect';
-import { useAtom, useSetAtom } from 'jotai';
+import { useSetAtom } from 'jotai';
 import { pageFinishAtom } from '~/store/funnel';
 import { useEffect } from 'react';
 import { personalApplyAtoms } from '~/store/meeting';
@@ -20,7 +20,7 @@ const ThirdPage = () => {
     select: selectAnimal,
     checkSelectedValues: checkAnimal,
   } = useToggleSelect<string>(9, parsedAnimal);
-  const [, setAnimal] = useAtom(personalApplyAtoms.personalPrefer_animal);
+  const setAnimal = useSetAtom(personalApplyAtoms.personalPrefer_animal);
   const setIsPageFinished = useSetAtom(pageFinishAtom);
 
   useEffect(() => {
