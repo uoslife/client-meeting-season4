@@ -17,7 +17,7 @@ const meetingHandlers = () => {
     http.post('/api/meeting/:teamType/:isTeamLeader/create', createTeam),
     http.post('/api/meeting/:teamType/join/:code', joinTeam),
     http.get(
-      '/api/meeting/:teamType/:code/user/list',
+      '/api/meeting/:teamType/join/:code/user/list',
       getTeamUserListOnPending,
     ),
     http.get('/api/meeting/:teamType/application/info', getAllTeamInfo),

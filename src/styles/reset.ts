@@ -35,6 +35,7 @@ const reset = css`
     display: flex;
     justify-content: center;
     background-color: #888888;
+    overscroll-behavior: none;
   }
   img,
   picture,

@@ -14,6 +14,7 @@
     "@emotion/styled": "^11.11.0",
     "@swc/plugin-emotion": "^2.5.116",
     "axios": "^1.6.7",
+    "framer-motion": "^11.0.12",
     "immer": "^10.0.3",
     "jotai": "^2.6.4",
     "jotai-devtools": "^0.8.0",

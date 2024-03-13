@@ -57,7 +57,6 @@ const FirstPage = () => {
             {code?.[3]}
           </S.Code>
           <S.Input
-            type="text"
             maxLength={4}
             ref={inputRef}
             value={code}
@@ -116,10 +115,18 @@ const S = {
       `};
   `,
   Input: styled.input`
-    display: block;
-    height: 0;
-    width: 0;
-    border: 0;
-    padding: 0;
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    color: transparent;
+    background: transparent;
+    border: none;
+
+    &:focus {
+      outline: none;
+    }
   `,
 };
