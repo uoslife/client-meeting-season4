@@ -9,6 +9,12 @@ import { useSetAtom } from 'jotai';
 import { pageFinishAtom } from '~/store/funnel';
 import TextInput from '~/components/inputs/textInput/TextInput';
 import Paddler from '~/components/layout/Pad';
+import axios from 'axios';
+import {
+  checkVerificationCode,
+  getVerificationCode,
+} from '~/api/services/auth';
+import { AuthAPI } from '~/api';
 
 const ThirdPage = () => {
   const storedUnivType = localStorage.getItem('univ_type');
@@ -33,13 +39,28 @@ const ThirdPage = () => {
     }
   };
   // 인증번호 확인 절차
-  const handleTryValidate = () => {
+  const handleTryValidate = async () => {
     if (inputValue) setTryValidate(true);
-    // 인증코드 api 부착
+    const res = await AuthAPI.getVerificationCode({
+      email: 'test1',
+      university: 'test1',
+    });
+    console.log(res);
   };
 
   // 인증번호 확인 절차
-  const handleValidate = () => {};
+  const handleValidate = async () => {
+    const res = await AuthAPI.checkVerificationCode({
+      code: 'test1',
+      email: 'test1@gmail.com',
+      university: 'KHU',
+    });
+    const result = res.data;
+    console.log(result);
+    setIsPageFinished(true);
+    localStorage.setItem('accessToken', result.data.accessToken);
+    localStorage.setItem('refreshToken', result.data.refreshToken);
+  };
 
   return (
     <Paddler top={36} right={20} bottom={24} left={20}>
@@ -106,8 +127,8 @@ const ThirdPage = () => {
                 onChange={handleValidateCodeValue}
               />
               <RoundButton
-                onClick={() => setIsPageFinished(true)}
-                status={'disabled'}
+                onClick={handleValidate}
+                status={validateCodeValue ? 'active' : 'disabled'}
                 borderType={'gray'}
                 height={44}
                 width={94}>
