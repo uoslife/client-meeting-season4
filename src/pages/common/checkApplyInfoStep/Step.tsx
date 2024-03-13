@@ -6,7 +6,7 @@ import { colors } from '~/styles/colors';
 import FirstPage from './FirstPage';
 import { meetingTypeAtom } from '~/store/meeting';
 
-const CheckApplyInfoStep = () => {
+const CommonCheckApplyInfoStep = () => {
   // TODO: 모달 컴포넌트와 관리 로직
 
   const { Funnel, currentPage, PageHandler } = useFunnel({
@@ -47,4 +47,4 @@ const CheckApplyInfoStep = () => {
 };
 // meetingType이 group일 때, personal일 때의 분기 처리가 필요.
 
-export default CheckApplyInfoStep;
+export default CommonCheckApplyInfoStep;

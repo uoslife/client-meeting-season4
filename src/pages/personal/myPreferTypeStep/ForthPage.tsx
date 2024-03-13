@@ -4,33 +4,37 @@ import Col from '~/components/layout/Col';
 import Row from '~/components/layout/Row';
 import Text from '~/components/typography/Text';
 import MbtiButton from '~/components/buttons/mbtiButton/MbtiButton';
-import { useEffect } from 'react';
-import { useSetAtom } from 'jotai';
-import { personalApplyAtoms } from '~/store/meeting';
+import { useAtom, useAtomValue, useSetAtom } from 'jotai';
 import { pageFinishAtom } from '~/store/funnel';
-import { useToggleSelect } from '~/hooks/useToggleSelect';
+import { personalDataAtoms } from '~/models/personal/data';
+import { combinedValidatiesAtoms } from '~/models';
 
 const ForthPage = () => {
-  const storedMbti = localStorage.getItem('personalInfo_mbti');
-  const parsedMbti = storedMbti === null ? [] : JSON.parse(storedMbti);
-  const {
-    selectedValues: mbti,
-    select: selectMbti,
-    checkSelectedValues: checkMbti,
-  } = useToggleSelect<string>(8, parsedMbti);
-  const setMbti = useSetAtom(personalApplyAtoms.personalInfo_mbti);
+  const [pageState, setPageState] = useAtom(
+    personalDataAtoms.personalPreferInfoStep.page4,
+  );
+
+  const { mbtis } = pageState;
 
   const setIsPageFinished = useSetAtom(pageFinishAtom);
+  const pageValidity = useAtomValue(combinedValidatiesAtoms)
+    .personalPreferInfoStep.page4;
+  setIsPageFinished(!!pageValidity);
 
-  useEffect(() => {
-    setMbti(mbti);
-    const isAllInputsFilled =
-      (checkMbti('E') || checkMbti('I')) &&
-      (checkMbti('S') || checkMbti('N')) &&
-      (checkMbti('T') || checkMbti('F')) &&
-      (checkMbti('J') || checkMbti('P'));
-    setIsPageFinished(!!isAllInputsFilled);
-  }, [mbti]);
+  const getMbtiStatus = (
+    index: number,
+    value: string,
+  ): 'active' | 'inactive' =>
+    mbtis[index].includes(value) ? 'active' : 'inactive';
+  const onClickMbtiButton = (index: number, value: string) => () =>
+    setPageState(prev => {
+      const newMbtis = prev.mbtis[index].includes(value)
+        ? prev.mbtis.map((mbti, i) =>
+            i === index ? mbti.filter(m => m !== value) : mbti,
+          )
+        : prev.mbtis.map((mbti, i) => (i === index ? [...mbti, value] : mbti));
+      return { ...prev, mbtis: newMbtis };
+    });
 
   return (
     <PageLayout.SingleCardBody
@@ -68,16 +72,16 @@ const ForthPage = () => {
                 />
                 <Row gap={12}>
                   <MbtiButton
-                    status={checkMbti('E') ? 'active' : 'inactive'}
+                    status={getMbtiStatus(0, 'E')}
                     alphabet={'E'}
                     label={'외향적'}
-                    onClick={selectMbti('E')}
+                    onClick={onClickMbtiButton(0, 'E')}
                   />
                   <MbtiButton
-                    status={checkMbti('I') ? 'active' : 'inactive'}
+                    status={getMbtiStatus(0, 'I')}
                     alphabet={'I'}
                     label={'내향적'}
-                    onClick={selectMbti('I')}
+                    onClick={onClickMbtiButton(0, 'I')}
                   />
                 </Row>
               </Col>
@@ -91,16 +95,16 @@ const ForthPage = () => {
                 />
                 <Row gap={12}>
                   <MbtiButton
-                    status={checkMbti('S') ? 'active' : 'inactive'}
+                    status={getMbtiStatus(1, 'S')}
                     alphabet={'S'}
                     label={'현실적'}
-                    onClick={selectMbti('S')}
+                    onClick={onClickMbtiButton(1, 'S')}
                   />
                   <MbtiButton
-                    status={checkMbti('N') ? 'active' : 'inactive'}
+                    status={getMbtiStatus(1, 'N')}
                     alphabet={'N'}
                     label={'직관적'}
-                    onClick={selectMbti('N')}
+                    onClick={onClickMbtiButton(1, 'N')}
                   />
                 </Row>
               </Col>
@@ -114,16 +118,16 @@ const ForthPage = () => {
                 />
                 <Row gap={12}>
                   <MbtiButton
-                    status={checkMbti('T') ? 'active' : 'inactive'}
+                    status={getMbtiStatus(2, 'T')}
                     alphabet={'T'}
                     label={'이성적'}
-                    onClick={selectMbti('T')}
+                    onClick={onClickMbtiButton(2, 'T')}
                   />
                   <MbtiButton
-                    status={checkMbti('F') ? 'active' : 'inactive'}
+                    status={getMbtiStatus(2, 'F')}
                     alphabet={'F'}
                     label={'감성적'}
-                    onClick={selectMbti('F')}
+                    onClick={onClickMbtiButton(2, 'F')}
                   />
                 </Row>
               </Col>
@@ -137,16 +141,16 @@ const ForthPage = () => {
                 />
                 <Row gap={12}>
                   <MbtiButton
-                    status={checkMbti('J') ? 'active' : 'inactive'}
+                    status={getMbtiStatus(3, 'J')}
                     alphabet={'J'}
                     label={'계획적'}
-                    onClick={selectMbti('J')}
+                    onClick={onClickMbtiButton(3, 'J')}
                   />
                   <MbtiButton
-                    status={checkMbti('P') ? 'active' : 'inactive'}
+                    status={getMbtiStatus(3, 'P')}
                     alphabet={'P'}
                     label={'즉흥적'}
-                    onClick={selectMbti('P')}
+                    onClick={onClickMbtiButton(3, 'P')}
                   />
                 </Row>
               </Col>

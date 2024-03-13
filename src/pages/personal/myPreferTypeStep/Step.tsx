@@ -1,17 +1,17 @@
 import { useFunnel } from '~/hooks/useFunnel';
+import PageLayout from '~/components/layout/page/PageLayout';
 import FirstPage from './FirstPage';
 import SecondPage from './SecondPage';
 import ThirdPage from './ThirdPage';
 import ForthPage from './ForthPage';
-import PageLayout from '~/components/layout/page/PageLayout';
 
 const PAGE_NUMBER = [1, 2, 3, 4];
 
-const MyPreferTypeStep = () => {
+const PersonalMyPreferTypeStep = () => {
   const { Funnel, currentPage, PageHandler } = useFunnel({
     pageNumberList: PAGE_NUMBER,
-    nextStep: { path: '/common/privacyPolicyStep' },
     prevStep: { path: '/personal/myRomanceStep' },
+    nextStep: { path: '/personal/pledgeStep' },
   });
 
   return (
@@ -46,4 +46,4 @@ const MyPreferTypeStep = () => {
   );
 };
 
-export default MyPreferTypeStep;
+export default PersonalMyPreferTypeStep;

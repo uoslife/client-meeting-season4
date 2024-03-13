@@ -33,3 +33,5 @@ export const Router = () => {
     </AnimatePresence>
   );
 };
+
+export type Pathname = (typeof routesList)[number]['path'];

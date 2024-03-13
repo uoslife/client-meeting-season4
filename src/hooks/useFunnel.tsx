@@ -9,6 +9,9 @@ import {
 import { useNavigate } from 'react-router-dom';
 import { useAtom, useSetAtom } from 'jotai';
 import { navigateNextStepAtom, pageFinishAtom } from '~/store/funnel';
+import { CommonPath } from '~/routes/commonRoutes';
+import { PersonalPath } from '~/routes/personalRoutes';
+import { GroupPath } from '~/routes/groupRoutes';
 
 interface PageProps {
   pageNumber: number;
@@ -22,11 +25,11 @@ interface FunnelProps {
 type useFunnelType = {
   pageNumberList: number[];
   nextStep: {
-    path: string;
+    path: CommonPath | PersonalPath | GroupPath;
     state?: object;
   };
   prevStep: {
-    path: string;
+    path: CommonPath | PersonalPath | GroupPath;
     state?: number;
   };
 };

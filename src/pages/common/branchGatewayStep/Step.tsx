@@ -4,14 +4,14 @@ import FirstPage from './FirstPage';
 import { meetingTypeAtom } from '~/store/meeting';
 import { useAtomValue } from 'jotai';
 
-const BranchGatewayStep = () => {
+const CommonBranchGatewayStep = () => {
   const meetingTypeValue = useAtomValue(meetingTypeAtom);
   const { Funnel, currentPage, PageHandler } = useFunnel({
     pageNumberList: [1],
     nextStep: {
       path:
         meetingTypeValue === 'group'
-          ? '/group/groupRoleSelectStep'
+          ? '/group/roleSelectStep'
           : '/personal/myInformationStep',
     },
     prevStep: {
@@ -39,4 +39,4 @@ const BranchGatewayStep = () => {
   );
 };
 
-export default BranchGatewayStep;
+export default CommonBranchGatewayStep;

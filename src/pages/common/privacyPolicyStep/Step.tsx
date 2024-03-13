@@ -1,12 +1,12 @@
 import PageLayout from '~/components/layout/page/PageLayout';
 import FirstPage from './FirstPage';
 
-const PrivacyPolicyStep = () => {
+const CommonPrivacyPolicyStep = () => {
   return (
     <PageLayout>
       <PageLayout.Header
         isBackArrow={true}
-        backArrowNavigate="/common/branchGateWayStep"
+        backArrowNavigate="/common/branchGatewayStep"
         title={'개인정보 처리 방침'}
         isProgress={false}
       />
@@ -15,4 +15,4 @@ const PrivacyPolicyStep = () => {
   );
 };
 
-export default PrivacyPolicyStep;
+export default CommonPrivacyPolicyStep;

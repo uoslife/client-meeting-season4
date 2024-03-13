@@ -5,54 +5,44 @@ import Row from '~/components/layout/Row';
 import Text from '~/components/typography/Text';
 import RoundButton from '~/components/buttons/roundButton/RoundButton';
 import RangeSlider from '~/components/rangeSlider/RangeSlider';
-import useRangeState from '~/hooks/useRangeState';
-import { useEffect } from 'react';
-import { useAtom, useSetAtom } from 'jotai';
-import { personalApplyAtoms } from '~/store/meeting';
+import { useAtom, useAtomValue, useSetAtom } from 'jotai';
 import { pageFinishAtom } from '~/store/funnel';
-import { useToggleSelect } from '~/hooks/useToggleSelect';
+import { personalDataAtoms } from '~/models/personal/data';
+import { combinedValidatiesAtoms } from '~/models';
+import { ReligionOption, Univ } from '~/models/options';
 
 const SecondPage = () => {
-  const storedUniversity = localStorage.getItem('personalPrefer_univ');
-  const parsedUniversity =
-    storedUniversity === null ? [] : JSON.parse(storedUniversity);
-  const {
-    selectedValues: university,
-    select: selectUniversity,
-    checkSelectedValues: checkUniversity,
-  } = useToggleSelect<string>(3, parsedUniversity);
-  const setUniversity = useSetAtom(personalApplyAtoms.personalPrefer_univ);
-
-  const storedReligion = localStorage.getItem('personalPrefer_religion');
-  const parsedReligion =
-    storedReligion === null ? [] : JSON.parse(storedReligion);
-  const {
-    selectedValues: religion,
-    select: selectReligion,
-    checkSelectedValues: checkReligion,
-  } = useToggleSelect<string>(6, parsedReligion);
-  const setReligion = useSetAtom(personalApplyAtoms.personalPrefer_religion);
-
-  const [smoking, setSmoking] = useAtom(
-    personalApplyAtoms.personalPrefer_smoking,
+  const [pageState, setPageState] = useAtom(
+    personalDataAtoms.personalPreferInfoStep.page2,
   );
+  const { drinkRange, religionOptions, smoking, univs } = pageState;
 
-  const storedDrink = localStorage.getItem('personalPrefer_drink');
-  const parsedDrink = storedDrink === null ? [10, 17] : JSON.parse(storedDrink);
-  const { rangeHandler: drinkHandler, rangeValue: drink } =
-    useRangeState(parsedDrink);
-  const setDrink = useSetAtom(personalApplyAtoms.personalPrefer_drink);
+  const onClickReligionButton = (value: ReligionOption) => () =>
+    setPageState(prev => ({
+      ...prev,
+      religionOptions: prev.religionOptions.includes(value)
+        ? prev.religionOptions.filter(v => v !== value)
+        : [...prev.religionOptions, value],
+    }));
 
+  const getReligionButtonStatus = (value: ReligionOption) =>
+    religionOptions.includes(value) ? 'active' : 'inactive';
+
+  const onClickUnivButton = (value: Univ) => () =>
+    setPageState(prev => ({
+      ...prev,
+      univs: prev.univs.includes(value)
+        ? prev.univs.filter(v => v !== value)
+        : [...prev.univs, value],
+    }));
+
+  const getUnivButtonStatus = (value: Univ) =>
+    univs.includes(value) ? 'active' : 'inactive';
+
+  const pageValidity = useAtomValue(combinedValidatiesAtoms)
+    .personalPreferInfoStep.page2;
   const setIsPageFinished = useSetAtom(pageFinishAtom);
-
-  useEffect(() => {
-    setUniversity(university);
-    setReligion(religion);
-    setDrink(drink.map(Number));
-    const isAllInputsFilled =
-      university.length > 0 && religion.length > 0 && smoking && drink;
-    setIsPageFinished(!!isAllInputsFilled);
-  }, [university, religion, smoking, drink]);
+  setIsPageFinished(!!pageValidity);
 
   return (
     <PageLayout.SingleCardBody
@@ -81,32 +71,24 @@ const SecondPage = () => {
                 </Col>
                 <Col gap={8}>
                   <RoundButton
-                    status={
-                      checkUniversity('경희대학교') ? 'active' : 'inactive'
-                    }
+                    status={getUnivButtonStatus('KHU')}
                     label={'경희대학교'}
                     height={56}
-                    onClick={() => selectUniversity('경희대학교')()}
+                    onClick={onClickUnivButton('KHU')}
                     borderType="primary"
                   />
                   <RoundButton
-                    status={
-                      checkUniversity('서울시립대학교') ? 'active' : 'inactive'
-                    }
+                    status={getUnivButtonStatus('UOS')}
                     label={'서울시립대학교'}
                     height={56}
-                    onClick={() => selectUniversity('서울시립대학교')()}
+                    onClick={onClickUnivButton('UOS')}
                     borderType="primary"
                   />
                   <RoundButton
-                    status={
-                      checkUniversity('한국외국어대학교')
-                        ? 'active'
-                        : 'inactive'
-                    }
+                    status={getUnivButtonStatus('HUFS')}
                     label={'한국외국어대학교'}
                     height={56}
-                    onClick={() => selectUniversity('한국외국어대학교')()}
+                    onClick={onClickUnivButton('HUFS')}
                     borderType="primary"
                   />
                 </Col>
@@ -134,57 +116,54 @@ const SecondPage = () => {
                 <Col gap={12}>
                   <Row gap={12}>
                     <RoundButton
-                      status={checkReligion('기독교') ? 'active' : 'inactive'}
+                      status={getReligionButtonStatus('기독교')}
+                      onClick={onClickReligionButton('기독교')}
                       label={'기독교'}
                       height={56}
-                      onClick={() => selectReligion('기독교')()}
                       borderType="primary"
                     />
                     <RoundButton
-                      status={checkReligion('천주교') ? 'active' : 'inactive'}
+                      status={getReligionButtonStatus('천주교')}
+                      onClick={onClickReligionButton('천주교')}
                       label={'천주교'}
                       height={56}
-                      onClick={() => selectReligion('천주교')()}
                       borderType="primary"
                     />
                   </Row>
                   <Row gap={12}>
                     <RoundButton
-                      status={checkReligion('불교') ? 'active' : 'inactive'}
+                      status={getReligionButtonStatus('불교')}
+                      onClick={onClickReligionButton('불교')}
                       label={'불교'}
                       height={56}
-                      onClick={() => selectReligion('불교')()}
                       borderType="primary"
                     />
                     <RoundButton
-                      status={checkReligion('무교') ? 'active' : 'inactive'}
+                      status={getReligionButtonStatus('무교')}
+                      onClick={onClickReligionButton('무교')}
                       label={'무교'}
                       height={56}
-                      onClick={() => selectReligion('무교')()}
                       borderType="primary"
                     />
                   </Row>
                   <Row gap={12}>
                     <RoundButton
-                      status={checkReligion('기타') ? 'active' : 'inactive'}
+                      status={getReligionButtonStatus('기타')}
+                      onClick={onClickReligionButton('기타')}
                       label={'기타'}
                       height={56}
-                      onClick={() => selectReligion('기타')()}
                       borderType="primary"
                     />
                     <RoundButton
-                      status={
-                        checkReligion('상관 없어요!') ? 'active' : 'inactive'
-                      }
+                      status={getReligionButtonStatus('상관 없어요!')}
+                      onClick={onClickReligionButton('상관 없어요!')}
                       label={'상관 없어요!'}
                       height={56}
-                      onClick={() => selectReligion('상관 없어요!')()}
                       borderType="primary"
                     />
                   </Row>
                 </Col>
               </Col>
-
               <Col gap={28}>
                 <Col align="center">
                   <Text
@@ -207,21 +186,33 @@ const SecondPage = () => {
                     status={smoking === '흡연' ? 'active' : 'inactive'}
                     label={'흡연'}
                     height={56}
-                    onClick={() => setSmoking('흡연')}
+                    onClick={() =>
+                      setPageState(prev => ({ ...prev, smoking: '흡연' }))
+                    }
                     borderType="primary"
                   />
                   <RoundButton
                     status={smoking === '비흡연' ? 'active' : 'inactive'}
                     label={'비흡연'}
                     height={56}
-                    onClick={() => setSmoking('비흡연')}
+                    onClick={() =>
+                      setPageState(prev => ({
+                        ...prev,
+                        smoking: '비흡연',
+                      }))
+                    }
                     borderType="primary"
                   />
                   <RoundButton
                     status={smoking === '상관 없어요!' ? 'active' : 'inactive'}
                     label={'상관 없어요!'}
                     height={56}
-                    onClick={() => setSmoking('상관 없어요!')}
+                    onClick={() =>
+                      setPageState(prev => ({
+                        ...prev,
+                        smoking: '상관 없어요!',
+                      }))
+                    }
                     borderType="primary"
                   />
                 </Col>
@@ -246,24 +237,24 @@ const SecondPage = () => {
                 </Col>
                 <Col gap={32} align="center">
                   <Text
-                    label={`${drink[0]} - ${drink[1]} 회`}
+                    label={`${drinkRange[0]} - ${drinkRange[1]} 회`}
                     color={'Primary500'}
                     typography={'LeferiBaseRegular'}
                     weight={700}
                     size={20}
                   />
                   {/* 슬라이더 수정 이후 패딩 값 수정*/}
-                  <Col padding="0 20px">
-                    <RangeSlider
-                      value={drink}
-                      onChange={drinkHandler}
-                      min={0}
-                      max={25}
-                      markStep={5}
-                      step={1}
-                      maxMarkPostfix="~"
-                    />
-                  </Col>
+                  <RangeSlider
+                    value={drinkRange}
+                    onChange={value =>
+                      setPageState(prev => ({ ...prev, drinkRange: value }))
+                    }
+                    min={0}
+                    max={25}
+                    markStep={5}
+                    step={1}
+                    maxMarkPostfix="~"
+                  />
                 </Col>
               </Col>
             </Col>

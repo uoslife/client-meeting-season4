@@ -6,28 +6,21 @@ import Text from '~/components/typography/Text';
 import GridWrapper from '~/components/layout/gridWrapper/GridWrapper';
 import AnimalButton from '~/components/buttons/animalButton/AnimalButton';
 import { ANIMALS, ANIMALS_NAME } from '~/constants';
-import { useToggleSelect } from '~/hooks/useToggleSelect';
-import { useSetAtom } from 'jotai';
+import { useAtom, useAtomValue, useSetAtom } from 'jotai';
 import { pageFinishAtom } from '~/store/funnel';
-import { useEffect } from 'react';
-import { personalApplyAtoms } from '~/store/meeting';
+import { personalDataAtoms } from '~/models/personal/data';
+import { combinedValidatiesAtoms } from '~/models';
 
 const ThirdPage = () => {
-  const storedAnimal = localStorage.getItem('personalPrefer_animal');
-  const parsedAnimal = storedAnimal === null ? [] : JSON.parse(storedAnimal);
-  const {
-    selectedValues: animal,
-    select: selectAnimal,
-    checkSelectedValues: checkAnimal,
-  } = useToggleSelect<string>(9, parsedAnimal);
-  const setAnimal = useSetAtom(personalApplyAtoms.personalPrefer_animal);
-  const setIsPageFinished = useSetAtom(pageFinishAtom);
+  const [pageState, setPageState] = useAtom(
+    personalDataAtoms.personalPreferInfoStep.page3,
+  );
+  const { animalOptions } = pageState;
 
-  useEffect(() => {
-    setAnimal(animal);
-    const isAllInputsFilled = animal.length > 0;
-    setIsPageFinished(!!isAllInputsFilled);
-  }, [animal]);
+  const pageValidity = useAtomValue(combinedValidatiesAtoms)
+    .personalPreferInfoStep.page3;
+  const setIsPageFinished = useSetAtom(pageFinishAtom);
+  setIsPageFinished(!!pageValidity);
 
   return (
     <PageLayout.SingleCardBody
@@ -58,9 +51,16 @@ const ThirdPage = () => {
                   <AnimalButton
                     key={i}
                     animalType={animal}
-                    isActive={checkAnimal(animal)}
+                    isActive={animalOptions.includes(animal)}
                     label={ANIMALS_NAME[animal]}
-                    onMouseDown={selectAnimal(animal)}
+                    onMouseDown={() =>
+                      setPageState(prev => {
+                        const newOptions = prev.animalOptions.includes(animal)
+                          ? prev.animalOptions.filter(a => a !== animal)
+                          : [...prev.animalOptions, animal];
+                        return { ...prev, animalOptions: newOptions };
+                      })
+                    }
                   />
                 ))}
               </GridWrapper>
