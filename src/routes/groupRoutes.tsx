@@ -7,6 +7,7 @@ import GroupLeaderPledgeStep from '~/pages/group/leader/pledgeStep/Step';
 import GroupMemberMyInformationStep from '~/pages/group/member/myInformationStep/Step';
 import GroupMemberParticipateStep from '~/pages/group/member/participateStep/Step';
 import GroupMemberPledgeStep from '~/pages/group/member/pledgeStep/Step';
+import TeamMeamberFinishApplyStep from '~/pages/group/teamMemberFinishApplyStep/Step';
 
 const groupRoutes = [
   {
@@ -67,6 +68,10 @@ const groupRoutes = [
     // 3. 시대팅 이용 서약
     path: '/group/member/pledgeStep',
     element: <GroupMemberPledgeStep />,
+  },
+  {
+    path: '/group/teamMemberFinishApplyStep',
+    element: <TeamMeamberFinishApplyStep />,
   },
 
   //--------------------------------------------------------//
