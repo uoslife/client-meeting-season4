@@ -13,6 +13,7 @@
     "@emotion/react": "^11.11.3",
     "@emotion/styled": "^11.11.0",
     "@swc/plugin-emotion": "^2.5.116",
+    "axios": "^1.6.7",
     "immer": "^10.0.3",
     "jotai": "^2.6.4",
     "jotai-devtools": "^0.8.0",

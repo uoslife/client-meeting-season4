@@ -37,15 +37,17 @@ const createTeam = () => {
 const joinTeam = () => {
   return HttpResponse.json(
     {
-      teamName: 'mock-팀이름',
-      userList: [
-        {
-          name: '시대생1',
-        },
-        {
-          name: '시대생2',
-        },
-      ],
+      data: {
+        teamName: 'mock-팀이름',
+        userList: [
+          {
+            name: '시대생1',
+          },
+          {
+            name: '시대생2',
+          },
+        ],
+      },
     },
     { status: 200 },
   );
@@ -53,21 +55,23 @@ const joinTeam = () => {
 const getTeamUserListOnPending = () => {
   return HttpResponse.json(
     {
-      teamName: 'mock-팀이름',
-      userList: [
-        {
-          name: '시대생1',
-        },
-        {
-          name: '시대생2',
-        },
-      ],
+      data: {
+        teamName: 'mock-팀이름',
+        userList: [
+          {
+            name: '시대생1',
+          },
+          {
+            name: '시대생2',
+          },
+        ],
+      },
     },
     { status: 200 },
   );
 };
 const getAllTeamInfo = () => {
-  return HttpResponse.json(팀전체정보, { status: 200 });
+  return HttpResponse.json({ data: 팀전체정보 }, { status: 200 });
 };
 const deleteTeam = () => {
   return HttpResponse.json({}, { status: 204 });
@@ -85,9 +89,11 @@ const paymentHandlers = () => {
 const requestPayment = () => {
   return HttpResponse.json(
     {
-      merchantUid: 'mock-merchant-uid',
-      price: 3000,
-      phoneNumber: '010-0000-0000',
+      data: {
+        merchantUid: 'mock-merchant-uid',
+        price: 3000,
+        phoneNumber: '010-0000-0000',
+      },
     },
     { status: 200 },
   );
@@ -95,8 +101,10 @@ const requestPayment = () => {
 const refundPayment = () => {
   return HttpResponse.json(
     {
-      cancelSuccess: true,
-      message: 'mock-message',
+      data: {
+        cancelSuccess: true,
+        message: 'mock-message',
+      },
     },
     { status: 200 },
   );
@@ -104,14 +112,16 @@ const refundPayment = () => {
 const canclePayment = () => {
   return HttpResponse.json(
     {
-      successCount: 0,
-      failedCount: 0,
-      refundList: [
-        {
-          cancelSuccess: true,
-          message: 'mock-message',
-        },
-      ],
+      data: {
+        successCount: 0,
+        failedCount: 0,
+        refundList: [
+          {
+            cancelSuccess: true,
+            message: 'mock-message',
+          },
+        ],
+      },
     },
     { status: 200 },
   );
@@ -119,8 +129,10 @@ const canclePayment = () => {
 const checkPayment = () => {
   return HttpResponse.json(
     {
-      paymentSuccess: true,
-      message: 'mock-message',
+      data: {
+        paymentSuccess: true,
+        message: 'mock-message',
+      },
     },
     { status: 200 },
   );
@@ -131,7 +143,7 @@ const matchingHandlers = () => {
 };
 
 const getMatchedTeamInfo = () => {
-  return HttpResponse.json(팀전체정보, { status: 200 });
+  return HttpResponse.json({ data: 팀전체정보 }, { status: 200 });
 };
 
 const verificationHandlers = () => {
@@ -142,14 +154,24 @@ const verificationHandlers = () => {
 };
 
 const sendVerificationMail = () => {
-  return HttpResponse.json({ success: true }, { status: 200 });
-};
-
-const checkVerificationCode = () => {
+  const accessToken = localStorage.getItem('accessToken');
   return HttpResponse.json(
     {
-      accessToken: 'access-token-mock',
-      refreshToken: 'refresh-token-mock',
+      data: {
+        success: true,
+      },
+    },
+    { status: accessToken ? 200 : 401 },
+  );
+};
+
+const checkVerificationCode = async () => {
+  return HttpResponse.json(
+    {
+      data: {
+        accessToken: 'access-token-mock',
+        refreshToken: 'refresh-token-mock',
+      },
     },
     { status: 200 },
   );
@@ -160,25 +182,28 @@ const userHandlers = () => {
     http.get('/api/user', getUser),
     http.put('/api/user', resetUser),
     http.post('/api/user', updateUser),
+    http.post('/api/refreshToken', getRefreshToken),
   ];
 };
 
 const getUser = () => {
   return HttpResponse.json(
     {
-      name: '이루매',
-      age: 24,
-      height: 170,
-      university: 'UOS',
-      department: '경제학과',
-      studentType: 'UNDERGRADUATE',
-      kakaoTalkId: 'kakaoId',
-      smoking: 'TRUE',
-      drinkingMin: 0,
-      drinkingMax: 0,
-      spiritAnimal: ['DOG'],
-      mbti: 'string',
-      interest: ['BOOK'],
+      data: {
+        name: '이루매',
+        age: 24,
+        height: 170,
+        university: 'UOS',
+        department: '경제학과',
+        studentType: 'UNDERGRADUATE',
+        kakaoTalkId: 'kakaoId',
+        smoking: 'TRUE',
+        drinkingMin: 0,
+        drinkingMax: 0,
+        spiritAnimal: ['DOG'],
+        mbti: 'string',
+        interest: ['BOOK'],
+      },
     },
     { status: 200 },
   );
@@ -190,6 +215,18 @@ const resetUser = () => {
 
 const updateUser = () => {
   return HttpResponse.json({}, { status: 200 });
+};
+
+const getRefreshToken = () => {
+  return HttpResponse.json(
+    {
+      data: {
+        accessToken: 'access-token-mock2',
+        refreshToken: 'refresh-token-mock2',
+      },
+    },
+    { status: 200 },
+  );
 };
 
 const 팀전체정보 = {
