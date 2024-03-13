@@ -1,11 +1,11 @@
 import { useFunnel } from '~/hooks/useFunnel';
+import PageLayout from '~/components/layout/page/PageLayout';
 import FirstPage from './FirstPage';
 import SecondPage from './SecondPage';
 import ThirdPage from './ThirdPage';
 import ForthPage from './ForthPage';
 import FifthPage from './FifthPage';
 import SixthPage from './SixthPage';
-import PageLayout from '~/components/layout/page/PageLayout';
 import SeventhPage from './SeventhPage';
 
 const PAGE_NUMBER = [1, 2, 3, 4, 5, 6, 7];
@@ -16,6 +16,7 @@ const PersonalMyInformationStep = () => {
     prevStep: { path: '/common/branchGatewayStep' },
     nextStep: { path: '/personal/myRomanceStep' },
   });
+
   return (
     <PageLayout>
       <PageLayout.Header

@@ -27,12 +27,10 @@ export const personalValidators: PersonalValidator = {
   },
   personalPreferInfoStep: {
     page1: ({ studentTypes }) => studentTypes.length > 0,
-    page2: ({ religionOptions, smokingOptions, univs }) =>
-      univs.length > 0 &&
-      religionOptions.length > 0 &&
-      smokingOptions.length > 0,
+    page2: ({ religionOptions, smoking, univs }) =>
+      univs.length > 0 && religionOptions.length > 0 && smoking !== null,
     page3: ({ animalOptions }) => animalOptions.length > 0,
-    page4: ({ mbtiOptions }) => mbtiOptions.length > 0,
+    page4: ({ mbtis }) => mbtis.every(mbti => mbti.length > 0),
   },
 };
 

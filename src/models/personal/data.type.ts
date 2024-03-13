@@ -59,7 +59,7 @@ export type PersonalData = {
       InfoOptions,
       | 'univs' // 4
       | 'religionOptions' // 5
-      | 'smokingOptions' // 6
+      | 'smoking' // 6
       | 'drinkRange' // 7
     >;
     page3: Pick<
@@ -68,7 +68,7 @@ export type PersonalData = {
     >;
     page4: Pick<
       InfoOptions,
-      'mbtiOptions' // 9
+      'mbtis' // 9
     >;
   };
   // 04. 시대팅 이용 서약

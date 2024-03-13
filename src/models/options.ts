@@ -6,7 +6,15 @@ export type GenderOption = 'F' | 'M';
 
 export type StudentOption = '학부생' | '대학원생' | '졸업생';
 
-export type ReligionOption = '기독교' | '천주교' | '불교' | '무교' | '기타';
+export type ReligionOption =
+  | '기독교'
+  | '천주교'
+  | '불교'
+  | '무교'
+  | '기타'
+  | '상관 없어요!';
+
+export type SmokingOption = '흡연' | '비흡연' | '상관 없어요!';
 
 export type AnimalOption =
   | 'dog'
@@ -36,12 +44,11 @@ export type InfoOptions = {
   studentType: null | StudentOption;
   religion: null | ReligionOption;
   religionOptions: ReligionOption[];
-  smoking: null | boolean;
-  smokingOptions: boolean[];
+  smoking: null | SmokingOption;
   drinkRange: [number, number];
   animalOptions: AnimalOption[];
-  mbti: string[] | MBTIOption;
-  mbtiOptions: MBTIOption[];
+  mbti: MBTIOption[];
+  mbtis: MBTIOption[][];
   univs: Univ[];
   studentTypes: StudentOption[];
   interestOptions: interestKeyType[];

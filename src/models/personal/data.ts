@@ -49,11 +49,11 @@ export const personalInitialData: PersonalData = {
     page2: {
       univs: [],
       religionOptions: [],
-      smokingOptions: [],
+      smoking: null,
       drinkRange: [1, 2],
     },
     page3: { animalOptions: [] },
-    page4: { mbtiOptions: ['INTJ'] },
+    page4: { mbtis: [[], [], [], []] },
   },
   personalPledgeStep: {
     page1: {

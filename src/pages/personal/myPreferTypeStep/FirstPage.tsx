@@ -5,48 +5,23 @@ import Row from '~/components/layout/Row';
 import Text from '~/components/typography/Text';
 import RoundButton from '~/components/buttons/roundButton/RoundButton';
 import RangeSlider from '~/components/rangeSlider/RangeSlider';
-import useRangeState from '~/hooks/useRangeState';
-import { useEffect } from 'react';
-import { useSetAtom } from 'jotai';
-import { personalApplyAtoms } from '~/store/meeting';
+import { useAtom, useAtomValue, useSetAtom } from 'jotai';
 import { pageFinishAtom } from '~/store/funnel';
-import { useToggleSelect } from '~/hooks/useToggleSelect';
+import { combinedValidatiesAtoms } from '~/models';
+import { personalDataAtoms } from '~/models/personal/data';
+import { StudentOption } from '~/models/options';
 
 const FirstPage = () => {
-  const storedAge = localStorage.getItem('personalPrefer_age');
-  const parsedAge = storedAge === null ? [24, 27] : JSON.parse(storedAge);
-  const { rangeHandler: ageHandler, rangeValue: age } =
-    useRangeState(parsedAge);
-  const setAge = useSetAtom(personalApplyAtoms.personalPrefer_age);
-
-  const storedHeight = localStorage.getItem('personalPrefer_height');
-  const parsedHeight =
-    storedHeight === null ? [165, 175] : JSON.parse(storedHeight);
-  const { rangeHandler: heightHandler, rangeValue: height } =
-    useRangeState(parsedHeight);
-  const setHeight = useSetAtom(personalApplyAtoms.personalPrefer_height);
-
-  const storedStudentType = localStorage.getItem('personalPrefer_studentType');
-  const parsedStudentType =
-    storedStudentType === null ? [] : JSON.parse(storedStudentType);
-  const {
-    selectedValues: studentType,
-    select,
-    checkSelectedValues,
-  } = useToggleSelect<string>(3, parsedStudentType);
-  const setStudentType = useSetAtom(
-    personalApplyAtoms.personalPrefer_studentType,
+  const [pageState, setPageState] = useAtom(
+    personalDataAtoms.personalPreferInfoStep.page1,
   );
 
-  const setIsPageFinished = useSetAtom(pageFinishAtom);
+  const { ageRange, heightRange, studentTypes } = pageState;
 
-  useEffect(() => {
-    setAge(age.map(Number));
-    setHeight(height.map(Number));
-    setStudentType(studentType);
-    const isAllInputsFilled = age && height && studentType.length > 0;
-    setIsPageFinished(!!isAllInputsFilled);
-  }, [age, height, studentType]);
+  const pageValidity = useAtomValue(combinedValidatiesAtoms)
+    .personalPreferInfoStep.page1;
+  const setIsPageFinished = useSetAtom(pageFinishAtom);
+  setIsPageFinished(pageValidity);
 
   return (
     <PageLayout.SingleCardBody
@@ -73,7 +48,7 @@ const FirstPage = () => {
                 </Col>
                 <Col gap={32} align="center">
                   <Text
-                    label={`${age[0]} - ${age[1]}세`}
+                    label={`${ageRange[0]} - ${ageRange[1]}세`}
                     color={'Primary500'}
                     typography={'LeferiBaseRegular'}
                     weight={700}
@@ -82,8 +57,13 @@ const FirstPage = () => {
                   {/* 슬라이더 수정 이후 패딩 값 수정*/}
                   <Col padding="0 20px">
                     <RangeSlider
-                      value={age}
-                      onChange={ageHandler}
+                      value={ageRange}
+                      onChange={value =>
+                        setPageState(prev => ({
+                          ...prev,
+                          ageRange: value,
+                        }))
+                      }
                       min={20}
                       max={30}
                       markStep={1}
@@ -104,7 +84,7 @@ const FirstPage = () => {
                 />
                 <Col gap={32} align="center">
                   <Text
-                    label={`${height[0]} - ${height[1]} cm`}
+                    label={`${heightRange[0]} - ${heightRange[1]} cm`}
                     color={'Primary500'}
                     typography={'LeferiBaseRegular'}
                     weight={700}
@@ -113,8 +93,13 @@ const FirstPage = () => {
                   {/* 슬라이더 수정 이후 패딩 값 수정*/}
                   <Col padding="0 20px">
                     <RangeSlider
-                      value={height}
-                      onChange={heightHandler}
+                      value={heightRange}
+                      onChange={value =>
+                        setPageState(prev => ({
+                          ...prev,
+                          heightRange: value,
+                        }))
+                      }
                       min={150}
                       max={190}
                       markStep={5}
@@ -148,29 +133,65 @@ const FirstPage = () => {
                 <Col gap={8}>
                   <RoundButton
                     status={
-                      checkSelectedValues('학부생') ? 'active' : 'inactive'
+                      studentTypes.includes('학부생') ? 'active' : 'inactive'
                     }
                     label={'학부생'}
                     height={56}
-                    onClick={() => select('학부생')()}
+                    onClick={() =>
+                      setPageState(prev => {
+                        const newStudentTypes: StudentOption[] =
+                          studentTypes.includes('학부생')
+                            ? studentTypes.filter(type => type !== '학부생')
+                            : [...studentTypes, '학부생'];
+
+                        return {
+                          ...prev,
+                          studentTypes: newStudentTypes,
+                        };
+                      })
+                    }
                     borderType="primary"
                   />
                   <RoundButton
                     status={
-                      checkSelectedValues('대학원생') ? 'active' : 'inactive'
+                      studentTypes.includes('대학원생') ? 'active' : 'inactive'
                     }
                     label={'대학원생'}
                     height={56}
-                    onClick={() => select('대학원생')()}
+                    onClick={() =>
+                      setPageState(prev => {
+                        const newStudentTypes: StudentOption[] =
+                          studentTypes.includes('대학원생')
+                            ? studentTypes.filter(type => type !== '대학원생')
+                            : [...studentTypes, '대학원생'];
+
+                        return {
+                          ...prev,
+                          studentTypes: newStudentTypes,
+                        };
+                      })
+                    }
                     borderType="primary"
                   />
                   <RoundButton
                     status={
-                      checkSelectedValues('졸업생') ? 'active' : 'inactive'
+                      studentTypes.includes('졸업생') ? 'active' : 'inactive'
                     }
                     label={'졸업생'}
                     height={56}
-                    onClick={() => select('졸업생')()}
+                    onClick={() =>
+                      setPageState(prev => {
+                        const newStudentTypes: StudentOption[] =
+                          studentTypes.includes('졸업생')
+                            ? studentTypes.filter(type => type !== '졸업생')
+                            : [...studentTypes, '졸업생'];
+
+                        return {
+                          ...prev,
+                          studentTypes: newStudentTypes,
+                        };
+                      })
+                    }
                     borderType="primary"
                   />
                 </Col>

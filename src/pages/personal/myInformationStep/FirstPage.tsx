@@ -17,8 +17,8 @@ const FirstPage = () => {
     personalDataAtoms.personalMyInformationStep.page1,
   );
   const { age, gender, height, name } = pageState;
-  const setIsPageFinished = useSetAtom(pageFinishAtom);
 
+  const setIsPageFinished = useSetAtom(pageFinishAtom);
   const pageValidity = useAtomValue(combinedValidatiesAtoms)
     .personalMyInformationStep.page1;
   setIsPageFinished(!!pageValidity);

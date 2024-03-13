@@ -1,9 +1,9 @@
 import { useFunnel } from '~/hooks/useFunnel';
+import PageLayout from '~/components/layout/page/PageLayout';
 import FirstPage from './FirstPage';
 import SecondPage from './SecondPage';
 import ThirdPage from './ThirdPage';
 import ForthPage from './ForthPage';
-import PageLayout from '~/components/layout/page/PageLayout';
 
 const PAGE_NUMBER = [1, 2, 3, 4];
 
