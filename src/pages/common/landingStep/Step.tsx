@@ -11,6 +11,8 @@ import { colors } from '~/styles/colors';
 import styled from '@emotion/styled';
 import { SOCIAL_LINK } from '~/constants';
 import toast, { Toaster } from 'react-hot-toast';
+import { navigateNextStepAtom } from '~/store/funnel';
+import { useSetAtom } from 'jotai';
 
 type bottomCardChildrenProps = {
   onClickPrimary: () => void;
@@ -18,8 +20,10 @@ type bottomCardChildrenProps = {
 };
 const LandingStep = () => {
   const navigate = useNavigate();
+  const setNavigateNextStep = useSetAtom(navigateNextStepAtom);
 
   const handleOnClickPrimary = () => {
+    setNavigateNextStep(true);
     navigate('/common/univVerificationStep');
     // TODO : 이메일 토큰 인증 여부에 따라 라우팅 페이지 분기 처리
   };
@@ -99,7 +103,7 @@ const BottomCardComponent = ({
 }: bottomCardChildrenProps) => {
   const handleShareLink = () => {
     navigator.clipboard.writeText(SOCIAL_LINK.Sharelink);
-    toast.error('널리 공유해주세요~!', {
+    toast.success('널리 공유해주세요~!', {
       icon: '😁',
     });
   };
