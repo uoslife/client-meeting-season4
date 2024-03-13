@@ -1,11 +1,8 @@
 import { useFunnel } from '~/hooks/useFunnel';
 import PageLayout from '~/components/layout/page/PageLayout';
+import FirstPage from './FirstPage';
 
 const PAGE_NUMBER = [1];
-
-const FirstPage = () => {
-  return null;
-};
 
 const PersonalPledgeStep = () => {
   const { Funnel, currentPage, PageHandler } = useFunnel({
@@ -19,8 +16,8 @@ const PersonalPledgeStep = () => {
       <PageLayout.Header
         title={'04. 시대팅 이용 서약'}
         isProgress={true}
-        currentStep={2}
-        totalStep={6}
+        currentStep={1}
+        totalStep={1}
       />
       <Funnel>
         <Funnel.Page pageNumber={1}>

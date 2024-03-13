@@ -6,7 +6,6 @@ import CommonFinishApplyStep from '~/pages/common/finishApplyStep/Step';
 import CommonLandingStep from '~/pages/common/landingStep/Step';
 import CommonCheckApplyInfoStep from '~/pages/common/checkApplyInfoStep/Step';
 import CommonPaymentResultStep from '~/pages/common/paymentResultStep/Step';
-import UseAgreementStep from '~/pages/common/useAgreementStep/Step';
 
 const commonRoutes = [
   //--------------------------------------------------------//
@@ -49,14 +48,6 @@ const commonRoutes = [
   {
     path: '/common/checkApplyInfoStep',
     element: <CommonCheckApplyInfoStep />,
-  },
-  {
-    path: '/common/useAgreementStep',
-    element: <UseAgreementStep />,
-  },
-  {
-    path: '/common/useAgreementStep',
-    element: <UseAgreementStep />,
   },
   {
     path: '*',
