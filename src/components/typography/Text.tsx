@@ -11,6 +11,8 @@ export type TxtProps = Combine<
     typography: typographyType;
     weight?: number;
     size?: number;
+    align?: string;
+    wordBreak?: 'keep-all' | 'none';
   },
   React.ComponentProps<'div'>
 >;
@@ -21,6 +23,8 @@ const Text = ({
   typography,
   weight,
   size,
+  align = 'center',
+  wordBreak = 'keep-all',
   ...props
 }: TxtProps) => {
   return (
@@ -31,6 +35,8 @@ const Text = ({
         font-weight: ${weight};
         white-space: pre-line;
         font-size: ${size}px;
+        word-break: ${wordBreak};
+        text-align: ${align};
       `}
       {...props}>
       {label}

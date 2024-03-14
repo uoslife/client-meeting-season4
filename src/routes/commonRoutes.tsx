@@ -1,54 +1,72 @@
-import UnivVerificationStep from '~/pages/common/univVerificationStep/Step';
-import BranchGatewayStep from '~/pages/common/branchGatewayStep/Step';
-import PaymentStep from '~/pages/common/paymentStep/Step';
-import PrivacyPolicyStep from '~/pages/common/privacyPolicyStep/Step';
-import FinishApplyStep from '~/pages/common/finishApplyStep/Step';
-import LandingStep from '~/pages/common/landingStep/Step';
-import CheckApplyInfoStep from '~/pages/common/checkApplyInfoStep/Step';
-import CheckAfterAleadyAppliedStep from '~/pages/common/checkAfterAleadyAppliedStep/Step';
-import VerifyForCheckAfterAleadyAppliedStep from '~/pages/common/verifyForCheckAfterAleadyAppliedStep/Step';
+import CommonUnivVerificationStep from '~/pages/common/univVerificationStep/Step';
+import CommonBranchGatewayStep from '~/pages/common/branchGatewayStep/Step';
+import CommonPaymentStep from '~/pages/common/paymentStep/Step';
+import CommonPrivacyPolicyStep from '~/pages/common/privacyPolicyStep/Step';
+import CommonFinishApplyStep from '~/pages/common/finishApplyStep/Step';
+import CommonLandingStep from '~/pages/common/landingStep/Step';
+import CommonCheckApplyInfoStep from '~/pages/common/checkApplyInfoStep/Step';
+import CommonPaymentResultStep from '~/pages/common/paymentResultStep/Step';
 
 const commonRoutes = [
+  //--------------------------------------------------------//
+  //----------------- 이하 1:1 / 3:3 분기 전 ----------------//
+  //--------------------------------------------------------//
+
   {
-    path: '/',
-    element: <LandingStep />,
+    path: '/common/landingStep',
+    element: <CommonLandingStep />,
   },
   {
     path: '/common/univVerificationStep',
-    element: <UnivVerificationStep />,
+    element: <CommonUnivVerificationStep />,
   },
   {
-    path: '/common/branchGateWayStep',
-    element: <BranchGatewayStep />,
+    path: '/common/branchGatewayStep',
+    element: <CommonBranchGatewayStep />,
   },
   {
     path: '/common/privacyPolicyStep',
-    element: <PrivacyPolicyStep />,
+    element: <CommonPrivacyPolicyStep />,
   },
+
+  //--------------------------------------------------------//
+  //----------------- 이상 1:1 / 3:3 분기 전 ----------------//
+  //--------------------------------------------------------//
+
   {
     path: '/common/paymentStep',
-    element: <PaymentStep />,
+    element: <CommonPaymentStep />,
+  },
+  {
+    path: '/common/paymentResultStep',
+    element: <CommonPaymentResultStep />,
   },
   {
     path: '/common/checkApplyInfoStep',
-    element: <CheckApplyInfoStep />,
+    element: <CommonCheckApplyInfoStep />,
   },
   {
     path: '/common/finishApplyStep',
-    element: <FinishApplyStep />,
+    element: <CommonFinishApplyStep />,
   },
   {
-    path: '/common/verifyForCheckAfterAleadyAppliedStep',
-    element: <VerifyForCheckAfterAleadyAppliedStep />,
-  },
-  {
-    path: '/common/checkAfterAleadyAppliedStep',
-    element: <CheckAfterAleadyAppliedStep />,
+    path: '/common/checkApplyInfoStep',
+    element: <CommonCheckApplyInfoStep />,
   },
   {
     path: '*',
     element: <div>페이지를 찾을 수 없어요!</div>,
   },
-];
+] as const;
 
 export default commonRoutes;
+
+export type CommonPath = Extract<
+  (typeof commonRoutes)[number]['path'],
+  `/${string}`
+>;
+
+export type CommonPathPostfixes =
+  Extract<CommonPath, `/common/${string}`> extends `/common/${infer T}`
+    ? T
+    : never;

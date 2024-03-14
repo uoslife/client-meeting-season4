@@ -1,16 +1,21 @@
 import { ChangeEvent } from 'react';
 import * as S from './TextInput.style';
 import IconButton from '../../buttons/iconButton/IconButton';
+import { Combine } from '~/types/utils.type';
 
-export type InputProps = {
-  type?: string;
-  value: string;
-  status: 'default' | 'focused' | 'filled' | 'error';
-  placeholder?: string;
-  onClick?: () => void;
-  onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
-  isAuthentication?: boolean;
-};
+export type InputProps = Combine<
+  {
+    type?: string;
+    value: string;
+    status: 'default' | 'focused' | 'filled' | 'error';
+    placeholder?: string;
+    onClick?: () => void;
+    onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
+    isAuthentication?: boolean;
+    children?: React.ReactNode;
+  },
+  React.ComponentProps<'input'>
+>;
 
 const TextInput = ({
   type = 'text',
@@ -20,6 +25,8 @@ const TextInput = ({
   onClick,
   onChange,
   isAuthentication,
+  children,
+  ...props
 }: InputProps) => {
   return (
     <S.Container status={status}>
@@ -29,6 +36,7 @@ const TextInput = ({
         status={status}
         placeholder={placeholder}
         onChange={onChange}
+        {...props}
       />
       <S.Icon status={status} isAuthentication={isAuthentication}>
         <IconButton
@@ -39,6 +47,7 @@ const TextInput = ({
           onClick={onClick}
         />
       </S.Icon>
+      {children}
     </S.Container>
   );
 };

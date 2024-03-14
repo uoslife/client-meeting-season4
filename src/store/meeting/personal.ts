@@ -3,19 +3,19 @@ import { CommonApplyInfo, commonApplyAtoms } from '.';
 import { atomWithStorage } from 'jotai/utils';
 
 export type PersonalApplyInfo = {
-  personalInfo_drink: string[];
+  personalInfo_drink: number[];
   personalInfo_religion: string;
   personalInfo_smoking: string;
   personalInfo_animal: string[];
   personalInfo_mbti: string[];
   personalInfo_interests: string[];
   personalInfo_question: ApplyQuestionArrType;
-  personalPrefer_age: string[];
-  personalPrefer_height: string[];
+  personalPrefer_age: number[];
+  personalPrefer_height: number[];
   personalPrefer_studentType: string[];
   personalPrefer_univ: string[];
-  personalPrefer_drink: string[];
-  personalPrefer_religion: string;
+  personalPrefer_drink: number[];
+  personalPrefer_religion: string[];
   personalPrefer_smoking: string;
   personalPrefer_animal: string[];
   personalPrefer_mbti: string[];
@@ -29,7 +29,7 @@ export type PesronalApplyAtoms = {
 
 export const personalApplyAtoms: PesronalApplyAtoms = {
   ...commonApplyAtoms,
-  personalInfo_drink: atomWithStorage('personalInfo_drink', ['']),
+  personalInfo_drink: atomWithStorage<number[]>('personalInfo_drink', []),
   personalInfo_smoking: atomWithStorage('personalInfo_smoking', ''),
   personalInfo_religion: atomWithStorage('personalInfo_religion', ''),
   personalInfo_animal: atomWithStorage('personalInfo_animal', ['']),
@@ -42,15 +42,15 @@ export const personalApplyAtoms: PesronalApplyAtoms = {
     { label: '', order: 3 },
     { label: '', order: 4 },
   ]),
-  personalPrefer_age: atomWithStorage('personalPrefer_age', ['']),
-  personalPrefer_height: atomWithStorage('personalPrefer_height', ['']),
+  personalPrefer_age: atomWithStorage<number[]>('personalPrefer_age', []),
+  personalPrefer_height: atomWithStorage<number[]>('personalPrefer_height', []),
   personalPrefer_studentType: atomWithStorage('personalPrefer_studentType', [
     '',
   ]),
   personalPrefer_univ: atomWithStorage('personalPrefer_univ', ['']),
   personalPrefer_smoking: atomWithStorage('personalPrefer_smoking', ''),
-  personalPrefer_religion: atomWithStorage('personalPrefer_religion', ''),
-  personalPrefer_drink: atomWithStorage('personalPrefer_drink', ['']),
+  personalPrefer_religion: atomWithStorage('personalPrefer_religion', ['']),
+  personalPrefer_drink: atomWithStorage<number[]>('personalPrefer_drink', []),
   personalPrefer_animal: atomWithStorage('personalPrefer_animal', ['']),
   personalPrefer_mbti: atomWithStorage('personalPrefer_mbti', ['']),
 };

@@ -28,11 +28,12 @@ savedApplyInfoViewAtom.debugLabel = 'savedApplyInfoViewAtom';
 export type CommonApplyInfo = {
   myInfo_nickname: string;
   myInfo_gender: string;
-  myInfo_age: number;
-  myInfo_height: number;
+  myInfo_age: string;
+  myInfo_height: string;
   myInfo_kakaoId: string;
   myInfo_major: string;
   myInfo_studentType: string;
+  myInfo_message: string;
 };
 
 export type CommonApplyAtoms = {
@@ -44,9 +45,10 @@ export type CommonApplyAtoms = {
 export const commonApplyAtoms: CommonApplyAtoms = {
   myInfo_nickname: atomWithStorage('myInfo_nickname', ''),
   myInfo_gender: atomWithStorage('myInfo_gender', ''),
-  myInfo_age: atomWithStorage('myInfo_age', 0),
-  myInfo_height: atomWithStorage('myInfo_height', 0),
+  myInfo_age: atomWithStorage('myInfo_age', ''),
+  myInfo_height: atomWithStorage('myInfo_height', ''),
   myInfo_kakaoId: atomWithStorage('myInfo_kakaoId', ''),
   myInfo_major: atomWithStorage('myInfo_major', ''),
   myInfo_studentType: atomWithStorage('myInfo_studentType', ''),
+  myInfo_message: atomWithStorage('myInfo_message', ''),
 };

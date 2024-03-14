@@ -1,15 +1,16 @@
 import { useFunnel } from '~/hooks/useFunnel';
 import FirstPage from './FirstPage';
 import SecondPage from './SecondPage';
+import ThirdPage from './ThirdPage';
 import PageLayout from '~/components/layout/page/PageLayout';
 
-const PAGE_NUMBER = [1, 2];
+const PAGE_NUMBER = [1, 2, 3];
 
-const UnivVerificationStep = () => {
+const CommonUnivVerificationStep = () => {
   const { Funnel, currentPage, PageHandler } = useFunnel({
     pageNumberList: PAGE_NUMBER,
-    nextStep: { path: '/common/branchGateWayStep' },
-    prevStep: { path: '/' },
+    nextStep: { path: '/common/branchGatewayStep' },
+    prevStep: { path: '/common/landingStep' },
   });
 
   return (
@@ -26,6 +27,9 @@ const UnivVerificationStep = () => {
           <Funnel.Page pageNumber={2}>
             <SecondPage />
           </Funnel.Page>
+          <Funnel.Page pageNumber={3}>
+            <ThirdPage />
+          </Funnel.Page>
         </Funnel>
       </PageLayout.SingleCardBody>
       <PageLayout.Footer
@@ -38,4 +42,4 @@ const UnivVerificationStep = () => {
   );
 };
 
-export default UnivVerificationStep;
+export default CommonUnivVerificationStep;

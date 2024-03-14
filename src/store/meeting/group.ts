@@ -3,6 +3,7 @@ import { CommonApplyInfo, commonApplyAtoms } from '.';
 import { atomWithStorage } from 'jotai/utils';
 
 export type GroupApplyInfo = {
+  groupRole_isLeader: boolean | null;
   groupJoin_code: string;
   groupInfo_name: string;
   groupInfo_preferDay: string[];
@@ -20,6 +21,10 @@ export type GroupApplyAtoms = {
 
 export const groupApplyAtoms: GroupApplyAtoms = {
   ...commonApplyAtoms,
+  groupRole_isLeader: atomWithStorage<boolean | null>(
+    'groupRole_isLeader',
+    null,
+  ),
   groupJoin_code: atomWithStorage('groupJoin_code', ''),
   groupInfo_name: atomWithStorage('groupInfo_name', ''),
   groupInfo_preferDay: atomWithStorage('groupInfo_preferDay', ['']),
@@ -29,8 +34,9 @@ export const groupApplyAtoms: GroupApplyAtoms = {
     { label: '', order: 2 },
     { label: '', order: 3 },
   ]),
+
   groupPrefer_age: atomWithStorage('groupPrefer_age', ['']),
-  groupPrefer_univ: atomWithStorage('groupPrefer_univ', ['']),
+  groupPrefer_univ: atomWithStorage<string[]>('groupPrefer_univ', []),
   groupPrefer_atmosphere: atomWithStorage('groupPrefer_atmosphere', ''),
 };
 

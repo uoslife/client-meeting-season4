@@ -1,16 +1,24 @@
 import styled from '@emotion/styled';
 import Text from '../typography/Text';
 
-const QuestionLabel = ({ questionNumber }: { questionNumber: number }) => {
+type questionLabelType = {
+  questionNumber?: number;
+  children?: React.ReactNode;
+};
+
+const QuestionLabel = ({ questionNumber, children }: questionLabelType) => {
   return (
     <S.Container>
       <S.LeftArea>
-        <Text
-          label={`Q${questionNumber}.`}
-          typography="GoThicTitleS"
-          size={14}
-          color="LightBlue"
-        />
+        {questionNumber && (
+          <Text
+            label={`Q${questionNumber}.`}
+            typography="GoThicTitleS"
+            size={14}
+            color="LightBlue"
+          />
+        )}
+        {children}
       </S.LeftArea>
       <S.RightArea />
     </S.Container>

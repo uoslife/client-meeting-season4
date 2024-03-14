@@ -1,8 +1,11 @@
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useLocation } from 'react-router-dom';
 import commonRoutes from '~/routes/commonRoutes';
 import groupRoutes from '~/routes/groupRoutes';
 import personalRoutes from '~/routes/personalRoutes';
 import { ReactElement } from 'react';
+import { motion, useIsPresent } from 'framer-motion';
+import { AnimatePresence } from 'framer-motion';
+import { css } from '@emotion/react';
 
 type RouteType = {
   path: string;
@@ -21,5 +24,14 @@ const getRoutes = (routes: RouteType[]) => {
 };
 
 export const Router = () => {
-  return <Routes>{getRoutes(routesList)}</Routes>;
+  const location = useLocation();
+  return (
+    <AnimatePresence>
+      <Routes location={location} key={location.pathname}>
+        {getRoutes(routesList)}
+      </Routes>
+    </AnimatePresence>
+  );
 };
+
+export type Pathname = (typeof routesList)[number]['path'];

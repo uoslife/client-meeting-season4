@@ -1,6 +1,7 @@
+import { css } from '@emotion/react';
 import * as S from './DropdownInput.style';
 
-import { Dispatch, SetStateAction, useState } from 'react';
+import { Dispatch, useState } from 'react';
 import IconButton from '~/components/buttons/iconButton/IconButton';
 import Text from '~/components/typography/Text';
 import { Combine } from '~/types/utils.type';
@@ -8,7 +9,7 @@ import { Combine } from '~/types/utils.type';
 export type DropdownInputProps = Combine<
   {
     value: string;
-    setValue: Dispatch<SetStateAction<string>>;
+    setValue: Dispatch<string>;
     label: string;
     options: string[];
   },
@@ -29,7 +30,10 @@ const DropdownInput = ({
   };
 
   return (
-    <div>
+    <div
+      css={css`
+        width: 100%;
+      `}>
       <S.InputWrapper
         onClick={() => setShowOption(!showOption)}
         showOption={showOption}>

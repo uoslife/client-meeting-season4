@@ -1,8 +1,6 @@
 import Col from '~/components/layout/Col';
 import Text from '~/components/typography/Text';
-import { useAtom, useSetAtom } from 'jotai';
-import { meetingTypeAtom, meetingTypeCheckAtom } from '~/store/meeting';
-import { useEffect } from 'react';
+import { useAtomValue, useSetAtom } from 'jotai';
 import { pageFinishAtom } from '~/store/funnel';
 import RoundButton from '~/components/buttons/roundButton/RoundButton';
 import Paddler from '~/components/layout/Pad';
@@ -11,7 +9,9 @@ import Row from '~/components/layout/Row';
 import Checkbox from '~/components/buttons/checkbox/Checkbox';
 import IconButton from '~/components/buttons/iconButton/IconButton';
 import { useImmerAtom } from 'jotai-immer';
-import { useNavigate } from 'react-router-dom';
+import { commonDataAtoms } from '~/models/common/data';
+import useTypeSafeNavigate from '~/hooks/useTypeSafeNavigate';
+import { combinedValidatiesAtoms } from '~/models';
 
 const MEETING_TYPE_BUTTONS = [
   {
@@ -25,24 +25,24 @@ const MEETING_TYPE_BUTTONS = [
 ] as const;
 
 const FirstPage = () => {
-  const [meetingTypeValue, setMeetingTypeValue] = useAtom(meetingTypeAtom);
-  const [meetingTypeCheckValue, setMeetingTypeCheckValue] =
-    useImmerAtom(meetingTypeCheckAtom);
+  const [pageState, setPageState] = useImmerAtom(
+    commonDataAtoms.commonBranchGatewayStep.page1,
+  );
+
+  const navigate = useTypeSafeNavigate();
+  const { checked, meetingType } = pageState;
   const setIsPageFinished = useSetAtom(pageFinishAtom);
-  const navigate = useNavigate();
+  const pageValidity = useAtomValue(combinedValidatiesAtoms)
+    .commonBranchGatewayStep.page1;
+  setIsPageFinished(pageValidity);
 
   const handleSetMeetingTypeCheckValue = (order: number) =>
-    setMeetingTypeCheckValue(draft => {
-      draft[order] = !draft[order];
+    setPageState(prev => {
+      prev.checked[order] = !prev.checked[order];
     });
 
-  useEffect(() => {
-    if (meetingTypeCheckValue.every(value => value)) setIsPageFinished(true);
-    else setIsPageFinished(false);
-  }, [meetingTypeCheckValue, setMeetingTypeCheckValue]);
-
   return (
-    <Col align={'center'} gap={20}>
+    <Col align={'center'} gap={20} padding={'36px 20px'}>
       <Col gap={12} align={'center'}>
         <Text
           label={'참여하고자 하는 미팅 종류를 선택해주세요'}
@@ -66,11 +66,13 @@ const FirstPage = () => {
           {MEETING_TYPE_BUTTONS.map((value, index) => (
             <RoundButton
               key={`${value.label} ${index}`}
-              status={meetingTypeValue === value.type ? 'active' : 'inactive'}
+              status={meetingType === value.type ? 'active' : 'inactive'}
               label={value.label}
-              textTypography={'NeoButtonL'}
-              textColor={'Primary500'}
-              onClick={() => setMeetingTypeValue(value.type)}
+              onClick={() =>
+                setPageState(prev => {
+                  prev.meetingType = value.type;
+                })
+              }
             />
           ))}
         </Col>
@@ -81,11 +83,7 @@ const FirstPage = () => {
             align={'center'}
             gap={8}
             onClick={() => handleSetMeetingTypeCheckValue(0)}>
-            <Checkbox
-              checked={meetingTypeCheckValue[0]}
-              height={16}
-              width={16}
-            />
+            <Checkbox checked={checked[0]} height={16} width={16} />
             <Text
               label={'개인정보 활용 정보 제공에 동의합니다.'}
               color={'Gray300'}
@@ -103,7 +101,7 @@ const FirstPage = () => {
           align={'center'}
           gap={8}
           onClick={() => handleSetMeetingTypeCheckValue(1)}>
-          <Checkbox checked={meetingTypeCheckValue[1]} height={16} width={16} />
+          <Checkbox checked={checked[1]} height={16} width={16} />
           <Text
             label={'경희대, 외대, 시립대 재학생 인증을 완료하였습니다.'}
             color={'Gray300'}

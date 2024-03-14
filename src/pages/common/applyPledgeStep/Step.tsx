@@ -1,16 +1,15 @@
 import { useAtomValue } from 'jotai';
 import FirstPage from './FirstPage';
-import { pageFinishAtom } from '~/store/funnel';
-import { useNavigate } from 'react-router-dom';
 import { meetingTypeAtom } from '~/store/meeting/common';
 import PageLayout from '~/components/layout/page/PageLayout';
 import { useFunnel } from '~/hooks/useFunnel';
 
-const BranchGatewayStep = () => {
+const CommonBranchGatewayStep = () => {
   const { Funnel, currentPage, PageHandler } = useFunnel({
     pageNumberList: [1],
-    nextStep: { path: '/common/branchGateWayStep' },
-    prevStep: { path: '/' },
+    // deprecated
+    prevStep: { path: '/common/checkApplyInfoStep' },
+    nextStep: { path: '/common/branchGatewayStep' },
   });
   const meetingType = useAtomValue(meetingTypeAtom);
 
@@ -37,4 +36,4 @@ const BranchGatewayStep = () => {
   );
 };
 
-export default BranchGatewayStep;
+export default CommonBranchGatewayStep;
