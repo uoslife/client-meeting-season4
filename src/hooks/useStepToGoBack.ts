@@ -56,7 +56,7 @@ export const useStepToGoBack = <Step extends keyof CombinedValidities>(
     return ret;
   };
 
-  const stepToGoBack = getStepToGoBackVariableName(step);
+  const stepToGoBack = getStepToGoBackVariableName(prevSteps[step]);
 
   if (stepToGoBack === null) return null;
 
