@@ -1,6 +1,6 @@
 export type GetVerificationCodeRequest = {
   email: string;
-  university: string;
+  university: 'KHU' | 'HUFS' | 'UOS' | null;
 };
 export type GetVerificationCodeResponse = {
   result: boolean;

@@ -32,7 +32,7 @@ const PageTemplate = ({ children }: { children: React.ReactNode }) => {
   return (
     <motion.div
       css={css`
-        height: 100vh;
+        height: 100dvh;
         width: 100vw;
         position: absolute;
 

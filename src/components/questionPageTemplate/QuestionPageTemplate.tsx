@@ -5,6 +5,8 @@ import Row from '../layout/Row';
 import PageLayout from '../layout/page/PageLayout';
 import QuestionLabel from './QuestionLabel';
 import Text from '../typography/Text';
+import { css } from '@emotion/react';
+import styled from '@emotion/styled';
 
 type QuestionPageTemplateProps<TAnswerValue> = {
   select: (value: TAnswerValue) => void;
@@ -72,6 +74,7 @@ const QuestionPageTemplate = <TAnswerValue,>({
                 />
               ))}
             </Col>
+            <S.DummyBox />
           </Col>
         </Row>
       }
@@ -80,3 +83,9 @@ const QuestionPageTemplate = <TAnswerValue,>({
 };
 
 export default QuestionPageTemplate;
+
+const S = {
+  DummyBox: styled.div`
+    height: 100px;
+  `,
+};
