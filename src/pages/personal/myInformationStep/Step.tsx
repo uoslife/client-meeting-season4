@@ -7,6 +7,8 @@ import ForthPage from './ForthPage';
 import FifthPage from './FifthPage';
 import SixthPage from './SixthPage';
 import SeventhPage from './SeventhPage';
+import { useStepToGoBack } from '~/hooks/useStepToGoBack';
+import useTypeSafeNavigate from '~/hooks/useTypeSafeNavigate';
 
 const PAGE_NUMBER = [1, 2, 3, 4, 5, 6, 7];
 
@@ -16,6 +18,14 @@ const PersonalMyInformationStep = () => {
     prevStep: { path: '/common/branchGatewayStep' },
     nextStep: { path: '/personal/myRomanceStep' },
   });
+
+  const stepToGoBack = useStepToGoBack('personalMyInformationStep');
+  const navigate = useTypeSafeNavigate();
+
+  if (stepToGoBack) {
+    navigate(stepToGoBack);
+    return null;
+  }
 
   return (
     <PageLayout>

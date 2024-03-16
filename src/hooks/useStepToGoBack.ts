@@ -4,6 +4,9 @@ import {
   CombinedValidities,
   combinedValidatiesAtoms,
 } from '~/models';
+import { CommonPath } from '~/routes/commonRoutes';
+import { GroupPath } from '~/routes/groupRoutes';
+import { PersonalPath } from '~/routes/personalRoutes';
 
 // state가 필요한 이전 라우트를 나타내는 연결 리스트
 const prevSteps: {
@@ -32,23 +35,50 @@ const prevSteps: {
  */
 export const useStepToGoBack = <Step extends keyof CombinedValidities>(
   step: Step,
-) => {
+): null | CommonPath | PersonalPath | GroupPath => {
   const entireValidities = useAtomValue(combinedValidatiesAtoms);
 
-  const getStepToGoBack = (
-    recursiveFunctionParamStep: CombinedStep | null,
+  const getStepToGoBackVariableName = (
+    current: CombinedStep | null,
   ): CombinedStep | null => {
-    // base case: 최전의 step
-    if (recursiveFunctionParamStep === null) return null;
+    let ret: CombinedStep | null = null;
 
-    const isCurrentStepValid = Object.values(
-      entireValidities[recursiveFunctionParamStep],
-    ).every(Boolean);
+    while (current !== null) {
+      const isCurrentStepValid = Object.values(entireValidities[current]).every(
+        Boolean,
+      );
 
-    if (!isCurrentStepValid) return recursiveFunctionParamStep;
+      if (!isCurrentStepValid) ret = current;
 
-    return getStepToGoBack(prevSteps[recursiveFunctionParamStep]);
+      current = prevSteps[current];
+    }
+
+    return ret;
   };
 
-  return getStepToGoBack(prevSteps[step]);
+  const stepToGoBack = getStepToGoBackVariableName(prevSteps[step]);
+
+  if (stepToGoBack === null) return null;
+
+  return variableNameToPathName[stepToGoBack];
+};
+
+const variableNameToPathName: {
+  [key in CombinedStep]: CommonPath | GroupPath | PersonalPath;
+} = {
+  commonBranchGatewayStep: '/common/branchGatewayStep',
+  commonUnivVerificationStep: '/common/univVerificationStep',
+  groupLeaderGroupCreateStep: '/group/leader/createStep',
+  groupLeaderGroupInformationStep: '/group/leader/groupInformationStep',
+  groupRoleSelectStep: '/group/roleSelectStep',
+  groupLeaderMyInformationStep: '/group/leader/myInformationStep',
+  groupLeaderPledgeStep: '/group/leader/pledgeStep',
+  groupLeaderPreferStep: '/group/leader/preferStep',
+  groupMemberMyInformationStep: '/group/member/myInformationStep',
+  groupMemberParticipateStep: '/group/member/participateStep',
+  groupMemberPledgeStep: '/group/member/pledgeStep',
+  personalMyInformationStep: '/personal/myInformationStep',
+  personalMyRomanceStep: '/personal/myRomanceStep',
+  personalPledgeStep: '/personal/pledgeStep',
+  personalPreferInfoStep: '/personal/myPreferTypeStep',
 };

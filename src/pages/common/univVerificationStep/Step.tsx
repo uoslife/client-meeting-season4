@@ -3,6 +3,8 @@ import FirstPage from './FirstPage';
 import SecondPage from './SecondPage';
 import ThirdPage from './ThirdPage';
 import PageLayout from '~/components/layout/page/PageLayout';
+import { useStepToGoBack } from '~/hooks/useStepToGoBack';
+import useTypeSafeNavigate from '~/hooks/useTypeSafeNavigate';
 
 const PAGE_NUMBER = [1, 2, 3];
 
@@ -12,6 +14,14 @@ const CommonUnivVerificationStep = () => {
     nextStep: { path: '/common/branchGatewayStep' },
     prevStep: { path: '/' },
   });
+
+  const stepToGoBack = useStepToGoBack('commonUnivVerificationStep');
+  const navigate = useTypeSafeNavigate();
+
+  if (stepToGoBack) {
+    navigate(stepToGoBack);
+    return null;
+  }
 
   return (
     <PageLayout>

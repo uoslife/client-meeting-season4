@@ -3,6 +3,8 @@ import { useFunnel } from '~/hooks/useFunnel';
 import FirstPage from './FirstPage';
 import { meetingTypeAtom } from '~/store/meeting';
 import { useAtomValue } from 'jotai';
+import { useStepToGoBack } from '~/hooks/useStepToGoBack';
+import useTypeSafeNavigate from '~/hooks/useTypeSafeNavigate';
 
 const CommonBranchGatewayStep = () => {
   const meetingTypeValue = useAtomValue(meetingTypeAtom);
@@ -18,6 +20,14 @@ const CommonBranchGatewayStep = () => {
       path: '/common/univVerificationStep',
     },
   });
+
+  const stepToGoBack = useStepToGoBack('commonBranchGatewayStep');
+  const navigate = useTypeSafeNavigate();
+
+  if (stepToGoBack) {
+    navigate(stepToGoBack);
+    return null;
+  }
 
   return (
     <PageLayout>
