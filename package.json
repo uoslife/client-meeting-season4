@@ -13,6 +13,8 @@
     "@emotion/react": "^11.11.3",
     "@emotion/styled": "^11.11.0",
     "@swc/plugin-emotion": "^2.5.116",
+    "axios": "^1.6.7",
+    "framer-motion": "^11.0.12",
     "immer": "^10.0.3",
     "jotai": "^2.6.4",
     "jotai-devtools": "^0.8.0",
@@ -22,6 +24,7 @@
     "rc-slider": "^10.5.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-hot-toast": "^2.4.1",
     "react-router-dom": "^6.22.0",
     "sort-by": "^1.2.0"
   },
@@ -37,8 +40,14 @@
     "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.5",
+    "msw": "^2.2.2",
     "prettier": "^3.2.4",
     "typescript": "^5.2.2",
     "vite": "^5.0.8"
+  },
+  "msw": {
+    "workerDirectory": [
+      "public"
+    ]
   }
 }

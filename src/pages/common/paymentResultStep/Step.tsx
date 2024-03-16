@@ -10,7 +10,7 @@ type failedPaymentProps1 = {
   errorMessage?: string;
 };
 
-const PaymentResultStep = () => {
+const CommonPaymentResultStep = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [paymentStatus, setPaymentStatus] = useState<
@@ -66,4 +66,4 @@ const PaymentResultStep = () => {
   );
 };
 
-export default PaymentResultStep;
+export default CommonPaymentResultStep;

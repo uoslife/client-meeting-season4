@@ -48,6 +48,7 @@ export const S = {
     border-radius: 18px;
     height: 100%;
     overflow-y: auto;
+    overscroll-behavior: none;
     display: flex;
     flex-direction: column;
   `,

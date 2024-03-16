@@ -3,21 +3,31 @@ import { useFunnel } from '~/hooks/useFunnel';
 import FirstPage from './FirstPage';
 import { meetingTypeAtom } from '~/store/meeting';
 import { useAtomValue } from 'jotai';
+import { useStepToGoBack } from '~/hooks/useStepToGoBack';
+import useTypeSafeNavigate from '~/hooks/useTypeSafeNavigate';
 
-const BranchGatewayStep = () => {
+const CommonBranchGatewayStep = () => {
   const meetingTypeValue = useAtomValue(meetingTypeAtom);
   const { Funnel, currentPage, PageHandler } = useFunnel({
     pageNumberList: [1],
     nextStep: {
       path:
         meetingTypeValue === 'group'
-          ? '/group/groupRoleSelectStep'
+          ? '/group/roleSelectStep'
           : '/personal/myInformationStep',
     },
     prevStep: {
       path: '/common/univVerificationStep',
     },
   });
+
+  const stepToGoBack = useStepToGoBack('commonBranchGatewayStep');
+  const navigate = useTypeSafeNavigate();
+
+  if (stepToGoBack) {
+    navigate(stepToGoBack);
+    return null;
+  }
 
   return (
     <PageLayout>
@@ -39,4 +49,4 @@ const BranchGatewayStep = () => {
   );
 };
 
-export default BranchGatewayStep;
+export default CommonBranchGatewayStep;

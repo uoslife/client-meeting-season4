@@ -3,6 +3,7 @@ import NeoDunggeunmoPro from '/fonts/NeoDunggeunmoPro-Regular.ttf';
 import DOSGothic from '/fonts/DOSGothic.ttf';
 import PretendardRegular from '/fonts/Pretendard-Regular.ttf';
 import GothicA1Regular from '/fonts/GothicA1-Regular.ttf';
+import GothicA1Bold from '/fonts/GothicA1-Bold.ttf';
 import LeferiBaseRegular from '/fonts/LeferiBaseBold.ttf';
 
 const reset = css`
@@ -34,6 +35,7 @@ const reset = css`
     display: flex;
     justify-content: center;
     background-color: #888888;
+    overscroll-behavior: none;
   }
   img,
   picture,
@@ -65,6 +67,12 @@ const reset = css`
   @font-face {
     font-family: 'GothicA1Type-Regular';
     src: url(${GothicA1Regular}) format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'GothicA1Type-Bold';
+    src: url(${GothicA1Bold}) format('truetype');
     font-weight: normal;
     font-style: normal;
   }

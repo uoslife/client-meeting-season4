@@ -4,28 +4,28 @@ import Col from '~/components/layout/Col';
 import Row from '~/components/layout/Row';
 import Text from '~/components/typography/Text';
 import MbtiButton from '~/components/buttons/mbtiButton/MbtiButton';
-import { useEffect } from 'react';
-import { useSetAtom } from 'jotai';
-import { personalApplyAtoms } from '~/store/meeting';
+import { useAtom, useAtomValue, useSetAtom } from 'jotai';
 import { pageFinishAtom } from '~/store/funnel';
-import { useImmerAtom } from 'jotai-immer';
+import { personalDataAtoms } from '~/models/personal/data';
+import { combinedValidatiesAtoms } from '~/models';
 
 const Fifthpage = () => {
-  const [mbti, setMbti] = useImmerAtom(personalApplyAtoms.personalInfo_mbti);
-  const setIsPageFinished = useSetAtom(pageFinishAtom);
+  const [pageState, setPageState] = useAtom(
+    personalDataAtoms.personalMyInformationStep.page5,
+  );
 
-  const updateMbti = (order: number, changeMbti: string) => {
-    setMbti(prevMbti => {
-      const newMbti = [...prevMbti];
-      newMbti[order] = changeMbti;
-      return newMbti;
-    });
+  const { mbti } = pageState;
+
+  const updateMbti = (order: number, itemValue: string) => {
+    const newMbtiState = [...mbti];
+    newMbtiState[order] = itemValue;
+    setPageState(prev => ({ ...prev, mbti: newMbtiState }));
   };
 
-  useEffect(() => {
-    const isAllInputsFilled = mbti[0] && mbti[1] && mbti[2] && mbti[3];
-    setIsPageFinished(!!isAllInputsFilled);
-  }, [mbti]);
+  const pageValidity = useAtomValue(combinedValidatiesAtoms)
+    .personalMyInformationStep.page5;
+  const setIsPageFinished = useSetAtom(pageFinishAtom);
+  setIsPageFinished(!!pageValidity);
 
   return (
     <PageLayout.SingleCardBody

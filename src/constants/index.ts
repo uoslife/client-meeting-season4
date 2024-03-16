@@ -75,3 +75,11 @@ export const HEIGHT_LIST = [
   '185',
   '190~',
 ];
+
+export const SOCIAL_LINK = {
+  Sharelink:
+    'https://www.instagram.com/p/Cskqlsyy9Ar/?utm_source=ig_web_copy_link&igshid=MmJiY2I4NDBkZg==',
+  Instagram: 'https://www.instagram.com/uoslife_official/',
+  Kakaotalk: 'https://pf.kakao.com/_gMEHK',
+  Uoslife: 'https://uoslife.com/',
+};

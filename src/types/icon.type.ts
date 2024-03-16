@@ -12,6 +12,10 @@ export type normalType =
   | 'arrow-black'
   | 'checkCircle-active'
   | 'checkCircle-inactive'
+  | 'musicNote-red'
+  | 'share'
+  | 'kakaotalk'
+  | 'instagram'
   | 'human-circle';
 
 // 동물상
