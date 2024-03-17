@@ -84,6 +84,7 @@ type PG =
   | 'paypal_v2'
   | 'nice_v2'
   | 'smartro_v2'
+  | 'welcometst'
   | 'ksnet';
 
 type PaymentMethod =
@@ -188,11 +189,6 @@ export interface RequestPayParams extends RequestPayAdditionalParams {
    * - 결제 응답시 echo 로 받아보실수 있는 필드 입니다.
    * - JSON notation(string)으로 저장됩니다.
    * - 주문 건에 대해 부가정보를 저장할 공간이 필요할 때 사용합니다
-   */
-  custom_data?: Record<any, any>;
-  /**
-   * ### 면세금액
-   * - 결제 금액 중 면세금액에 해당하는 금액을 입력합니다.
    */
   tax_free?: number;
   /**

@@ -29,7 +29,7 @@ const refundPaymentFotNotMatching = async <
 const checkPayment = async <T = CheckPaymentResponse>(
   uid: string,
 ): PromiseAxios<T> => {
-  return API.post<ApiResponse<T>>('/api/payment/check', { uid: uid });
+  return await API.post<ApiResponse<T>>('/api/payment/check', { uid: uid });
 };
 
 export default {

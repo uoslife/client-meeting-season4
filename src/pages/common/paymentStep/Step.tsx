@@ -1,9 +1,9 @@
 import PageLayout from '~/components/layout/page/PageLayout';
-import Col from '~/components/layout/Col';
 import PaymentPage from '~/pages/common/paymentStep/PaymentPage';
+import { useFunnel } from '~/hooks/useFunnel';
 
 const CommonPaymentStep = () => {
-  const { Funnel, currentPage, PageHandler } = useFunnel({
+  const { Funnel } = useFunnel({
     pageNumberList: [1],
     nextStep: { path: '/common/finishApplyStep' },
     prevStep: { path: '/common/paymentStep' },
@@ -16,9 +16,11 @@ const CommonPaymentStep = () => {
         isProgress={false}
       />
       <PageLayout.SingleCardBody>
-        <Col align={'center'} padding={'36px'}>
-          <PaymentPage />
-        </Col>
+        <Funnel>
+          <Funnel.Page pageNumber={1}>
+            <PaymentPage />
+          </Funnel.Page>
+        </Funnel>
       </PageLayout.SingleCardBody>
     </PageLayout>
   );

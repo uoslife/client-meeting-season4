@@ -1,5 +1,5 @@
 export type PaymentRequest = {
-  pg: 'kakaopay' | 'tosspayments';
+  pg: 'welcome';
   payMethod: 'card';
 };
 

@@ -90,7 +90,7 @@ const requestPayment = () => {
   return HttpResponse.json(
     {
       data: {
-        merchantUid: 'mock-merchant-uid',
+        merchantUid: 'test_uoslife_meeting_0035',
         price: 3000,
         phoneNumber: '010-0000-0000',
       },
@@ -133,6 +133,7 @@ const checkPayment = () => {
         paymentSuccess: true,
         message: 'mock-message',
       },
+      statusCode: 200,
     },
     { status: 200 },
   );
