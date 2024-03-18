@@ -85,7 +85,7 @@ const FirstPage = () => {
               />
             </Col>
             <Col gap={8}>
-              {(['UOS', 'KHU', 'HUFS'] as const).map(univ => (
+              {(['KHU', 'UOS', 'HUFS'] as const).map(univ => (
                 <RoundButton
                   key={univ}
                   label={univ}
