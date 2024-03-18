@@ -13,7 +13,7 @@ const commonRoutes = [
   //--------------------------------------------------------//
 
   {
-    path: '/',
+    path: '/common/landingStep',
     element: <CommonLandingStep />,
   },
   {
