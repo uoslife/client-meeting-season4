@@ -52,7 +52,7 @@ const FirstPage = () => {
         label="신청 정보 확인하기"
         borderType="gray"
         onClick={() => {
-          navigate('/');
+          navigate('/common/landingStep');
         }} // TODO: path 정해지면 수정하기
       >
         <img src="\images\icons\next-icon-white.svg" alt="next_icon" />
