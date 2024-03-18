@@ -4,58 +4,67 @@ import { useEffect, useState } from 'react';
 import SuccessPayment from '~/pages/common/paymentResultStep/SuccessPage';
 import FailPayment from '~/pages/common/paymentResultStep/FailPage';
 import LoadingPayment from '~/pages/common/paymentResultStep/LoadingPage';
-import queryString, { ParsedQuery } from 'query-string';
 import { PaymentAPI } from '~/api';
-import toast, { Toaster } from 'react-hot-toast';
+import toast from 'react-hot-toast';
+import querystring from 'query-string';
 
 const CommonPaymentResultStep = () => {
   const navigate = useNavigate();
   // pc에서 결제 결과 navigate state로 주는 경우,
-  const { search, state } = useLocation();
+  const { state: locationState, search: locationSearch } = useLocation();
   // 모바일에서 결제 결과 query로 주는 경우,
-  const { imp_uid, merchant_uid, error_msg, error_code }: ParsedQuery =
-    queryString.parse(search);
+  const query = querystring.parse(locationSearch);
   // 결제 결과에 따른 화면 렌더링 관리 state
   const [paymentStatus, setPaymentStatus] = useState('loading');
+  const [paymentResultValue, setPaymentResultValue] = useState(
+    locationState ? locationState : query,
+  );
+  console.log(query, '쿼리');
+  console.log(locationState, '로케이션스테이트');
 
   const handleCheckPaymentResult = async () => {
-    const requestImpUid = typeof imp_uid === 'string' ? imp_uid : '';
-    const res = await PaymentAPI.checkPayment(requestImpUid);
+    const res = await PaymentAPI.checkPayment(
+      paymentResultValue.imp_uid as string,
+    );
     setPaymentStatus(res.data.statusCode === 200 ? 'success' : 'fail');
   };
 
   useEffect(() => {
-    // pc 결제 시, 이미 결제된 경우
-    if (state.error_msg.includes('이미 승인 완료')) {
+    // pc에서 결제가 이미 승인된 경우
+    if (locationState?.error_msg?.includes('이미 승인 완료')) {
       toast.success('이미 승인된 결제입니다!', {
         duration: 2000,
       });
       return setPaymentStatus('success');
     }
     // 모바일에서 결제도중 취소하는 경우
-    if (error_msg === '[01] 사용자가 결제를 취소 하였습니다.') {
+    if (query?.error_msg === '[01] 사용자가 결제를 취소 하였습니다.') {
       return navigate('/common/paymentStep', {
         state: {
           cancelToast: true,
         },
       });
     }
+    // 모바일에서 결제도중 취소 이외의 error인 경우
+    if (query?.error_code === 'F400') {
+      return setPaymentStatus('fail');
+    }
     // TODO:msw로 인한 setTimeout 부착, 실제 api 환경에서는 setTimeout 제거하기
     setTimeout(() => {
       handleCheckPaymentResult();
-    }, 2000);
-  }, [error_msg, error_code, imp_uid, merchant_uid]);
+    }, 3000);
+  }, []);
+
+  useEffect(() => {
+    console.log(paymentResultValue, 'ㅋㅋㅋ');
+  }, [paymentResultValue]);
 
   const handlePaymentStatus = () => {
     switch (paymentStatus) {
       case 'success':
         return <SuccessPayment />;
       case 'fail':
-        return (
-          <FailPayment
-            errorMessage={typeof error_msg === 'string' ? error_msg : undefined}
-          />
-        );
+        return <FailPayment errorMessage={paymentResultValue.error_msg} />;
       case 'loading':
         return <LoadingPayment />;
       default:
@@ -71,7 +80,6 @@ const CommonPaymentResultStep = () => {
           {handlePaymentStatus()}
         </PageLayout.SingleCardBody>
       </PageLayout>
-      <Toaster />
     </>
   );
 };

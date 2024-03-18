@@ -90,9 +90,9 @@ const requestPayment = () => {
   return HttpResponse.json(
     {
       data: {
-        merchantUid: 'test_uoslife_meeting_0035',
+        merchantUid: `test_uoslife_meeting_${Math.floor(Math.random() * (965 + 1)) + 35}`,
         price: 3000,
-        phoneNumber: '010-0000-0000',
+        phoneNumber: '010-2064-6347',
       },
     },
     { status: 200 },

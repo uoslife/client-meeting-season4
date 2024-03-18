@@ -11,11 +11,8 @@ const CommonPaymentStep = () => {
 
   return (
     <PageLayout>
-      <PageLayout.Header
-        title={'경희대 한국외대 구성원 인증'}
-        isProgress={false}
-      />
-      <PageLayout.SingleCardBody>
+      <PageLayout.Header title={'결제 하기'} isProgress={false} />
+      <PageLayout.SingleCardBody cardPadding={'0'}>
         <Funnel>
           <Funnel.Page pageNumber={1}>
             <PaymentPage />

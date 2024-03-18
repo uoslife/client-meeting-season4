@@ -4,7 +4,7 @@ export type PaymentRequest = {
 };
 
 export type PaymentResponse = {
-  merchandUid: string;
+  merchantUid: string;
   price: number;
   phoneNumber: string;
 };
