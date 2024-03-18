@@ -4,6 +4,7 @@ import Col from '~/components/layout/Col';
 import { colors } from '~/styles/colors';
 import RoundButton from '~/components/buttons/roundButton/RoundButton';
 import { useNavigate } from 'react-router-dom';
+import { SOCIAL_LINK } from '~/constants';
 
 type failedPaymentProps = {
   errorMessage?: string;
@@ -67,12 +68,19 @@ const FailPayment = ({ errorMessage }: failedPaymentProps) => {
           height={50}
           onClick={() => navigate('/common/paymentStep')}
         />
-        <RoundButton
-          status={'inactive'}
-          label={'시대생 카카오 채널로 가기'}
-          height={50}
-          onClick={() => navigate('/common/landingStep')}
-        />
+        <a
+          css={css`
+            width: 100%;
+          `}
+          href={SOCIAL_LINK.Kakaotalk}
+          target={'_blank'}>
+          <RoundButton
+            status={'inactive'}
+            label={'시대생 카카오 채널로 가기'}
+            height={50}
+            onClick={() => console.log('카카오 채널')}
+          />
+        </a>
       </Col>
     </Col>
   );

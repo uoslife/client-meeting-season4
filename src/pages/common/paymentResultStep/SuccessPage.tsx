@@ -56,7 +56,7 @@ const SuccessPayment = () => {
       <RoundButton
         status={'active'}
         label={'이동하기'}
-        onClick={() => navigate('/common/landingStep')}
+        onClick={() => navigate('/')}
       />
     </Col>
   );

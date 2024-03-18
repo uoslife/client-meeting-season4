@@ -26,7 +26,7 @@ const CommonPaymentResultStep = () => {
     const res = await PaymentAPI.checkPayment(
       paymentResultValue.imp_uid as string,
     );
-    setPaymentStatus(res.data.statusCode === 200 ? 'success' : 'fail');
+    setPaymentStatus(res.data.statusCode === 300 ? 'success' : 'fail');
   };
 
   useEffect(() => {
