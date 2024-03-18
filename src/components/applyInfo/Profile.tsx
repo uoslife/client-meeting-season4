@@ -50,7 +50,7 @@ const Profile = ({
       return (
         <Row gap={16}>
           <S.PersonalLeftImage
-            src={`/images/personal/checkApplyInfoStep/${univ}.png`}
+            src={`/images/common/checkApplyInfoStep/${univ}.png`}
           />
           <Col gap={8}>
             <Row gap={4} align="center">
@@ -69,7 +69,9 @@ const Profile = ({
     case 'group':
       return (
         <Col gap={12}>
-          <S.GroupTopImage />
+          <S.GroupTopImage
+            src={`/images/common/checkApplyInfoStep/group.png`}
+          />
           <Col gap={8}>
             <Row gap={4} align="center">
               <Text color="SubBlue" label={nameLabel} typography="NeoBodyM" />
@@ -89,13 +91,11 @@ const Profile = ({
 export default Profile;
 
 const S = {
-  // TODO: 일러스트(확정 후)로 대체
   PersonalLeftImage: styled.img`
     height: 142px;
     width: 142px;
   `,
-  // TODO: 일러스트(확정 후)로 대체
-  GroupTopImage: styled.div`
+  GroupTopImage: styled.img`
     height: 192px;
     width: 100%;
     background-color: red;
