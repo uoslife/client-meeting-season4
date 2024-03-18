@@ -32,7 +32,7 @@ const FifthPage = () => {
       ]}
       question="우리 팅은 미팅에서..."
       // TODO: Change the image source
-      imageSource="\images\personal\myRomanceStep\1.png"
+      imageSource="\images\group\groupInformationStep\5.png"
     />
   );
 };

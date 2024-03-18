@@ -21,7 +21,12 @@ const DirectoryViewInfoItem = ({ name, content }: ItemComponentProps) => {
       <Row gap={6} align="center">
         <IconButton iconName="directory/directory" format="png" />
         <Paddler top={4}>
-          <Text color="SubBlue" typography="GoThicTitleS" label={name} />
+          <Text
+            align="left"
+            color="SubBlue"
+            typography="GoThicTitleS"
+            label={name}
+          />
         </Paddler>
       </Row>
       <Paddler left={16}>

@@ -1,4 +1,9 @@
 import { HttpResponse, http } from 'msw';
+import {
+  InformationType,
+  PreferenceType,
+  UserProfileType,
+} from '~/api/types/user.type';
 
 export function handlers() {
   return [
@@ -230,14 +235,14 @@ const getRefreshToken = () => {
 };
 
 const 팀전체정보 = {
-  teamType: 'SINGLE',
   teamName: 'mock-팀이름',
-  sex: 'MALE',
+  teamType: 'SINGLE',
+  gender: 'MALE',
   teamUserList: [
     {
       name: '이루매',
       age: 24,
-      height: 170,
+      religion: 'ETC',
       university: 'UOS',
       department: '경제학과',
       studentType: 'UNDERGRADUATE',
@@ -252,7 +257,7 @@ const 팀전체정보 = {
     {
       name: '이루매',
       age: 24,
-      height: 170,
+      religion: 'ETC',
       university: 'UOS',
       department: '경제학과',
       studentType: 'UNDERGRADUATE',
@@ -267,7 +272,7 @@ const 팀전체정보 = {
     {
       name: '이루매',
       age: 24,
-      height: 170,
+      religion: 'ETC',
       university: 'UOS',
       department: '경제학과',
       studentType: 'UNDERGRADUATE',
@@ -279,15 +284,17 @@ const 팀전체정보 = {
       mbti: 'string',
       interest: ['BOOK'],
     },
-  ],
+  ] satisfies UserProfileType[],
   information: {
     gender: 'MALE',
     questions: {
-      additionalProp1: {},
-      additionalProp2: {},
-      additionalProp3: {},
+      additionalProp1: 0,
+      additionalProp2: 0,
+      additionalProp3: 0,
+      additionalProp4: 0,
+      additionalProp5: 0,
     },
-  },
+  } satisfies InformationType,
   preference: {
     ageMin: 20,
     ageMax: 25,
@@ -300,5 +307,5 @@ const 팀전체정보 = {
     spiritAnimal: ['DOG'],
     mbti: ['ENFP'],
     mood: 'ACTIVE',
-  },
+  } satisfies PreferenceType,
 };

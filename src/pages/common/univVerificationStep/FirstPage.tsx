@@ -41,7 +41,7 @@ const FirstPage = () => {
                 <IconButton
                   iconName={`univSelection/${univ}`}
                   format={'png'}
-                  width={170}
+                  width={univ === 'KHU' ? 96 : 170}
                   height={130}
                 />
                 <Text
@@ -67,6 +67,7 @@ export const UnivSelectContainer = styled.div<{ isClicked: boolean }>`
   align-items: center;
   gap: 20px;
   padding: 10px 0;
+  width: 170px;
 
   ${({ isClicked }) =>
     isClicked &&

@@ -57,10 +57,7 @@ export default CommonLandingStep;
 const TopCardComponent = () => {
   return (
     <Col align={'center'} gap={8}>
-      <picture
-        css={css`
-          border: 1px solid ${colors.Secondary700};
-        `}>
+      <picture css={css``}>
         <img
           alt={'mainPoster'}
           src={'/images/main/poster1.png'}
@@ -110,14 +107,10 @@ const BottomCardComponent = ({
   return (
     <Col gap={30}>
       <Col align={'center'} gap={32}>
-        <picture>
-          <img
-            alt={'mainPoster2'}
-            src={'/images/main/poster2.png'}
-            width={'100%'}
-            height={99}
-          />
-        </picture>
+        <Col align="center">
+          <img alt={'title'} src={'/images/main/title.png'} />
+          <img alt={'title'} src={'/images/main/subtitle.png'} />
+        </Col>
         <Text
           label={'이번에는 3개 대학이다!\n' + '시립대 경희대 외대의 콜라보~'}
           color={'Secondary900'}

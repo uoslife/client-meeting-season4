@@ -13,7 +13,7 @@ const commonRoutes = [
   //--------------------------------------------------------//
 
   {
-    path: '/',
+    path: '/common/landingStep',
     element: <CommonLandingStep />,
   },
   {
@@ -40,6 +40,10 @@ const commonRoutes = [
   {
     path: '/common/paymentResultStep',
     element: <CommonPaymentResultStep />,
+  },
+  {
+    path: '/common/checkApplyInfoStep',
+    element: <CommonCheckApplyInfoStep />,
   },
   {
     path: '/common/finishApplyStep',
