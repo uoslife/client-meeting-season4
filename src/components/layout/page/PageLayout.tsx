@@ -5,7 +5,7 @@ import SingleCardBody from './body/SingleCardBody';
 import DoubleCardBody from './body/DoubleCardBody';
 import Footer from './footer/Footer';
 import { motion } from 'framer-motion';
-import { navigateNextStepAtom } from '~/store/funnel';
+import { navigateNextStepAtom } from '~/models/funnel';
 import { useAtomValue } from 'jotai';
 import { useEffect } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
