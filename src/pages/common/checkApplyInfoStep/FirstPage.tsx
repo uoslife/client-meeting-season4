@@ -76,6 +76,7 @@ const useCardState = (meetingType: 'personal' | 'group') => {
                 { name: '우리의 메세지', content: 'TEMP' },
               ],
               profileViewData: {
+                univ: 'UOS',
                 genderAndAgeLabel: 'TEMP',
                 meetingType: 'group',
                 nameLabel: teamName!,
@@ -110,6 +111,7 @@ const useCardState = (meetingType: 'personal' | 'group') => {
             topCardProps: {
               cardTopLabel: '내 정보',
               profileViewData: {
+                univ: 'UOS',
                 genderAndAgeLabel: '(♀), 23세',
                 meetingType: 'personal',
                 nameLabel: '이루매',

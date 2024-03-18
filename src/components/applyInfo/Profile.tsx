@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 import Col from '../layout/Col';
 import Row from '../layout/Row';
 import Text from '../typography/Text';
+import { Univ } from '~/models/options';
 
 export type ProfileInfoItemType = { name: string; content: string };
 
@@ -29,6 +30,7 @@ const ProfileInfoItems = ({ items }: { items: ProfileInfoItemType[] }) => {
 };
 
 export type ProfileViewData = {
+  univ: Univ;
   meetingType: 'personal' | 'group';
   nameLabel: string;
   genderAndAgeLabel: string;
@@ -36,16 +38,20 @@ export type ProfileViewData = {
 };
 
 const Profile = ({
+  univ,
   meetingType,
   genderAndAgeLabel,
   nameLabel,
   otherInfoItems,
 }: ProfileViewData) => {
+  console.log({ univ });
   switch (meetingType) {
     case 'personal':
       return (
         <Row gap={16}>
-          <S.PersonalLeftImage />
+          <S.PersonalLeftImage
+            src={`/images/personal/checkApplyInfoStep/${univ}.png`}
+          />
           <Col gap={8}>
             <Row gap={4} align="center">
               <Text color="SubBlue" label={nameLabel} typography="NeoBodyM" />
@@ -84,10 +90,9 @@ export default Profile;
 
 const S = {
   // TODO: 일러스트(확정 후)로 대체
-  PersonalLeftImage: styled.div`
+  PersonalLeftImage: styled.img`
     height: 142px;
     width: 142px;
-    background-color: red;
   `,
   // TODO: 일러스트(확정 후)로 대체
   GroupTopImage: styled.div`
