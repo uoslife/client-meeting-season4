@@ -1,9 +1,9 @@
 import PageLayout from '~/components/layout/page/PageLayout';
-import Col from '~/components/layout/Col';
 import PaymentPage from '~/pages/common/paymentStep/PaymentPage';
+import { useFunnel } from '~/hooks/useFunnel';
 
 const CommonPaymentStep = () => {
-  const { Funnel, currentPage, PageHandler } = useFunnel({
+  const { Funnel } = useFunnel({
     pageNumberList: [1],
     nextStep: { path: '/common/finishApplyStep' },
     prevStep: { path: '/common/paymentStep' },
@@ -11,14 +11,13 @@ const CommonPaymentStep = () => {
 
   return (
     <PageLayout>
-      <PageLayout.Header
-        title={'경희대 한국외대 구성원 인증'}
-        isProgress={false}
-      />
-      <PageLayout.SingleCardBody>
-        <Col align={'center'} padding={'36px'}>
-          <PaymentPage />
-        </Col>
+      <PageLayout.Header title={'결제 하기'} isProgress={false} />
+      <PageLayout.SingleCardBody cardPadding={'0'}>
+        <Funnel>
+          <Funnel.Page pageNumber={1}>
+            <PaymentPage />
+          </Funnel.Page>
+        </Funnel>
       </PageLayout.SingleCardBody>
     </PageLayout>
   );

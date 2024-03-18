@@ -1,10 +1,10 @@
 export type PaymentRequest = {
-  pg: 'kakaopay' | 'tosspayments';
+  pg: 'welcome';
   payMethod: 'card';
 };
 
 export type PaymentResponse = {
-  merchandUid: string;
+  merchantUid: string;
   price: number;
   phoneNumber: string;
 };

@@ -4,8 +4,8 @@ import Header from './header/Header';
 import SingleCardBody from './body/SingleCardBody';
 import DoubleCardBody from './body/DoubleCardBody';
 import Footer from './footer/Footer';
-import { AnimatePresence, motion } from 'framer-motion';
-import { navigateNextStepAtom } from '~/models/funnel';
+import { motion } from 'framer-motion';
+import { navigateNextStepAtom } from '~/store/funnel';
 import { useAtomValue } from 'jotai';
 import { useEffect } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
@@ -49,10 +49,7 @@ const PageTemplate = ({ children }: { children: React.ReactNode }) => {
       exit={{
         x: navigateNextStep ? '-100%' : '100%',
       }}
-      onAnimationComplete={() => {
-        console.log('애니메이션 완료!');
-      }}
-      transition={{ duration: 0.2 }}>
+      transition={{ duration: 0.3 }}>
       {children}
       <Toaster />
     </motion.div>
