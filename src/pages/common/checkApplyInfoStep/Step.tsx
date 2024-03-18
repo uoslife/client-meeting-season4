@@ -4,32 +4,42 @@ import { pageFinishAtom } from '~/store/funnel';
 import { useAtomValue, useSetAtom } from 'jotai';
 import { colors } from '~/styles/colors';
 import FirstPage from './FirstPage';
-import { meetingTypeAtom } from '~/store/meeting';
+import { commonDataAtoms } from '~/models/common/data';
+import { useState } from 'react';
+import ApplicationModal from '~/components/modal/applicationModal/ApplicationModal';
 
 const CommonCheckApplyInfoStep = () => {
   // TODO: 모달 컴포넌트와 관리 로직
+  const { meetingType } = useAtomValue(
+    commonDataAtoms.commonBranchGatewayStep.page1,
+  );
 
-  const { Funnel, currentPage, PageHandler } = useFunnel({
+  const { currentPage, PageHandler } = useFunnel({
     pageNumberList: [1],
+    prevStep: {
+      path:
+        meetingType === 'group'
+          ? '/group/leader/pledgeStep'
+          : '/personal/pledgeStep',
+    },
     nextStep: { path: '/common/finishApplyStep' },
-    prevStep: { path: '/common/paymentStep' },
   });
 
   useSetAtom(pageFinishAtom)(true);
 
   const headerTitle =
-    useAtomValue(meetingTypeAtom) === 'group'
+    meetingType === 'group'
       ? '07. 신청 정보 확인하기'
       : '06. 신청 정보 확인하기';
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const closeModal = () => setIsModalOpen(false);
+  const openModal = () => setIsModalOpen(true);
 
   return (
     <PageLayout>
       <PageLayout.Header title={headerTitle} isProgress={false} />
-      <Funnel>
-        <Funnel.Page pageNumber={1}>
-          <FirstPage />
-        </Funnel.Page>
-      </Funnel>
+      <FirstPage />
       <PageLayout.Footer
         innerPadding="20px 20px"
         outerPadding="22px 16px"
@@ -39,12 +49,15 @@ const CommonCheckApplyInfoStep = () => {
         totalPage={1}
         currentPage={currentPage}
         onPrev={PageHandler.onPrev}
-        onNext={PageHandler.onNext}
+        onNext={openModal}
       />
-      {/* 여기에 Modal 넣기 */}
+      <ApplicationModal
+        isActive={isModalOpen}
+        cancelButtonClicked={closeModal}
+        joinButtonClicked={PageHandler.onNext}
+      />
     </PageLayout>
   );
 };
-// meetingType이 group일 때, personal일 때의 분기 처리가 필요.
 
 export default CommonCheckApplyInfoStep;

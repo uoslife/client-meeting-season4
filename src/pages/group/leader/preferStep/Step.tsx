@@ -5,8 +5,8 @@ import { useFunnel } from '~/hooks/useFunnel';
 const GroupLeaderPreferStep = () => {
   const { Funnel, currentPage, PageHandler } = useFunnel({
     pageNumberList: [1],
-    nextStep: { path: '/group/leader/groupInformationStep' },
-    prevStep: { path: '/group/leader/pledgeStep' },
+    prevStep: { path: '/group/leader/groupInformationStep' },
+    nextStep: { path: '/group/leader/pledgeStep' },
   });
 
   return (
