@@ -5,7 +5,7 @@ import Row from '~/components/layout/Row';
 import Text from '~/components/typography/Text';
 import MbtiButton from '~/components/buttons/mbtiButton/MbtiButton';
 import { useAtom, useAtomValue, useSetAtom } from 'jotai';
-import { pageFinishAtom } from '~/store/funnel';
+import { pageFinishAtom } from '~/models/funnel';
 import { personalDataAtoms } from '~/models/personal/data';
 import { combinedValidatiesAtoms } from '~/models';
 

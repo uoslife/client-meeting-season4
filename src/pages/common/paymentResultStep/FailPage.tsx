@@ -71,7 +71,7 @@ const FailPayment = ({ errorMessage }: failedPaymentProps) => {
           status={'inactive'}
           label={'시대생 카카오 채널로 가기'}
           height={50}
-          onClick={() => navigate('/')}
+          onClick={() => navigate('/common/landingStep')}
         />
       </Col>
     </Col>

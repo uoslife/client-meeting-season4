@@ -6,7 +6,7 @@ import Text from '~/components/typography/Text';
 import RoundButton from '~/components/buttons/roundButton/RoundButton';
 import RangeSlider from '~/components/rangeSlider/RangeSlider';
 import { useAtom, useAtomValue, useSetAtom } from 'jotai';
-import { pageFinishAtom } from '~/store/funnel';
+import { pageFinishAtom } from '~/models/funnel';
 import { personalDataAtoms } from '~/models/personal/data';
 import { combinedValidatiesAtoms } from '~/models';
 import { ReligionOption, Univ } from '~/models/options';

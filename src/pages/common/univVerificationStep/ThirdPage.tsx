@@ -6,7 +6,7 @@ import RoundButton from '~/components/buttons/roundButton/RoundButton';
 import { useInput } from '~/hooks/useInput';
 import { useEffect, useState } from 'react';
 import { useAtom, useAtomValue, useSetAtom } from 'jotai';
-import { pageFinishAtom } from '~/store/funnel';
+import { pageFinishAtom } from '~/models/funnel';
 import TextInput from '~/components/inputs/textInput/TextInput';
 import Paddler from '~/components/layout/Pad';
 import { combinedValidatiesAtoms } from '~/models';

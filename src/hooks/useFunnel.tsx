@@ -9,7 +9,7 @@ import {
 } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAtom, useSetAtom } from 'jotai';
-import { navigateNextStepAtom, pageFinishAtom } from '~/store/funnel';
+import { navigateNextStepAtom, pageFinishAtom } from '~/models/funnel';
 import { CommonPath } from '~/routes/commonRoutes';
 import { PersonalPath } from '~/routes/personalRoutes';
 import { GroupPath } from '~/routes/groupRoutes';

@@ -6,7 +6,7 @@ import Col from '~/components/layout/Col';
 import Text from '~/components/typography/Text';
 import { css } from '@emotion/react';
 import { groupDataAtoms } from '~/models/group/data';
-import { pageFinishAtom } from '~/store/funnel';
+import { pageFinishAtom } from '~/models/funnel';
 import { combinedValidatiesAtoms } from '~/models';
 
 const TopSayings = () => {

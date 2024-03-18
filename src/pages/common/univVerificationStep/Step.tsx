@@ -12,7 +12,7 @@ const CommonUnivVerificationStep = () => {
   const { Funnel, currentPage, PageHandler } = useFunnel({
     pageNumberList: PAGE_NUMBER,
     nextStep: { path: '/common/branchGatewayStep' },
-    prevStep: { path: '/' },
+    prevStep: { path: '/common/landingStep' },
   });
 
   const stepToGoBack = useStepToGoBack('commonUnivVerificationStep');

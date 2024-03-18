@@ -1,3 +1,5 @@
+import { Univ } from '~/models/options';
+
 export type SpiritAnimalType = (
   | 'DOG'
   | 'CAT'
@@ -104,9 +106,63 @@ export type GetGroupStatusResponse = {
   }>;
 };
 
+// ------------------ //
+// -- 03 / 17 추가 -- //
+// ------------------ //
+export type MoodType = 'ACTIVE' | 'CALM' | 'NOT_MATTER';
+
+export type SmokingType = 'TRUE' | 'FALSE' | 'NOT_MATTER';
+
+export type StudentType = 'UNDERGRADUATE' | 'POSTGRADUATE' | 'GRADUATE';
+
+export type UserProfileType = {
+  name: string;
+  age: number;
+  university: Univ;
+  department: string;
+  studentType: StudentType;
+  kakaoTalkId: string;
+  smoking: SmokingType;
+  religion: ReligionType;
+  drinkingMin: number;
+  drinkingMax: number;
+  spiritAnimal: SpiritAnimalType;
+  mbti: string;
+  interest: InterestType;
+};
+
+export type GenderType = 'MALE' | 'FEMALE';
+
+export type InformationType = {
+  gender: GenderType;
+  questions: {
+    additionalProp1: 0 | 1 | 2;
+    additionalProp2: 0 | 1 | 2;
+    additionalProp3: 0 | 1 | 2;
+    additionalProp4: 0 | 1 | 2;
+    additionalProp5: 0 | 1 | 2;
+  };
+};
+
+export type PreferenceType = {
+  ageMin: number;
+  ageMax: number;
+  heightMin: number;
+  heightMax: number;
+  studentType: StudentType[];
+  university: Univ[];
+  religion: ReligionType[];
+  smoking: SmokingType[];
+  spiritAnimal: SpiritAnimalType;
+  mbti: string[];
+  mood: MoodType;
+};
+
 export type GetMeetingInfoResponse = {
   teamType: TeamType;
-  teamName?: string;
-} & GetUserResponse &
-  UpdateInfoRequest &
-  UpdatePreferRequest;
+  teamName: string;
+  gender: GenderType;
+  teamUserList?: UserProfileType[];
+  information: InformationType;
+  preference: PreferenceType;
+};

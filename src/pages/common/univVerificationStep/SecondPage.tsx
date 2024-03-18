@@ -3,7 +3,7 @@ import Col from '~/components/layout/Col';
 import Row from '~/components/layout/Row';
 import { useEffect } from 'react';
 import { useAtom, useAtomValue, useSetAtom } from 'jotai';
-import { pageFinishAtom } from '~/store/funnel';
+import { pageFinishAtom } from '~/models/funnel';
 import Text from '~/components/typography/Text';
 import { css } from '@emotion/react';
 import { commonDataAtoms } from '~/models/common/data';

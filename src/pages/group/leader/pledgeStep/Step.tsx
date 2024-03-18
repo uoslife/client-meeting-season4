@@ -7,8 +7,8 @@ const PAGE_NUMBER = [1];
 const GroupLeaderPledgeStep = () => {
   const { Funnel, currentPage, PageHandler } = useFunnel({
     pageNumberList: PAGE_NUMBER,
-    nextStep: { path: '/group/leader/preferStep' },
-    prevStep: { path: '/common/checkApplyInfoStep' },
+    prevStep: { path: '/group/leader/preferStep' },
+    nextStep: { path: '/common/checkApplyInfoStep' },
   });
 
   console.log(1);

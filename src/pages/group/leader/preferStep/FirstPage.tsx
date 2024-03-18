@@ -6,7 +6,7 @@ import Paddler from '~/components/layout/Pad';
 import Row from '~/components/layout/Row';
 import RangeSlider from '~/components/rangeSlider/RangeSlider';
 import Text from '~/components/typography/Text';
-import { pageFinishAtom } from '~/store/funnel';
+import { pageFinishAtom } from '~/models/funnel';
 import { combinedValidatiesAtoms } from '~/models';
 import { groupDataAtoms } from '~/models/group/data';
 import { useImmerAtom } from 'jotai-immer';

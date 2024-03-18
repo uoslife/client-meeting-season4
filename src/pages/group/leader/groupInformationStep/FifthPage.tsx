@@ -2,7 +2,7 @@ import { useAtom, useAtomValue, useSetAtom } from 'jotai';
 import QuestionPageTemplate from '~/components/questionPageTemplate/QuestionPageTemplate';
 import { combinedValidatiesAtoms } from '~/models';
 import { groupDataAtoms } from '~/models/group/data';
-import { pageFinishAtom } from '~/store/funnel';
+import { pageFinishAtom } from '~/models/funnel';
 
 const FifthPage = () => {
   const [pageState, setPageState] = useAtom(
@@ -32,7 +32,7 @@ const FifthPage = () => {
       ]}
       question="우리 팅은 미팅에서..."
       // TODO: Change the image source
-      imageSource="\images\personal\myRomanceStep\1.png"
+      imageSource="\images\group\groupInformationStep\5.png"
     />
   );
 };

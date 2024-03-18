@@ -1,18 +1,20 @@
 import PageLayout from '~/components/layout/page/PageLayout';
 import { useFunnel } from '~/hooks/useFunnel';
 import FirstPage from './FirstPage';
-import { meetingTypeAtom } from '~/store/meeting';
 import { useAtomValue } from 'jotai';
 import { useStepToGoBack } from '~/hooks/useStepToGoBack';
 import useTypeSafeNavigate from '~/hooks/useTypeSafeNavigate';
+import { commonDataAtoms } from '~/models/common/data';
 
 const CommonBranchGatewayStep = () => {
-  const meetingTypeValue = useAtomValue(meetingTypeAtom);
+  const { meetingType } = useAtomValue(
+    commonDataAtoms.commonBranchGatewayStep.page1,
+  );
   const { Funnel, currentPage, PageHandler } = useFunnel({
     pageNumberList: [1],
     nextStep: {
       path:
-        meetingTypeValue === 'group'
+        meetingType === 'group'
           ? '/group/roleSelectStep'
           : '/personal/myInformationStep',
     },

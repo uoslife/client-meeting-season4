@@ -7,7 +7,7 @@ import GridWrapper from '~/components/layout/gridWrapper/GridWrapper';
 import AnimalButton from '~/components/buttons/animalButton/AnimalButton';
 import { ANIMALS, ANIMALS_NAME } from '~/constants';
 import { useAtom, useAtomValue, useSetAtom } from 'jotai';
-import { pageFinishAtom } from '~/store/funnel';
+import { pageFinishAtom } from '~/models/funnel';
 import { personalDataAtoms } from '~/models/personal/data';
 import { combinedValidatiesAtoms } from '~/models';
 

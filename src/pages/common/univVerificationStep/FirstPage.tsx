@@ -3,7 +3,7 @@ import Text from '~/components/typography/Text';
 import Row from '~/components/layout/Row';
 import IconButton from '~/components/buttons/iconButton/IconButton';
 import { useAtom, useAtomValue, useSetAtom } from 'jotai';
-import { pageFinishAtom } from '~/store/funnel';
+import { pageFinishAtom } from '~/models/funnel';
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
 import { colors } from '~/styles/colors';
@@ -41,7 +41,7 @@ const FirstPage = () => {
                 <IconButton
                   iconName={`univSelection/${univ}`}
                   format={'png'}
-                  width={170}
+                  width={univ === 'KHU' ? 96 : 170}
                   height={130}
                 />
                 <Text
@@ -67,6 +67,7 @@ export const UnivSelectContainer = styled.div<{ isClicked: boolean }>`
   align-items: center;
   gap: 20px;
   padding: 10px 0;
+  width: 170px;
 
   ${({ isClicked }) =>
     isClicked &&

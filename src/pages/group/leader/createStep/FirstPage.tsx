@@ -5,7 +5,7 @@ import TextInput from '~/components/inputs/textInput/TextInput';
 import { useAtom, useAtomValue } from 'jotai';
 import { ChangeEvent } from 'react';
 import { useSetAtom } from 'jotai';
-import { pageFinishAtom } from '~/store/funnel';
+import { pageFinishAtom } from '~/models/funnel';
 import { groupDataAtoms } from '~/models/group/data';
 import { combinedValidatiesAtoms } from '~/models';
 

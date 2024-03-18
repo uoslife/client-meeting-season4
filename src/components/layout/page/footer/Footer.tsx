@@ -3,7 +3,7 @@ import Text from '~/components/typography/Text';
 import { colorType } from '~/types/style.type';
 import S from './Footer.style';
 import { useAtomValue } from 'jotai/index';
-import { pageFinishAtom } from '~/store/funnel';
+import { pageFinishAtom } from '~/models/funnel';
 
 export type FooterPropsType = {
   totalPage: number;
