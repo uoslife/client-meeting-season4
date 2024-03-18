@@ -88,7 +88,13 @@ const FirstPage = () => {
               {(['KHU', 'UOS', 'HUFS'] as const).map(univ => (
                 <RoundButton
                   key={univ}
-                  label={univ}
+                  label={
+                    univ === 'KHU'
+                      ? '경희대학교'
+                      : univ === 'UOS'
+                        ? '서울시립대학교'
+                        : '한국외국어대학교'
+                  }
                   status={univs.includes(univ) ? 'active' : 'inactive'}
                   onClick={() => {
                     if (univs.includes(univ)) {
