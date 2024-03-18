@@ -1,8 +1,8 @@
 import { useAtomValue } from 'jotai';
 import FirstPage from './FirstPage';
-import { meetingTypeAtom } from '~/store/meeting/common';
 import PageLayout from '~/components/layout/page/PageLayout';
 import { useFunnel } from '~/hooks/useFunnel';
+import { commonDataAtoms } from '~/models/common/data';
 
 const CommonBranchGatewayStep = () => {
   const { Funnel, currentPage, PageHandler } = useFunnel({
@@ -11,7 +11,9 @@ const CommonBranchGatewayStep = () => {
     prevStep: { path: '/common/checkApplyInfoStep' },
     nextStep: { path: '/common/branchGatewayStep' },
   });
-  const meetingType = useAtomValue(meetingTypeAtom);
+  const { meetingType } = useAtomValue(
+    commonDataAtoms.commonBranchGatewayStep.page1,
+  );
 
   return (
     <PageLayout>

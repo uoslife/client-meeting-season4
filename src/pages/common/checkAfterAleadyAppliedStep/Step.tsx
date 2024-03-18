@@ -7,7 +7,6 @@ import Col from '~/components/layout/Col';
 import Paddler from '~/components/layout/Pad';
 import PageLayout from '~/components/layout/page/PageLayout';
 import Text from '~/components/typography/Text';
-import { univTypeAtom } from '~/store/meeting';
 import RawIntoViewConverters from '~/utils/RawIntoViewConverters';
 import { PersonalInfoRawDataType } from '~/utils/RawIntoViewConverters/types/info.type';
 import { PersonalPreferRawDataType } from '~/utils/RawIntoViewConverters/types/prefer.type';
@@ -34,8 +33,6 @@ const usePersonal = (): ApplyInfoCustomDoubleCardProps => {
     })),
     univ: 'HUFS',
   };
-  const univ = useAtomValue(univTypeAtom)!;
-
   const { directoryViewItems: topCardItems, profileViewData } =
     RawIntoViewConverters.personalInfo(
       { ...mockPersonalInfoRawData, univ },
