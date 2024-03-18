@@ -22,7 +22,7 @@ const CommonCheckApplyInfoStep = () => {
           ? '/group/leader/pledgeStep'
           : '/personal/pledgeStep',
     },
-    nextStep: { path: '/common/finishApplyStep' },
+    nextStep: { path: '/common/paymentStep' },
   });
 
   useSetAtom(pageFinishAtom)(true);
