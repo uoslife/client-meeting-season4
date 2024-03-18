@@ -6,7 +6,7 @@ import Paddler from '~/components/layout/Pad';
 import Text from '~/components/typography/Text';
 import { combinedValidatiesAtoms } from '~/models';
 import { groupDataAtoms } from '~/models/group/data';
-import { pageFinishAtom } from '~/store/funnel';
+import { pageFinishAtom } from '~/models/funnel';
 
 const SecondPage = () => {
   const [pageState, setPageState] = useAtom(

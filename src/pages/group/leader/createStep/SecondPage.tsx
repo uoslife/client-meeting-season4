@@ -8,7 +8,7 @@ import Row from '~/components/layout/Row';
 import IconButton from '~/components/buttons/iconButton/IconButton';
 import styled from '@emotion/styled';
 import { groupDataAtoms } from '~/models/group/data';
-import { pageFinishAtom } from '~/store/funnel';
+import { pageFinishAtom } from '~/models/funnel';
 import { combinedValidatiesAtoms } from '~/models';
 
 const SecondPage = () => {

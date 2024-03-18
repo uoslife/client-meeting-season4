@@ -8,7 +8,7 @@ import { typographies } from '~/styles/typographies';
 import ParticipationModal from '~/components/modal/participationModal/ParticipationModal';
 import { groupDataAtoms } from '~/models/group/data';
 import { useAtomValue, useSetAtom } from 'jotai';
-import { pageFinishAtom } from '~/store/funnel';
+import { pageFinishAtom } from '~/models/funnel';
 import { combinedValidatiesAtoms } from '~/models';
 
 const FirstPage = () => {

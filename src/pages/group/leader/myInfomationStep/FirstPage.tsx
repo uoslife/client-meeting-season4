@@ -7,7 +7,7 @@ import TextInput from '~/components/inputs/textInput/TextInput';
 import RoundButton from '~/components/buttons/roundButton/RoundButton';
 import DropdownInput from '~/components/inputs/dropdownInput/DropdownInput';
 import { useAtom, useAtomValue, useSetAtom } from 'jotai';
-import { pageFinishAtom } from '~/store/funnel';
+import { pageFinishAtom } from '~/models/funnel';
 import { groupDataAtoms } from '~/models/group/data';
 import { combinedValidatiesAtoms } from '~/models';
 

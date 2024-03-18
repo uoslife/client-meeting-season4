@@ -2,7 +2,7 @@ import { useAtom, useAtomValue, useSetAtom } from 'jotai';
 import QuestionPageTemplate from '~/components/questionPageTemplate/QuestionPageTemplate';
 import { combinedValidatiesAtoms } from '~/models';
 import { personalDataAtoms } from '~/models/personal/data';
-import { pageFinishAtom } from '~/store/funnel';
+import { pageFinishAtom } from '~/models/funnel';
 
 const FifthPage = () => {
   const [pageState, setPageState] = useAtom(

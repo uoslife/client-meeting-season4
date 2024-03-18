@@ -1,5 +1,5 @@
 import { DirectoryViewItemType } from '~/components/applyInfo/DirectoryViewInfoList';
-import { GroupApplyInfo, PersonalApplyInfo } from '~/store/meeting';
+import { GroupApplyInfo, PersonalApplyInfo } from '~/models/meeting';
 
 export type GroupPreferRawDataType = Pick<
   GroupApplyInfo,

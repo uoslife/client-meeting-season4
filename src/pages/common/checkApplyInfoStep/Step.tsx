@@ -1,6 +1,6 @@
 import PageLayout from '~/components/layout/page/PageLayout';
 import { useFunnel } from '~/hooks/useFunnel';
-import { pageFinishAtom } from '~/store/funnel';
+import { pageFinishAtom } from '~/models/funnel';
 import { useAtomValue, useSetAtom } from 'jotai';
 import { colors } from '~/styles/colors';
 import FirstPage from './FirstPage';

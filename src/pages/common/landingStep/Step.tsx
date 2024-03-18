@@ -11,7 +11,7 @@ import { colors } from '~/styles/colors';
 import styled from '@emotion/styled';
 import { SOCIAL_LINK } from '~/constants';
 import toast, { Toaster } from 'react-hot-toast';
-import { navigateNextStepAtom } from '~/store/funnel';
+import { navigateNextStepAtom } from '~/models/funnel';
 import { useSetAtom } from 'jotai';
 
 type bottomCardChildrenProps = {

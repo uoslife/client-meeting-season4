@@ -7,7 +7,7 @@ import PageLayout from '~/components/layout/page/PageLayout';
 import Text from '~/components/typography/Text';
 import { combinedValidatiesAtoms } from '~/models';
 import { groupDataAtoms } from '~/models/group/data';
-import { pageFinishAtom } from '~/store/funnel';
+import { pageFinishAtom } from '~/models/funnel';
 import { colorType } from '~/types/style.type';
 
 const TopSayings = () => {

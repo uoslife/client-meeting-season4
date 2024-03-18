@@ -6,7 +6,7 @@ import Text from '~/components/typography/Text';
 import GridWrapper from '~/components/layout/gridWrapper/GridWrapper';
 import { INTEREST, INTEREST_NAME } from '~/constants';
 import { useAtom, useAtomValue, useSetAtom } from 'jotai';
-import { pageFinishAtom } from '~/store/funnel';
+import { pageFinishAtom } from '~/models/funnel';
 import InterestButton from '~/components/buttons/interestButton/InterestButton';
 import { personalDataAtoms } from '~/models/personal/data';
 import { combinedValidatiesAtoms } from '~/models';

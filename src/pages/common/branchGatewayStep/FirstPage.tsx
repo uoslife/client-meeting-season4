@@ -1,7 +1,7 @@
 import Col from '~/components/layout/Col';
 import Text from '~/components/typography/Text';
 import { useAtomValue, useSetAtom } from 'jotai';
-import { pageFinishAtom } from '~/store/funnel';
+import { pageFinishAtom } from '~/models/funnel';
 import RoundButton from '~/components/buttons/roundButton/RoundButton';
 import Paddler from '~/components/layout/Pad';
 import { css } from '@emotion/react';

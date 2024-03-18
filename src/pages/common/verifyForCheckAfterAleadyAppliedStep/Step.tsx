@@ -1,7 +1,7 @@
 import { useSetAtom } from 'jotai';
 import PageLayout from '~/components/layout/page/PageLayout';
 import { useFunnel } from '~/hooks/useFunnel';
-import { pageFinishAtom } from '~/store/funnel';
+import { pageFinishAtom } from '~/models/funnel';
 
 const VerifyForCheckAfterAleadyAppliedStep = () => {
   const { PageHandler } = useFunnel({
