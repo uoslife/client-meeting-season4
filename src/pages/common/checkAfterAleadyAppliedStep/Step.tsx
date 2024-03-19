@@ -34,7 +34,7 @@ const usePersonal = (): ApplyInfoCustomDoubleCardProps => {
   };
   const { directoryViewItems: topCardItems, profileViewData } =
     RawIntoViewConverters.personalInfo(
-      { ...mockPersonalInfoRawData, univ },
+      { ...mockPersonalInfoRawData },
       { profileItemsIncludeKakaoId: true },
     );
 

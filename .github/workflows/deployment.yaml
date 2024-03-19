@@ -63,6 +63,7 @@ jobs:
           file: Dockerfile
           context: .
           push: true
+          target: temp # 빌드 에러 해결 전 까지 유지
           platforms: linux/amd64
           cache-from: type=gha
           cache-to: 'type=gha,mode=max'

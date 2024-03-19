@@ -54,6 +54,10 @@ const commonRoutes = [
     element: <CommonCheckApplyInfoStep />,
   },
   {
+    path: '/common/checkAfterAleadyAppliedStep',
+    element: <></>,
+  },
+  {
     path: '*',
     element: <div>페이지를 찾을 수 없어요!</div>,
   },
