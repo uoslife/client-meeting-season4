@@ -107,20 +107,20 @@ const ThirdPage = () => {
                 />
                 <Col gap={12}>
                   <RoundButton
-                    status={smoking === true ? 'active' : 'inactive'}
+                    status={smoking === '흡연' ? 'active' : 'inactive'}
                     label={'흡연'}
                     height={56}
                     onClick={() =>
-                      setPageState(prev => ({ ...prev, smoking: true }))
+                      setPageState(prev => ({ ...prev, smoking: '흡연' }))
                     }
                     borderType="primary"
                   />
                   <RoundButton
-                    status={smoking === false ? 'active' : 'inactive'}
+                    status={smoking === '비흡연' ? 'active' : 'inactive'}
                     label={'비흡연'}
                     height={56}
                     onClick={() =>
-                      setPageState(prev => ({ ...prev, smoking: false }))
+                      setPageState(prev => ({ ...prev, smoking: '비흡연' }))
                     }
                     borderType="primary"
                   />

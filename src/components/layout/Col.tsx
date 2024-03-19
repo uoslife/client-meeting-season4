@@ -1,6 +1,5 @@
 import { Combine } from '~/types/utils.type';
 import styled from '@emotion/styled';
-import { css } from '@emotion/react';
 
 export type ColProps = Combine<
   {

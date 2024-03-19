@@ -1,5 +1,4 @@
 import { css } from '@emotion/react';
-import { useAtomValue } from 'jotai';
 import ApplyInfo from '~/components/applyInfo/ApplyInfo';
 import { ApplyInfoCustomDoubleCardProps } from '~/components/applyInfo/CustomDoubleCard';
 import RoundButton from '~/components/buttons/roundButton/RoundButton';

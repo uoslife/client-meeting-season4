@@ -3,9 +3,7 @@ import commonRoutes from '~/routes/commonRoutes';
 import groupRoutes from '~/routes/groupRoutes';
 import personalRoutes from '~/routes/personalRoutes';
 import { ReactElement } from 'react';
-import { motion, useIsPresent } from 'framer-motion';
 import { AnimatePresence } from 'framer-motion';
-import { css } from '@emotion/react';
 
 type RouteType = {
   path: string;

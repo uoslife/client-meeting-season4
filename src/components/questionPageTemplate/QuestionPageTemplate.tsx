@@ -5,7 +5,6 @@ import Row from '../layout/Row';
 import PageLayout from '../layout/page/PageLayout';
 import QuestionLabel from './QuestionLabel';
 import Text from '../typography/Text';
-import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
 type QuestionPageTemplateProps<TAnswerValue> = {

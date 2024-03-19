@@ -16,9 +16,7 @@ const CommonPaymentResultStep = () => {
   const query = querystring.parse(locationSearch);
   // 결제 결과에 따른 화면 렌더링 관리 state
   const [paymentStatus, setPaymentStatus] = useState('loading');
-  const [paymentResultValue, setPaymentResultValue] = useState(
-    locationState ? locationState : query,
-  );
+  const paymentResultValue = locationState ? locationState : query;
   console.log(query, '쿼리');
   console.log(locationState, '로케이션스테이트');
 

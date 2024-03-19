@@ -15,7 +15,7 @@ API.interceptors.request.use(
     return res;
   },
   (error: AxiosError) => {
-    const statusCode = error.response?.status;
+    // const statusCode = error.response?.status;
     return Promise.reject(error);
   },
 );

@@ -30,7 +30,7 @@ const ProfileInfoItems = ({ items }: { items: ProfileInfoItemType[] }) => {
 };
 
 export type ProfileViewData = {
-  univ: Univ;
+  univ?: Univ;
   meetingType: 'personal' | 'group';
   nameLabel: string;
   genderAndAgeLabel: string;
