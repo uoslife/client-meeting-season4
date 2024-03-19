@@ -24,7 +24,7 @@ export const personalInitialData: PersonalData = {
       animalOptions: [],
     },
     page5: {
-      mbti: [],
+      mbti: '',
     },
     page6: {
       interestOptions: [],
@@ -53,7 +53,7 @@ export const personalInitialData: PersonalData = {
       drinkRange: [1, 2],
     },
     page3: { animalOptions: [] },
-    page4: { mbtis: [[], [], [], []] },
+    page4: { mbtis: '' },
   },
   personalPledgeStep: {
     page1: {

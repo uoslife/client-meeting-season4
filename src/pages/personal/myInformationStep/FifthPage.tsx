@@ -16,10 +16,23 @@ const Fifthpage = () => {
 
   const { mbti } = pageState;
 
-  const updateMbti = (order: number, itemValue: string) => {
-    const newMbtiState = [...mbti];
-    newMbtiState[order] = itemValue;
-    setPageState(prev => ({ ...prev, mbti: newMbtiState }));
+  const getMbtiStatus = (value: string): 'active' | 'inactive' =>
+    mbti.includes(value) ? 'active' : 'inactive';
+  const onClickMbtiButton = (value: string) => () => {
+    setPageState(prev => {
+      let newMbtis = prev.mbti;
+      if (['E', 'I'].includes(value)) {
+        newMbtis = newMbtis.replace(/[EI]/g, '');
+      } else if (['N', 'S'].includes(value)) {
+        newMbtis = newMbtis.replace(/[NS]/g, '');
+      } else if (['T', 'F'].includes(value)) {
+        newMbtis = newMbtis.replace(/[TF]/g, '');
+      } else if (['P', 'J'].includes(value)) {
+        newMbtis = newMbtis.replace(/[PJ]/g, '');
+      }
+      newMbtis += value;
+      return { mbti: newMbtis };
+    });
   };
 
   const pageValidity = useAtomValue(combinedValidatiesAtoms)
@@ -52,16 +65,16 @@ const Fifthpage = () => {
                 />
                 <Row gap={12}>
                   <MbtiButton
-                    status={mbti[0] === 'E' ? 'active' : 'inactive'}
+                    status={getMbtiStatus('E')}
                     alphabet={'E'}
                     label={'외향적'}
-                    onClick={() => updateMbti(0, 'E')}
+                    onClick={onClickMbtiButton('E')}
                   />
                   <MbtiButton
-                    status={mbti[0] === 'I' ? 'active' : 'inactive'}
+                    status={getMbtiStatus('I')}
                     alphabet={'I'}
                     label={'내향적'}
-                    onClick={() => updateMbti(0, 'I')}
+                    onClick={onClickMbtiButton('I')}
                   />
                 </Row>
               </Col>
@@ -75,16 +88,16 @@ const Fifthpage = () => {
                 />
                 <Row gap={12}>
                   <MbtiButton
-                    status={mbti[1] === 'S' ? 'active' : 'inactive'}
+                    status={getMbtiStatus('S')}
                     alphabet={'S'}
                     label={'현실적'}
-                    onClick={() => updateMbti(1, 'S')}
+                    onClick={onClickMbtiButton('S')}
                   />
                   <MbtiButton
-                    status={mbti[1] === 'N' ? 'active' : 'inactive'}
+                    status={getMbtiStatus('N')}
                     alphabet={'N'}
                     label={'직관적'}
-                    onClick={() => updateMbti(1, 'N')}
+                    onClick={onClickMbtiButton('N')}
                   />
                 </Row>
               </Col>
@@ -98,16 +111,16 @@ const Fifthpage = () => {
                 />
                 <Row gap={12}>
                   <MbtiButton
-                    status={mbti[2] === 'T' ? 'active' : 'inactive'}
+                    status={getMbtiStatus('T')}
                     alphabet={'T'}
                     label={'이성적'}
-                    onClick={() => updateMbti(2, 'T')}
+                    onClick={onClickMbtiButton('T')}
                   />
                   <MbtiButton
-                    status={mbti[2] === 'F' ? 'active' : 'inactive'}
+                    status={getMbtiStatus('F')}
                     alphabet={'F'}
                     label={'감성적'}
-                    onClick={() => updateMbti(2, 'F')}
+                    onClick={onClickMbtiButton('F')}
                   />
                 </Row>
               </Col>
@@ -121,16 +134,16 @@ const Fifthpage = () => {
                 />
                 <Row gap={12}>
                   <MbtiButton
-                    status={mbti[3] === 'J' ? 'active' : 'inactive'}
+                    status={getMbtiStatus('J')}
                     alphabet={'J'}
                     label={'계획적'}
-                    onClick={() => updateMbti(3, 'J')}
+                    onClick={onClickMbtiButton('J')}
                   />
                   <MbtiButton
-                    status={mbti[3] === 'P' ? 'active' : 'inactive'}
+                    status={getMbtiStatus('P')}
                     alphabet={'P'}
                     label={'즉흥적'}
-                    onClick={() => updateMbti(3, 'P')}
+                    onClick={onClickMbtiButton('P')}
                   />
                 </Row>
               </Col>
