@@ -8,6 +8,7 @@ import CommonCheckApplyInfoStep from '~/pages/common/checkApplyInfoStep/Step';
 import CommonPaymentResultStep from '~/pages/common/paymentResultStep/Step';
 import CommonVerifyForCheckAfterAleadyAppliedStep from '~/pages/common/verifyForCheckAfterAleadyAppliedStep/Step';
 import CheckAfterAleadyAppliedStep from '~/pages/common/checkAfterAleadyAppliedStep/Step';
+import CommonCancelStep from '~/pages/common/cancelStep/Step';
 
 const commonRoutes = [
   //--------------------------------------------------------//
@@ -62,6 +63,10 @@ const commonRoutes = [
   {
     path: '/common/checkAfterAleadyAppliedStep',
     element: <CheckAfterAleadyAppliedStep />,
+  },
+  {
+    path: '/common/cancelStep',
+    element: <CommonCancelStep />,
   },
   {
     path: '*',
