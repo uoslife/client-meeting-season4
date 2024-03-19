@@ -25,6 +25,11 @@ export const commonInitialData: CommonData = {
       verified: false,
     },
   },
+  commonVerifyForMatchingResultStep: {
+    page1: {
+      verified: false,
+    },
+  },
 };
 
 // page level atom: each holds data, write/read
@@ -53,6 +58,12 @@ export const commonDataAtoms: CommonDataAtoms = {
     page1: atomWithStorage(
       'commonVerifyForCheckAfterAleadyAppliedStep-page1',
       commonInitialData.commonVerifyForCheckAfterAleadyAppliedStep.page1,
+    ),
+  },
+  commonVerifyForMatchingResultStep: {
+    page1: atomWithStorage(
+      'commonVerifyForMatchingResultStep-page1',
+      commonInitialData.commonVerifyForMatchingResultStep.page1,
     ),
   },
 };

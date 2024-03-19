@@ -17,6 +17,9 @@ export const commonValidators: CommonValidator = {
   commonVerifyForCheckAfterAleadyAppliedStep: {
     page1: ({ verified }) => verified,
   },
+  commonVerifyForMatchingResultStep: {
+    page1: ({ verified }) => verified,
+  },
 };
 
 // holds entireValidity, read-only, entire level
@@ -40,6 +43,11 @@ export const commonValiditiesAtom = atom<CommonValidites>(get => ({
   commonVerifyForCheckAfterAleadyAppliedStep: {
     page1: commonValidators.commonVerifyForCheckAfterAleadyAppliedStep.page1(
       get(commonDataAtoms.commonVerifyForCheckAfterAleadyAppliedStep.page1),
+    ),
+  },
+  commonVerifyForMatchingResultStep: {
+    page1: commonValidators.commonVerifyForMatchingResultStep.page1(
+      get(commonDataAtoms.commonVerifyForMatchingResultStep.page1),
     ),
   },
 }));

@@ -24,6 +24,11 @@ export type CommonData = {
       verified: boolean;
     };
   };
+  commonVerifyForMatchingResultStep: {
+    page1: {
+      verified: boolean;
+    };
+  };
 };
 
 export type CommonDataAtoms = {
