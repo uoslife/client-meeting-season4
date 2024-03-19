@@ -8,6 +8,7 @@ import Col from '~/components/layout/Col';
 import Paddler from '~/components/layout/Pad';
 import PageLayout from '~/components/layout/page/PageLayout';
 import Text from '~/components/typography/Text';
+import useTypeSafeNavigate from '~/hooks/useTypeSafeNavigate';
 
 const useCardState = (meetingType: 'personal' | 'group') => {
   const [meetingInfoState, setMeetingInfoState] = useState<
@@ -224,10 +225,11 @@ const BottomSayingsAndCancelButton = ({
 
 const CheckAfterAleadyAppliedStep = () => {
   const cardState = useCardState('personal');
+  const navigate = useTypeSafeNavigate();
 
   // TODO: 대신 보여줄 UI 확정 후 수정
-  if (cardState === 'error') return null;
-  if (cardState === 'loading') return null;
+  if (cardState === 'error') return '기다려주세요 / 로딩 UI 확정 필요';
+  if (cardState === 'loading') return '기다려주세요 / 로딩 UI 확정 필요';
 
   return (
     <PageLayout>
@@ -236,7 +238,9 @@ const CheckAfterAleadyAppliedStep = () => {
         <Paddler left={5} right={5} bottom={20}>
           <Col gap={44} align="center">
             <ApplyInfo.CustomDoubleCard {...cardState} />
-            <BottomSayingsAndCancelButton onClickCancleButton={() => {}} />
+            <BottomSayingsAndCancelButton
+              onClickCancleButton={() => navigate('/common/cancelStep')}
+            />
           </Col>
         </Paddler>
       </PageLayout.SingleCardBody>
