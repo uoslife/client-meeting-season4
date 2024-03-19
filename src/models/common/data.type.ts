@@ -19,6 +19,11 @@ export type CommonData = {
       checked: [boolean, boolean];
     };
   };
+  commonVerifyForCheckAfterAleadyAppliedStep: {
+    page1: {
+      verified: boolean;
+    };
+  };
 };
 
 export type CommonDataAtoms = {

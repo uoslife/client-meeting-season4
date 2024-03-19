@@ -191,6 +191,7 @@ const FirstPage = () => {
 
   const cardState = useCardState(meetingType!);
 
+  // TODO: 대신 보여줄 UI 확정 후 수정
   if (cardState === 'error') return null;
   if (cardState === 'loading') return null;
 

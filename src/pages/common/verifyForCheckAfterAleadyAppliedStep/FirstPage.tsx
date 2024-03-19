@@ -1,25 +1,25 @@
-import Text from '~/components/typography/Text';
-import Col from '~/components/layout/Col';
-import Row from '~/components/layout/Row';
 import { css } from '@emotion/react';
-import RoundButton from '~/components/buttons/roundButton/RoundButton';
-import { useInput } from '~/hooks/useInput';
-import { useEffect, useState } from 'react';
 import { useAtomValue, useSetAtom } from 'jotai';
-import { pageFinishAtom } from '~/models/funnel';
+import { useEffect, useState } from 'react';
+import { AuthAPI } from '~/api';
+import RoundButton from '~/components/buttons/roundButton/RoundButton';
 import TextInput from '~/components/inputs/textInput/TextInput';
+import Col from '~/components/layout/Col';
 import Paddler from '~/components/layout/Pad';
+import Row from '~/components/layout/Row';
+
+import Text from '~/components/typography/Text';
+import { useInput } from '~/hooks/useInput';
 import { combinedValidatiesAtoms } from '~/models';
 import { commonDataAtoms } from '~/models/common/data';
-import { AuthAPI } from '~/api';
+import { pageFinishAtom } from '~/models/funnel';
 
-const ThirdPage = () => {
+// copied from src\pages\common\univVerificationStep\ThirdPage.tsx
+const FirstPage = () => {
   const setIsPageFinished = useSetAtom(pageFinishAtom);
-  const storedUnivType = useAtomValue(
-    commonDataAtoms.commonUnivVerificationStep.page1,
-  ).univType;
   const pageValidity = useAtomValue(combinedValidatiesAtoms)
-    .commonUnivVerificationStep.page3;
+    .commonVerifyForCheckAfterAleadyAppliedStep.page1;
+  const tempUnivType = 'KHU'; // 기획 결정 후 수정
   setIsPageFinished(pageValidity);
 
   const setPageState = useSetAtom(
@@ -69,7 +69,7 @@ const ThirdPage = () => {
     if (inputValue) setTryValidate(true);
     const res = await AuthAPI.getVerificationCode({
       email: inputValue,
-      university: storedUnivType,
+      university: tempUnivType,
     });
 
     console.log(res);
@@ -82,7 +82,7 @@ const ThirdPage = () => {
       const res = await AuthAPI.checkVerificationCode({
         code: validateCodeValue,
         email: inputValue,
-        university: storedUnivType,
+        university: tempUnivType,
       });
       const result = res.data;
       console.log(result);
@@ -148,7 +148,7 @@ const ThirdPage = () => {
               isAuthentication={true}
               onChange={handleInputChange}>
               <Text
-                label={storedUnivType === 'KHU' ? '@khu.ac.kr' : '@hufs.ac.kr'}
+                label={tempUnivType === 'KHU' ? '@khu.ac.kr' : '@hufs.ac.kr'}
                 color={'Gray400'}
                 typography={'GoThicButtonM'}
                 css={css`
@@ -210,4 +210,4 @@ const ThirdPage = () => {
   );
 };
 
-export default ThirdPage;
+export default FirstPage;

@@ -1,21 +1,19 @@
-import { useSetAtom } from 'jotai';
 import PageLayout from '~/components/layout/page/PageLayout';
 import { useFunnel } from '~/hooks/useFunnel';
-import { pageFinishAtom } from '~/models/funnel';
+import FirstPage from './FirstPage';
 
-const VerifyForCheckAfterAleadyAppliedStep = () => {
+const CommonVerifyForCheckAfterAleadyAppliedStep = () => {
   const { PageHandler } = useFunnel({
     prevStep: { path: '/common/finishApplyStep' },
     nextStep: { path: '/common/checkAfterAleadyAppliedStep' },
     pageNumberList: [1],
   });
-  useSetAtom(pageFinishAtom)(false);
 
   return (
     <PageLayout>
       <PageLayout.Header title="신청 정보 확인하기" />
       <PageLayout.SingleCardBody>
-        TODO: 이메일 인증 페이지 구현 필요
+        <FirstPage />
       </PageLayout.SingleCardBody>
       <PageLayout.Footer
         currentPage={1}
@@ -27,4 +25,4 @@ const VerifyForCheckAfterAleadyAppliedStep = () => {
   );
 };
 
-export default VerifyForCheckAfterAleadyAppliedStep;
+export default CommonVerifyForCheckAfterAleadyAppliedStep;
