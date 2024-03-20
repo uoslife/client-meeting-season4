@@ -1,4 +1,4 @@
-import { useAtomValue } from 'jotai';
+import { useAtomValue, useSetAtom } from 'jotai';
 import { commonDataAtoms } from '~/models/common/data';
 import { useEffect, useState } from 'react';
 import { MeetingAPI } from '~/api';
@@ -7,13 +7,18 @@ import Col from '~/components/layout/Col';
 import Paddler from '~/components/layout/Pad';
 import PageLayout from '~/components/layout/page/PageLayout';
 import { ApplyInfoCustomDoubleCardProps } from '~/components/applyInfo/CustomDoubleCard';
+import { pageFinishAtom } from '~/models/funnel';
 
 const useCardState = (meetingType: 'personal' | 'group') => {
   const [meetingInfoState, setMeetingInfoState] = useState<
     ApplyInfoCustomDoubleCardProps | 'loading' | 'error'
   >('loading');
 
+  const setIsPageFinished = useSetAtom(pageFinishAtom);
+
   useEffect(() => {
+    setIsPageFinished(false);
+
     setTimeout(() => {
       (async () => {
         try {
@@ -174,6 +179,7 @@ const useCardState = (meetingType: 'personal' | 'group') => {
               },
             });
           }
+          setIsPageFinished(true);
         } catch (error) {
           setMeetingInfoState('error');
         }
