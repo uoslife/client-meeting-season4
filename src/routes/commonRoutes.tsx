@@ -11,6 +11,7 @@ import CheckAfterAleadyAppliedStep from '~/pages/common/checkAfterAleadyAppliedS
 import CommonCancelStep from '~/pages/common/cancelStep/Step';
 import CommonVerifyForMatchingResultStep from '~/pages/common/verifyForMatchingResultStep/Step';
 import CommonMatchingFailedStep from '~/pages/common/matchingFailedStep/Step';
+import CommonMatchingSuccessfulStep from '~/pages/common/matchingSuccessfulStep/Step';
 
 const commonRoutes = [
   //--------------------------------------------------------//
@@ -77,6 +78,10 @@ const commonRoutes = [
   {
     path: '/common/matchingFailedStep',
     element: <CommonMatchingFailedStep />,
+  },
+  {
+    path: '/common/matchingSuccessfulStep',
+    element: <CommonMatchingSuccessfulStep />,
   },
   {
     path: '*',
