@@ -19,7 +19,7 @@ export const groupInitialData: GroupData = {
     page1: {
       name: '',
       gender: null,
-      age: '20',
+      age: '',
     },
     page2: {
       kakaoId: '',

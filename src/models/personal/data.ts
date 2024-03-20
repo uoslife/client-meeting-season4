@@ -6,8 +6,8 @@ export const personalInitialData: PersonalData = {
     page1: {
       name: '',
       gender: null,
-      age: '20',
-      height: '180',
+      age: '',
+      height: '',
     },
     page2: {
       kakaoId: '',
