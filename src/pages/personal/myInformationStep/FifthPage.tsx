@@ -21,14 +21,23 @@ const Fifthpage = () => {
   const onClickMbtiButton = (value: string) => () => {
     setPageState(prev => {
       let newMbtis = prev.mbti;
-      if (['E', 'I'].includes(value)) {
-        newMbtis = newMbtis.replace(/[EI]/g, '');
-      } else if (['N', 'S'].includes(value)) {
-        newMbtis = newMbtis.replace(/[NS]/g, '');
-      } else if (['T', 'F'].includes(value)) {
-        newMbtis = newMbtis.replace(/[TF]/g, '');
-      } else if (['P', 'J'].includes(value)) {
-        newMbtis = newMbtis.replace(/[PJ]/g, '');
+      switch (value) {
+        case 'E':
+        case 'I':
+          newMbtis = newMbtis.replace(/[EI]/g, '');
+          break;
+        case 'N':
+        case 'S':
+          newMbtis = newMbtis.replace(/[NS]/g, '');
+          break;
+        case 'T':
+        case 'F':
+          newMbtis = newMbtis.replace(/[TF]/g, '');
+          break;
+        case 'P':
+        case 'J':
+          newMbtis = newMbtis.replace(/[PJ]/g, '');
+          break;
       }
       newMbtis += value;
       return { mbti: newMbtis };

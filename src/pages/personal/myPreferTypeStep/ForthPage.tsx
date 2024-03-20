@@ -13,7 +13,6 @@ const ForthPage = () => {
   const [pageState, setPageState] = useAtom(
     personalDataAtoms.personalPreferInfoStep.page4,
   );
-  console.log(pageState);
 
   const { mbtis } = pageState;
 
