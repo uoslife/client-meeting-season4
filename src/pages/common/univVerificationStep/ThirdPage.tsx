@@ -23,7 +23,7 @@ const ThirdPage = () => {
   setIsPageFinished(pageValidity);
 
   const setPageState = useSetAtom(
-    commonDataAtoms.commonVerifyForCheckAfterAleadyAppliedStep.page1,
+    commonDataAtoms.commonUnivVerificationStep.page3,
   );
 
   const { inputValue, handleInputChange } = useInput('');
