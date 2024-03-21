@@ -22,18 +22,14 @@ const Logo = () => <img src="/images/uoslifeLogo-blue.png" alt="crying-face" />;
 const FormDescription = () => (
   <S.FormDescriptionContainer>
     <CryingFace />
-    <div>
-      <Text
-        color="Gray500"
-        label="시대팅 신청을 취소하고 환불을 원하시면"
-        typography="GoThicBodyS"
-      />
-      <Text
-        color="Gray500"
-        label="아래 이름(실명), 은행, 계좌번호를 입력해주세요."
-        typography="GoThicBodyS"
-      />
-    </div>
+    <Text
+      color="Gray500"
+      label={
+        '시대팅 신청을 취소하고 환불을 원하시면 \n' +
+        '아래 이름(실명), 은행, 계좌번호를 입력해주세요.'
+      }
+      typography="GoThicBodyS"
+    />
   </S.FormDescriptionContainer>
 );
 
@@ -79,23 +75,15 @@ const CancellationCompleted = () => (
       typography="NeoTitleM"
     />
     <Logo />
-    <div>
-      <Text
-        color="Gray400"
-        label="작성해주신 계좌의 환불까지"
-        typography="GoThicBodyS"
-      />
-      <Text
-        color="Gray400"
-        label="최대 7일의 시간이 소요될 수 있습니다."
-        typography="GoThicBodyS"
-      />
-      <Text
-        color="Gray400"
-        label="이 점 양해 부탁드립니다."
-        typography="GoThicBodyS"
-      />
-    </div>
+    <Text
+      color="Gray400"
+      label={
+        '작성해주신 계좌의 환불까지 \n' +
+        '최대 7일의 시간이 소요될 수 있습니다. \n' +
+        '이 점 양해 부탁드립니다. \n'
+      }
+      typography="GoThicBodyS"
+    />
   </S.CancelCompleteWrapper>
 );
 
