@@ -27,6 +27,8 @@ const prevSteps: {
   personalMyRomanceStep: 'personalMyInformationStep', // /personal/myRomanceStep
   personalPreferInfoStep: 'personalMyRomanceStep', // /personal/myPreferTypeStep
   personalPledgeStep: 'personalPreferInfoStep', // /personal/pledgeStep
+  commonVerifyForCheckAfterAlreadyAppliedStep: null,
+  commonVerifyForMatchingResultStep: null,
 };
 
 /**
@@ -81,4 +83,7 @@ const variableNameToPathName: {
   personalMyRomanceStep: '/personal/myRomanceStep',
   personalPledgeStep: '/personal/pledgeStep',
   personalPreferInfoStep: '/personal/myPreferTypeStep',
+  commonVerifyForCheckAfterAlreadyAppliedStep:
+    '/common/verifyForCheckAfterAlreadyAppliedStep',
+  commonVerifyForMatchingResultStep: '/common/verifyForMatchingResultStep',
 };

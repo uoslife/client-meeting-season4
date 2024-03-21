@@ -1,7 +1,6 @@
 import PageLayout from '~/components/layout/page/PageLayout';
 import { useFunnel } from '~/hooks/useFunnel';
-import { pageFinishAtom } from '~/models/funnel';
-import { useAtomValue, useSetAtom } from 'jotai';
+import { useAtomValue } from 'jotai';
 import { colors } from '~/styles/colors';
 import FirstPage from './FirstPage';
 import { commonDataAtoms } from '~/models/common/data';
@@ -24,8 +23,6 @@ const CommonCheckApplyInfoStep = () => {
     },
     nextStep: { path: '/common/paymentStep' },
   });
-
-  useSetAtom(pageFinishAtom)(true);
 
   const headerTitle =
     meetingType === 'group'
