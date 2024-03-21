@@ -1,9 +1,5 @@
 import { HttpResponse, http } from 'msw';
-import {
-  InformationType,
-  PreferenceType,
-  UserProfileType,
-} from '~/api/types/user.type';
+import { GetMeetingInfoResponse } from '~/api/types/user.type';
 
 export function handlers() {
   return [
@@ -235,7 +231,7 @@ const getRefreshToken = () => {
   );
 };
 
-const 팀전체정보 = {
+const 팀전체정보: GetMeetingInfoResponse = {
   teamName: 'mock-팀이름',
   teamType: 'SINGLE',
   gender: 'MALE',
@@ -285,7 +281,7 @@ const 팀전체정보 = {
       mbti: 'string',
       interest: ['BOOK'],
     },
-  ] satisfies UserProfileType[],
+  ],
   information: {
     gender: 'MALE',
     questions: {
@@ -295,7 +291,7 @@ const 팀전체정보 = {
       additionalProp4: 0,
       additionalProp5: 0,
     },
-  } satisfies InformationType,
+  },
   preference: {
     ageMin: 20,
     ageMax: 25,
@@ -306,7 +302,8 @@ const 팀전체정보 = {
     religion: ['CHRISTIAN'],
     smoking: ['TRUE'],
     spiritAnimal: ['DOG'],
-    mbti: ['ENFP'],
+    mbti: 'EINTP',
     mood: 'ACTIVE',
-  } satisfies PreferenceType,
+  },
+  message: 'mock-message',
 };

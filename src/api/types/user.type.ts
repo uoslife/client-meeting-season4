@@ -116,19 +116,22 @@ export type SmokingType = 'TRUE' | 'FALSE' | 'NOT_MATTER';
 export type StudentType = 'UNDERGRADUATE' | 'POSTGRADUATE' | 'GRADUATE';
 
 export type UserProfileType = {
-  name: string;
+  // 1:1 / 3:3 전부에서 쓰이는 필드
   age: number;
-  university: Univ;
   department: string;
-  studentType: StudentType;
   kakaoTalkId: string;
-  smoking: SmokingType;
-  religion: ReligionType;
-  drinkingMin: number;
-  drinkingMax: number;
-  spiritAnimal: SpiritAnimalType;
-  mbti: string;
-  interest: InterestType;
+  name: string;
+  studentType: StudentType;
+
+  // 3:3에서만 쓰이는 필드
+  university?: Univ;
+  smoking?: SmokingType;
+  religion?: ReligionType;
+  drinkingMin?: number;
+  drinkingMax?: number;
+  spiritAnimal?: SpiritAnimalType;
+  mbti?: string;
+  interest?: InterestType;
 };
 
 export type GenderType = 'MALE' | 'FEMALE';
@@ -154,15 +157,16 @@ export type PreferenceType = {
   religion: ReligionType[];
   smoking: SmokingType[];
   spiritAnimal: SpiritAnimalType;
-  mbti: string[];
+  mbti: string;
   mood: MoodType;
 };
 
 export type GetMeetingInfoResponse = {
   teamType: TeamType;
-  teamName: string;
   gender: GenderType;
-  teamUserList?: UserProfileType[];
+  teamName: string;
+  teamUserList: UserProfileType[];
   information: InformationType;
   preference: PreferenceType;
+  message: string;
 };
