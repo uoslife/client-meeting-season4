@@ -14,7 +14,7 @@ import { useAtomValue } from 'jotai';
 import { personalDataAtoms } from '~/models/personal/data';
 import { css } from '@emotion/react';
 
-const ID = import.meta.env.VITE_PORTONE_IMP_ID;
+const ID = 'imp04325748';
 
 const PaymentPage = () => {
   const navigate = useNavigate();
