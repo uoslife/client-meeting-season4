@@ -6,6 +6,12 @@ import CommonFinishApplyStep from '~/pages/common/finishApplyStep/Step';
 import CommonLandingStep from '~/pages/common/landingStep/Step';
 import CommonCheckApplyInfoStep from '~/pages/common/checkApplyInfoStep/Step';
 import CommonPaymentResultStep from '~/pages/common/paymentResultStep/Step';
+import CommonCancelStep from '~/pages/common/cancelStep/Step';
+import CommonVerifyForMatchingResultStep from '~/pages/common/verifyForMatchingResultStep/Step';
+import CommonMatchingFailedStep from '~/pages/common/matchingFailedStep/Step';
+import CommonMatchingSuccessfulStep from '~/pages/common/matchingSuccessfulStep/Step';
+import CommonVerifyForCheckAfterAlreadyAppliedStep from '~/pages/common/verifyForCheckAfterAleadyAppliedStep/Step';
+import CheckAfterAlreadyAppliedStep from '~/pages/common/checkAfterAleadyAppliedStep/Step';
 
 const commonRoutes = [
   //--------------------------------------------------------//
@@ -54,8 +60,28 @@ const commonRoutes = [
     element: <CommonCheckApplyInfoStep />,
   },
   {
-    path: '/common/checkAfterAleadyAppliedStep',
-    element: <></>,
+    path: '/common/verifyForCheckAfterAlreadyAppliedStep',
+    element: <CommonVerifyForCheckAfterAlreadyAppliedStep />,
+  },
+  {
+    path: '/common/checkAfterAlreadyAppliedStep',
+    element: <CheckAfterAlreadyAppliedStep />,
+  },
+  {
+    path: '/common/cancelStep',
+    element: <CommonCancelStep />,
+  },
+  {
+    path: '/common/verifyForMatchingResultStep',
+    element: <CommonVerifyForMatchingResultStep />,
+  },
+  {
+    path: '/common/matchingFailedStep',
+    element: <CommonMatchingFailedStep />,
+  },
+  {
+    path: '/common/matchingSuccessfulStep',
+    element: <CommonMatchingSuccessfulStep />,
   },
   {
     path: '*',

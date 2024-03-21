@@ -19,7 +19,7 @@ export const groupInitialData: GroupData = {
     page1: {
       name: '',
       gender: null,
-      age: '20',
+      age: '',
     },
     page2: {
       kakaoId: '',
@@ -52,7 +52,7 @@ export const groupInitialData: GroupData = {
   // 4. 만나고 싶은 팅 정보 입력하기
   groupLeaderPreferStep: {
     page1: {
-      ageRange: [20, 21],
+      ageRange: [20, 30],
       univs: [],
       atmosphere: '',
     },

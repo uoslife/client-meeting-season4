@@ -20,6 +20,16 @@ export const commonInitialData: CommonData = {
       checked: [false, false],
     },
   },
+  commonVerifyForCheckAfterAlreadyAppliedStep: {
+    page1: {
+      verified: false,
+    },
+  },
+  commonVerifyForMatchingResultStep: {
+    page1: {
+      verified: false,
+    },
+  },
 };
 
 // page level atom: each holds data, write/read
@@ -42,6 +52,18 @@ export const commonDataAtoms: CommonDataAtoms = {
     page1: atomWithStorage(
       'commonBranchGatewayStep-page1',
       commonInitialData.commonBranchGatewayStep.page1,
+    ),
+  },
+  commonVerifyForCheckAfterAlreadyAppliedStep: {
+    page1: atomWithStorage(
+      'commonVerifyForCheckAfterAlreadyAppliedStep-page1',
+      commonInitialData.commonVerifyForCheckAfterAlreadyAppliedStep.page1,
+    ),
+  },
+  commonVerifyForMatchingResultStep: {
+    page1: atomWithStorage(
+      'commonVerifyForMatchingResultStep-page1',
+      commonInitialData.commonVerifyForMatchingResultStep.page1,
     ),
   },
 };
