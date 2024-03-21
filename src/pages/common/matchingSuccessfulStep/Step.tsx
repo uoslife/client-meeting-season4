@@ -146,16 +146,16 @@ const S = {
     width: 100%;
     padding: 32px 20px 24px 20px;
     border-radius: 21px;
-    border: 1px solid var(--Gray-200, #b6b6b6);
-    background: #fff;
+    border: 1px solid ${colors.Gray200};
+    background: ${colors.White};
     height: 100%;
   `,
   DescriptionBox: styled.div`
     padding: 8px 20px;
     width: 100%;
-    background: #f5f5f5;
+    background: ${colors.Gray000};
     border-radius: 7px;
-    border: 1px solid #b6b6b6;
+    border: 1px solid ${colors.Gray200};
   `,
   CopyButton: styled.button`
     border-radius: 10px;

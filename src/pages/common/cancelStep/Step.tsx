@@ -80,7 +80,7 @@ const CancellationCompleted = () => (
       label={
         '작성해주신 계좌의 환불까지 \n' +
         '최대 7일의 시간이 소요될 수 있습니다. \n' +
-        '이 점 양해 부탁드립니다. \n'
+        '이 점 양해 부탁드립니다.'
       }
       typography="GoThicBodyS"
     />
