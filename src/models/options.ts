@@ -47,8 +47,8 @@ export type InfoOptions = {
   smoking: null | SmokingOption;
   drinkRange: [number, number];
   animalOptions: AnimalOption[];
-  mbti: MBTIOption[];
-  mbtis: MBTIOption[][];
+  mbti: MBTIOption;
+  mbtis: MBTIOption;
   univs: Univ[];
   studentTypes: StudentOption[];
   interestOptions: interestKeyType[];
