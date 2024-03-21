@@ -64,7 +64,7 @@ const updatePrefer = async <T = object>(
   data: UpdatePreferRequest,
 ): PromiseAxios<T> => {
   return API.put<ApiResponse<T>>(
-    `api/meeting/${teamType}/${isTeamLeader}`,
+    `api/meeting/${teamType}/${isTeamLeader}/prefer`,
     data,
   );
 };
