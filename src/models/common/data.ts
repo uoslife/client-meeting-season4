@@ -20,7 +20,7 @@ export const commonInitialData: CommonData = {
       checked: [false, false],
     },
   },
-  commonVerifyForCheckAfterAleadyAppliedStep: {
+  commonVerifyForCheckAfterAlreadyAppliedStep: {
     page1: {
       verified: false,
     },
@@ -54,10 +54,10 @@ export const commonDataAtoms: CommonDataAtoms = {
       commonInitialData.commonBranchGatewayStep.page1,
     ),
   },
-  commonVerifyForCheckAfterAleadyAppliedStep: {
+  commonVerifyForCheckAfterAlreadyAppliedStep: {
     page1: atomWithStorage(
-      'commonVerifyForCheckAfterAleadyAppliedStep-page1',
-      commonInitialData.commonVerifyForCheckAfterAleadyAppliedStep.page1,
+      'commonVerifyForCheckAfterAlreadyAppliedStep-page1',
+      commonInitialData.commonVerifyForCheckAfterAlreadyAppliedStep.page1,
     ),
   },
   commonVerifyForMatchingResultStep: {

@@ -14,7 +14,7 @@ export const commonValidators: CommonValidator = {
     page1: ({ meetingType, checked }) =>
       !!meetingType && checked.every(Boolean),
   },
-  commonVerifyForCheckAfterAleadyAppliedStep: {
+  commonVerifyForCheckAfterAlreadyAppliedStep: {
     page1: ({ verified }) => verified,
   },
   commonVerifyForMatchingResultStep: {
@@ -40,9 +40,9 @@ export const commonValiditiesAtom = atom<CommonValidites>(get => ({
       get(commonDataAtoms.commonBranchGatewayStep.page1),
     ),
   },
-  commonVerifyForCheckAfterAleadyAppliedStep: {
-    page1: commonValidators.commonVerifyForCheckAfterAleadyAppliedStep.page1(
-      get(commonDataAtoms.commonVerifyForCheckAfterAleadyAppliedStep.page1),
+  commonVerifyForCheckAfterAlreadyAppliedStep: {
+    page1: commonValidators.commonVerifyForCheckAfterAlreadyAppliedStep.page1(
+      get(commonDataAtoms.commonVerifyForCheckAfterAlreadyAppliedStep.page1),
     ),
   },
   commonVerifyForMatchingResultStep: {

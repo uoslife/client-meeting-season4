@@ -223,7 +223,7 @@ const BottomSayingsAndCancelButton = ({
   </Col>
 );
 
-const CheckAfterAleadyAppliedStep = () => {
+const CheckAfterAlreadyAppliedStep = () => {
   const cardState = useCardState('personal');
   const navigate = useTypeSafeNavigate();
 
@@ -248,4 +248,4 @@ const CheckAfterAleadyAppliedStep = () => {
   );
 };
 
-export default CheckAfterAleadyAppliedStep;
+export default CheckAfterAlreadyAppliedStep;

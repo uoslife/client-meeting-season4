@@ -28,7 +28,7 @@ const CommonLandingStep = () => {
     // TODO : 이메일 토큰 인증 여부에 따라 라우팅 페이지 분기 처리
   };
   const handleOnClickSecondary = () => {
-    navigate('/common/checkAfterAleadyAppliedStep');
+    navigate('/common/verifyForCheckAfterAlreadyAppliedStep');
     // TODO : 신청 정보 확인하기 페이지로 라우팅
   };
 

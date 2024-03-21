@@ -18,12 +18,12 @@ import { pageFinishAtom } from '~/models/funnel';
 const FirstPage = () => {
   const setIsPageFinished = useSetAtom(pageFinishAtom);
   const pageValidity = useAtomValue(combinedValidatiesAtoms)
-    .commonVerifyForCheckAfterAleadyAppliedStep.page1;
+    .commonVerifyForCheckAfterAlreadyAppliedStep.page1;
   const tempUnivType = 'KHU'; // 기획 결정 후 수정
   setIsPageFinished(pageValidity);
 
   const setPageState = useSetAtom(
-    commonDataAtoms.commonVerifyForCheckAfterAleadyAppliedStep.page1,
+    commonDataAtoms.commonVerifyForCheckAfterAlreadyAppliedStep.page1,
   );
 
   const { inputValue, handleInputChange } = useInput('');

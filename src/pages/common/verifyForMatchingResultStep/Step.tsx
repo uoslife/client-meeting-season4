@@ -13,7 +13,7 @@ const CommonVerifyForMatchingResultStep = () => {
 
   return (
     <PageLayout>
-      <PageLayout.Header title={'매칭 결과 확인하기'} isProgress={false} />
+      <PageLayout.Header title={'매칭 결과 확인하기'} />
       <PageLayout.SingleCardBody>
         <Funnel>
           <Funnel.Page pageNumber={1}>

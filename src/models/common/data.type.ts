@@ -19,7 +19,7 @@ export type CommonData = {
       checked: [boolean, boolean];
     };
   };
-  commonVerifyForCheckAfterAleadyAppliedStep: {
+  commonVerifyForCheckAfterAlreadyAppliedStep: {
     page1: {
       verified: boolean;
     };
