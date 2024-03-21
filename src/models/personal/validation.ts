@@ -11,7 +11,11 @@ export const personalValidators: PersonalValidator = {
       kakaoId !== '' && phone !== '' && major !== '' && !!studentType,
     page3: ({ religion, smoking }) => !!religion && smoking !== null,
     page4: ({ animalOptions }) => animalOptions.length > 0,
-    page5: ({ mbti }) => !!mbti[0] && !!mbti[1] && !!mbti[2] && !!mbti[3],
+    page5: ({ mbti }) =>
+      ['E', 'I'].some(prop => mbti.includes(prop)) &&
+      ['N', 'S'].some(prop => mbti.includes(prop)) &&
+      ['T', 'F'].some(prop => mbti.includes(prop)) &&
+      ['P', 'J'].some(prop => mbti.includes(prop)),
     page6: ({ interestOptions }) => interestOptions.length === 3,
     page7: ({ message }) => message.length >= 10,
   },
@@ -30,7 +34,14 @@ export const personalValidators: PersonalValidator = {
     page2: ({ religionOptions, smoking, univs }) =>
       univs.length > 0 && religionOptions.length > 0 && smoking !== null,
     page3: ({ animalOptions }) => animalOptions.length > 0,
-    page4: ({ mbtis }) => mbtis.every(mbti => mbti.length > 0),
+    page4: ({ mbtis }) => {
+      return (
+        ['E', 'I'].some(prop => mbtis.includes(prop)) &&
+        ['N', 'S'].some(prop => mbtis.includes(prop)) &&
+        ['T', 'F'].some(prop => mbtis.includes(prop)) &&
+        ['P', 'J'].some(prop => mbtis.includes(prop))
+      );
+    },
   },
 };
 

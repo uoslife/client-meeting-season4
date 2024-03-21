@@ -21,20 +21,19 @@ const ForthPage = () => {
     .personalPreferInfoStep.page4;
   setIsPageFinished(!!pageValidity);
 
-  const getMbtiStatus = (
-    index: number,
-    value: string,
-  ): 'active' | 'inactive' =>
-    mbtis[index].includes(value) ? 'active' : 'inactive';
-  const onClickMbtiButton = (index: number, value: string) => () =>
+  const getMbtiStatus = (value: string): 'active' | 'inactive' =>
+    mbtis.includes(value) ? 'active' : 'inactive';
+  const onClickMbtiButton = (value: string) => () => {
     setPageState(prev => {
-      const newMbtis = prev.mbtis[index].includes(value)
-        ? prev.mbtis.map((mbti, i) =>
-            i === index ? mbti.filter(m => m !== value) : mbti,
-          )
-        : prev.mbtis.map((mbti, i) => (i === index ? [...mbti, value] : mbti));
-      return { ...prev, mbtis: newMbtis };
+      let newMbtis = prev.mbtis;
+      if (newMbtis.includes(value)) {
+        newMbtis = newMbtis.replace(value, '');
+      } else {
+        newMbtis += value;
+      }
+      return { mbtis: newMbtis };
     });
+  };
 
   return (
     <PageLayout.SingleCardBody
@@ -72,16 +71,16 @@ const ForthPage = () => {
                 />
                 <Row gap={12}>
                   <MbtiButton
-                    status={getMbtiStatus(0, 'E')}
+                    status={getMbtiStatus('E')}
                     alphabet={'E'}
                     label={'외향적'}
-                    onClick={onClickMbtiButton(0, 'E')}
+                    onClick={onClickMbtiButton('E')}
                   />
                   <MbtiButton
-                    status={getMbtiStatus(0, 'I')}
+                    status={getMbtiStatus('I')}
                     alphabet={'I'}
                     label={'내향적'}
-                    onClick={onClickMbtiButton(0, 'I')}
+                    onClick={onClickMbtiButton('I')}
                   />
                 </Row>
               </Col>
@@ -95,16 +94,16 @@ const ForthPage = () => {
                 />
                 <Row gap={12}>
                   <MbtiButton
-                    status={getMbtiStatus(1, 'S')}
+                    status={getMbtiStatus('S')}
                     alphabet={'S'}
                     label={'현실적'}
-                    onClick={onClickMbtiButton(1, 'S')}
+                    onClick={onClickMbtiButton('S')}
                   />
                   <MbtiButton
-                    status={getMbtiStatus(1, 'N')}
+                    status={getMbtiStatus('N')}
                     alphabet={'N'}
                     label={'직관적'}
-                    onClick={onClickMbtiButton(1, 'N')}
+                    onClick={onClickMbtiButton('N')}
                   />
                 </Row>
               </Col>
@@ -118,16 +117,16 @@ const ForthPage = () => {
                 />
                 <Row gap={12}>
                   <MbtiButton
-                    status={getMbtiStatus(2, 'T')}
+                    status={getMbtiStatus('T')}
                     alphabet={'T'}
                     label={'이성적'}
-                    onClick={onClickMbtiButton(2, 'T')}
+                    onClick={onClickMbtiButton('T')}
                   />
                   <MbtiButton
-                    status={getMbtiStatus(2, 'F')}
+                    status={getMbtiStatus('F')}
                     alphabet={'F'}
                     label={'감성적'}
-                    onClick={onClickMbtiButton(2, 'F')}
+                    onClick={onClickMbtiButton('F')}
                   />
                 </Row>
               </Col>
@@ -141,16 +140,16 @@ const ForthPage = () => {
                 />
                 <Row gap={12}>
                   <MbtiButton
-                    status={getMbtiStatus(3, 'J')}
+                    status={getMbtiStatus('J')}
                     alphabet={'J'}
                     label={'계획적'}
-                    onClick={onClickMbtiButton(3, 'J')}
+                    onClick={onClickMbtiButton('J')}
                   />
                   <MbtiButton
-                    status={getMbtiStatus(3, 'P')}
+                    status={getMbtiStatus('P')}
                     alphabet={'P'}
                     label={'즉흥적'}
-                    onClick={onClickMbtiButton(3, 'P')}
+                    onClick={onClickMbtiButton('P')}
                   />
                 </Row>
               </Col>
