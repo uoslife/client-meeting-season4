@@ -35,7 +35,6 @@ jobs:
       HARBOR_REPOSITORY: meeting-client
       HARBOR_USERNAME: ${{ secrets.HARBOR_USERNAME }}
       HARBOR_PASSWORD: ${{ secrets.HARBOR_PASSWORD }}
-      VITE_PORTONE_IMP_ID: ${{ secrets.VITE_PORTONE_IMP_ID }}
 
     steps:
       - name: Clone Repository

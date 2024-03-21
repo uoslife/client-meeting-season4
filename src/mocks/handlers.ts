@@ -17,7 +17,7 @@ export function handlers() {
 
 const meetingHandlers = () => {
   return [
-    http.post('/api/meeting/:teamType/:isTeamLeader/prefer', createPreferInfo),
+    http.put('/api/meeting/:teamType/:isTeamLeader/prefer', createPreferInfo),
     http.post('/api/meeting/:teamType/:isTeamLeader/info', createTeamInfo),
     http.post('/api/meeting/:teamType/:isTeamLeader/create', createTeam),
     http.post('/api/meeting/:teamType/join/:code', joinTeam),
