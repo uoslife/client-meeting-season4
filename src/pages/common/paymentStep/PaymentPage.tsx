@@ -42,7 +42,9 @@ const PaymentPage = () => {
       name: '시대팅 Season4 참가비', // 주문명
       buyer_tel: '010-1234-1234', // 구매자 전화번호
       buyer_name: '구매자이름',
-      m_redirect_url: 'http://localhost:5173/common/paymentResultStep',
+      m_redirect_url: import.meta.env.DEV
+        ? 'http://localhost:5173/common/paymentResultStep'
+        : 'https://meeting.alpha.uoslife.com/',
     };
 
     IMP?.request_pay(data, callback);
