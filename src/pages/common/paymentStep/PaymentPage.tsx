@@ -24,8 +24,11 @@ const PaymentPage = () => {
   const meetingTypeValue = useAtomValue(
     commonDataAtoms.commonBranchGatewayStep.page1,
   );
-  const genderValue = useAtomValue(
+  const { gender, name } = useAtomValue(
     personalDataAtoms.personalMyInformationStep.page1,
+  );
+  const { phone } = useAtomValue(
+    personalDataAtoms.personalMyInformationStep.page2,
   );
 
   const onClickPaymeny = () => {
@@ -38,13 +41,13 @@ const PaymentPage = () => {
       pay_method: 'card', // 결제수단
       merchant_uid: userPaymentInfo?.merchantUid ?? '', // 주문번호
       // merchant_uid: 'test_uoslife_meeting_480', // 주문번호
-      amount: userPaymentInfo?.price ?? 3000, // 결제금액
+      amount: userPaymentInfo?.price ?? 3500, // 결제금액
       name: '시대팅 Season4 참가비', // 주문명
-      buyer_tel: '010-1234-1234', // 구매자 전화번호
-      buyer_name: '구매자이름',
+      buyer_tel: phone, // 구매자 전화번호
+      buyer_name: name,
       m_redirect_url: import.meta.env.DEV
         ? 'http://localhost:5173/common/paymentResultStep'
-        : 'https://meeting.alpha.uoslife.com/',
+        : 'https://meeting.alpha.uoslife.com/common/paymentResultStep',
     };
 
     IMP?.request_pay(data, callback);
@@ -89,28 +92,16 @@ const PaymentPage = () => {
   }, []);
 
   const handleProductName = () => {
-    if (
-      meetingTypeValue.meetingType === 'group' &&
-      genderValue.gender === 'F'
-    ) {
+    if (meetingTypeValue.meetingType === 'group' && gender === 'F') {
       return '3:3 미팅(여자)';
     }
-    if (
-      meetingTypeValue.meetingType === 'group' &&
-      genderValue.gender === 'M'
-    ) {
+    if (meetingTypeValue.meetingType === 'group' && gender === 'M') {
       return '3:3 미팅(남자)';
     }
-    if (
-      meetingTypeValue.meetingType === 'personal' &&
-      genderValue.gender === 'F'
-    ) {
+    if (meetingTypeValue.meetingType === 'personal' && gender === 'F') {
       return '1:1 미팅(여자)';
     }
-    if (
-      meetingTypeValue.meetingType === 'personal' &&
-      genderValue.gender === 'M'
-    ) {
+    if (meetingTypeValue.meetingType === 'personal' && gender === 'M') {
       return '1:1 미팅(남자)';
     }
   };
@@ -159,7 +150,7 @@ const PaymentPage = () => {
               typography={'GoThicButtonM'}
             />
             <Text
-              label={'4000원'}
+              label={'3500원'}
               color={'Gray500'}
               typography={'GoThicTitleS'}
             />
