@@ -138,13 +138,7 @@ export type GenderType = 'MALE' | 'FEMALE';
 
 export type InformationType = {
   gender: GenderType;
-  questions: {
-    additionalProp1: 0 | 1 | 2;
-    additionalProp2: 0 | 1 | 2;
-    additionalProp3: 0 | 1 | 2;
-    additionalProp4: 0 | 1 | 2;
-    additionalProp5: 0 | 1 | 2;
-  };
+  questions: number[];
 };
 
 export type PreferenceType = {

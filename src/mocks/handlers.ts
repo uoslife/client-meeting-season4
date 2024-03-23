@@ -284,13 +284,7 @@ const 팀전체정보: GetMeetingInfoResponse = {
   ],
   information: {
     gender: 'MALE',
-    questions: {
-      additionalProp1: 0,
-      additionalProp2: 0,
-      additionalProp3: 0,
-      additionalProp4: 0,
-      additionalProp5: 0,
-    },
+    questions: [255, 0, 0, 0, 0],
   },
   preference: {
     ageMin: 20,
