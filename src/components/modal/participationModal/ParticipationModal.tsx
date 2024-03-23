@@ -25,8 +25,8 @@ const ParticipationModal = ({
   const [initLoad, setInitLoad] = useState(false);
 
   useEffect(() => {
-    Promise.resolve(isActive).then(() => setVisible(isActive));
     if (visible && !initLoad) setInitLoad(true);
+    setVisible(isActive);
   }, [isActive, visible]);
 
   return (
