@@ -52,19 +52,17 @@ const DropdownInput = ({
           />
         </S.Icon>
       </S.InputWrapper>
-      {showOption && (
-        <S.Dropdown>
-          <S.DropdownOptions>
-            {options.map((val: string) => {
-              return (
-                <S.DropdownOption onClick={onClickOptionSelect(val)} key={val}>
-                  {val}
-                </S.DropdownOption>
-              );
-            })}
-          </S.DropdownOptions>
-        </S.Dropdown>
-      )}
+      <S.Dropdown showOption={showOption}>
+        <S.DropdownOptions>
+          {options.map((val: string) => {
+            return (
+              <S.DropdownOption onClick={onClickOptionSelect(val)} key={val}>
+                {val}
+              </S.DropdownOption>
+            );
+          })}
+        </S.DropdownOptions>
+      </S.Dropdown>
     </div>
   );
 };

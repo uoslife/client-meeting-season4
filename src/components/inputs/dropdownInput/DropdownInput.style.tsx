@@ -14,6 +14,17 @@ export const upToDown = keyframes`
   }
 `;
 
+export const downToUp = keyframes`
+  0% {
+    opacity: 1;
+    max-height: 350px;
+  }
+  100% {
+    opacity: 0;
+    max-height: 0;
+  }
+`;
+
 export const InputWrapper = styled.div<{ showOption: boolean }>`
   display: flex;
   align-items: center;
@@ -33,16 +44,17 @@ export const Icon = styled.div`
   justify-content: center;
 `;
 
-export const Dropdown = styled.div`
+export const Dropdown = styled.div<{ showOption: boolean }>`
   width: 100%;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  animation: ${upToDown} 0.2s;
+  animation: ${({ showOption }) => (showOption ? upToDown : downToUp)} 0.3s
+    forwards;
   border: 1px solid ${colors.Primary500};
-  border-radius: 0px 0px 10px 10px;
+  border-radius: 0 0 10px 10px;
   overflow: hidden;
 `;
 
