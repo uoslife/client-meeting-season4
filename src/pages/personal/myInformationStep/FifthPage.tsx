@@ -59,7 +59,7 @@ const Fifthpage = () => {
                 <Text
                   label={'12. 본인의 MBTI를 선택해 주세요.'}
                   color={'Gray500'}
-                  typography={'NeoTitleM'}
+                  typography={'NeoButtonL'}
                   weight={400}
                   size={18}
                 />

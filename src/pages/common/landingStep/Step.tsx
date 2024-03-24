@@ -107,9 +107,13 @@ const BottomCardComponent = ({
   return (
     <Col gap={30}>
       <Col align={'center'} gap={32}>
-        <Col align="center">
-          <img alt={'title'} src={'/images/main/title.png'} />
-          <img alt={'title'} src={'/images/main/subtitle.png'} />
+        <Col align="center" padding={'10px 30px 0 30px'}>
+          <img
+            alt={'title'}
+            // width={276}
+            // height={186}
+            src={'/images/main/mainTextLogo.png'}
+          />
         </Col>
         <Text
           label={'이번에는 3개 대학이다!\n' + '시립대 경희대 외대의 콜라보~'}

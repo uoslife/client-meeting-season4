@@ -30,7 +30,7 @@ const ThirdPage = () => {
             <Col gap={32}>
               <Col gap={12} align="center">
                 <Text
-                  label={'8. 선호하는 상대의 동물상을 선택해 주세요'}
+                  label={'8. 선호하는 상대의 동물상을 선택해 주세요.'}
                   color={'Secondary900'}
                   typography={'NeoTitleM'}
                   weight={400}
@@ -38,7 +38,7 @@ const ThirdPage = () => {
                 />
                 <Col align="center">
                   <Text
-                    label={'개수 상관없이 복수 선택이 가능해요'}
+                    label={'개수 상관없이 복수 선택이 가능해요.'}
                     color={'Secondary800'}
                     typography={'PretendardRegular'}
                     weight={400}

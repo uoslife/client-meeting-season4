@@ -37,20 +37,16 @@ const Footer = ({
         borderBottomRadius={borderBottomRadius}
         innerPadding={innerPadding}
         backgroundColorName={backgroundColorName}>
-        <IconButton
-          iconName={'footerButton-able'}
-          rotate={180}
-          onClick={onPrev}
-        />
+        <IconButton iconName={'footerButton-left-able'} onClick={onPrev} />
         <Text
           label={`${currentPage} / ${totalPage}`}
           color={'Gray300'}
           typography={'PFLabelL'}
         />
         {isPageFinished ? (
-          <IconButton iconName={'footerButton-able'} onClick={onNext} />
+          <IconButton iconName={'footerButton-right-able'} onClick={onNext} />
         ) : (
-          <IconButton iconName={'footerButton-disabled'} />
+          <IconButton iconName={'footerButton-right-disabled'} />
         )}
       </S.Inner>
     </S.Outer>
