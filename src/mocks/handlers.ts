@@ -1,9 +1,5 @@
 import { HttpResponse, http } from 'msw';
-import {
-  InformationType,
-  PreferenceType,
-  UserProfileType,
-} from '~/api/types/user.type';
+import { GetMeetingInfoResponse } from '~/api/types/user.type';
 
 export function handlers() {
   return [
@@ -75,8 +71,14 @@ const getTeamUserListOnPending = () => {
     { status: 200 },
   );
 };
-const getAllTeamInfo = () => {
-  return HttpResponse.json({ data: 팀전체정보 }, { status: 200 });
+const getAllTeamInfo = ({
+  params: { teamType },
+}: {
+  params: { teamType: 'SINGLE' | 'TRIPLE' };
+}) => {
+  return teamType === 'SINGLE'
+    ? HttpResponse.json({ data: SINGLE_USER_INFORMATION }, { status: 200 })
+    : HttpResponse.json({ data: TRIPLE_USER_INFORMATION }, { status: 200 });
 };
 const deleteTeam = () => {
   return HttpResponse.json({}, { status: 204 });
@@ -149,7 +151,7 @@ const matchingHandlers = () => {
 };
 
 const getMatchedTeamInfo = () => {
-  return HttpResponse.json({ data: 팀전체정보 }, { status: 200 });
+  return HttpResponse.json({ data: TRIPLE_USER_INFORMATION }, { status: 200 });
 };
 
 const verificationHandlers = () => {
@@ -235,8 +237,8 @@ const getRefreshToken = () => {
   );
 };
 
-const 팀전체정보 = {
-  teamName: 'mock-팀이름',
+const SINGLE_USER_INFORMATION: GetMeetingInfoResponse = {
+  teamName: 'mock-유저이름',
   teamType: 'SINGLE',
   gender: 'MALE',
   teamUserList: [
@@ -250,10 +252,55 @@ const 팀전체정보 = {
       kakaoTalkId: 'kakaoId',
       smoking: 'TRUE',
       drinkingMin: 0,
-      drinkingMax: 0,
+      drinkingMax: 10,
       spiritAnimal: ['DOG'],
-      mbti: 'string',
+      mbti: 'ISFP',
       interest: ['BOOK'],
+      height: 155.7,
+    },
+  ],
+  information: {
+    gender: 'FEMALE',
+    questions: [0, 0, 0, 0, 0],
+  },
+  preference: {
+    ageMin: 20,
+    ageMax: 25,
+    heightMin: 130,
+    heightMax: 180,
+    drinkingMin: 0,
+    drinkingMax: 38,
+    mood: 'ACTIVE',
+    studentType: ['UNDERGRADUATE'],
+    university: ['UOS'],
+    religion: ['CHRISTIAN'],
+    smoking: 'TRUE',
+    spiritAnimal: ['DOG'],
+    mbti: 'EINTP',
+  },
+  message: '안뇽안뇽안뇽안뇽안뇽안뇽안뇽안뇽',
+};
+
+const TRIPLE_USER_INFORMATION: GetMeetingInfoResponse = {
+  teamName: 'mock-팀이름',
+  teamType: 'TRIPLE',
+  gender: 'MALE',
+  teamUserList: [
+    {
+      name: '이루매',
+      age: 24,
+      religion: 'ETC',
+      university: 'UOS',
+      department: '경제학과',
+      studentType: 'UNDERGRADUATE',
+      kakaoTalkId: 'kakaoId',
+      smoking: 'TRUE',
+      drinkingMin: 10,
+      drinkingMax: 130,
+      spiritAnimal: ['DOG'],
+      mbti: 'ISFP',
+      interest: ['BOOK'],
+      height: 155.7,
     },
     {
       name: '이루매',
@@ -265,10 +312,11 @@ const 팀전체정보 = {
       kakaoTalkId: 'kakaoId',
       smoking: 'TRUE',
       drinkingMin: 0,
-      drinkingMax: 0,
+      drinkingMax: 12,
       spiritAnimal: ['DOG'],
-      mbti: 'string',
+      mbti: 'ISFP',
       interest: ['BOOK'],
+      height: 180,
     },
     {
       name: '이루매',
@@ -279,34 +327,32 @@ const 팀전체정보 = {
       studentType: 'UNDERGRADUATE',
       kakaoTalkId: 'kakaoId',
       smoking: 'TRUE',
-      drinkingMin: 0,
-      drinkingMax: 0,
+      drinkingMin: 130,
+      drinkingMax: 130,
       spiritAnimal: ['DOG'],
-      mbti: 'string',
+      mbti: 'ISFP',
       interest: ['BOOK'],
+      height: 230,
     },
-  ] satisfies UserProfileType[],
+  ],
   information: {
     gender: 'MALE',
-    questions: {
-      additionalProp1: 0,
-      additionalProp2: 0,
-      additionalProp3: 0,
-      additionalProp4: 0,
-      additionalProp5: 0,
-    },
-  } satisfies InformationType,
+    questions: [255, 0, 0, 0, 0],
+  },
   preference: {
     ageMin: 20,
     ageMax: 25,
     heightMin: 170,
     heightMax: 180,
+    drinkingMin: 0,
+    drinkingMax: 34,
+    mood: 'ACTIVE',
     studentType: ['UNDERGRADUATE'],
     university: ['UOS'],
     religion: ['CHRISTIAN'],
-    smoking: ['TRUE'],
+    smoking: 'TRUE',
     spiritAnimal: ['DOG'],
-    mbti: ['ENFP'],
-    mood: 'ACTIVE',
-  } satisfies PreferenceType,
+    mbti: 'EINTP',
+  },
+  message: 'mock-message',
 };

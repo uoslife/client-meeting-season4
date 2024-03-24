@@ -17,8 +17,6 @@ const FifthPage = () => {
   const setIsPageFinished = useSetAtom(pageFinishAtom);
   setIsPageFinished(pageValidity);
 
-  console.log(selectedValue);
-
   return (
     <QuestionPageTemplate
       meetingType="group"

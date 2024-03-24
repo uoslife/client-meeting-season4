@@ -44,7 +44,6 @@ const Profile = ({
   nameLabel,
   otherInfoItems,
 }: ProfileViewData) => {
-  console.log({ univ });
   switch (meetingType) {
     case 'personal':
       return (
@@ -98,6 +97,5 @@ const S = {
   GroupTopImage: styled.img`
     height: 192px;
     width: 100%;
-    background-color: red;
   `,
 };

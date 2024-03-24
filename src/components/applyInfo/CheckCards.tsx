@@ -42,16 +42,16 @@ const BottomCard = ({ directoryViewItems }: BottomCardProps) => (
   </ApplyInfo.StyledCard>
 );
 
-export type ApplyInfoCustomDoubleCardProps = {
+export type CheckApplyInfoCardsProps = {
   topCardProps: TopCardProps;
   bottomCardProps: BottomCardProps;
 };
 
 /** 신청정보 확인 페이지(신청 전/후)에서 쓰이는 컴포넌트 */
-const ApplyInfoCustomDoubleCard = ({
+const CheckApplyInfoCards = ({
   topCardProps,
   bottomCardProps,
-}: ApplyInfoCustomDoubleCardProps) => (
+}: CheckApplyInfoCardsProps) => (
   <Col align="center">
     <TopCard {...topCardProps} />
     <CardConnector />
@@ -59,4 +59,4 @@ const ApplyInfoCustomDoubleCard = ({
   </Col>
 );
 
-export default ApplyInfoCustomDoubleCard;
+export default CheckApplyInfoCards;
