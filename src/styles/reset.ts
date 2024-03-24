@@ -37,6 +37,10 @@ const reset = css`
     background-color: #888888;
     overscroll-behavior: none;
   }
+  ::-webkit-scrollbar {
+    display: none;
+  }
+
   img,
   picture,
   video,

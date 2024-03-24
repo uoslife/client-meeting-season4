@@ -25,15 +25,9 @@ const ParticipationModal = ({
   const [initLoad, setInitLoad] = useState(false);
 
   useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      setVisible(isActive);
-    }, 150);
-    return () => clearTimeout(timeoutId);
-  }, [isActive]);
-
-  useEffect(() => {
     if (visible && !initLoad) setInitLoad(true);
-  }, [visible]);
+    setVisible(isActive);
+  }, [isActive, visible]);
 
   return (
     initLoad && (
