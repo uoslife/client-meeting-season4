@@ -44,7 +44,6 @@ const Profile = ({
   nameLabel,
   otherInfoItems,
 }: ProfileViewData) => {
-  console.log({ univ });
   switch (meetingType) {
     case 'personal':
       return (

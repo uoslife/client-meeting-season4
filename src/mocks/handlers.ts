@@ -71,8 +71,14 @@ const getTeamUserListOnPending = () => {
     { status: 200 },
   );
 };
-const getAllTeamInfo = () => {
-  return HttpResponse.json({ data: 팀전체정보 }, { status: 200 });
+const getAllTeamInfo = ({
+  params: { teamType },
+}: {
+  params: { teamType: 'SINGLE' | 'TRIPLE' };
+}) => {
+  return teamType === 'SINGLE'
+    ? HttpResponse.json({ data: SINGLE_USER_INFORMATION }, { status: 200 })
+    : HttpResponse.json({ data: TRIPLE_USER_INFORMATION }, { status: 200 });
 };
 const deleteTeam = () => {
   return HttpResponse.json({}, { status: 204 });
@@ -145,7 +151,7 @@ const matchingHandlers = () => {
 };
 
 const getMatchedTeamInfo = () => {
-  return HttpResponse.json({ data: 팀전체정보 }, { status: 200 });
+  return HttpResponse.json({ data: TRIPLE_USER_INFORMATION }, { status: 200 });
 };
 
 const verificationHandlers = () => {
@@ -231,8 +237,8 @@ const getRefreshToken = () => {
   );
 };
 
-const 팀전체정보: GetMeetingInfoResponse = {
-  teamName: 'mock-팀이름',
+const SINGLE_USER_INFORMATION: GetMeetingInfoResponse = {
+  teamName: 'mock-유저이름',
   teamType: 'SINGLE',
   gender: 'MALE',
   teamUserList: [
@@ -245,11 +251,56 @@ const 팀전체정보: GetMeetingInfoResponse = {
       studentType: 'UNDERGRADUATE',
       kakaoTalkId: 'kakaoId',
       smoking: 'TRUE',
-      drinkingMin: 0,
-      drinkingMax: 0,
+      drinkingMin: 130,
+      drinkingMax: 130,
       spiritAnimal: ['DOG'],
-      mbti: 'string',
+      mbti: 'ISFP',
       interest: ['BOOK'],
+      height: 155.7,
+    },
+  ],
+  information: {
+    gender: 'FEMALE',
+    questions: [0, 0, 0, 0, 0],
+  },
+  preference: {
+    ageMin: 20,
+    ageMax: 25,
+    heightMin: 170,
+    heightMax: 180,
+    drinkingMin: 0,
+    drinkingMax: 34738478,
+    mood: 'ACTIVE',
+    studentType: ['UNDERGRADUATE'],
+    university: ['UOS'],
+    religion: ['CHRISTIAN'],
+    smoking: 'TRUE',
+    spiritAnimal: ['DOG'],
+    mbti: 'EINTP',
+  },
+  message: '안뇽안뇽안뇽안뇽안뇽안뇽안뇽안뇽안뇽안뇽안뇽안뇽안뇽안뇽안뇽',
+};
+
+const TRIPLE_USER_INFORMATION: GetMeetingInfoResponse = {
+  teamName: 'mock-팀이름',
+  teamType: 'TRIPLE',
+  gender: 'MALE',
+  teamUserList: [
+    {
+      name: '이루매',
+      age: 24,
+      religion: 'ETC',
+      university: 'UOS',
+      department: '경제학과',
+      studentType: 'UNDERGRADUATE',
+      kakaoTalkId: 'kakaoId',
+      smoking: 'TRUE',
+      drinkingMin: 130,
+      drinkingMax: 130,
+      spiritAnimal: ['DOG'],
+      mbti: 'ISFP',
+      interest: ['BOOK'],
+      height: 155.7,
     },
     {
       name: '이루매',
@@ -260,11 +311,12 @@ const 팀전체정보: GetMeetingInfoResponse = {
       studentType: 'UNDERGRADUATE',
       kakaoTalkId: 'kakaoId',
       smoking: 'TRUE',
-      drinkingMin: 0,
-      drinkingMax: 0,
+      drinkingMin: 130,
+      drinkingMax: 130,
       spiritAnimal: ['DOG'],
-      mbti: 'string',
+      mbti: 'ISFP',
       interest: ['BOOK'],
+      height: 180,
     },
     {
       name: '이루매',
@@ -275,11 +327,12 @@ const 팀전체정보: GetMeetingInfoResponse = {
       studentType: 'UNDERGRADUATE',
       kakaoTalkId: 'kakaoId',
       smoking: 'TRUE',
-      drinkingMin: 0,
-      drinkingMax: 0,
+      drinkingMin: 130,
+      drinkingMax: 130,
       spiritAnimal: ['DOG'],
-      mbti: 'string',
+      mbti: 'ISFP',
       interest: ['BOOK'],
+      height: 230,
     },
   ],
   information: {
@@ -291,13 +344,15 @@ const 팀전체정보: GetMeetingInfoResponse = {
     ageMax: 25,
     heightMin: 170,
     heightMax: 180,
+    drinkingMin: 0,
+    drinkingMax: 34738478,
+    mood: 'ACTIVE',
     studentType: ['UNDERGRADUATE'],
     university: ['UOS'],
     religion: ['CHRISTIAN'],
-    smoking: ['TRUE'],
+    smoking: 'TRUE',
     spiritAnimal: ['DOG'],
     mbti: 'EINTP',
-    mood: 'ACTIVE',
   },
   message: 'mock-message',
 };

@@ -1,6 +1,6 @@
 import { Univ } from '~/models/options';
 
-export type SpiritAnimalType = (
+export type SpiritAnimalOption =
   | 'DOG'
   | 'CAT'
   | 'RABBIT'
@@ -9,10 +9,9 @@ export type SpiritAnimalType = (
   | 'HAMSTER'
   | 'MONKEY'
   | 'DINOSAUR'
-  | 'CHICK'
-)[];
+  | 'CHICK';
 
-export type InterestType = (
+export type InterestOption =
   | 'BOOK'
   | 'EXERCISE'
   | 'GAME'
@@ -22,10 +21,9 @@ export type InterestType = (
   | 'DRAWING'
   | 'MOVIE_DRAMA'
   | 'FASHION'
-  | 'COOKING'
-)[];
+  | 'COOKING';
 
-export type ReligionType =
+export type ReligionOption =
   | 'CHRISTIAN'
   | 'CATHOLIC'
   | 'BUDDHISM'
@@ -46,9 +44,9 @@ export type GetUserResponse = {
   smoking: string;
   drinkingMin: number;
   drinkingMax: number;
-  spiritAnimal: SpiritAnimalType;
+  spiritAnimal: SpiritAnimalOption[];
   mbti: string[];
-  interest: InterestType;
+  interest: InterestOption[];
 };
 
 export type UpdateUserRequest = {
@@ -59,15 +57,15 @@ export type UpdateUserRequest = {
   phoneNumber: string;
   kakaoTalkId: string;
   department: string;
-  studentType: 'UNDERGRADUATE' | 'POSTGRADUATE' | 'GRADUATE';
-  religion?: ReligionType;
+  studentType: StudentOption;
+  religion?: ReligionOption[];
 
-  smoking?: 'TRUE' | 'FALSE' | 'NOT_MATTER';
+  smoking?: SmokingOption;
   drinkingMin?: number;
   drinkingMax?: number;
-  spiritAnimal?: SpiritAnimalType;
-  mbti?: string[];
-  interest?: InterestType;
+  spiritAnimal?: SpiritAnimalOption[];
+  mbti?: string;
+  interest?: InterestOption;
 };
 
 export type UpdatePreferRequest = {
@@ -75,22 +73,16 @@ export type UpdatePreferRequest = {
   ageMax: number;
   heightMin?: number;
   heightMax?: number;
-  studentType?: ('UNDERGRADUATE' | 'POSTGRADUATE' | 'GRADUATE')[];
+  studentType?: StudentOption[];
   university: ('UOS' | 'KHU' | 'HUFS')[];
-  religion?: ReligionType;
-  smoking?: ('TRUE' | 'FALSE' | 'NOT_MATTER')[];
-  spiritAnimal?: SpiritAnimalType;
+  religion?: ReligionOption[];
+  smoking?: SmokingOption[];
+  spiritAnimal?: SpiritAnimalOption[];
   mbti?: string[];
   mood?: 'ACTIVE' | 'CALM' | 'NOT_MATTER';
 };
 
-export type UpdateInfoRequest = {
-  question1?: object;
-  question2?: number;
-  question3?: number;
-  question4?: number;
-  question5?: number;
-};
+export type UpdateInfoRequest = number[];
 
 export type JoinGroupUserListResponse = {
   teamName: string;
@@ -109,11 +101,11 @@ export type GetGroupStatusResponse = {
 // ------------------ //
 // -- 03 / 17 추가 -- //
 // ------------------ //
-export type MoodType = 'ACTIVE' | 'CALM' | 'NOT_MATTER';
+export type MoodOption = 'ACTIVE' | 'CALM' | 'NOT_MATTER';
 
-export type SmokingType = 'TRUE' | 'FALSE' | 'NOT_MATTER';
+export type SmokingOption = 'TRUE' | 'FALSE' | 'NOT_MATTER';
 
-export type StudentType = 'UNDERGRADUATE' | 'POSTGRADUATE' | 'GRADUATE';
+export type StudentOption = 'UNDERGRADUATE' | 'POSTGRADUATE' | 'GRADUATE';
 
 export type UserProfileType = {
   // 1:1 / 3:3 전부에서 쓰이는 필드
@@ -121,17 +113,18 @@ export type UserProfileType = {
   department: string;
   kakaoTalkId: string;
   name: string;
-  studentType: StudentType;
+  studentType: StudentOption;
+  height: number;
+  university: Univ;
 
-  // 3:3에서만 쓰이는 필드
-  university?: Univ;
-  smoking?: SmokingType;
-  religion?: ReligionType;
+  // 1:1에서만 쓰이는 필드
+  smoking?: SmokingOption;
+  religion?: ReligionOption;
   drinkingMin?: number;
   drinkingMax?: number;
-  spiritAnimal?: SpiritAnimalType;
+  spiritAnimal?: SpiritAnimalOption[];
   mbti?: string;
-  interest?: InterestType;
+  interest?: InterestOption[];
 };
 
 export type GenderType = 'MALE' | 'FEMALE';
@@ -146,13 +139,15 @@ export type PreferenceType = {
   ageMax: number;
   heightMin: number;
   heightMax: number;
-  studentType: StudentType[];
+  drinkingMin?: number;
+  drinkingMax?: number;
+  studentType: StudentOption[];
   university: Univ[];
-  religion: ReligionType[];
-  smoking: SmokingType[];
-  spiritAnimal: SpiritAnimalType;
+  religion: ReligionOption[];
+  smoking: SmokingOption;
+  spiritAnimal: SpiritAnimalOption[];
   mbti: string;
-  mood: MoodType;
+  mood: MoodOption;
 };
 
 export type GetMeetingInfoResponse = {
