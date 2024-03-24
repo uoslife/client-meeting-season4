@@ -12,6 +12,7 @@ import CommonMatchingFailedStep from '~/pages/common/matchingFailedStep/Step';
 import CommonMatchingSuccessfulStep from '~/pages/common/matchingSuccessfulStep/Step';
 import CommonVerifyForCheckAfterAlreadyAppliedStep from '~/pages/common/verifyForCheckAfterAleadyAppliedStep/Step';
 import CheckAfterAlreadyAppliedStep from '~/pages/common/checkAfterAleadyAppliedStep/Step';
+import NotFoundPage from '~/pages/common/notFound/NotFoundPage';
 
 const commonRoutes = [
   //--------------------------------------------------------//
@@ -85,7 +86,7 @@ const commonRoutes = [
   },
   {
     path: '*',
-    element: <div>페이지를 찾을 수 없어요!</div>,
+    element: <NotFoundPage />,
   },
 ] as const;
 
