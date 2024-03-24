@@ -92,8 +92,10 @@ const SecondPage = () => {
                 <TextInput
                   value={phone}
                   status={'default'}
-                  placeholder={'전화번호 입력'}
+                  type={'number'}
+                  placeholder={'ex) 01012345678'}
                   onChange={e => {
+                    if (e.target.value.length > 11) return;
                     setPageState(prev => ({
                       ...prev,
                       phone: e.target.value,
