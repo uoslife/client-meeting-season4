@@ -97,6 +97,5 @@ const S = {
   GroupTopImage: styled.img`
     height: 192px;
     width: 100%;
-    background-color: red;
   `,
 };

@@ -9,8 +9,10 @@ import PageLayout from '~/components/layout/page/PageLayout';
 import { pageFinishAtom } from '~/models/funnel';
 import { CheckApplyInfoCardsProps } from '~/components/applyInfo/CheckCards';
 import { MeetingInfo } from '~/utils/meetingInfo';
+import { useClientTempData } from './temp';
 
-const useData = (meetingType: 'personal' | 'group') => {
+// production에서 사용할 훅
+const useServerData = (meetingType: 'personal' | 'group') => {
   const [meetingInfoState, setMeetingInfoState] = useState<
     CheckApplyInfoCardsProps | 'loading' | 'error'
   >('loading');
@@ -49,11 +51,13 @@ const FirstPage = () => {
     commonDataAtoms.commonBranchGatewayStep.page1,
   );
 
-  const cardState = useData(meetingType!);
+  const cardState = useClientTempData(meetingType!);
 
-  // TODO: 대신 보여줄 UI 확정 후 수정
-  if (cardState === 'error') return null;
-  if (cardState === 'loading') return null;
+  // const cardState = useServerData(meetingType!);
+
+  // // TODO: 대신 보여줄 UI 확정 후 수정
+  // if (cardState === 'error') return null;
+  // if (cardState === 'loading') return null;
 
   return (
     <PageLayout.SingleCardBody theme="BG_GREY" cardPadding="8px 0 80px">

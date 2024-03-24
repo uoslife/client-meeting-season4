@@ -11,8 +11,6 @@ const GroupLeaderPledgeStep = () => {
     nextStep: { path: '/common/checkApplyInfoStep' },
   });
 
-  console.log(1);
-
   return (
     <PageLayout>
       <PageLayout.Header
