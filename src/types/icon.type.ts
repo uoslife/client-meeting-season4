@@ -2,8 +2,9 @@
 // 예를 들어, Header의 Home 아이콘, 랜딩 페이지의 카카오톡 아이콘 등.
 export type normalType =
   | 'clearButton'
-  | 'footerButton-able'
-  | 'footerButton-disabled'
+  | 'footerButton-right-able'
+  | 'footerButton-right-disabled'
+  | 'footerButton-left-able'
   | 'check'
   | 'headerButton-home'
   | 'headerButton-backArrow'
