@@ -96,7 +96,7 @@ const TopCardComponent = () => {
 
 const BottomCardComponent = ({
   onClickPrimary,
-  onClickSecondary,
+  // onClickSecondary,
 }: bottomCardChildrenProps) => {
   const handleShareLink = async () => {
     await navigator.clipboard.writeText(SOCIAL_LINK.Sharelink);
@@ -135,7 +135,7 @@ const BottomCardComponent = ({
         </QuestionLabel>
         <Row>
           <Text
-            label={'9/25(월) - 9/27(수)'}
+            label={'4/24(월) - 4/28(수)'}
             typography="NeoBodyL"
             color="Secondary900"
           />
@@ -147,12 +147,12 @@ const BottomCardComponent = ({
           label={'신청하기'}
           onClick={onClickPrimary}
         />
-        <RoundButton
-          status={'cancel'}
-          borderType={'black'}
-          label={'신청 정보 확인하기'}
-          onClick={onClickSecondary}
-        />
+        {/*<RoundButton*/}
+        {/*  status={'cancel'}*/}
+        {/*  borderType={'black'}*/}
+        {/*  label={'신청 정보 확인하기'}*/}
+        {/*  onClick={onClickSecondary}*/}
+        {/*/>*/}
       </Col>
       <Col align={'center'} gap={10}>
         <Text
