@@ -2,7 +2,6 @@ import styled from '@emotion/styled';
 import { colors } from '~/styles/colors';
 import { keyframes } from '@emotion/react';
 
-
 export const downToUp = keyframes`
   0% {
     opacity: 0;
@@ -30,6 +29,7 @@ export const Container = styled.div<{ isActive: boolean }>`
   bottom: 0;
   left: 0;
   z-index: 10000;
+  display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;

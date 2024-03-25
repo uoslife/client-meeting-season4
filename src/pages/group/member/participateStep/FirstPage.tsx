@@ -31,10 +31,15 @@ const FirstPage = () => {
     return isError ? '유효하지 않는 코드입니다.' : '유효한 코드입니다';
   };
 
-  useEffect(() => {
-    const input = inputRef.current;
-    !!input && input.focus();
-  }, [inputRef]);
+  const onClickCancel = () => {
+    setCode('');
+    setIsModal(false);
+  };
+
+  const onClickParticipate = () => {
+    setIsModal(false);
+    setPageState({ verified: true });
+  };
 
   useEffect(() => {
     if (code.length === 4) setIsModal(true);
@@ -73,6 +78,7 @@ const FirstPage = () => {
             maxLength={4}
             ref={inputRef}
             value={code}
+            inputMode={isModal ? 'none' : 'text'}
             onChange={handleInputValue}
           />
         </S.Container>
@@ -87,11 +93,8 @@ const FirstPage = () => {
         label={'api 팅원 이름 연결'}
         currentParticipant={1}
         maxParticipant={3}
-        cancelButtonClicked={() => setIsModal(false)}
-        joinButtonClicked={() => {
-          setIsModal(false);
-          setPageState({ verified: true });
-        }}
+        cancelButtonClicked={onClickCancel}
+        joinButtonClicked={onClickParticipate}
       />
     </>
   );
