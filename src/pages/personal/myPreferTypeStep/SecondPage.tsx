@@ -10,6 +10,7 @@ import { pageFinishAtom } from '~/models/funnel';
 import { personalDataAtoms } from '~/models/personal/data';
 import { combinedValidatiesAtoms } from '~/models';
 import { ReligionOption, Univ } from '~/models/options';
+import { css } from '@emotion/react';
 
 const SecondPage = () => {
   const [pageState, setPageState] = useAtom(
@@ -154,12 +155,10 @@ const SecondPage = () => {
                       height={56}
                       borderType="primary"
                     />
-                    <RoundButton
-                      status={getReligionButtonStatus('상관 없어요!')}
-                      onClick={onClickReligionButton('상관 없어요!')}
-                      label={'상관 없어요!'}
-                      height={56}
-                      borderType="primary"
+                    <div
+                      css={css`
+                        width: 100%;
+                      `}
                     />
                   </Row>
                 </Col>
