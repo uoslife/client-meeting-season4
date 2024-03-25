@@ -13,8 +13,8 @@ const ApplicationModal = ({
   cancelButtonClicked,
   joinButtonClicked,
 }: ApplicationModalType) => {
-  return isActive ? (
-    <S.Container>
+  return (
+    <S.Container isActive={isActive}>
       <S.GrayHandler />
       <Text
         label={'매칭 신청을 하시겠습니까?'}
@@ -40,7 +40,7 @@ const ApplicationModal = ({
         />
       </S.ButtonWrapper>
     </S.Container>
-  ) : null;
+  );
 };
 
 export default ApplicationModal;

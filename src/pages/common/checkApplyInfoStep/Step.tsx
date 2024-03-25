@@ -33,6 +33,13 @@ const CommonCheckApplyInfoStep = () => {
   const closeModal = () => setIsModalOpen(false);
   const openModal = () => setIsModalOpen(true);
 
+  const onNext = () => {
+    closeModal();
+    setTimeout(() => {
+      PageHandler.onNext();
+    }, 500);
+  };
+
   return (
     <PageLayout>
       <PageLayout.Header title={headerTitle} isProgress={false} />
@@ -51,7 +58,7 @@ const CommonCheckApplyInfoStep = () => {
       <ApplicationModal
         isActive={isModalOpen}
         cancelButtonClicked={closeModal}
-        joinButtonClicked={PageHandler.onNext}
+        joinButtonClicked={onNext}
       />
     </PageLayout>
   );

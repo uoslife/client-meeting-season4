@@ -1,7 +1,30 @@
 import styled from '@emotion/styled';
 import { colors } from '~/styles/colors';
+import { keyframes } from '@emotion/react';
 
-export const Container = styled.div`
+export const downToUp = keyframes`
+  0% {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+`;
+
+export const upToDown = keyframes`
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+`;
+
+export const Container = styled.div<{ isActive: boolean }>`
   position: fixed;
   left: 0;
   bottom: 0;
@@ -15,6 +38,7 @@ export const Container = styled.div`
   width: 100%;
   box-shadow: 0px -4px 36px rgba(0, 0, 0, 0.08);
   background-color: white;
+  animation: ${({ isActive }) => (isActive ? downToUp : upToDown)} 0.5s forwards;
 `;
 
 export const GrayHandler = styled.div`
