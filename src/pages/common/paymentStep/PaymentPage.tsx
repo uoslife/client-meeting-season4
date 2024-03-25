@@ -13,23 +13,43 @@ import { commonDataAtoms } from '~/models/common/data';
 import { useAtomValue } from 'jotai';
 import { personalDataAtoms } from '~/models/personal/data';
 import { css } from '@emotion/react';
+import { groupDataAtoms } from '~/models/group/data';
 
 const ID = 'imp04325748';
 
 const PaymentPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  // api 데이터 관리용
   const [userPaymentInfo, setUserPaymentInfo] =
     useState<PaymentResponse | null>(null);
   const meetingTypeValue = useAtomValue(
     commonDataAtoms.commonBranchGatewayStep.page1,
   );
-  const { gender, name } = useAtomValue(
+  const { gender: personalGender, name: personalName } = useAtomValue(
     personalDataAtoms.personalMyInformationStep.page1,
+  );
+  const { gender: groupGender, name: groupName } = useAtomValue(
+    groupDataAtoms.groupLeaderMyInformationStep.page1,
   );
   const { phone } = useAtomValue(
     personalDataAtoms.personalMyInformationStep.page2,
   );
+
+  const handleProductInfo = (type: string) => {
+    if (meetingTypeValue.meetingType === 'group' && groupGender === 'F') {
+      return type === 'name' ? '3:3 미팅(여자)' : 10500;
+    }
+    if (meetingTypeValue.meetingType === 'group' && groupGender === 'M') {
+      return type === 'name' ? '3:3 미팅(남자)' : 12000;
+    }
+    if (meetingTypeValue.meetingType === 'personal' && personalGender === 'F') {
+      return type === 'name' ? '1:1 미팅(여자)' : 3500;
+    }
+    if (meetingTypeValue.meetingType === 'personal' && personalGender === 'M') {
+      return type === 'name' ? '1:1 미팅(남자)' : 4000;
+    }
+  };
 
   const onClickPaymeny = () => {
     /* 1. 가맹점 식별하기 */
@@ -41,10 +61,12 @@ const PaymentPage = () => {
       pay_method: 'card', // 결제수단
       merchant_uid: userPaymentInfo?.merchantUid ?? '', // 주문번호
       // merchant_uid: 'test_uoslife_meeting_480', // 주문번호
-      amount: userPaymentInfo?.price ?? 3500, // 결제금액
+      amount: userPaymentInfo?.price ?? Number(handleProductInfo('price')!), // 결제금액
+      // amount: 12000, // 결제금액
       name: '시대팅 Season4 참가비', // 주문명
       buyer_tel: phone, // 구매자 전화번호
-      buyer_name: name,
+      buyer_name: 'asdsa',
+      // m_redirect_url: import.meta.env.DEV
       m_redirect_url: import.meta.env.DEV
         ? 'http://localhost:5173/common/paymentResultStep'
         : 'https://meeting.alpha.uoslife.com/common/paymentResultStep',
@@ -91,21 +113,6 @@ const PaymentPage = () => {
     // TODO: setTimeout 제거
   }, []);
 
-  const handleProductName = () => {
-    if (meetingTypeValue.meetingType === 'group' && gender === 'F') {
-      return '3:3 미팅(여자)';
-    }
-    if (meetingTypeValue.meetingType === 'group' && gender === 'M') {
-      return '3:3 미팅(남자)';
-    }
-    if (meetingTypeValue.meetingType === 'personal' && gender === 'F') {
-      return '1:1 미팅(여자)';
-    }
-    if (meetingTypeValue.meetingType === 'personal' && gender === 'M') {
-      return '1:1 미팅(남자)';
-    }
-  };
-
   return (
     <Col
       align={'center'}
@@ -138,7 +145,7 @@ const PaymentPage = () => {
               typography={'GoThicButtonM'}
             />
             <Text
-              label={handleProductName()!}
+              label={String(handleProductInfo('name'))}
               color={'Gray500'}
               typography={'GoThicTitleS'}
             />
@@ -150,7 +157,7 @@ const PaymentPage = () => {
               typography={'GoThicButtonM'}
             />
             <Text
-              label={'3500원'}
+              label={handleProductInfo('price') + '원'}
               color={'Gray500'}
               typography={'GoThicTitleS'}
             />
