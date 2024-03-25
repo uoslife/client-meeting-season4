@@ -47,7 +47,9 @@ const CommonPaymentResultStep = () => {
       return;
     }
     // 포트원 테스트 심의를 위해 임시로 설정.
-    setPaymentStatus('true');
+    setTimeout(() => {
+      setPaymentStatus('success');
+    }, 3000);
     // TODO:msw로 인한 setTimeout 부착, 실제 api 환경에서는 setTimeout 제거하기
     // setTimeout(() => {
     //   handleCheckPaymentResult();

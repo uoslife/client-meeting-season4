@@ -36,7 +36,7 @@ const SuccessPayment = () => {
         <Col align={'center'} gap={8}>
           <Col align={'center'}>
             <Text
-              label={'11/1 목요일 저녁,'}
+              label={'04/29 목요일 저녁,'}
               color={'Secondary900'}
               typography={'GoThicTitleS'}
             />
