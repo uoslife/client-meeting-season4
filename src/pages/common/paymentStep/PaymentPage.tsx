@@ -32,8 +32,11 @@ const PaymentPage = () => {
   const { gender: groupGender, name: groupName } = useAtomValue(
     groupDataAtoms.groupLeaderMyInformationStep.page1,
   );
-  const { phone } = useAtomValue(
+  const { phone: personalPhone } = useAtomValue(
     personalDataAtoms.personalMyInformationStep.page2,
+  );
+  const { phone: groupPhone } = useAtomValue(
+    groupDataAtoms.groupLeaderMyInformationStep.page2,
   );
 
   const handleProductInfo = (type: string) => {
@@ -59,14 +62,15 @@ const PaymentPage = () => {
     const data: RequestPayParams = {
       pg: 'welcome', // PG사 : https://developers.portone.io/docs/ko/tip/pg-2 참고
       pay_method: 'card', // 결제수단
-      merchant_uid: userPaymentInfo?.merchantUid ?? '', // 주문번호
-      // merchant_uid: 'test_uoslife_meeting_480', // 주문번호
+      // merchant_uid: userPaymentInfo?.merchantUid ?? '', // 주문번호
+      // 테스트용 주문번호
+      merchant_uid: `test_uoslife_meeting_${Math.floor(Math.random() * (10000 + 1)) + 1000}`, // 주문번호
       amount: userPaymentInfo?.price ?? Number(handleProductInfo('price')!), // 결제금액
-      // amount: 12000, // 결제금액
       name: '시대팅 Season4 참가비', // 주문명
-      buyer_tel: phone, // 구매자 전화번호
-      buyer_name: 'asdsa',
-      // m_redirect_url: import.meta.env.DEV
+      buyer_tel:
+        meetingTypeValue.meetingType === 'group' ? groupPhone : personalPhone, // 구매자 전화번호
+      buyer_name:
+        meetingTypeValue.meetingType === 'group' ? groupName : personalName,
       m_redirect_url: import.meta.env.DEV
         ? 'http://localhost:5173/common/paymentResultStep'
         : 'https://meeting.alpha.uoslife.com/common/paymentResultStep',
@@ -78,7 +82,6 @@ const PaymentPage = () => {
   //pc 버전 콜백
   function callback(response: RequestPayResponse) {
     const { error_code, error_msg } = response;
-    console.log(response, 'response');
     // pc에서 결제도중 취소하는 경우
     if (
       error_code === 'F400' &&
@@ -102,7 +105,7 @@ const PaymentPage = () => {
   };
 
   useEffect(() => {
-    if (location.state) {
+    if (location.state?.cancelToast) {
       toast.error('결제를 취소하셨습니다.', {
         duration: 1800,
       });

@@ -17,8 +17,6 @@ const CommonPaymentResultStep = () => {
   // 결제 결과에 따른 화면 렌더링 관리 state
   const [paymentStatus, setPaymentStatus] = useState('loading');
   const paymentResultValue = locationState ? locationState : query;
-  console.log(query, '쿼리');
-  console.log(locationState, '로케이션스테이트');
 
   const handleCheckPaymentResult = async () => {
     const res = await PaymentAPI.checkPayment(
@@ -52,10 +50,6 @@ const CommonPaymentResultStep = () => {
       handleCheckPaymentResult();
     }, 3000);
   }, []);
-
-  useEffect(() => {
-    console.log(paymentResultValue, 'ㅋㅋㅋ');
-  }, [paymentResultValue]);
 
   const handlePaymentStatus = () => {
     switch (paymentStatus) {
