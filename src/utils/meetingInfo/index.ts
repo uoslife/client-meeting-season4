@@ -29,12 +29,14 @@ import {
   getAtmosphereLabel,
   getAgeRangeLabel,
   getAnimalAndMbtiLabel,
+  getReligionLabel,
 } from './label-getters';
 import { MatchingSuccessfulContentProps } from '~/components/applyInfo/MatchingSuccessfulContent';
 import { CheckPageDoubleCardsProps } from '~/components/applyInfo/CheckPageDoubleCards';
 
 // Convert API data to UI data
 export class MeetingInfo {
+  private myName: string;
   private teamType: TeamType;
   private gender: GenderType;
   private teamName: string;
@@ -47,6 +49,7 @@ export class MeetingInfo {
   private departments: string[];
 
   constructor({
+    myName,
     gender,
     information,
     message,
@@ -55,6 +58,7 @@ export class MeetingInfo {
     teamType,
     teamUserList,
   }: GetMeetingInfoResponse) {
+    this.myName = myName;
     this.teamType = teamType;
     this.gender = gender;
     this.questions = information.questions;
@@ -99,12 +103,15 @@ export class MeetingInfo {
         interest,
         mbti,
         spiritAnimal,
+        religion,
+        phoneNumber,
       } = teamUserList[0];
 
       return {
         topCardProps: {
           cardTopLabel: '내 정보',
           profileViewData: {
+            univ,
             genderAndAgeLabel,
             meetingType: 'personal',
             nameLabel,
@@ -120,9 +127,14 @@ export class MeetingInfo {
                 content: getStudentTypeLabel(studentType),
               },
               { name: '카카오톡 ID', content: kakaoTalkId },
+              { name: '전화번호', content: phoneNumber },
             ],
           },
           directoryViewItems: [
+            {
+              name: '종교',
+              content: getReligionLabel(religion!),
+            },
             {
               name: '흡연 여부',
               content: getSmokingLabel(smoking!),
@@ -178,6 +190,10 @@ export class MeetingInfo {
             {
               name: '선호 대학',
               content: getUnivPreferLabel(preference.university),
+            },
+            {
+              name: '선호 종교',
+              content: getReligionLabel(preference.religion!),
             },
             {
               name: '흡연 여부 / 음주 횟수',
@@ -288,6 +304,7 @@ export class MeetingInfo {
       teamType,
       questions,
       departments,
+      myName,
     } = this;
 
     const {
@@ -299,10 +316,15 @@ export class MeetingInfo {
       interest,
       mbti,
       spiritAnimal,
+      religion,
     } = teamUserList[0];
+
+    console.log(univ);
 
     if (teamType === 'SINGLE')
       return {
+        myName,
+        message,
         profileViewData: {
           univ,
           genderAndAgeLabel: getGenderAndAgeLabel({
@@ -326,6 +348,10 @@ export class MeetingInfo {
           ],
         },
         directoryViewItems: [
+          {
+            name: '종교',
+            content: getReligionLabel(religion!),
+          },
           {
             name: '흡연 여부',
             content: getSmokingLabel(smoking!),
@@ -368,11 +394,11 @@ export class MeetingInfo {
           },
         ],
         kakaoIds: teamUserList.map(user => user.kakaoTalkId),
-        message,
-        username: 'TEMP',
       };
     else
       return {
+        myName,
+        message,
         profileViewData: {
           univ,
           genderAndAgeLabel: getGenderAndAgeLabel({
@@ -426,8 +452,6 @@ export class MeetingInfo {
           },
         ],
         kakaoIds: teamUserList.map(user => user.kakaoTalkId),
-        message,
-        username: 'TEMP',
       };
   };
 }

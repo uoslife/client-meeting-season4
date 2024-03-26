@@ -12,7 +12,7 @@ import PageLayout from '../layout/page/PageLayout';
 import RoundButton from '../buttons/roundButton/RoundButton';
 
 export type MatchingSuccessfulContentProps = {
-  username: string;
+  myName: string;
   kakaoIds: string[];
   message: string;
   profileViewData: ProfileViewData;
@@ -23,15 +23,11 @@ const Congraturation = () => (
   <img src={'/images/icons/congraturation.png'} alt="" />
 );
 
-const TopSayings = ({ username }: { username: string }) => (
+const TopSayings = ({ myName }: { myName: string }) => (
   <Col align="center">
     <Row justify="center">
       <Congraturation />
-      <Text
-        color="Primary500"
-        label={`${username} 님,`}
-        typography="NeoTitleM"
-      />
+      <Text color="Primary500" label={`${myName} 님,`} typography="NeoTitleM" />
     </Row>
     <Text
       color="Primary500"
@@ -130,7 +126,7 @@ const MatchingSuccessfulContent = ({
   kakaoIds,
   message,
   profileViewData,
-  username,
+  myName,
 }: MatchingSuccessfulContentProps) => {
   return (
     <PageLayout>
@@ -138,7 +134,7 @@ const MatchingSuccessfulContent = ({
       <PageLayout.SingleCardBody cardPadding="8px 4px" theme="BG_GREY">
         <Paddler top={24} bottom={24}>
           <Col align="center" gap={16}>
-            <TopSayings username={username} />
+            <TopSayings myName={myName} />
             <InnerCard
               {...{ directoryViewItems, kakaoIds, message, profileViewData }}
             />
