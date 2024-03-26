@@ -22,6 +22,7 @@ const meetingHandlers = () => {
       getTeamUserListOnPending,
     ),
     http.get('/api/meeting/:teamType/application/info', getAllTeamInfo),
+    http.get('/api/match', getMatchingInfo),
     http.delete('/api/meeting/:teamType/:isTeamLeader', deleteTeam),
   ];
 };
@@ -79,6 +80,9 @@ const getAllTeamInfo = ({
   return teamType === 'SINGLE'
     ? HttpResponse.json({ data: SINGLE_USER_INFORMATION }, { status: 200 })
     : HttpResponse.json({ data: TRIPLE_USER_INFORMATION }, { status: 200 });
+};
+const getMatchingInfo = () => {
+  return HttpResponse.json({ data: SINGLE_USER_INFORMATION }, { status: 200 });
 };
 const deleteTeam = () => {
   return HttpResponse.json({}, { status: 204 });
