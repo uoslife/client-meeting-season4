@@ -2,19 +2,21 @@ import { useAtomValue, useSetAtom } from 'jotai';
 import { commonDataAtoms } from '~/models/common/data';
 import { useEffect, useState } from 'react';
 import { MeetingAPI } from '~/api';
-import ApplyInfo from '~/components/applyInfo/ApplyInfo';
-import Col from '~/components/layout/Col';
-import Paddler from '~/components/layout/Pad';
-import PageLayout from '~/components/layout/page/PageLayout';
 import { pageFinishAtom } from '~/models/funnel';
-import { CheckApplyInfoCardsProps } from '~/components/applyInfo/CheckCards';
 import { MeetingInfo } from '~/utils/meetingInfo';
 import { useClientTempData } from './temp';
+import CheckPageDoubleCards, {
+  CheckPageDoubleCardsProps,
+} from '~/components/applyInfo/CheckPageDoubleCards';
+import Paddler from '~/components/layout/Pad';
+import Col from '~/components/layout/Col';
+import PageLayout from '~/components/layout/page/PageLayout';
+import Text from '~/components/typography/Text';
 
 // production에서 사용할 훅
-const useServerData = (meetingType: 'personal' | 'group') => {
+const useData = (meetingType: 'personal' | 'group') => {
   const [meetingInfoState, setMeetingInfoState] = useState<
-    CheckApplyInfoCardsProps | 'loading' | 'error'
+    CheckPageDoubleCardsProps | 'loading' | 'error'
   >('loading');
 
   const setIsPageFinished = useSetAtom(pageFinishAtom);
@@ -46,25 +48,40 @@ const useServerData = (meetingType: 'personal' | 'group') => {
   return meetingInfoState;
 };
 
+const TopSayings = () => (
+  <Col gap={4} align="center">
+    <Text
+      color="Primary500"
+      label="신청 정보를 확인해줘"
+      typography="NeoTitleM"
+    />
+    <Text
+      color="Secondary800"
+      label="신청 완료 후에는 수정이 불가해요."
+      typography="GoThicBodyS"
+    />
+  </Col>
+);
+
 const FirstPage = () => {
   const { meetingType } = useAtomValue(
     commonDataAtoms.commonBranchGatewayStep.page1,
   );
 
-  const cardState = useClientTempData(meetingType!);
+  const data = useClientTempData(meetingType!);
 
-  // const cardState = useServerData(meetingType!);
+  // const data = useData(meetingType!);
 
   // // TODO: 대신 보여줄 UI 확정 후 수정
-  // if (cardState === 'error') return null;
-  // if (cardState === 'loading') return null;
+  // if (data === 'error') return null;
+  // if (data === 'loading') return null;
 
   return (
     <PageLayout.SingleCardBody theme="BG_GREY" cardPadding="8px 0 80px">
       <Paddler left={5} right={5} top={24}>
         <Col gap={16}>
-          <ApplyInfo.CheckPageTopSaying />
-          <ApplyInfo.CheckCards {...cardState} />
+          <TopSayings />
+          <CheckPageDoubleCards {...data} />
         </Col>
       </Paddler>
     </PageLayout.SingleCardBody>

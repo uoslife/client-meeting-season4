@@ -1,8 +1,9 @@
 import { css } from '@emotion/react';
 import { useEffect, useState } from 'react';
 import { MeetingAPI } from '~/api';
-import ApplyInfo from '~/components/applyInfo/ApplyInfo';
-import { CheckApplyInfoCardsProps } from '~/components/applyInfo/CheckCards';
+import CheckPageDoubleCards, {
+  CheckPageDoubleCardsProps,
+} from '~/components/applyInfo/CheckPageDoubleCards';
 import RoundButton from '~/components/buttons/roundButton/RoundButton';
 import Col from '~/components/layout/Col';
 import Paddler from '~/components/layout/Pad';
@@ -13,7 +14,7 @@ import { MeetingInfo } from '~/utils/meetingInfo';
 
 const useData = (meetingType: 'personal' | 'group') => {
   const [meetingInfoState, setMeetingInfoState] = useState<
-    CheckApplyInfoCardsProps | 'loading' | 'error'
+    CheckPageDoubleCardsProps | 'loading' | 'error'
   >('loading');
 
   useEffect(() => {
@@ -91,7 +92,7 @@ const CheckAfterAlreadyAppliedStep = () => {
       <PageLayout.SingleCardBody theme="BG_GREY" cardPadding="8px 0">
         <Paddler left={5} right={5} bottom={20}>
           <Col gap={44} align="center">
-            <ApplyInfo.CheckCards {...cardState} />
+            <CheckPageDoubleCards {...cardState} />
             <BottomSayingsAndCancelButton
               onClickCancleButton={() => navigate('/common/cancelStep')}
             />

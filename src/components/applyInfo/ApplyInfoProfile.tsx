@@ -37,7 +37,7 @@ export type ProfileViewData = {
   otherInfoItems: ProfileInfoItemType[];
 };
 
-const Profile = ({
+const ApplyInfoProfile = ({
   univ,
   meetingType,
   genderAndAgeLabel,
@@ -87,7 +87,7 @@ const Profile = ({
   }
 };
 
-export default Profile;
+export default ApplyInfoProfile;
 
 const S = {
   PersonalLeftImage: styled.img`
