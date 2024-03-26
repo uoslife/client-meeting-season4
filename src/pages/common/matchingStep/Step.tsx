@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { MeetingAPI } from '~/api';
+import MatchingFailedContent from '~/components/applyInfo/MatchingFailedContent';
 import MatchingSuccessfulContent, {
   MatchingSuccessfulContentProps,
 } from '~/components/applyInfo/MatchingSuccessfulContent';
@@ -20,7 +21,6 @@ const useData = () => {
         const convertedUiData = new MeetingInfo(data).getMatchingInfoUiData();
         setMeetingInfoState(convertedUiData);
       } catch (error) {
-        console.log({ error });
         setMeetingInfoState('error');
       }
     }, 3000);
@@ -34,7 +34,7 @@ const useData = () => {
 const CommonMatchingStep = () => {
   const data = useData();
 
-  if (data === 'error') return '에러';
+  if (data === 'error') return <MatchingFailedContent />;
   if (data === 'loading') return '로딩';
 
   return <MatchingSuccessfulContent {...data} />;
