@@ -8,11 +8,10 @@ import CommonCheckApplyInfoStep from '~/pages/common/checkApplyInfoStep/Step';
 import CommonPaymentResultStep from '~/pages/common/paymentResultStep/Step';
 import CommonCancelStep from '~/pages/common/cancelStep/Step';
 import CommonVerifyForMatchingResultStep from '~/pages/common/verifyForMatchingResultStep/Step';
-import CommonMatchingFailedStep from '~/pages/common/matchingFailedStep/Step';
-import CommonMatchingSuccessfulStep from '~/pages/common/matchingSuccessfulStep/Step';
 import CommonVerifyForCheckAfterAlreadyAppliedStep from '~/pages/common/verifyForCheckAfterAleadyAppliedStep/Step';
 import CheckAfterAlreadyAppliedStep from '~/pages/common/checkAfterAleadyAppliedStep/Step';
 import NotFoundPage from '~/pages/common/notFound/NotFoundPage';
+import CommonMatchingStep from '~/pages/common/matchingStep/Step';
 
 const commonRoutes = [
   //--------------------------------------------------------//
@@ -77,12 +76,8 @@ const commonRoutes = [
     element: <CommonVerifyForMatchingResultStep />,
   },
   {
-    path: '/common/matchingFailedStep',
-    element: <CommonMatchingFailedStep />,
-  },
-  {
-    path: '/common/matchingSuccessfulStep',
-    element: <CommonMatchingSuccessfulStep />,
+    path: '/common/matchingStep',
+    element: <CommonMatchingStep />,
   },
   {
     path: '*',

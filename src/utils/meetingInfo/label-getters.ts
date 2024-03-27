@@ -1,6 +1,7 @@
 import {
   GenderType,
   InterestOption,
+  ReligionOption,
   SmokingOption,
   SpiritAnimalOption,
   StudentOption,
@@ -11,12 +12,16 @@ import {
   ATMOSPHERE_MAP,
   GROUP_ANSWER_OPTIONS,
   PERSONAL_ANSWER_OPTIONS,
+  RELIGON_MAP,
   SMOKING_MAP,
   STUDENT_TYPE_MAP,
   UNIV_MAP,
 } from './constants';
 import { getSortedMbtiArray } from './mbti';
 import { Univ } from '~/models/options';
+
+export const getReligionLabel = (religion: ReligionOption) =>
+  RELIGON_MAP[religion];
 
 export const getGenderAndAgeLabel = ({
   teamType,

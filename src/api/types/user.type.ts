@@ -116,6 +116,7 @@ export type UserProfileType = {
   studentType: StudentOption;
   height: number;
   university: Univ;
+  phoneNumber: string;
 
   // 1:1에서만 쓰이는 필드
   smoking?: SmokingOption;
@@ -143,7 +144,7 @@ export type PreferenceType = {
   drinkingMax?: number;
   studentType: StudentOption[];
   university: Univ[];
-  religion: ReligionOption[];
+  religion: ReligionOption;
   smoking: SmokingOption;
   spiritAnimal: SpiritAnimalOption[];
   mbti: string;
@@ -151,6 +152,7 @@ export type PreferenceType = {
 };
 
 export type GetMeetingInfoResponse = {
+  myName: string;
   teamType: TeamType;
   gender: GenderType;
   teamName: string;
