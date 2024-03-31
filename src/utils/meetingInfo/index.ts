@@ -1,3 +1,5 @@
+// TODO: username 필드 response 형식 확정 후 수정
+
 import {
   GenderType,
   GetMeetingInfoResponse,
@@ -5,7 +7,6 @@ import {
   TeamType,
   UserProfileType,
 } from '~/api/types/user.type';
-import { CheckApplyInfoCardsProps } from '~/components/applyInfo/CheckCards';
 import { Univ } from '~/models/options';
 import { day_binaryIntoDayArray } from './day';
 import {
@@ -28,10 +29,14 @@ import {
   getAtmosphereLabel,
   getAgeRangeLabel,
   getAnimalAndMbtiLabel,
+  getReligionLabel,
 } from './label-getters';
+import { MatchingSuccessfulContentProps } from '~/components/applyInfo/MatchingSuccessfulContent';
+import { CheckPageDoubleCardsProps } from '~/components/applyInfo/CheckPageDoubleCards';
 
 // Convert API data to UI data
 export class MeetingInfo {
+  private myName: string;
   private teamType: TeamType;
   private gender: GenderType;
   private teamName: string;
@@ -44,6 +49,7 @@ export class MeetingInfo {
   private departments: string[];
 
   constructor({
+    myName,
     gender,
     information,
     message,
@@ -52,6 +58,7 @@ export class MeetingInfo {
     teamType,
     teamUserList,
   }: GetMeetingInfoResponse) {
+    this.myName = myName;
     this.teamType = teamType;
     this.gender = gender;
     this.questions = information.questions;
@@ -65,7 +72,7 @@ export class MeetingInfo {
     this.departments = teamUserList.map(user => user.department);
   }
 
-  getCheckApplyInfoUiData = (): CheckApplyInfoCardsProps => {
+  getCheckApplyInfoUiData = (): CheckPageDoubleCardsProps => {
     const {
       age,
       gender,
@@ -96,12 +103,15 @@ export class MeetingInfo {
         interest,
         mbti,
         spiritAnimal,
+        religion,
+        phoneNumber,
       } = teamUserList[0];
 
       return {
         topCardProps: {
           cardTopLabel: '내 정보',
           profileViewData: {
+            univ,
             genderAndAgeLabel,
             meetingType: 'personal',
             nameLabel,
@@ -117,9 +127,14 @@ export class MeetingInfo {
                 content: getStudentTypeLabel(studentType),
               },
               { name: '카카오톡 ID', content: kakaoTalkId },
+              { name: '전화번호', content: phoneNumber },
             ],
           },
           directoryViewItems: [
+            {
+              name: '종교',
+              content: getReligionLabel(religion!),
+            },
             {
               name: '흡연 여부',
               content: getSmokingLabel(smoking!),
@@ -175,6 +190,10 @@ export class MeetingInfo {
             {
               name: '선호 대학',
               content: getUnivPreferLabel(preference.university),
+            },
+            {
+              name: '선호 종교',
+              content: getReligionLabel(preference.religion!),
             },
             {
               name: '흡연 여부 / 음주 횟수',
@@ -272,5 +291,167 @@ export class MeetingInfo {
         },
       };
     }
+  };
+
+  getMatchingInfoUiData = (): MatchingSuccessfulContentProps => {
+    const {
+      teamUserList,
+      message,
+      teamName,
+      univ,
+      age,
+      gender,
+      teamType,
+      questions,
+      departments,
+      myName,
+    } = this;
+
+    const {
+      studentType,
+      smoking,
+      drinkingMax,
+      drinkingMin,
+      height,
+      interest,
+      mbti,
+      spiritAnimal,
+      religion,
+    } = teamUserList[0];
+
+    console.log(univ);
+
+    if (teamType === 'SINGLE')
+      return {
+        myName,
+        message,
+        profileViewData: {
+          univ,
+          genderAndAgeLabel: getGenderAndAgeLabel({
+            age,
+            gender,
+            teamType,
+          }),
+          meetingType: 'personal',
+          nameLabel: teamName,
+          otherInfoItems: [
+            { name: '키', content: getHeightMyInfoLabel(height) },
+            {
+              name: '학교',
+              content: getProfileUniversityLabel(univ),
+            },
+            { name: '학과', content: getDepartmentsLabel(departments) },
+            {
+              name: '신분',
+              content: getStudentTypeLabel(studentType),
+            },
+          ],
+        },
+        directoryViewItems: [
+          {
+            name: '종교',
+            content: getReligionLabel(religion!),
+          },
+          {
+            name: '흡연 여부',
+            content: getSmokingLabel(smoking!),
+          },
+          {
+            name: '음주 횟수',
+            content: getDrinkLabel(drinkingMin!, drinkingMax!),
+          },
+          {
+            name: '동물상 및 MBTI',
+            content: getAnimalAndMbtiLabel(spiritAnimal!, mbti!),
+          },
+          {
+            name: '관심사',
+            content: getInterestsLabel(interest!),
+          },
+          {
+            name: '나의 메세지',
+            content: message,
+          },
+          {
+            name: 'Q&A. 연애 스타일',
+            content: getQnaLabel('SINGLE', 0, questions[0]),
+          },
+          {
+            name: 'Q&A. 데이트',
+            content: getQnaLabel('SINGLE', 1, questions[1]),
+          },
+          {
+            name: 'Q&A. 화해 방법',
+            content: getQnaLabel('SINGLE', 2, questions[2]),
+          },
+          {
+            name: 'Q&A. 연락 빈도',
+            content: getQnaLabel('SINGLE', 3, questions[3]),
+          },
+          {
+            name: 'Q&A. 표현 방법',
+            content: getQnaLabel('SINGLE', 4, questions[4]),
+          },
+        ],
+        kakaoIds: teamUserList.map(user => user.kakaoTalkId),
+      };
+    else
+      return {
+        myName,
+        message,
+        profileViewData: {
+          univ,
+          genderAndAgeLabel: getGenderAndAgeLabel({
+            age,
+            gender,
+            teamType,
+          }),
+          meetingType: 'group',
+          nameLabel: teamName,
+          otherInfoItems: [
+            {
+              name: '학교',
+              content: getUniversityLabel(univ),
+            },
+            {
+              name: '학과',
+              content: getCommaJoinedLabel(
+                teamUserList.map(user => user.department),
+              ),
+            },
+            {
+              name: '신분',
+              content: getCommaJoinedLabel(
+                teamUserList.map(user => getStudentTypeLabel(user.studentType)),
+              ),
+            },
+            {
+              name: '선호 요일',
+              content: getCommaJoinedLabel(
+                day_binaryIntoDayArray(questions[0]),
+              ),
+            },
+          ],
+        },
+        directoryViewItems: [
+          {
+            name: 'Q&A. 분위기',
+            content: getQnaLabel('TRIPLE', 1, questions[1]),
+          },
+          {
+            name: 'Q&A. 미팅',
+            content: getQnaLabel('TRIPLE', 2, questions[2]),
+          },
+          {
+            name: 'Q&A. 술',
+            content: getQnaLabel('TRIPLE', 3, questions[3]),
+          },
+          {
+            name: 'Q&A. 미팅 동기',
+            content: getQnaLabel('TRIPLE', 4, questions[4]),
+          },
+        ],
+        kakaoIds: teamUserList.map(user => user.kakaoTalkId),
+      };
   };
 }

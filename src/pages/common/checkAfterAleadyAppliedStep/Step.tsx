@@ -1,8 +1,8 @@
-import { css } from '@emotion/react';
 import { useEffect, useState } from 'react';
 import { MeetingAPI } from '~/api';
-import ApplyInfo from '~/components/applyInfo/ApplyInfo';
-import { CheckApplyInfoCardsProps } from '~/components/applyInfo/CheckCards';
+import CheckPageDoubleCards, {
+  CheckPageDoubleCardsProps,
+} from '~/components/applyInfo/CheckPageDoubleCards';
 import RoundButton from '~/components/buttons/roundButton/RoundButton';
 import Col from '~/components/layout/Col';
 import Paddler from '~/components/layout/Pad';
@@ -13,7 +13,7 @@ import { MeetingInfo } from '~/utils/meetingInfo';
 
 const useData = (meetingType: 'personal' | 'group') => {
   const [meetingInfoState, setMeetingInfoState] = useState<
-    CheckApplyInfoCardsProps | 'loading' | 'error'
+    CheckPageDoubleCardsProps | 'loading' | 'error'
   >('loading');
 
   useEffect(() => {
@@ -39,47 +39,64 @@ const useData = (meetingType: 'personal' | 'group') => {
   return meetingInfoState;
 };
 
-const BottomSayingsAndCancelButton = ({
-  onClickCancleButton,
-}: {
-  onClickCancleButton: () => void;
-}) => (
-  <Col gap={8}>
-    <Col align="center">
-      <Text
-        css={css`
-          text-align: center;
-        `}
-        label="참여에 문제가 생겼다면, 기한 내에 신청 취소를 눌러주세요."
-        color="Gray500"
-        typography="GoThicBodyS"
-      />
-      <Text
-        label="(신청 취소 기한 : n월 n일 오후 nn시까지)"
-        color="Gray500"
-        typography="GoThicBodyS"
-      />
-    </Col>
-    <Paddler left={20} right={20}>
-      <RoundButton
-        status="inactive"
-        borderType="black"
-        label=""
-        onClick={onClickCancleButton}>
-        <Text label="신청 취소" color="Gray500" typography="NeoButtonL" />
-        <img
-          color="black"
-          src="\images\icons\next-icon-black.svg"
-          alt="arrowLeft"
+const BottomSayingsAndCancelButton = () => {
+  const navigate = useTypeSafeNavigate();
+
+  return (
+    <Col gap={8}>
+      <Col align="center">
+        <Text
+          label={
+            '참여에 문제가 생겼다면, \n' +
+            '기한 내에 신청 취소를 눌러주세요. \n' +
+            '(신청 취소 기한 : n월 n일 오후 nn시까지)'
+          }
+          color="Gray500"
+          typography="GoThicBodyS"
         />
-      </RoundButton>
-    </Paddler>
-  </Col>
-);
+      </Col>
+      <Paddler left={20} right={20}>
+        <Col gap={8}>
+          <RoundButton
+            status="active"
+            borderType="black"
+            label=""
+            onClick={() => navigate('/')}>
+            <Text
+              label="홈 화면으로 가기"
+              color="White"
+              typography="NeoButtonL"
+            />
+            <img
+              color="white"
+              src="\images\icons\next-icon-white.svg"
+              alt="arrowLeft"
+            />
+          </RoundButton>
+          <RoundButton
+            status="inactive"
+            borderType="black"
+            label=""
+            onClick={() => navigate('/common/cancelStep')}>
+            <Text
+              label="신청 취소하기"
+              color="Gray500"
+              typography="NeoButtonL"
+            />
+            <img
+              color="black"
+              src="\images\icons\next-icon-black.svg"
+              alt="arrowLeft"
+            />
+          </RoundButton>
+        </Col>
+      </Paddler>
+    </Col>
+  );
+};
 
 const CheckAfterAlreadyAppliedStep = () => {
   const cardState = useData('personal');
-  const navigate = useTypeSafeNavigate();
 
   // TODO: 대신 보여줄 UI 확정 후 수정
   if (cardState === 'error') return '기다려주세요 / 로딩 UI 확정 필요';
@@ -91,10 +108,8 @@ const CheckAfterAlreadyAppliedStep = () => {
       <PageLayout.SingleCardBody theme="BG_GREY" cardPadding="8px 0">
         <Paddler left={5} right={5} bottom={20}>
           <Col gap={44} align="center">
-            <ApplyInfo.CheckCards {...cardState} />
-            <BottomSayingsAndCancelButton
-              onClickCancleButton={() => navigate('/common/cancelStep')}
-            />
+            <CheckPageDoubleCards {...cardState} />
+            <BottomSayingsAndCancelButton />
           </Col>
         </Paddler>
       </PageLayout.SingleCardBody>

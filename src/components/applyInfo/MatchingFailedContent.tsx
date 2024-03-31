@@ -1,10 +1,10 @@
 import styled from '@emotion/styled';
-import RoundButton from '~/components/buttons/roundButton/RoundButton';
-import Col from '~/components/layout/Col';
-import PageLayout from '~/components/layout/page/PageLayout';
-import Text from '~/components/typography/Text';
 import useTypeSafeNavigate from '~/hooks/useTypeSafeNavigate';
 import { colors } from '~/styles/colors';
+import PageLayout from '../layout/page/PageLayout';
+import Col from '../layout/Col';
+import Text from '../typography/Text';
+import RoundButton from '../buttons/roundButton/RoundButton';
 
 const CryingFace = () => (
   <img
@@ -15,7 +15,7 @@ const CryingFace = () => (
   />
 );
 
-const CommonMatchingFailedStep = () => {
+const MatchingFailedContent = () => {
   const navigate = useTypeSafeNavigate();
 
   return (
@@ -53,8 +53,6 @@ const CommonMatchingFailedStep = () => {
   );
 };
 
-export default CommonMatchingFailedStep;
-
 const S = {
   BodyInnerContainer: styled.div`
     padding: 36px 20px 24px;
@@ -79,3 +77,5 @@ const S = {
     background: ${colors.Gray000};
   `,
 };
+
+export default MatchingFailedContent;
