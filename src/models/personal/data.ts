@@ -18,7 +18,7 @@ export const personalInitialData: PersonalData = {
     page3: {
       religion: null,
       smoking: null,
-      drinkRange: [5, 6],
+      drinkRange: [0, 25],
     },
     page4: {
       animalOptions: [],
@@ -42,15 +42,15 @@ export const personalInitialData: PersonalData = {
   },
   personalPreferInfoStep: {
     page1: {
-      ageRange: [20, 21],
-      heightRange: [175, 185],
+      ageRange: [20, 30],
+      heightRange: [150, 190],
       studentTypes: [],
     },
     page2: {
       univs: [],
       religionOptions: [],
       smoking: null,
-      drinkRange: [1, 2],
+      drinkRange: [0, 25],
     },
     page3: { animalOptions: [] },
     page4: { mbtis: '' },
