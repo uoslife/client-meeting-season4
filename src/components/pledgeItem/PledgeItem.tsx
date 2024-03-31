@@ -17,6 +17,7 @@ const PledgeItem = ({
   onClick?: () => void;
 }) => (
   <Col
+    onClick={onClick}
     padding="20px"
     style={{
       backgroundColor: `${colors['Gray000']}`,
@@ -29,17 +30,20 @@ const PledgeItem = ({
         css={css`
           width: calc(100% - 36px);
         `}>
-        <Text label={title} color={'Gray500'} typography={'GoThicTitleS'} />
+        <Text
+          label={title}
+          color={'Gray500'}
+          typography={'GoThicTitleS'}
+          align="left"
+        />
         <Text
           label={content}
           color={'Gray500'}
           typography={'GoThicBodyS'}
-          css={css`
-            text-align: start;
-          `}
+          align="left"
         />
       </Col>
-      <Checkbox checked={checked} onClick={onClick} />
+      <Checkbox checked={checked} />
     </Row>
   </Col>
 );

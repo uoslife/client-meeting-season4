@@ -6,13 +6,7 @@ export type GenderOption = 'F' | 'M';
 
 export type StudentOption = '학부생' | '대학원생' | '졸업생';
 
-export type ReligionOption =
-  | '기독교'
-  | '천주교'
-  | '불교'
-  | '무교'
-  | '기타'
-  | '상관 없어요!';
+export type ReligionOption = '기독교' | '천주교' | '불교' | '무교' | '기타';
 
 export type SmokingOption = '흡연' | '비흡연' | '상관 없어요!';
 
