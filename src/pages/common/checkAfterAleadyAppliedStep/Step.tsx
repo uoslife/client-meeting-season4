@@ -1,4 +1,3 @@
-import { css } from '@emotion/react';
 import { useEffect, useState } from 'react';
 import { MeetingAPI } from '~/api';
 import CheckPageDoubleCards, {
@@ -47,9 +46,6 @@ const BottomSayingsAndCancelButton = () => {
     <Col gap={8}>
       <Col align="center">
         <Text
-          css={css`
-            text-align: center;
-          `}
           label={
             '참여에 문제가 생겼다면, \n' +
             '기한 내에 신청 취소를 눌러주세요. \n' +
