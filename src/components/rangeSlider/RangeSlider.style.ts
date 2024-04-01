@@ -68,7 +68,8 @@ const S = {
     }
   `,
   CustomHandleContainer: styled.div`
-    height: 150%;
+    height: 500%;
+    padding: 13px;
   `,
   MarkTextContainer: styled.div`
     padding-top: 12px;
