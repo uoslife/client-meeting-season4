@@ -22,6 +22,7 @@ const meetingHandlers = () => {
       getTeamUserListOnPending,
     ),
     http.get('/api/meeting/:teamType/application/info', getAllTeamInfo),
+    http.get('/api/match', getMatchingInfo),
     http.delete('/api/meeting/:teamType/:isTeamLeader', deleteTeam),
   ];
 };
@@ -79,6 +80,9 @@ const getAllTeamInfo = ({
   return teamType === 'SINGLE'
     ? HttpResponse.json({ data: SINGLE_USER_INFORMATION }, { status: 200 })
     : HttpResponse.json({ data: TRIPLE_USER_INFORMATION }, { status: 200 });
+};
+const getMatchingInfo = () => {
+  return HttpResponse.json({ data: SINGLE_USER_INFORMATION }, { status: 200 });
 };
 const deleteTeam = () => {
   return HttpResponse.json({}, { status: 204 });
@@ -238,11 +242,13 @@ const getRefreshToken = () => {
 };
 
 const SINGLE_USER_INFORMATION: GetMeetingInfoResponse = {
+  myName: 'mock-내이름',
   teamName: 'mock-유저이름',
   teamType: 'SINGLE',
   gender: 'MALE',
   teamUserList: [
     {
+      phoneNumber: '010-2939-3923',
       name: '이루매',
       age: 24,
       religion: 'ETC',
@@ -273,7 +279,7 @@ const SINGLE_USER_INFORMATION: GetMeetingInfoResponse = {
     mood: 'ACTIVE',
     studentType: ['UNDERGRADUATE'],
     university: ['UOS'],
-    religion: ['CHRISTIAN'],
+    religion: 'CHRISTIAN',
     smoking: 'TRUE',
     spiritAnimal: ['DOG'],
     mbti: 'EINTP',
@@ -282,11 +288,13 @@ const SINGLE_USER_INFORMATION: GetMeetingInfoResponse = {
 };
 
 const TRIPLE_USER_INFORMATION: GetMeetingInfoResponse = {
+  myName: 'mock-내이름',
   teamName: 'mock-팀이름',
   teamType: 'TRIPLE',
   gender: 'MALE',
   teamUserList: [
     {
+      phoneNumber: '010-2939-3923',
       name: '이루매',
       age: 24,
       religion: 'ETC',
@@ -303,6 +311,7 @@ const TRIPLE_USER_INFORMATION: GetMeetingInfoResponse = {
       height: 155.7,
     },
     {
+      phoneNumber: '010-2939-3923',
       name: '이루매',
       age: 24,
       religion: 'ETC',
@@ -319,6 +328,7 @@ const TRIPLE_USER_INFORMATION: GetMeetingInfoResponse = {
       height: 180,
     },
     {
+      phoneNumber: '010-2939-3923',
       name: '이루매',
       age: 24,
       religion: 'ETC',
@@ -349,7 +359,7 @@ const TRIPLE_USER_INFORMATION: GetMeetingInfoResponse = {
     mood: 'ACTIVE',
     studentType: ['UNDERGRADUATE'],
     university: ['UOS'],
-    religion: ['CHRISTIAN'],
+    religion: 'CHRISTIAN',
     smoking: 'TRUE',
     spiritAnimal: ['DOG'],
     mbti: 'EINTP',

@@ -1,9 +1,19 @@
 import {
+  ReligionOption,
   SmokingOption,
   SpiritAnimalOption,
   StudentOption,
 } from '~/api/types/user.type';
 import { Univ } from '~/models/options';
+
+export const RELIGON_MAP: { [key in ReligionOption]: string } = {
+  CHRISTIAN: '기독교',
+  CATHOLIC: '천주교',
+  BUDDHISM: '불교',
+  ETC: '기타',
+  NO_MATTER: '상관 없어요!',
+  NO_RELIGION: '무교',
+};
 
 export const SMOKING_MAP: { [key in SmokingOption]: string } = {
   TRUE: '흡연',

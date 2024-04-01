@@ -76,6 +76,12 @@ const getMeetingInfo = async <T = GetMeetingInfoResponse>(
   return API.get<ApiResponse<T>>(`/api/meeting/${teamType}/application/info`);
 };
 
+const getMatchingInfo = async <
+  T = GetMeetingInfoResponse,
+>(): PromiseAxios<T> => {
+  return API.get<ApiResponse<T>>(`/api/match`);
+};
+
 // 그룹
 // 생성한 그룹에 입장합니다.
 const joinGroup = async <T = JoinGroupUserListResponse>(
@@ -108,4 +114,5 @@ export default {
   getMeetingInfo,
   joinGroup,
   getGroupStatus,
+  getMatchingInfo,
 };

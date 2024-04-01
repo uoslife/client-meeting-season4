@@ -1,5 +1,5 @@
 import { useAtomValue } from 'jotai';
-import { CheckApplyInfoCardsProps } from '~/components/applyInfo/CheckCards';
+import { CheckPageDoubleCardsProps } from '~/components/applyInfo/CheckPageDoubleCards';
 import { commonDataAtoms } from '~/models/common/data';
 import { groupDataAtoms } from '~/models/group/data';
 import { personalDataAtoms } from '~/models/personal/data';
@@ -14,14 +14,14 @@ import {
 // 포트원 심사를 위해 임시로 사용할, client-state를 조합하여 미리보기 데이터를 반환하는 훅
 export const useClientTempData = (
   meetingType: 'personal' | 'group',
-): CheckApplyInfoCardsProps => {
+): CheckPageDoubleCardsProps => {
   const personalData = useClientPersonal();
   const groupData = useClientGroup();
 
   return meetingType === 'personal' ? personalData : groupData;
 };
 
-const useClientPersonal = (): CheckApplyInfoCardsProps => {
+const useClientPersonal = (): CheckPageDoubleCardsProps => {
   const { univType } = useAtomValue(
     commonDataAtoms.commonUnivVerificationStep.page1,
   );
@@ -225,7 +225,7 @@ const useClientPersonal = (): CheckApplyInfoCardsProps => {
   };
 };
 
-const useClientGroup = (): CheckApplyInfoCardsProps => {
+const useClientGroup = (): CheckPageDoubleCardsProps => {
   const { univType } = useAtomValue(
     commonDataAtoms.commonUnivVerificationStep.page1,
   );
