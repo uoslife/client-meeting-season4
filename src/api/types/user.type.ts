@@ -151,7 +151,7 @@ export type PreferenceType = {
   drinkingMax?: number;
   studentType: StudentOption[];
   university: Univ[];
-  religion: ReligionOption;
+  religion: ReligionOption[];
   smoking: SmokingOption;
   spiritAnimal: SpiritAnimalOption[];
   mbti: string;

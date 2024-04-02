@@ -70,8 +70,6 @@ const useApi = () => {
       studentType: studentTypes.map(studentType => STUDENT_MAP[studentType]),
     };
 
-    console.log(JSON.stringify(body));
-
     return MeetingAPI.updatePrefer('SINGLE', true, body);
   };
 
@@ -91,7 +89,7 @@ const PersonalMyPreferTypeStep = () => {
 
   const onNext = async () => {
     if (currentPage === 4) {
-      console.log(await updatePrefer());
+      await updatePrefer();
     }
 
     PageHandler.onNext();

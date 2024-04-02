@@ -93,8 +93,8 @@ const useApi = () => {
       name,
       phoneNumber: phone,
       studentType: STUDENT_MAP[studentType!],
-      drinkingMax: drinkRange[0],
-      drinkingMin: drinkRange[1],
+      drinkingMin: drinkRange[0],
+      drinkingMax: drinkRange[1],
       interest: interestOptions.map(interest => INTEREST_MAP[interest]),
       mbti,
       religion: RELIGION_MAP[religion!],
@@ -103,7 +103,8 @@ const useApi = () => {
       message,
     };
 
-    return MeetingAPI.updateUser(body);
+    MeetingAPI.updateUser(body);
+    MeetingAPI.updateMessage('SINGLE', true, { message });
   };
 
   return { updateUser };
@@ -123,7 +124,7 @@ const PersonalMyInformationStep = () => {
 
   const onNext = async () => {
     if (currentPage === 7) {
-      console.log(await updateUser());
+      await updateUser();
     }
 
     PageHandler.onNext();

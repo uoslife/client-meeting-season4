@@ -45,7 +45,7 @@ const PersonalMyRomanceStep = () => {
 
   const onNext = async () => {
     if (currentPage === 5) {
-      console.log(await updateInfo());
+      await updateInfo();
     }
 
     PageHandler.onNext();
