@@ -13,6 +13,7 @@ import { SOCIAL_LINK } from '~/constants';
 import toast, { Toaster } from 'react-hot-toast';
 import { navigateNextStepAtom } from '~/models/funnel';
 import { useSetAtom } from 'jotai';
+import { useState } from 'react';
 
 type bottomCardChildrenProps = {
   onClickPrimary: () => void;
@@ -98,6 +99,7 @@ const BottomCardComponent = ({
   onClickPrimary,
   onClickSecondary,
 }: bottomCardChildrenProps) => {
+  const [businessToggle, setBusinessToggle] = useState(false);
   const handleShareLink = async () => {
     await navigator.clipboard.writeText(SOCIAL_LINK.Sharelink);
     toast.success('널리 공유해주세요~!', {
@@ -176,33 +178,78 @@ const BottomCardComponent = ({
           size={12}
         />
       </Col>
+      <Col>
+        <Row
+          align={'center'}
+          padding={'20px 0 5px 0'}
+          gap={2}
+          onClick={() => setBusinessToggle(!businessToggle)}>
+          <IconButton
+            iconName={'next-icon-black'}
+            rotate={businessToggle ? 90 : 0}
+            width={12}
+            height={12}
+          />
+          <Text
+            label={'사업자 정보'}
+            color={'Secondary700'}
+            typography={'PFLabelS'}
+          />
+        </Row>
+        <S.BusinessInfo businessToggle={businessToggle}>
+          <Col gap={2}>
+            <Text
+              label={'대표자명: 한유민'}
+              color={'Secondary700'}
+              typography={'PFLabelS'}
+            />
+            <Text
+              label={'연락처: 010.5748.1040'}
+              color={'Secondary700'}
+              typography={'PFLabelS'}
+            />
+            <Text
+              label={'사업자번호:111-82-69698'}
+              color={'Secondary700'}
+              typography={'PFLabelS'}
+            />
+            <Text
+              label={'주소: 서울특별시 동대문구 망우로18가길 43-2, 지층'}
+              color={'Secondary700'}
+              typography={'PFLabelS'}
+            />
+          </Col>
+        </S.BusinessInfo>
+      </Col>
     </Col>
   );
 };
 const FooterIconAreaComponent = () => {
   return (
-    <Row align={'center'} justify={'center'} gap={20} padding={'0 0 2px 0'}>
-      <S.SocialLinkContainer href={SOCIAL_LINK.Kakaotalk} target="_blank">
-        <Row justify={'flex-end'}>
-          <IconButton iconName={'kakaotalk'} width={36} height={36} />
-        </Row>
-        <Col justify={'center'} gap={4}>
-          <Text label={'Kakaotalk'} typography="NeoLabel" color="White" />
-          <Text label={'시대생'} typography="PFLabelM" color="White" />
-        </Col>
-      </S.SocialLinkContainer>
-      <S.SocialLinkContainer href={SOCIAL_LINK.Instagram} target="_blank">
-        <IconButton iconName={'instagram'} width={42} height={42} />
-        <Col justify={'center'} gap={4}>
-          <Text label={'Instagram'} typography="NeoLabel" color="White" />
-          <Text
-            label={'@uoslife_official'}
-            typography="PFLabelM"
-            color="White"
-          />
-        </Col>
-      </S.SocialLinkContainer>
-    </Row>
+    <Col>
+      <Row align={'center'} gap={20}>
+        <S.SocialLinkContainer href={SOCIAL_LINK.Kakaotalk} target="_blank">
+          <Row justify={'flex-end'}>
+            <IconButton iconName={'kakaotalk'} width={36} height={36} />
+          </Row>
+          <Col justify={'center'} gap={4}>
+            <Text label={'Kakaotalk'} typography="NeoLabel" color="White" />
+            <Text label={'시대생'} typography="PFLabelM" color="White" />
+          </Col>
+        </S.SocialLinkContainer>
+        <S.SocialLinkContainer href={SOCIAL_LINK.Instagram} target="_blank">
+          <IconButton iconName={'instagram'} width={42} height={42} />
+          <Col justify={'center'} gap={4}>
+            <Text label={'Instagram'} typography="NeoLabel" color="White" />
+            <Text
+              label={'@uoslife_official'}
+              typography="PFLabelM"
+              color="White"
+            />
+          </Col>
+        </S.SocialLinkContainer>
+      </Row>
+    </Col>
   );
 };
 
@@ -215,5 +262,8 @@ const S = {
     align-items: center;
     width: 100%;
     gap: 6px;
+  `,
+  BusinessInfo: styled.div<{ businessToggle: boolean }>`
+    display: ${({ businessToggle }) => (businessToggle ? 'flex' : 'none')};
   `,
 };
