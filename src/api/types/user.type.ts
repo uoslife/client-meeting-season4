@@ -78,16 +78,18 @@ export type UpdatePreferRequest = {
   ageMax: number;
   heightMin?: number;
   heightMax?: number;
+  drinkingMin?: number;
+  drinkingMax?: number;
   studentType?: StudentOption[];
   university: ('UOS' | 'KHU' | 'HUFS')[];
   religion?: ReligionOption[];
   smoking?: SmokingOption[];
   spiritAnimal?: SpiritAnimalOption[];
-  mbti?: string[];
+  mbti?: string;
   mood?: 'ACTIVE' | 'CALM' | 'NOT_MATTER';
 };
 
-export type UpdateInfoRequest = number[];
+export type UpdateInfoRequest = { questions: number[] };
 
 export type JoinGroupUserListResponse = {
   teamName: string;
