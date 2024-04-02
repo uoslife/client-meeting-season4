@@ -17,6 +17,7 @@ export type normalType =
   | 'share'
   | 'kakaotalk'
   | 'instagram'
+  | 'next-icon-white'
   | 'human-circle';
 
 // 동물상

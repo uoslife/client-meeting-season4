@@ -13,6 +13,7 @@ import { SOCIAL_LINK } from '~/constants';
 import toast, { Toaster } from 'react-hot-toast';
 import { navigateNextStepAtom } from '~/models/funnel';
 import { useSetAtom } from 'jotai';
+import { useState } from 'react';
 
 type bottomCardChildrenProps = {
   onClickPrimary: () => void;
@@ -180,8 +181,45 @@ const BottomCardComponent = ({
   );
 };
 const FooterIconAreaComponent = () => {
+  const [businessToggle, setBusinessToggle] = useState(false);
   return (
-    <Row align={'center'} justify={'center'} gap={20} padding={'0 0 2px 0'}>
+    <Row align={'center'} gap={20}>
+      <Col>
+        <Row
+          align={'center'}
+          gap={2}
+          onClick={() => setBusinessToggle(!businessToggle)}>
+          <IconButton
+            iconName={'next-icon-white'}
+            rotate={businessToggle ? 90 : 0}
+          />
+          <Text label={'사업자 정보'} color={'White'} typography={'PFLabelM'} />
+        </Row>
+        <S.BusinessInfo businessToggle={businessToggle}>
+          <Col gap={2}>
+            <Text
+              label={'사업자번호:111-82-69698'}
+              color={'White'}
+              typography={'PFLabelS'}
+            />
+            <Text
+              label={'대표자명: 한유민'}
+              color={'White'}
+              typography={'PFLabelS'}
+            />
+            <Text
+              label={'주소: 서울특별시 동대문구 망우로18가길 43-2, 지층'}
+              color={'White'}
+              typography={'PFLabelS'}
+            />
+            <Text
+              label={'연락처: 010.5748.1040'}
+              color={'White'}
+              typography={'PFLabelS'}
+            />
+          </Col>
+        </S.BusinessInfo>
+      </Col>
       <S.SocialLinkContainer href={SOCIAL_LINK.Kakaotalk} target="_blank">
         <Row justify={'flex-end'}>
           <IconButton iconName={'kakaotalk'} width={36} height={36} />
@@ -215,5 +253,8 @@ const S = {
     align-items: center;
     width: 100%;
     gap: 6px;
+  `,
+  BusinessInfo: styled.div<{ businessToggle: boolean }>`
+    display: ${({ businessToggle }) => (businessToggle ? 'flex' : 'none')};
   `,
 };
