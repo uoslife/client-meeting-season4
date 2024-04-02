@@ -2,7 +2,7 @@ import { interestKeyType } from '~/types/icon.type';
 
 export type Univ = 'HUFS' | 'KHU' | 'UOS';
 
-export type GenderOption = 'F' | 'M';
+export type GenderOption = 'FEMALE' | 'MALE';
 
 export type StudentOption = '학부생' | '대학원생' | '졸업생';
 

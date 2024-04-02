@@ -69,6 +69,14 @@ const updatePrefer = async <T = object>(
   );
 };
 
+const updateMessage = async <T = object>(
+  teamType: TeamType,
+  isTeamLeader: boolean,
+  data: UpdateUserRequest,
+): PromiseAxios<T> => {
+  return API.put(`/api/meeting/${teamType}/${isTeamLeader}/message`, data);
+};
+
 // 팅의 모든 정보를 받아옵니다.
 const getMeetingInfo = async <T = GetMeetingInfoResponse>(
   teamType: TeamType,
@@ -115,4 +123,5 @@ export default {
   joinGroup,
   getGroupStatus,
   getMatchingInfo,
+  updateMessage,
 };

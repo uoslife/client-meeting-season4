@@ -58,14 +58,19 @@ export type UpdateUserRequest = {
   kakaoTalkId: string;
   department: string;
   studentType: StudentOption;
-  religion?: ReligionOption[];
+  religion?: ReligionOption;
 
   smoking?: SmokingOption;
   drinkingMin?: number;
   drinkingMax?: number;
   spiritAnimal?: SpiritAnimalOption[];
   mbti?: string;
-  interest?: InterestOption;
+  interest?: InterestOption[];
+  message?: string;
+};
+
+export type UpdateMessageRequest = {
+  message: string;
 };
 
 export type UpdatePreferRequest = {

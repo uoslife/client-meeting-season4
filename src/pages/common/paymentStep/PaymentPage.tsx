@@ -40,16 +40,22 @@ const PaymentPage = () => {
   );
 
   const handleProductInfo = (type: string) => {
-    if (meetingTypeValue.meetingType === 'group' && groupGender === 'F') {
+    if (meetingTypeValue.meetingType === 'group' && groupGender === 'FEMALE') {
       return type === 'name' ? '3:3 미팅(여자)' : 10500;
     }
-    if (meetingTypeValue.meetingType === 'group' && groupGender === 'M') {
+    if (meetingTypeValue.meetingType === 'group' && groupGender === 'MALE') {
       return type === 'name' ? '3:3 미팅(남자)' : 12000;
     }
-    if (meetingTypeValue.meetingType === 'personal' && personalGender === 'F') {
+    if (
+      meetingTypeValue.meetingType === 'personal' &&
+      personalGender === 'FEMALE'
+    ) {
       return type === 'name' ? '1:1 미팅(여자)' : 3500;
     }
-    if (meetingTypeValue.meetingType === 'personal' && personalGender === 'M') {
+    if (
+      meetingTypeValue.meetingType === 'personal' &&
+      personalGender === 'MALE'
+    ) {
       return type === 'name' ? '1:1 미팅(남자)' : 4000;
     }
   };

@@ -83,7 +83,7 @@ const useClientPersonal = (): CheckPageDoubleCardsProps => {
       cardTopLabel: '내 정보',
       profileViewData: {
         univ: univType!,
-        genderAndAgeLabel: `(${gender === 'M' ? '♂️' : '♀️'}), ${age}세`,
+        genderAndAgeLabel: `(${gender === 'MALE' ? '♂️' : '♀️'}), ${age}세`,
         meetingType: 'personal',
         nameLabel: name,
         otherInfoItems: [
@@ -263,7 +263,7 @@ const useClientGroup = (): CheckPageDoubleCardsProps => {
     topCardProps: {
       cardTopLabel: '우리팅 정보',
       profileViewData: {
-        genderAndAgeLabel: `(${gender === 'M' ? '♂️' : '♀️'}), ${age}세`,
+        genderAndAgeLabel: `(${gender === 'MALE' ? '♂️' : '♀️'}), ${age}세`,
         meetingType: 'group',
         nameLabel: name,
         otherInfoItems: [
