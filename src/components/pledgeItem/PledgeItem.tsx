@@ -11,8 +11,8 @@ const PledgeItem = ({
   checked,
   onClick,
 }: {
-  title: string;
-  content: string;
+  title?: string;
+  content?: string;
   checked: boolean;
   onClick?: () => void;
 }) => (
@@ -30,18 +30,22 @@ const PledgeItem = ({
         css={css`
           width: calc(100% - 36px);
         `}>
-        <Text
-          label={title}
-          color={'Gray500'}
-          typography={'GoThicTitleS'}
-          align="left"
-        />
-        <Text
-          label={content}
-          color={'Gray500'}
-          typography={'GoThicBodyS'}
-          align="left"
-        />
+        {title && (
+          <Text
+            label={title}
+            color={'Gray500'}
+            typography={'GoThicTitleS'}
+            align="left"
+          />
+        )}
+        {content && (
+          <Text
+            label={content}
+            color={'Gray500'}
+            typography={'GoThicBodyS'}
+            align="left"
+          />
+        )}
       </Col>
       <Checkbox checked={checked} />
     </Row>
