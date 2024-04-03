@@ -8,9 +8,10 @@ import Text from '~/components/typography/Text';
 import { css } from '@emotion/react';
 import { commonDataAtoms } from '~/models/common/data';
 import { combinedValidatiesAtoms } from '~/models';
+import PledgeItem from '~/components/pledgeItem/PledgeItem';
 
 const SecondPage = () => {
-  const [, setPageState] = useAtom(
+  const [pageState, setPageState] = useAtom(
     commonDataAtoms.commonUnivVerificationStep.page2,
   );
 
@@ -22,8 +23,6 @@ const SecondPage = () => {
   useEffect(() => {
     setPageState({ checked: [true, true] });
   }, [setPageState]);
-
-  // TODO: 체크 컴포넌트
 
   return (
     <Paddler top={36} right={20} bottom={24} left={20}>
@@ -60,6 +59,28 @@ const SecondPage = () => {
               css={css`
                 text-align: center;
               `}
+            />
+          </Col>
+          <Col gap={23} align="center">
+            <PledgeItem
+              title={
+                '타인에게 나의 웹메일, 카카오톡 ID, 전화번호를 양도하지 않을게요.'
+              }
+              checked={pageState.checked[0]}
+              onClick={() =>
+                setPageState(prev => ({
+                  checked: [!prev.checked[0], prev.checked[1]],
+                }))
+              }
+            />
+            <PledgeItem
+              title="타인의 웹메일, 카카오톡 ID, 전화번호를 도용/대여하지 않을게요. "
+              checked={pageState.checked[1]}
+              onClick={() =>
+                setPageState(prev => ({
+                  checked: [prev.checked[0], !prev.checked[1]],
+                }))
+              }
             />
           </Col>
         </Col>

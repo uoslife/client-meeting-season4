@@ -7,7 +7,7 @@ export const commonValidators: CommonValidator = {
   commonUnivVerificationStep: {
     page1: ({ univType }) => !!univType,
     // page2: ({ checked }) => checked.every(Boolean),
-    page2: () => true, // temp
+    page2: ({ checked }) => checked.every(Boolean),
     page3: () => true, // temp
   },
   commonBranchGatewayStep: {
