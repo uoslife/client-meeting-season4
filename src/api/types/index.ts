@@ -6,4 +6,5 @@ export type ApiResponse<T> = {
   data: T;
 };
 
-export type PromiseAxios<T> = Promise<AxiosResponse<ApiResponse<T>>>;
+export type PromiseAxios<T> = Promise<AxiosResponse<T>>;
+// export type PromiseAxios<T> = Promise<AxiosResponse<T>>;
