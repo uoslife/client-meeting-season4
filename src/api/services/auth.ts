@@ -1,4 +1,4 @@
-import { ApiResponse, PromiseAxios } from '~/api/types';
+import { PromiseAxios } from '~/api/types';
 import API from '~/api/core';
 import type {
   GetVerificationCodeRequest,
@@ -10,18 +10,18 @@ import type {
 const checkVerificationCode = async <T = VerificationCodeCheckResponse>(
   data: VerificationCodeCheckRequest,
 ): PromiseAxios<T> => {
-  return API.post<ApiResponse<T>>('/api/verification/check', data);
+  return API.post<T>('/api/verification/verify', data);
 };
 
 const getVerificationCode = async <T = GetVerificationCodeResponse>(
   data: GetVerificationCodeRequest,
 ): PromiseAxios<T> => {
-  return API.post<ApiResponse<T>>('/api/verification/send', data);
+  return API.post<T>('/api/verification/send', data);
 };
 
 const getRefreshToken = async <T = VerificationCodeCheckResponse>(
   data: string,
 ): PromiseAxios<T> => {
-  return API.post<ApiResponse<T>>('/api/refreshToken', data);
+  return API.post<T>('/api/refreshToken', data);
 };
 export default { checkVerificationCode, getVerificationCode, getRefreshToken };
