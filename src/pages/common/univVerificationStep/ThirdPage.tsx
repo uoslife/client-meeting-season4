@@ -68,35 +68,42 @@ const ThirdPage = () => {
   const handleTryValidate = async () => {
     if (inputValue) setTryValidate(true);
     const res = await AuthAPI.getVerificationCode({
-      email: inputValue,
-      university: storedUnivType,
+      // email: inputValue,
+      email: 'aacz1203@uos.ac.kr',
+      // university: storedUnivType,
+      university: 'UOS',
     });
-
     console.log(res);
   };
 
   // 인증번호 확인 절차
   const handleValidate = async () => {
+    // 전역 변수로 accessToken, refreshToken은 디바이스
     if (!validateCodeValue) return setStatusMessage('인증번호를 입력해주세요!');
-    if (validateCodeValue === '1234') {
-      const res = await AuthAPI.checkVerificationCode({
-        code: validateCodeValue,
-        email: inputValue,
-        university: storedUnivType,
+    await AuthAPI.checkVerificationCode({
+      code: parseInt(validateCodeValue),
+      // email: inputValue,
+      email: 'aacz1203@uos.ac.kr',
+      university: storedUnivType,
+    })
+      .then(res => {
+        console.log(res);
+        setPageState({ verified: true });
+        localStorage.setItem('accessToken', res.data.accessToken);
+        localStorage.setItem('refreshToken', res.data.refreshToken);
+        setStatusMessage('인증되었습니다.');
+        setValidateStatus('success');
+      })
+      .catch(e => {
+        console.log(e.response.status);
+        setStatusMessage('유효하지 않은 인증번호입니다.');
+        setValidateStatus('error');
+        resetValidateCode();
       });
-      const result = res.data;
-      console.log(result);
-      setPageState({ verified: true });
-      localStorage.setItem('accessToken', result.data.accessToken);
-      localStorage.setItem('refreshToken', result.data.refreshToken);
-      setStatusMessage('인증되었습니다.');
-      setValidateStatus('success');
-    } else {
-      setStatusMessage('유효하지 않은 인증번호입니다.');
-      setValidateStatus('error');
-      resetValidateCode();
-    }
+
+    // const res = await .createMeeting('SINGLE', true);
   };
+
   useEffect(() => {
     let interval: number;
     if (tryValidate) {
