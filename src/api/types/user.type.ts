@@ -66,7 +66,6 @@ export type UpdateUserRequest = {
   spiritAnimal?: SpiritAnimalOption[];
   mbti?: string;
   interest?: InterestOption[];
-  message?: string;
 };
 
 export type UpdateMessageRequest = {
@@ -166,4 +165,5 @@ export type GetMeetingInfoResponse = {
   teamUserList: UserProfileType[];
   information: InformationType;
   preference: PreferenceType;
+  message: string;
 };
