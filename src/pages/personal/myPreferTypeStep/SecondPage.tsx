@@ -51,19 +51,50 @@ const SecondPage = () => {
         <Paddler top={36} right={20} bottom={24} left={20}>
           <Row>
             <Col gap={56}>
+              <Col gap={28} align={'center'}>
+                <Text
+                  label={
+                    '4. 선호하는 상대의 한 달 기준 \n' +
+                    '음주 횟수를 선택해 주세요'
+                  }
+                  color={'Gray500'}
+                  typography={'NeoTitleM'}
+                  weight={400}
+                  size={18}
+                />
+                <Col gap={32} align="center">
+                  <Text
+                    label={`${drinkRange[0]} - ${drinkRange[1]} 회`}
+                    color={'Primary500'}
+                    typography={'LeferiBaseRegular'}
+                    weight={700}
+                    size={20}
+                  />
+                  <RangeSlider
+                    value={drinkRange}
+                    onChange={value =>
+                      setPageState(prev => ({ ...prev, drinkRange: value }))
+                    }
+                    min={0}
+                    max={25}
+                    markStep={5}
+                    step={1}
+                    maxMarkPostfix="~"
+                  />
+                </Col>
+              </Col>
+
               <Col gap={28}>
                 <Col gap={12} align="center">
                   <Text
-                    label={'4. 매칭을 원하는 대학을 선택해 주세요'}
+                    label={'5. 매칭을 원하는 대학을 선택해 주세요'}
                     color={'Gray500'}
                     typography={'NeoTitleM'}
                     weight={400}
                     size={18}
                   />
                   <Text
-                    label={
-                      '복수 선택이 가능하며 무관한 경우 모두 선택해 주세요.'
-                    }
+                    label={'원하는 선택지를 모두 선택해 주세요.'}
                     color={'Gray400'}
                     typography={'GoThicBodyS'}
                     weight={400}
@@ -98,16 +129,14 @@ const SecondPage = () => {
               <Col gap={28}>
                 <Col gap={12} align="center">
                   <Text
-                    label={'5. 선호하는 상대의 종교를 선택해 주세요'}
+                    label={'6. 선호하는 상대의 종교를 선택해 주세요'}
                     color={'Gray500'}
                     typography={'NeoTitleM'}
                     weight={400}
                     size={18}
                   />
                   <Text
-                    label={
-                      '복수 선택이 가능하며 무관한 경우 모두 선택해 주세요.'
-                    }
+                    label={'원하는 선택지를 모두 선택해 주세요.'}
                     color={'Gray400'}
                     typography={'GoThicBodyS'}
                     weight={400}
@@ -163,23 +192,15 @@ const SecondPage = () => {
                   </Row>
                 </Col>
               </Col>
-              <Col gap={28}>
-                <Col align="center">
-                  <Text
-                    label={'6. 선호하는 상대의 흡연 여부를'}
-                    color={'Gray500'}
-                    typography={'NeoTitleM'}
-                    weight={400}
-                    size={18}
-                  />
-                  <Text
-                    label={'선택해 주세요'}
-                    color={'Gray500'}
-                    typography={'NeoTitleM'}
-                    weight={400}
-                    size={18}
-                  />
-                </Col>
+              <Col gap={28} align="center">
+                <Text
+                  align="center"
+                  label={'7. 선호하는 상대의 흡연 여부를 \n' + '선택해 주세요'}
+                  color={'Gray500'}
+                  typography={'NeoTitleM'}
+                  weight={400}
+                  size={18}
+                />
                 <Col gap={8}>
                   <RoundButton
                     status={smoking === '흡연' ? 'active' : 'inactive'}
@@ -213,46 +234,6 @@ const SecondPage = () => {
                       }))
                     }
                     borderType="primary"
-                  />
-                </Col>
-              </Col>
-
-              <Col gap={28}>
-                <Col align="center">
-                  <Text
-                    label={'7. 선호하는 상대의 한 달 기준'}
-                    color={'Gray500'}
-                    typography={'NeoTitleM'}
-                    weight={400}
-                    size={18}
-                  />
-                  <Text
-                    label={'음주 횟수를 선택해 주세요'}
-                    color={'Gray500'}
-                    typography={'NeoTitleM'}
-                    weight={400}
-                    size={18}
-                  />
-                </Col>
-                <Col gap={32} align="center">
-                  <Text
-                    label={`${drinkRange[0]} - ${drinkRange[1]} 회`}
-                    color={'Primary500'}
-                    typography={'LeferiBaseRegular'}
-                    weight={700}
-                    size={20}
-                  />
-                  {/* 슬라이더 수정 이후 패딩 값 수정*/}
-                  <RangeSlider
-                    value={drinkRange}
-                    onChange={value =>
-                      setPageState(prev => ({ ...prev, drinkRange: value }))
-                    }
-                    min={0}
-                    max={25}
-                    markStep={5}
-                    step={1}
-                    maxMarkPostfix="~"
                   />
                 </Col>
               </Col>
