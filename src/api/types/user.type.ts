@@ -166,5 +166,4 @@ export type GetMeetingInfoResponse = {
   teamUserList: UserProfileType[];
   information: InformationType;
   preference: PreferenceType;
-  message: string;
 };
