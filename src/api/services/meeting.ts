@@ -52,8 +52,8 @@ const updateMessage = async <T = object>(
   teamType: TeamType,
   isTeamLeader: boolean,
   data: UpdateMessageRequest,
-): PromiseAxios<T> => {
-  return API.put(`/api/meeting/${teamType}/${isTeamLeader}/message`, data);
+) => {
+  return API.put<T>(`/api/meeting/${teamType}/${isTeamLeader}/message`, data);
 };
 
 // 팅의 모든 정보를 받아옵니다.
