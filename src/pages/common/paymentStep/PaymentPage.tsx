@@ -107,7 +107,7 @@ const PaymentPage = () => {
       pg: 'welcome',
       payMethod: 'card',
     });
-    setUserPaymentInfo(res.data.data);
+    setUserPaymentInfo(res.data);
   };
 
   useEffect(() => {
