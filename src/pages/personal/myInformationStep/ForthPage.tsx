@@ -31,7 +31,7 @@ const ForthPage = () => {
             <Col gap={32}>
               <Col gap={12} align="center">
                 <Text
-                  label={'11. 본인과 닮은 동물상을 선택해 주세요.'}
+                  label={'12. 본인과 닮은 동물상을 선택해 주세요.'}
                   color={'Gray500'}
                   typography={'NeoTitleM'}
                   weight={400}
