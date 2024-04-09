@@ -14,9 +14,7 @@ const useData = () => {
   useEffect(() => {
     const timer = setTimeout(async () => {
       try {
-        const {
-          data: { data },
-        } = await MeetingAPI.getMatchingInfo();
+        const { data } = await MeetingAPI.getMatchingInfo();
 
         const convertedUiData = new MeetingInfo(data).getMatchingInfoUiData();
         setMeetingInfoState(convertedUiData);

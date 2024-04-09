@@ -23,6 +23,9 @@ import { Univ } from '~/models/options';
 export const getReligionLabel = (religion: ReligionOption) =>
   RELIGON_MAP[religion];
 
+export const getReligionPreferLabel = (religions: ReligionOption[]) =>
+  religions.map(item => RELIGON_MAP[item]).join(', ');
+
 export const getGenderAndAgeLabel = ({
   teamType,
   gender,

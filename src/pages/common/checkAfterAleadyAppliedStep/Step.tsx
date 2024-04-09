@@ -19,9 +19,7 @@ const useData = (meetingType: 'personal' | 'group') => {
   useEffect(() => {
     const timer = setTimeout(async () => {
       try {
-        const {
-          data: { data },
-        } = await MeetingAPI.getMeetingInfo(
+        const { data } = await MeetingAPI.getMeetingInfo(
           meetingType === 'group' ? 'TRIPLE' : 'SINGLE',
         );
 

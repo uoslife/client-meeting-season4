@@ -69,20 +69,20 @@ const FirstPage = () => {
                 />
                 <Col gap={8}>
                   <RoundButton
-                    status={gender === 'M' ? 'active' : 'inactive'}
+                    status={gender === 'MALE' ? 'active' : 'inactive'}
                     label={'남자'}
                     height={56}
                     onClick={() =>
-                      setPageState(prev => ({ ...prev, gender: 'M' }))
+                      setPageState(prev => ({ ...prev, gender: 'MALE' }))
                     }
                     borderType="primary"
                   />
                   <RoundButton
-                    status={gender === 'F' ? 'active' : 'inactive'}
+                    status={gender === 'FEMALE' ? 'active' : 'inactive'}
                     label={'여자'}
                     height={56}
                     onClick={() =>
-                      setPageState(prev => ({ ...prev, gender: 'F' }))
+                      setPageState(prev => ({ ...prev, gender: 'FEMALE' }))
                     }
                     borderType="primary"
                   />
