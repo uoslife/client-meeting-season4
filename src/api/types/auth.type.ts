@@ -6,7 +6,7 @@ export type GetVerificationCodeResponse = {
   result: boolean;
 };
 export type VerificationCodeCheckRequest = {
-  code: string;
+  code: number;
 } & GetVerificationCodeRequest;
 
 export type VerificationCodeCheckResponse = {
