@@ -22,11 +22,17 @@ export const commonInitialData: CommonData = {
   },
   commonVerifyForCheckAfterAlreadyAppliedStep: {
     page1: {
+      univType: null,
+    },
+    page2: {
       verified: false,
     },
   },
   commonVerifyForMatchingResultStep: {
     page1: {
+      univType: null,
+    },
+    page2: {
       verified: false,
     },
   },
@@ -59,11 +65,19 @@ export const commonDataAtoms: CommonDataAtoms = {
       'commonVerifyForCheckAfterAlreadyAppliedStep-page1',
       commonInitialData.commonVerifyForCheckAfterAlreadyAppliedStep.page1,
     ),
+    page2: atomWithStorage(
+      'commonVerifyForCheckAfterAlreadyAppliedStep-page2',
+      commonInitialData.commonVerifyForCheckAfterAlreadyAppliedStep.page2,
+    ),
   },
   commonVerifyForMatchingResultStep: {
     page1: atomWithStorage(
       'commonVerifyForMatchingResultStep-page1',
       commonInitialData.commonVerifyForMatchingResultStep.page1,
+    ),
+    page2: atomWithStorage(
+      'commonVerifyForMatchingResultStep-page2',
+      commonInitialData.commonVerifyForMatchingResultStep.page2,
     ),
   },
 };
