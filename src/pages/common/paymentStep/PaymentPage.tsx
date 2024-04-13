@@ -97,11 +97,12 @@ const PaymentPage = () => {
   }
 
   const handlePaymentRequest = async () => {
-    const res = await PaymentAPI.requestPayment({
-      pg: 'welcome',
+    await PaymentAPI.requestPayment({
+      pg: 'WELCOME_PAYMENTS',
       payMethod: 'card',
+    }).then(res => {
+      setUserPaymentInfo(res.data);
     });
-    setUserPaymentInfo(res.data.data);
   };
 
   useEffect(() => {

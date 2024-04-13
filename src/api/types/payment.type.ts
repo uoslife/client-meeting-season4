@@ -1,5 +1,5 @@
 export type PaymentRequest = {
-  pg: 'welcome';
+  pg: 'WELCOME_PAYMENTS';
   payMethod: 'card';
 };
 
@@ -7,6 +7,8 @@ export type PaymentResponse = {
   merchantUid: string;
   price: number;
   phoneNumber: string;
+  name: string;
+  productName: string;
 };
 
 export type RefundPaymentResponse = {
