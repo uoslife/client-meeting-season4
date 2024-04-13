@@ -13,7 +13,6 @@ const getVerificationCode = async <T = GetVerificationCodeResponse>(
   data: GetVerificationCodeRequest,
 ) => API.post<T>('/api/verification/send', data);
 
-const getRefreshToken = async <T = VerificationCodeCheckResponse>(
-  data: string,
-) => API.post<T>('/api/refreshToken', data);
+const getRefreshToken = async <T = VerificationCodeCheckResponse>() =>
+  API.post<T>('/api/auth/refresh');
 export default { checkVerificationCode, getVerificationCode, getRefreshToken };
