@@ -48,11 +48,11 @@ const updatePrefer = async <T = object>(
   data: UpdatePreferRequest,
 ) => API.put<T>(`api/meeting/${teamType}/${isTeamLeader}/prefer`, data);
 
-const updateMessage = async <T = object>(
+const updateMessage = async (
   teamType: TeamType,
   isTeamLeader: boolean,
   data: UpdateMessageRequest,
-): PromiseAxios<T> => {
+) => {
   return API.put(`/api/meeting/${teamType}/${isTeamLeader}/message`, data);
 };
 
