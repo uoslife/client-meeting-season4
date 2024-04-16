@@ -52,24 +52,23 @@ export type GetUserResponse = {
 export type UpdateUserRequest = {
   name: string;
   age: number;
-  gender: 'MALE' | 'FEMALE';
-  height: number;
-  phoneNumber: string;
   kakaoTalkId: string;
   department: string;
   studentType: StudentOption;
-  religion?: ReligionOption;
-
-  smoking?: SmokingOption;
-  drinkingMin?: number;
-  drinkingMax?: number;
-  spiritAnimal?: SpiritAnimalOption[];
-  mbti?: string;
-  interest?: InterestOption[];
+  gender: 'MALE' | 'FEMALE' | null;
+  height: number | null;
+  phoneNumber: string | null;
+  religion: ReligionOption | null;
+  smoking: SmokingOption | null;
+  drinkingMin: number | null;
+  drinkingMax: number | null;
+  spiritAnimal: SpiritAnimalOption[] | null;
+  mbti: string | null;
+  interest: InterestOption[] | null;
 };
 
 export type UpdateMessageRequest = {
-  message: string;
+  message: string | null;
 };
 
 export type UpdatePreferRequest = {
