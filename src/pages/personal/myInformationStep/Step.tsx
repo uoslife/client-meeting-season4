@@ -10,8 +10,9 @@ import SeventhPage from './SeventhPage';
 import { useStepToGoBack } from '~/hooks/useStepToGoBack';
 import useTypeSafeNavigate from '~/hooks/useTypeSafeNavigate';
 import { MeetingAPI } from '~/api';
-import { useAtomValue } from 'jotai';
+import { useAtomValue, useSetAtom } from 'jotai';
 import { personalDataAtoms } from '~/models/personal/data';
+import { navigateNextStepAtom } from '~/models/funnel';
 
 const PAGE_NUMBER = [1, 2, 3, 4, 5, 6, 7];
 
@@ -117,9 +118,6 @@ const PersonalMyInformationStep = () => {
     nextStep: { path: '/personal/myRomanceStep' },
   });
 
-  const stepToGoBack = useStepToGoBack('personalMyInformationStep');
-  const navigate = useTypeSafeNavigate();
-
   const { updateUser } = useApi();
 
   const onNext = async () => {
@@ -130,7 +128,12 @@ const PersonalMyInformationStep = () => {
     PageHandler.onNext();
   };
 
+  const setNavigateNextStep = useSetAtom(navigateNextStepAtom);
+  const stepToGoBack = useStepToGoBack('personalMyInformationStep');
+  const navigate = useTypeSafeNavigate();
+
   if (stepToGoBack) {
+    setNavigateNextStep(true);
     navigate(stepToGoBack);
     return null;
   }

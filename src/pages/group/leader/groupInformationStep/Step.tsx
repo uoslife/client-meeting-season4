@@ -6,6 +6,10 @@ import ForthPage from './ForthPage';
 import FifthPage from './FifthPage';
 import PageLayout from '~/components/layout/page/PageLayout';
 import SixthPage from './SixthPage';
+import { useStepToGoBack } from '~/hooks/useStepToGoBack';
+import useTypeSafeNavigate from '~/hooks/useTypeSafeNavigate';
+import { navigateNextStepAtom } from '~/models/funnel';
+import { useSetAtom } from 'jotai';
 
 const PAGE_NUMBER = [1, 2, 3, 4, 5, 6];
 
@@ -16,6 +20,16 @@ const GroupLeaderGroupInformationStep = () => {
     nextStep: { path: '/group/leader/preferStep' },
     // 기획에게 뒤로 가기 시, 팅 참여 항목으로 다시 돌아가게끔 할 것인지 물어보기
   });
+
+  const setNavigateNextStep = useSetAtom(navigateNextStepAtom);
+  const stepToGoBack = useStepToGoBack('groupLeaderGroupInformationStep');
+  const navigate = useTypeSafeNavigate();
+
+  if (stepToGoBack) {
+    setNavigateNextStep(true);
+    navigate(stepToGoBack);
+    return null;
+  }
 
   return (
     <PageLayout>

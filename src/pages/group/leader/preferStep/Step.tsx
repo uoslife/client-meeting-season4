@@ -2,8 +2,11 @@ import PageLayout from '~/components/layout/page/PageLayout';
 import FirstPage from './FirstPage';
 import { useFunnel } from '~/hooks/useFunnel';
 import { MeetingAPI } from '~/api';
-import { useAtomValue } from 'jotai';
+import { useAtomValue, useSetAtom } from 'jotai';
 import { groupDataAtoms } from '~/models/group/data';
+import { useStepToGoBack } from '~/hooks/useStepToGoBack';
+import useTypeSafeNavigate from '~/hooks/useTypeSafeNavigate';
+import { navigateNextStepAtom } from '~/models/funnel';
 
 const GroupLeaderPreferStep = () => {
   const { Funnel, currentPage, PageHandler } = useFunnel({
@@ -37,6 +40,16 @@ const GroupLeaderPreferStep = () => {
     updatePrefer();
     PageHandler.onNext();
   };
+
+  const setNavigateNextStep = useSetAtom(navigateNextStepAtom);
+  const stepToGoBack = useStepToGoBack('groupLeaderPreferStep');
+  const navigate = useTypeSafeNavigate();
+
+  if (stepToGoBack) {
+    setNavigateNextStep(true);
+    navigate(stepToGoBack);
+    return null;
+  }
 
   return (
     <PageLayout>

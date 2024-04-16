@@ -2,6 +2,10 @@ import { useFunnel } from '~/hooks/useFunnel';
 import FirstPage from './FirstPage';
 import SecondPage from './SecondPage';
 import PageLayout from '~/components/layout/page/PageLayout';
+import { useStepToGoBack } from '~/hooks/useStepToGoBack';
+import useTypeSafeNavigate from '~/hooks/useTypeSafeNavigate';
+import { useSetAtom } from 'jotai';
+import { navigateNextStepAtom } from '~/models/funnel';
 
 const PAGE_NUMBER = [1, 2];
 
@@ -11,6 +15,16 @@ const GroupLeaderCreateStep = () => {
     prevStep: { path: '/group/leader/myInformationStep' },
     nextStep: { path: '/group/leader/groupInformationStep' },
   });
+
+  const setNavigateNextStep = useSetAtom(navigateNextStepAtom);
+  const stepToGoBack = useStepToGoBack('groupLeaderGroupCreateStep');
+  const navigate = useTypeSafeNavigate();
+
+  if (stepToGoBack) {
+    setNavigateNextStep(true);
+    navigate(stepToGoBack);
+    return null;
+  }
 
   return (
     <PageLayout>

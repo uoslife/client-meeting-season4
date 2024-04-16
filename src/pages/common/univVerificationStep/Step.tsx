@@ -5,6 +5,8 @@ import ThirdPage from './ThirdPage';
 import PageLayout from '~/components/layout/page/PageLayout';
 import { useStepToGoBack } from '~/hooks/useStepToGoBack';
 import useTypeSafeNavigate from '~/hooks/useTypeSafeNavigate';
+import { useSetAtom } from 'jotai';
+import { navigateNextStepAtom } from '~/models/funnel';
 
 const PAGE_NUMBER = [1, 2, 3];
 
@@ -15,10 +17,12 @@ const CommonUnivVerificationStep = () => {
     prevStep: { path: '/' },
   });
 
+  const setNavigateNextStep = useSetAtom(navigateNextStepAtom);
   const stepToGoBack = useStepToGoBack('commonUnivVerificationStep');
   const navigate = useTypeSafeNavigate();
 
   if (stepToGoBack) {
+    setNavigateNextStep(true);
     navigate(stepToGoBack);
     return null;
   }

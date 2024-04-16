@@ -1,10 +1,11 @@
 import PageLayout from '~/components/layout/page/PageLayout';
 import { useFunnel } from '~/hooks/useFunnel';
 import FirstPage from './FirstPage';
-import { useAtomValue } from 'jotai';
+import { useAtomValue, useSetAtom } from 'jotai';
 import { useStepToGoBack } from '~/hooks/useStepToGoBack';
 import useTypeSafeNavigate from '~/hooks/useTypeSafeNavigate';
 import { commonDataAtoms } from '~/models/common/data';
+import { navigateNextStepAtom } from '~/models/funnel';
 
 const CommonBranchGatewayStep = () => {
   const { meetingType } = useAtomValue(
@@ -23,10 +24,12 @@ const CommonBranchGatewayStep = () => {
     },
   });
 
+  const setNavigateNextStep = useSetAtom(navigateNextStepAtom); // 이전 Step으로 이동 시,
   const stepToGoBack = useStepToGoBack('commonBranchGatewayStep');
   const navigate = useTypeSafeNavigate();
 
   if (stepToGoBack) {
+    setNavigateNextStep(true);
     navigate(stepToGoBack);
     return null;
   }
