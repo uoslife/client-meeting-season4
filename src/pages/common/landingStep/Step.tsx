@@ -12,8 +12,9 @@ import styled from '@emotion/styled';
 import { SOCIAL_LINK } from '~/constants';
 import toast, { Toaster } from 'react-hot-toast';
 import { navigateNextStepAtom } from '~/models/funnel';
-import { useSetAtom } from 'jotai';
+import { useAtomValue, useSetAtom } from 'jotai';
 import { useState } from 'react';
+import { isPaymentFinishedAtom } from '~/models/payment';
 
 type bottomCardChildrenProps = {
   onClickPrimary: () => void;
@@ -97,9 +98,10 @@ const TopCardComponent = () => {
 
 const BottomCardComponent = ({
   onClickPrimary,
-  // onClickSecondary,
+  onClickSecondary,
 }: bottomCardChildrenProps) => {
   const [businessToggle, setBusinessToggle] = useState(false);
+  const isPaymentFinishedValue = useAtomValue(isPaymentFinishedAtom);
   const handleShareLink = async () => {
     await navigator.clipboard.writeText(SOCIAL_LINK.Sharelink);
     toast.success('널리 공유해주세요~!', {
@@ -144,17 +146,20 @@ const BottomCardComponent = ({
         </Row>
       </Col>
       <Col gap={8} padding={'0 0 10px 0'}>
-        <RoundButton
-          status={'active'}
-          label={'신청하기'}
-          onClick={onClickPrimary}
-        />
-        {/* <RoundButton
-          status={'cancel'}
-          borderType={'black'}
-          label={'신청 정보 확인하기'}
-          onClick={onClickSecondary}
-        /> */}
+        {isPaymentFinishedValue ? (
+          <RoundButton
+            status={'cancel'}
+            borderType={'black'}
+            label={'신청 정보 확인하기'}
+            onClick={onClickSecondary}
+          />
+        ) : (
+          <RoundButton
+            status={'active'}
+            label={'신청하기'}
+            onClick={onClickPrimary}
+          />
+        )}
       </Col>
       <Col align={'center'} gap={10}>
         <Text
