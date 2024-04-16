@@ -97,7 +97,7 @@ const TopCardComponent = () => {
 
 const BottomCardComponent = ({
   onClickPrimary,
-  onClickSecondary,
+  // onClickSecondary,
 }: bottomCardChildrenProps) => {
   const [businessToggle, setBusinessToggle] = useState(false);
   const handleShareLink = async () => {
@@ -209,7 +209,7 @@ const BottomCardComponent = ({
               typography={'PFLabelS'}
             />
             <Text
-              label={'사업자번호:111-82-69698'}
+              label={'사업자번호:111-82-68698'}
               color={'Secondary700'}
               typography={'PFLabelS'}
             />

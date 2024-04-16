@@ -80,15 +80,15 @@ const FirstPage = () => {
     if (!validateCodeValue) return setStatusMessage('인증번호를 입력해주세요!');
     if (validateCodeValue === '1234') {
       const res = await AuthAPI.checkVerificationCode({
-        code: validateCodeValue,
+        code: parseInt(validateCodeValue),
         email: inputValue,
         university: tempUnivType,
       });
       const result = res.data;
       console.log(result);
       setPageState({ verified: true });
-      localStorage.setItem('accessToken', result.data.accessToken);
-      localStorage.setItem('refreshToken', result.data.refreshToken);
+      localStorage.setItem('accessToken', result.accessToken);
+      localStorage.setItem('refreshToken', result.refreshToken);
       setStatusMessage('인증되었습니다.');
       setValidateStatus('success');
     } else {

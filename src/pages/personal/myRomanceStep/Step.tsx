@@ -5,6 +5,33 @@ import ThirdPage from './ThirdPage';
 import ForthPage from './ForthPage';
 import FifthPage from './FifthPage';
 import PageLayout from '~/components/layout/page/PageLayout';
+import { useAtomValue } from 'jotai';
+import { personalDataAtoms } from '~/models/personal/data';
+import { MeetingAPI } from '~/api';
+
+const useApi = () => {
+  const { answer: a1 } = useAtomValue(
+    personalDataAtoms.personalMyRomanceStep.page1,
+  );
+  const { answer: a2 } = useAtomValue(
+    personalDataAtoms.personalMyRomanceStep.page2,
+  );
+  const { answer: a3 } = useAtomValue(
+    personalDataAtoms.personalMyRomanceStep.page3,
+  );
+  const { answer: a4 } = useAtomValue(
+    personalDataAtoms.personalMyRomanceStep.page4,
+  );
+  const { answer: a5 } = useAtomValue(
+    personalDataAtoms.personalMyRomanceStep.page5,
+  );
+
+  const body = { questions: [a1!, a2!, a3!, a4!, a5!] };
+
+  const updateInfo = () => MeetingAPI.updateInfo('SINGLE', true, body);
+
+  return { updateInfo };
+};
 
 const PAGE_NUMBER = [1, 2, 3, 4, 5];
 
@@ -14,6 +41,16 @@ const PersonalMyRomanceStep = () => {
     prevStep: { path: '/personal/myInformationStep' },
     nextStep: { path: '/personal/myPreferTypeStep' },
   });
+  const { updateInfo } = useApi();
+
+  const onNext = async () => {
+    // if (currentPage === 5) {
+    //   await updateInfo();
+    // }
+    // TODO:포트원 심사를 위한 api 임시 주석 처리
+
+    PageHandler.onNext();
+  };
 
   return (
     <PageLayout>
@@ -43,7 +80,7 @@ const PersonalMyRomanceStep = () => {
       <PageLayout.Footer
         currentPage={currentPage}
         totalPage={PAGE_NUMBER.length}
-        onNext={PageHandler.onNext}
+        onNext={onNext}
         onPrev={PageHandler.onPrev}
       />
     </PageLayout>

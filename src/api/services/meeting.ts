@@ -6,6 +6,7 @@ import {
   JoinGroupUserListResponse,
   TeamType,
   UpdateInfoRequest,
+  UpdateMessageRequest,
   UpdatePreferRequest,
   UpdateUserRequest,
 } from '~/api/types/user.type';
@@ -47,6 +48,14 @@ const updatePrefer = async <T = object>(
   data: UpdatePreferRequest,
 ) => API.put<T>(`api/meeting/${teamType}/${isTeamLeader}/prefer`, data);
 
+const updateMessage = async (
+  teamType: TeamType,
+  isTeamLeader: boolean,
+  data: UpdateMessageRequest,
+) => {
+  return API.put(`/api/meeting/${teamType}/${isTeamLeader}/message`, data);
+};
+
 // 팅의 모든 정보를 받아옵니다.
 const getMeetingInfo = async <T = GetMeetingInfoResponse>(teamType: TeamType) =>
   API.get<T>(`/api/meeting/${teamType}/application/info`);
@@ -80,4 +89,5 @@ export default {
   joinGroup,
   getGroupStatus,
   getMatchingInfo,
+  updateMessage,
 };
