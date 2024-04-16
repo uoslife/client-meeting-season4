@@ -24,7 +24,7 @@ const CommonBranchGatewayStep = () => {
     },
   });
 
-  const setNavigateNextStep = useSetAtom(navigateNextStepAtom); // 이전 Step으로 이동 시,
+  const setNavigateNextStep = useSetAtom(navigateNextStepAtom);
   const stepToGoBack = useStepToGoBack('commonBranchGatewayStep');
   const navigate = useTypeSafeNavigate();
 

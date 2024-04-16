@@ -1,6 +1,10 @@
 import PageLayout from '~/components/layout/page/PageLayout';
 import PaymentPage from '~/pages/common/paymentStep/PaymentPage';
 import { useFunnel } from '~/hooks/useFunnel';
+import { useSetAtom } from 'jotai';
+import { navigateNextStepAtom } from '~/models/funnel';
+import { useStepToGoBack } from '~/hooks/useStepToGoBack';
+import useTypeSafeNavigate from '~/hooks/useTypeSafeNavigate';
 
 const CommonPaymentStep = () => {
   const { Funnel } = useFunnel({
@@ -8,6 +12,18 @@ const CommonPaymentStep = () => {
     nextStep: { path: '/common/finishApplyStep' },
     prevStep: { path: '/common/paymentStep' },
   });
+
+  const setNavigateNextStep = useSetAtom(navigateNextStepAtom);
+  const stepToGoBackPersonal = useStepToGoBack('personalPledgeStep');
+  const stepToGoBackGroup = useStepToGoBack('groupLeaderPledgeStep');
+  const stepToGoBack = stepToGoBackPersonal && stepToGoBackGroup;
+  const navigate = useTypeSafeNavigate();
+
+  if (stepToGoBack) {
+    setNavigateNextStep(true);
+    navigate(stepToGoBack);
+    return null;
+  }
 
   return (
     <PageLayout>
