@@ -48,13 +48,12 @@ const updatePrefer = async <T = object>(
   data: UpdatePreferRequest,
 ) => API.put<T>(`api/meeting/${teamType}/${isTeamLeader}/prefer`, data);
 
-const updateMessage = async <T = object>(
+const updateMessage = async (
   teamType: TeamType,
   isTeamLeader: boolean,
   data: UpdateMessageRequest,
-) => {
-  return API.put<T>(`/api/meeting/${teamType}/${isTeamLeader}/message`, data);
-};
+) => API.put<T>(`/api/meeting/${teamType}/${isTeamLeader}/message`, data);
+
 
 // 팅의 모든 정보를 받아옵니다.
 const getMeetingInfo = async <T = GetMeetingInfoResponse>(teamType: TeamType) =>
