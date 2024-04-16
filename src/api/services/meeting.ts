@@ -28,7 +28,11 @@ const checkUser = async <T = boolean>(email: string) =>
 
 // 공통
 // 팅(1:1 / 3:3)을 생성합니다.
-const createMeeting = async <T = string>(
+const createMeeting = async <
+  T = {
+    code: string | null;
+  },
+>(
   teamType: TeamType,
   isTeamLeader: boolean,
   name?: string,
