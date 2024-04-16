@@ -6,6 +6,50 @@ import ForthPage from './ForthPage';
 import FifthPage from './FifthPage';
 import PageLayout from '~/components/layout/page/PageLayout';
 import SixthPage from './SixthPage';
+import { useAtomValue } from 'jotai';
+import { groupDataAtoms } from '~/models/group/data';
+import { MeetingAPI } from '~/api';
+
+const useApi = () => {
+  // 미팅 요일
+  const { preferDayOptions } = useAtomValue(
+    groupDataAtoms.groupLeaderGroupInformationStep.page1,
+  );
+
+  function convertDaysToDecimal(preferDayOptions: string[]) {
+    const daysOfWeek = ['월', '화', '수', '목', '금', '토', '일'];
+
+    const binaryString = daysOfWeek
+      .map(day => (preferDayOptions.includes(day) ? '1' : '0'))
+      .join('');
+
+    const decimal = parseInt(binaryString, 2);
+
+    return decimal;
+  }
+  const decimalMeetingDay = convertDaysToDecimal(preferDayOptions);
+
+  // 우리 팅 정보 입력
+  const { answer: a1 } = useAtomValue(
+    groupDataAtoms.groupLeaderGroupInformationStep.page2,
+  );
+  const { answer: a2 } = useAtomValue(
+    groupDataAtoms.groupLeaderGroupInformationStep.page3,
+  );
+  const { answer: a3 } = useAtomValue(
+    groupDataAtoms.groupLeaderGroupInformationStep.page4,
+  );
+  const { answer: a4 } = useAtomValue(
+    groupDataAtoms.groupLeaderGroupInformationStep.page5,
+  );
+
+  const updateInfoBody = { questions: [decimalMeetingDay, a1!, a2!, a3!, a4!] };
+
+  const updateInfo = () =>
+    MeetingAPI.updateInfo('TRIPLE', true, updateInfoBody);
+
+  return { updateInfo };
+};
 
 const PAGE_NUMBER = [1, 2, 3, 4, 5, 6];
 
@@ -16,6 +60,15 @@ const GroupLeaderGroupInformationStep = () => {
     nextStep: { path: '/group/leader/preferStep' },
     // 기획에게 뒤로 가기 시, 팅 참여 항목으로 다시 돌아가게끔 할 것인지 물어보기
   });
+
+  const { updateInfo } = useApi();
+
+  const onNext = async () => {
+    if (currentPage === 5) {
+      await updateInfo();
+    }
+    PageHandler.onNext();
+  };
 
   return (
     <PageLayout>
@@ -48,7 +101,7 @@ const GroupLeaderGroupInformationStep = () => {
       <PageLayout.Footer
         currentPage={currentPage}
         totalPage={PAGE_NUMBER.length}
-        onNext={PageHandler.onNext}
+        onNext={onNext}
         onPrev={PageHandler.onPrev}
       />
     </PageLayout>
