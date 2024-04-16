@@ -48,7 +48,15 @@ const useApi = () => {
   const updateInfo = () =>
     MeetingAPI.updateInfo('TRIPLE', true, updateInfoBody);
 
-  return { updateInfo };
+  // 상대에게 전하는 메세지
+  const message = useAtomValue(
+    groupDataAtoms.groupLeaderGroupInformationStep.page6,
+  );
+  const updateMessage = () => {
+    MeetingAPI.updateMessage('TRIPLE', true, message);
+  };
+
+  return { updateInfo, updateMessage };
 };
 
 const PAGE_NUMBER = [1, 2, 3, 4, 5, 6];
@@ -61,11 +69,13 @@ const GroupLeaderGroupInformationStep = () => {
     // 기획에게 뒤로 가기 시, 팅 참여 항목으로 다시 돌아가게끔 할 것인지 물어보기
   });
 
-  const { updateInfo } = useApi();
+  const { updateInfo, updateMessage } = useApi();
 
   const onNext = async () => {
     if (currentPage === 5) {
       await updateInfo();
+    } else if (currentPage === 6) {
+      await updateMessage();
     }
     PageHandler.onNext();
   };
