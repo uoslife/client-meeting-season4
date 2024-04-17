@@ -53,19 +53,19 @@ export type UpdateUserRequest = {
   name: string;
   age: number;
   gender: 'MALE' | 'FEMALE';
-  height: number;
+  height: number | null;
   phoneNumber: string;
   kakaoTalkId: string;
   department: string;
   studentType: StudentOption;
-  religion?: ReligionOption;
+  religion?: ReligionOption | null;
 
-  smoking?: SmokingOption;
-  drinkingMin?: number;
-  drinkingMax?: number;
-  spiritAnimal?: SpiritAnimalOption[];
-  mbti?: string;
-  interest?: InterestOption[];
+  smoking?: SmokingOption | null;
+  drinkingMin?: number | null;
+  drinkingMax?: number | null;
+  spiritAnimal?: SpiritAnimalOption[] | null;
+  mbti?: string | null;
+  interest?: InterestOption[] | null;
 };
 
 export type UpdateMessageRequest = {
