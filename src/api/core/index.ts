@@ -17,7 +17,9 @@ API.interceptors.response.use(
         .then(res => {
           API.defaults.headers.common.Authorization = `Bearer ${res.data.accessToken}`;
           originRequest.config!.headers.Authorization = `Bearer ${res.data.accessToken}`;
-          return axios(originRequest.config!);
+          return toast.error('다시 시도해주세요!', {
+            duration: 2000,
+          });
         })
         .catch(() => {
           toast.error('다시 로그인해주세요!', {
