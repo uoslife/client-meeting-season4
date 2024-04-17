@@ -12,9 +12,11 @@ import Paddler from '~/components/layout/Pad';
 import { combinedValidatiesAtoms } from '~/models';
 import { commonDataAtoms } from '~/models/common/data';
 import { AuthAPI } from '~/api';
+import { SilentLogin } from '~/utils/silentLogin';
 
 const ThirdPage = () => {
   const setIsPageFinished = useSetAtom(pageFinishAtom);
+  const login = new SilentLogin();
   const storedUnivType = useAtomValue(
     commonDataAtoms.commonUnivVerificationStep.page1,
   ).univType;
@@ -64,46 +66,40 @@ const ThirdPage = () => {
         return 'Gray500';
     }
   };
-  // 인증번호 확인 절차
+
+  // 인증번호 받기
   const handleTryValidate = async () => {
     if (inputValue) setTryValidate(true);
-    const res = await AuthAPI.getVerificationCode({
-      // email: inputValue,
-      email: 'aacz1203@uos.ac.kr',
-      // university: storedUnivType,
-      university: 'UOS',
+    await AuthAPI.getVerificationCode({
+      email: inputValue,
+      university: storedUnivType,
     });
-    console.log(res);
   };
 
-  // 인증번호 확인 절차
+  // 인증번호 확인
   const handleValidate = async () => {
-    // 전역 변수로 accessToken, refreshToken은 디바이스
     if (!validateCodeValue) return setStatusMessage('인증번호를 입력해주세요!');
     await AuthAPI.checkVerificationCode({
-      code: parseInt(validateCodeValue),
-      // email: inputValue,
-      email: 'aacz1203@uos.ac.kr',
+      code: validateCodeValue,
+      email: inputValue,
       university: storedUnivType,
     })
       .then(res => {
-        console.log(res);
-        setPageState({ verified: true });
-        localStorage.setItem('accessToken', res.data.accessToken);
-        localStorage.setItem('refreshToken', res.data.refreshToken);
+        login.onLoginSuccess(res);
+        setPageState({
+          verified: true,
+        });
         setStatusMessage('인증되었습니다.');
         setValidateStatus('success');
       })
-      .catch(e => {
-        console.log(e.response.status);
+      .catch(() => {
         setStatusMessage('유효하지 않은 인증번호입니다.');
         setValidateStatus('error');
         resetValidateCode();
       });
-
-    // const res = await .createMeeting('SINGLE', true);
   };
 
+  //인증번호 입력 제한시간
   useEffect(() => {
     let interval: number;
     if (tryValidate) {

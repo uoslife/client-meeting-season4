@@ -1,40 +1,35 @@
 import axios, { AxiosError, AxiosResponse } from 'axios';
+import { AuthAPI } from '~/api';
+import toast from 'react-hot-toast';
 
-const API = axios.create({
+export const API = axios.create({
   withCredentials: true,
   baseURL: 'https://meeting.alpha.uoslife.com/',
 });
 
-API.interceptors.request.use(
-  res => {
-    const accessToken = localStorage.getItem('accessToken');
-    if (!accessToken) return res;
-
-    res.headers.Authorization = `Bearer ${accessToken}`;
-    return res;
-  },
-  (error: AxiosError) => {
-    // const statusCode = error.response?.status;
-    return Promise.reject(error);
-  },
-);
-
 API.interceptors.response.use(
   (res: AxiosResponse) => res,
-  async (error: AxiosError) => {
+  async (error: AxiosError & { config: { retryCount: number } }) => {
     const originRequest = error;
-    const statusCode = error.response?.status;
+    const statusCode = originRequest.response?.status;
     if (statusCode === 401) {
-      // const refreshToken = localStorage.getItem('refreshToken');
-      // const res = await AuthAPI.getRefreshToken(refreshToken!);
-      // localStorage.setItem('accessToken', res.data.data.accessToken);
-      // localStorage.setItem('refreshToken', res.data.data.refreshToken);
-      // axios.defaults.headers.common.Authorization = `Bearer ${res.data.data.accessToken}`;
-      // originRequest.config!.headers.Authorization = `Bearer ${res.data.data.accessToken}`;
-      return axios(originRequest.config!);
+      await AuthAPI.getRefreshToken()
+        .then(res => {
+          API.defaults.headers.common.Authorization = `Bearer ${res.data.accessToken}`;
+          originRequest.config!.headers.Authorization = `Bearer ${res.data.accessToken}`;
+          return axios(originRequest.config!);
+        })
+        .catch(() => {
+          toast.error('다시 로그인해주세요!', {
+            duration: 2000,
+          });
+          setTimeout(
+            () => (window.location.href = '/common/univVerificationStep'),
+            1500,
+          );
+        });
     }
 
-    // res.headers.Authorization = `Bearer ${accessToken}`;
     return Promise.reject(error);
   },
 );
