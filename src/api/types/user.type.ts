@@ -54,22 +54,22 @@ export type UpdateUserRequest = {
   age: number;
   gender: 'MALE' | 'FEMALE';
   height: number | null;
-  phoneNumber: string;
   kakaoTalkId: string;
   department: string;
   studentType: StudentOption;
-  religion?: ReligionOption | null;
+  phoneNumber: string | null;
+  religion: ReligionOption | null;
+  smoking: SmokingOption | null;
+  drinkingMin: number | null;
+  drinkingMax: number | null;
+  spiritAnimal: SpiritAnimalOption[] | null;
+  mbti: string | null;
+  interest: InterestOption[] | null;
 
-  smoking?: SmokingOption | null;
-  drinkingMin?: number | null;
-  drinkingMax?: number | null;
-  spiritAnimal?: SpiritAnimalOption[] | null;
-  mbti?: string | null;
-  interest?: InterestOption[] | null;
 };
 
 export type UpdateMessageRequest = {
-  message: string;
+  message: string | null;
 };
 
 export type UpdatePreferRequest = {
