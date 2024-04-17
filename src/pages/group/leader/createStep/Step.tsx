@@ -33,6 +33,7 @@ const GroupLeaderCreateStep = () => {
   );
 
   const { createTeam } = useApi();
+  const [isModal, setIsModal] = useState(false);
 
   const onNext = async () => {
     // 팅 만들기
@@ -49,6 +50,12 @@ const GroupLeaderCreateStep = () => {
     PageHandler.onNext();
   };
 
+  const onPrev = () => {
+    if (currentPage === 2) {
+      setIsModal(true);
+    } else PageHandler.onPrev();
+  };
+
   return (
     <PageLayout>
       <PageLayout.Header
@@ -63,7 +70,11 @@ const GroupLeaderCreateStep = () => {
             <FirstPage />
           </Funnel.Page>
           <Funnel.Page pageNumber={2}>
-            <SecondPage />
+            <SecondPage
+              isModal={isModal}
+              onPrev={PageHandler.onPrev}
+              setIsModal={setIsModal}
+            />
           </Funnel.Page>
         </Funnel>
       </PageLayout.SingleCardBody>
