@@ -4,14 +4,11 @@ import { useEffect, useState } from 'react';
 import SuccessPayment from '~/pages/common/paymentResultStep/SuccessPage';
 import FailPayment from '~/pages/common/paymentResultStep/FailPage';
 import LoadingPayment from '~/pages/common/paymentResultStep/LoadingPage';
-// import { PaymentAPI } from '~/api';
 import toast from 'react-hot-toast';
 import querystring from 'query-string';
 import { PaymentAPI } from '~/api';
 import { useSetAtom } from 'jotai';
 import { isPaymentFinishedAtom } from '~/models/payment';
-
-let RETRY_COUNT = 1;
 
 const CommonPaymentResultStep = () => {
   const navigate = useNavigate();
@@ -32,14 +29,8 @@ const CommonPaymentResultStep = () => {
           setIsPaymentFinishedAtom(true);
         }, 2000),
       )
-      .catch(e => {
-        RETRY_COUNT++;
-        if (RETRY_COUNT === 3) {
-          console.log(e, '실패!');
-          setPaymentStatus('fail');
-          return;
-        }
-        handleCheckPaymentResult();
+      .catch(() => {
+        setPaymentStatus('fail');
       });
   };
 

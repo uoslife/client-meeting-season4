@@ -1,7 +1,4 @@
-import { atomWithStorage } from 'jotai/utils';
+import { atom } from 'jotai';
 
-export const isPaymentFinishedAtom = atomWithStorage(
-  'isPaymentFinished',
-  false,
-);
+export const isPaymentFinishedAtom = atom(false);
 isPaymentFinishedAtom.debugLabel = 'isPaymentFinished';

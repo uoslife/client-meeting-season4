@@ -12,28 +12,12 @@ import styled from '@emotion/styled';
 import { SOCIAL_LINK } from '~/constants';
 import toast, { Toaster } from 'react-hot-toast';
 import { navigateNextStepAtom } from '~/models/funnel';
-import { useAtomValue, useSetAtom } from 'jotai';
-import { useState } from 'react';
+import { useAtom, useSetAtom } from 'jotai';
+import { useEffect, useState } from 'react';
+import { PaymentAPI } from '~/api';
 import { isPaymentFinishedAtom } from '~/models/payment';
 
-type bottomCardChildrenProps = {
-  onClickPrimary: () => void;
-  onClickSecondary: () => void;
-};
 const CommonLandingStep = () => {
-  const navigate = useTypeSafeNavigate();
-  const setNavigateNextStep = useSetAtom(navigateNextStepAtom);
-
-  const handleOnClickPrimary = () => {
-    setNavigateNextStep(true);
-    navigate('/common/univVerificationStep');
-    // TODO : 이메일 토큰 인증 여부에 따라 라우팅 페이지 분기 처리
-  };
-  const handleOnClickSecondary = () => {
-    navigate('/common/verifyForCheckAfterAlreadyAppliedStep');
-    // TODO : 신청 정보 확인하기 페이지로 라우팅
-  };
-
   return (
     <PageLayout>
       <S.HeaderDummyBox />
@@ -41,12 +25,7 @@ const CommonLandingStep = () => {
         topCardPadding="36px 44px"
         topCardChildren={<TopCardComponent />}
         bottomCardPadding="36px 20px 24px"
-        bottomCardChildren={
-          <BottomCardComponent
-            onClickPrimary={handleOnClickPrimary}
-            onClickSecondary={handleOnClickSecondary}
-          />
-        }
+        bottomCardChildren={<BottomCardComponent />}
       />
       {<FooterIconAreaComponent />}
       <Toaster />
@@ -96,12 +75,42 @@ const TopCardComponent = () => {
   );
 };
 
-const BottomCardComponent = ({
-  onClickPrimary,
-  onClickSecondary,
-}: bottomCardChildrenProps) => {
+const BottomCardComponent = () => {
   const [businessToggle, setBusinessToggle] = useState(false);
-  const isPaymentFinishedValue = useAtomValue(isPaymentFinishedAtom);
+  const [isLogin, setIsLogin] = useState(false);
+  const navigate = useTypeSafeNavigate();
+  const setNavigateNextStep = useSetAtom(navigateNextStepAtom);
+  const [isPaymentFinishedValue, setIsPaymentFinishedValue] = useAtom(
+    isPaymentFinishedAtom,
+  );
+  const handleOnClickPrimary = () => {
+    setNavigateNextStep(true);
+    navigate(
+      isLogin ? '/common/branchGatewayStep' : '/common/univVerificationStep',
+    );
+  };
+  const handleOnClickSecondary = () =>
+    navigate('/common/verifyForCheckAfterAlreadyAppliedStep');
+
+  // 결제완료 여부 확인 로직
+  const handlePaymentResult = async () => {
+    await PaymentAPI.requestPayment({
+      pg: 'WELCOME_PAYMENTS',
+      payMethod: 'card',
+    })
+      .then(() => {
+        setIsPaymentFinishedValue(false);
+        setIsLogin(true);
+      })
+      .catch(error => {
+        if (error.status === 401) setIsPaymentFinishedValue(false);
+        if (error.response.data.code === 'P04') setIsPaymentFinishedValue(true);
+      });
+  };
+  useEffect(() => {
+    handlePaymentResult();
+  }, []);
+  // 링크 공유 로직
   const handleShareLink = async () => {
     await navigator.clipboard.writeText(SOCIAL_LINK.Sharelink);
     toast.success('널리 공유해주세요~!', {
@@ -151,13 +160,13 @@ const BottomCardComponent = ({
             status={'cancel'}
             borderType={'black'}
             label={'신청 정보 확인하기'}
-            onClick={onClickSecondary}
+            onClick={handleOnClickSecondary}
           />
         ) : (
           <RoundButton
             status={'active'}
             label={'신청하기'}
-            onClick={onClickPrimary}
+            onClick={handleOnClickPrimary}
           />
         )}
       </Col>

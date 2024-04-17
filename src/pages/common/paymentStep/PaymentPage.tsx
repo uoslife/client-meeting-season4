@@ -93,11 +93,20 @@ const PaymentPage = () => {
   }
 
   const handlePaymentRequest = async () => {
-    const res = await PaymentAPI.requestPayment({
+    await PaymentAPI.requestPayment({
       pg: 'WELCOME_PAYMENTS',
       payMethod: 'card',
-    });
-    setUserPaymentInfo(res.data);
+    })
+      .then(res => {
+        setUserPaymentInfo(res.data);
+      })
+      .catch(error => {
+        if (error.response.data.code === 'P04') {
+          toast.success('이미 신청하셨습니다!', {
+            duration: 1800,
+          });
+        }
+      });
   };
 
   useEffect(() => {
