@@ -65,7 +65,7 @@ const SecondPage = ({ isModal, setIsModal, onPrev }: SecondPageProps) => {
             typography={'NeoTitleM'}
           />
           <Text
-            label={'유효시간 내에 모든 인원이 입장을 완료해야해요.'}
+            label={'모든 인원이 입장을 완료해야해요.'}
             color={'Gray500'}
             typography={'GoThicTitleS'}
           />
