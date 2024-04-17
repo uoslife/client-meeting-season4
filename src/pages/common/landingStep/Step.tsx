@@ -12,10 +12,11 @@ import styled from '@emotion/styled';
 import { SOCIAL_LINK } from '~/constants';
 import toast, { Toaster } from 'react-hot-toast';
 import { navigateNextStepAtom } from '~/models/funnel';
-import { useAtom, useSetAtom } from 'jotai';
+import { useAtom, useAtomValue, useSetAtom } from 'jotai';
 import { useEffect, useState } from 'react';
 import { PaymentAPI } from '~/api';
 import { isPaymentFinishedAtom } from '~/models/payment';
+import { isLoggedInAtom } from '~/models/auth';
 
 const CommonLandingStep = () => {
   return (
@@ -76,17 +77,19 @@ const TopCardComponent = () => {
 };
 
 const BottomCardComponent = () => {
-  const [businessToggle, setBusinessToggle] = useState(false);
-  const [isLogin, setIsLogin] = useState(false);
   const navigate = useTypeSafeNavigate();
+  const [businessToggle, setBusinessToggle] = useState(false);
   const setNavigateNextStep = useSetAtom(navigateNextStepAtom);
+  const isLoggedInValue = useAtomValue(isLoggedInAtom);
   const [isPaymentFinishedValue, setIsPaymentFinishedValue] = useAtom(
     isPaymentFinishedAtom,
   );
   const handleOnClickPrimary = () => {
     setNavigateNextStep(true);
     navigate(
-      isLogin ? '/common/branchGatewayStep' : '/common/univVerificationStep',
+      isLoggedInValue
+        ? '/common/branchGatewayStep'
+        : '/common/univVerificationStep',
     );
   };
   const handleOnClickSecondary = () =>
@@ -94,13 +97,13 @@ const BottomCardComponent = () => {
 
   // 결제완료 여부 확인 로직
   const handlePaymentResult = async () => {
+    if (!isLoggedInValue) return;
     await PaymentAPI.requestPayment({
       pg: 'WELCOME_PAYMENTS',
       payMethod: 'card',
     })
       .then(() => {
         setIsPaymentFinishedValue(false);
-        setIsLogin(true);
       })
       .catch(error => {
         if (error.status === 401) setIsPaymentFinishedValue(false);
@@ -109,7 +112,7 @@ const BottomCardComponent = () => {
   };
   useEffect(() => {
     handlePaymentResult();
-  }, []);
+  }, [isLoggedInValue]);
   // 링크 공유 로직
   const handleShareLink = async () => {
     await navigator.clipboard.writeText(SOCIAL_LINK.Sharelink);
