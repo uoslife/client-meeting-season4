@@ -100,7 +100,6 @@ const useApi = () => {
       religion: RELIGION_MAP[religion!],
       smoking: SMOKING_MAP[smoking!],
       spiritAnimal: animalOptions.map(animal => ANIMAL_MAP[animal]),
-      message,
     };
 
     MeetingAPI.updateUser(body);
