@@ -10,14 +10,14 @@ export const upToDown = keyframes`
   }
   100% {
     opacity: 1;
-    max-height: 350px;
+    max-height: 400px;
   }
 `;
 
 export const downToUp = keyframes`
   0% {
     opacity: 1;
-    max-height: 350px;
+    max-height: 400px;
   }
   100% {
     opacity: 0;

@@ -8,7 +8,7 @@ export type PaymentResponse = {
   price: number;
   phoneNumber: string;
   name: string;
-  productName: string;
+  productName: 'SINGLE' | 'TRIPLE';
 };
 
 export type RefundPaymentResponse = {

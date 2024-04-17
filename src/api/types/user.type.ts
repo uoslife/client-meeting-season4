@@ -52,20 +52,23 @@ export type GetUserResponse = {
 export type UpdateUserRequest = {
   name: string;
   age: number;
-  gender: 'MALE' | 'FEMALE';
-  height: number;
-  phoneNumber: string;
   kakaoTalkId: string;
   department: string;
   studentType: StudentOption;
-  religion?: ReligionOption[];
+  gender: 'MALE' | 'FEMALE' | null;
+  height: number | null;
+  phoneNumber: string | null;
+  religion: ReligionOption | null;
+  smoking: SmokingOption | null;
+  drinkingMin: number | null;
+  drinkingMax: number | null;
+  spiritAnimal: SpiritAnimalOption[] | null;
+  mbti: string | null;
+  interest: InterestOption[] | null;
+};
 
-  smoking?: SmokingOption;
-  drinkingMin?: number;
-  drinkingMax?: number;
-  spiritAnimal?: SpiritAnimalOption[];
-  mbti?: string;
-  interest?: InterestOption;
+export type UpdateMessageRequest = {
+  message: string | null;
 };
 
 export type UpdatePreferRequest = {
@@ -73,16 +76,18 @@ export type UpdatePreferRequest = {
   ageMax: number;
   heightMin?: number;
   heightMax?: number;
+  drinkingMin?: number;
+  drinkingMax?: number;
   studentType?: StudentOption[];
   university: ('UOS' | 'KHU' | 'HUFS')[];
   religion?: ReligionOption[];
   smoking?: SmokingOption[];
   spiritAnimal?: SpiritAnimalOption[];
-  mbti?: string[];
+  mbti?: string;
   mood?: 'ACTIVE' | 'CALM' | 'NOT_MATTER';
 };
 
-export type UpdateInfoRequest = number[];
+export type UpdateInfoRequest = { questions: number[] };
 
 export type JoinGroupUserListResponse = {
   teamName: string;
@@ -144,7 +149,7 @@ export type PreferenceType = {
   drinkingMax?: number;
   studentType: StudentOption[];
   university: Univ[];
-  religion: ReligionOption;
+  religion: ReligionOption[];
   smoking: SmokingOption;
   spiritAnimal: SpiritAnimalOption[];
   mbti: string;

@@ -30,6 +30,7 @@ import {
   getAgeRangeLabel,
   getAnimalAndMbtiLabel,
   getReligionLabel,
+  getReligionPreferLabel,
 } from './label-getters';
 import { MatchingSuccessfulContentProps } from '~/components/applyInfo/MatchingSuccessfulContent';
 import { CheckPageDoubleCardsProps } from '~/components/applyInfo/CheckPageDoubleCards';
@@ -90,14 +91,13 @@ export class MeetingInfo {
       gender,
       teamType,
     });
-    const nameLabel = teamName;
 
     if (teamType === 'SINGLE') {
       const {
         studentType,
         smoking,
-        drinkingMax,
         drinkingMin,
+        drinkingMax,
         kakaoTalkId,
         height,
         interest,
@@ -105,6 +105,7 @@ export class MeetingInfo {
         spiritAnimal,
         religion,
         phoneNumber,
+        name,
       } = teamUserList[0];
 
       return {
@@ -114,7 +115,7 @@ export class MeetingInfo {
             univ,
             genderAndAgeLabel,
             meetingType: 'personal',
-            nameLabel,
+            nameLabel: name,
             otherInfoItems: [
               { name: '키', content: getHeightMyInfoLabel(height) },
               {
@@ -193,7 +194,7 @@ export class MeetingInfo {
             },
             {
               name: '선호 종교',
-              content: getReligionLabel(preference.religion!),
+              content: getReligionPreferLabel(preference.religion!),
             },
             {
               name: '흡연 여부 / 음주 횟수',
@@ -222,7 +223,7 @@ export class MeetingInfo {
           profileViewData: {
             genderAndAgeLabel,
             meetingType: 'group',
-            nameLabel,
+            nameLabel: teamName,
             otherInfoItems: [
               {
                 name: '학교',
@@ -318,8 +319,6 @@ export class MeetingInfo {
       spiritAnimal,
       religion,
     } = teamUserList[0];
-
-    console.log(univ);
 
     if (teamType === 'SINGLE')
       return {

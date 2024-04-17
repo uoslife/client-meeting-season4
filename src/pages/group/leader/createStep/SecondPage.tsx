@@ -24,7 +24,6 @@ const SecondPage = () => {
   const { joinCode, otherMembers } = pageState;
 
   useEffect(() => {
-    setPageState(prev => ({ ...prev, joinCode: 'TEMP' }));
     setPageState(prev => ({
       ...prev,
       otherMembers: ['김팅원', '박팅원'],

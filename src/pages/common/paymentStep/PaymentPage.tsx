@@ -26,30 +26,30 @@ const PaymentPage = () => {
   const meetingTypeValue = useAtomValue(
     commonDataAtoms.commonBranchGatewayStep.page1,
   );
-  const { gender: personalGender, name: personalName } = useAtomValue(
+  const { gender: personalGender } = useAtomValue(
     personalDataAtoms.personalMyInformationStep.page1,
   );
-  const { gender: groupGender, name: groupName } = useAtomValue(
+  const { gender: groupGender } = useAtomValue(
     groupDataAtoms.groupLeaderMyInformationStep.page1,
-  );
-  const { phone: personalPhone } = useAtomValue(
-    personalDataAtoms.personalMyInformationStep.page2,
-  );
-  const { phone: groupPhone } = useAtomValue(
-    groupDataAtoms.groupLeaderMyInformationStep.page2,
   );
 
   const handleProductInfo = (type: string) => {
-    if (meetingTypeValue.meetingType === 'group' && groupGender === 'F') {
+    if (meetingTypeValue.meetingType === 'group' && groupGender === 'FEMALE') {
       return type === 'name' ? '3:3 미팅(여자)' : 10500;
     }
-    if (meetingTypeValue.meetingType === 'group' && groupGender === 'M') {
+    if (meetingTypeValue.meetingType === 'group' && groupGender === 'MALE') {
       return type === 'name' ? '3:3 미팅(남자)' : 12000;
     }
-    if (meetingTypeValue.meetingType === 'personal' && personalGender === 'F') {
+    if (
+      meetingTypeValue.meetingType === 'personal' &&
+      personalGender === 'FEMALE'
+    ) {
       return type === 'name' ? '1:1 미팅(여자)' : 3500;
     }
-    if (meetingTypeValue.meetingType === 'personal' && personalGender === 'M') {
+    if (
+      meetingTypeValue.meetingType === 'personal' &&
+      personalGender === 'MALE'
+    ) {
       return type === 'name' ? '1:1 미팅(남자)' : 4000;
     }
   };
@@ -62,15 +62,11 @@ const PaymentPage = () => {
     const data: RequestPayParams = {
       pg: 'welcome', // PG사 : https://developers.portone.io/docs/ko/tip/pg-2 참고
       pay_method: 'card', // 결제수단
-      // merchant_uid: userPaymentInfo?.merchantUid ?? '', // 주문번호
-      // 테스트용 주문번호
-      merchant_uid: `test_uoslife_meeting_${Math.floor(Math.random() * (10000 + 1)) + 1000}`, // 주문번호
+      merchant_uid: userPaymentInfo?.merchantUid ?? '', // 주문번호
       amount: userPaymentInfo?.price ?? Number(handleProductInfo('price')!), // 결제금액
       name: '시대팅 Season4 참가비', // 주문명
-      buyer_tel:
-        meetingTypeValue.meetingType === 'group' ? groupPhone : personalPhone, // 구매자 전화번호
-      buyer_name:
-        meetingTypeValue.meetingType === 'group' ? groupName : personalName,
+      buyer_tel: userPaymentInfo?.phoneNumber,
+      buyer_name: userPaymentInfo?.name,
       m_redirect_url: import.meta.env.DEV
         ? 'http://localhost:5173/common/paymentResultStep'
         : 'https://meeting.alpha.uoslife.com/common/paymentResultStep',
@@ -100,9 +96,17 @@ const PaymentPage = () => {
     await PaymentAPI.requestPayment({
       pg: 'WELCOME_PAYMENTS',
       payMethod: 'card',
-    }).then(res => {
-      setUserPaymentInfo(res.data);
-    });
+    })
+      .then(res => {
+        setUserPaymentInfo(res.data);
+      })
+      .catch(error => {
+        if (error.response.data.code === 'P04') {
+          toast.success('이미 신청하셨습니다!', {
+            duration: 1800,
+          });
+        }
+      });
   };
 
   useEffect(() => {
@@ -111,10 +115,7 @@ const PaymentPage = () => {
         duration: 1800,
       });
     }
-    setTimeout(() => {
-      handlePaymentRequest();
-    }, 2000);
-    // TODO: setTimeout 제거
+    handlePaymentRequest();
   }, []);
 
   return (

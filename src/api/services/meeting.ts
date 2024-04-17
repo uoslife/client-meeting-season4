@@ -6,6 +6,7 @@ import {
   JoinGroupUserListResponse,
   TeamType,
   UpdateInfoRequest,
+  UpdateMessageRequest,
   UpdatePreferRequest,
   UpdateUserRequest,
 } from '~/api/types/user.type';
@@ -27,7 +28,11 @@ const checkUser = async <T = boolean>(email: string) =>
 
 // 공통
 // 팅(1:1 / 3:3)을 생성합니다.
-const createMeeting = async <T = string>(
+const createMeeting = async <
+  T = {
+    code: string | null;
+  },
+>(
   teamType: TeamType,
   isTeamLeader: boolean,
   name?: string,
@@ -46,6 +51,14 @@ const updatePrefer = async <T = object>(
   isTeamLeader: boolean,
   data: UpdatePreferRequest,
 ) => API.put<T>(`api/meeting/${teamType}/${isTeamLeader}/prefer`, data);
+
+const updateMessage = async (
+  teamType: TeamType,
+  isTeamLeader: boolean,
+  data: UpdateMessageRequest,
+) => {
+  return API.put(`/api/meeting/${teamType}/${isTeamLeader}/message`, data);
+};
 
 // 팅의 모든 정보를 받아옵니다.
 const getMeetingInfo = async <T = GetMeetingInfoResponse>(teamType: TeamType) =>
@@ -80,4 +93,5 @@ export default {
   joinGroup,
   getGroupStatus,
   getMatchingInfo,
+  updateMessage,
 };
