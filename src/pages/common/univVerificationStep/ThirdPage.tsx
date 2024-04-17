@@ -15,18 +15,17 @@ import { AuthAPI } from '~/api';
 import { SilentLogin } from '~/utils/silentLogin';
 
 const ThirdPage = () => {
-  const setIsPageFinished = useSetAtom(pageFinishAtom);
   const login = new SilentLogin();
   const storedUnivType = useAtomValue(
     commonDataAtoms.commonUnivVerificationStep.page1,
   ).univType;
   const pageValidity = useAtomValue(combinedValidatiesAtoms)
     .commonUnivVerificationStep.page3;
-  setIsPageFinished(pageValidity);
-
   const setPageState = useSetAtom(
     commonDataAtoms.commonUnivVerificationStep.page3,
   );
+  const setIsPageFinished = useSetAtom(pageFinishAtom);
+  setIsPageFinished(pageValidity);
 
   const { inputValue, handleInputChange } = useInput('');
   const {
@@ -71,7 +70,7 @@ const ThirdPage = () => {
   const handleTryValidate = async () => {
     if (inputValue) setTryValidate(true);
     await AuthAPI.getVerificationCode({
-      email: inputValue,
+      email: `${inputValue}@${storedUnivType === 'HUFS' ? 'hufs' : 'khu'}.ac.kr`,
       university: storedUnivType,
     });
   };
