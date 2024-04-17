@@ -2,6 +2,21 @@ import { useFunnel } from '~/hooks/useFunnel';
 import FirstPage from './FirstPage';
 import SecondPage from './SecondPage';
 import PageLayout from '~/components/layout/page/PageLayout';
+import { useAtomValue, useSetAtom } from 'jotai';
+import { groupDataAtoms } from '~/models/group/data';
+import { MeetingAPI } from '~/api';
+
+const useApi = () => {
+  const { teamName: name } = useAtomValue(
+    groupDataAtoms.groupLeaderGroupCreateStep.page1,
+  );
+
+  const createTeam = async () => {
+    const res = await MeetingAPI.createMeeting('TRIPLE', true, name);
+    return res;
+  };
+  return { createTeam };
+};
 
 const PAGE_NUMBER = [1, 2];
 
@@ -11,6 +26,23 @@ const GroupLeaderCreateStep = () => {
     prevStep: { path: '/group/leader/myInformationStep' },
     nextStep: { path: '/group/leader/groupInformationStep' },
   });
+
+  const setPageState = useSetAtom(
+    groupDataAtoms.groupLeaderGroupCreateStep.page2,
+  );
+
+  const { createTeam } = useApi();
+
+  const onNext = async () => {
+    if (currentPage === 1) {
+      const res = await createTeam();
+      const joinCode = res.data.code;
+      if (joinCode) {
+        setPageState(prev => ({ ...prev, joinCode: joinCode }));
+      }
+    }
+    PageHandler.onNext();
+  };
 
   return (
     <PageLayout>
@@ -33,7 +65,7 @@ const GroupLeaderCreateStep = () => {
       <PageLayout.Footer
         currentPage={currentPage}
         totalPage={PAGE_NUMBER.length}
-        onNext={PageHandler.onNext}
+        onNext={onNext}
         onPrev={PageHandler.onPrev}
       />
     </PageLayout>
