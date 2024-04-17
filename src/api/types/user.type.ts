@@ -75,16 +75,16 @@ export type UpdateMessageRequest = {
 export type UpdatePreferRequest = {
   ageMin: number;
   ageMax: number;
-  heightMin?: number;
-  heightMax?: number;
-  drinkingMin?: number;
-  drinkingMax?: number;
-  studentType?: StudentOption[];
+  heightMin?: number | null;
+  heightMax?: number | null;
+  drinkingMin?: number | null;
+  drinkingMax?: number | null;
+  studentType?: StudentOption[] | null;
   university: ('UOS' | 'KHU' | 'HUFS')[];
-  religion?: ReligionOption[];
-  smoking?: SmokingOption[];
-  spiritAnimal?: SpiritAnimalOption[];
-  mbti?: string;
+  religion?: ReligionOption[] | null;
+  smoking?: SmokingOption[] | null;
+  spiritAnimal?: SpiritAnimalOption[] | null;
+  mbti?: string | null;
   mood?: 'ACTIVE' | 'CALM' | 'NOT_MATTER';
 };
 
