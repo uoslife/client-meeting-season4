@@ -68,7 +68,7 @@ export type UpdateUserRequest = {
 };
 
 export type UpdateMessageRequest = {
-  message: string;
+  message: string | null;
 };
 
 export type UpdatePreferRequest = {
