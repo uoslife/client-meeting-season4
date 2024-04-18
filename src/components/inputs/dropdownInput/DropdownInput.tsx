@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
 import * as S from './DropdownInput.style';
 
-import { Dispatch, useState } from 'react';
+import { Dispatch, useEffect, useState } from 'react';
 import IconButton from '~/components/buttons/iconButton/IconButton';
 import Text from '~/components/typography/Text';
 import { Combine } from '~/types/utils.type';
@@ -23,6 +23,11 @@ const DropdownInput = ({
   options,
 }: DropdownInputProps) => {
   const [showOption, setShowOption] = useState(false);
+  const [initLoad, setInitLoad] = useState(false);
+
+  useEffect(() => {
+    if (showOption && !initLoad) setInitLoad(true);
+  }, [showOption]);
 
   const onClickOptionSelect = (selectedOption: string) => () => {
     setValue(selectedOption);
@@ -52,17 +57,19 @@ const DropdownInput = ({
           />
         </S.Icon>
       </S.InputWrapper>
-      <S.Dropdown showOption={showOption}>
-        <S.DropdownOptions>
-          {options.map((val: string) => {
-            return (
-              <S.DropdownOption onClick={onClickOptionSelect(val)} key={val}>
-                {val}
-              </S.DropdownOption>
-            );
-          })}
-        </S.DropdownOptions>
-      </S.Dropdown>
+      {initLoad && (
+        <S.Dropdown showOption={showOption}>
+          <S.DropdownOptions>
+            {options.map((val: string) => {
+              return (
+                <S.DropdownOption onClick={onClickOptionSelect(val)} key={val}>
+                  {val}
+                </S.DropdownOption>
+              );
+            })}
+          </S.DropdownOptions>
+        </S.Dropdown>
+      )}
     </div>
   );
 };
