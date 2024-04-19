@@ -80,7 +80,7 @@ const ThirdPage = () => {
     if (!validateCodeValue) return setStatusMessage('인증번호를 입력해주세요!');
     await AuthAPI.checkVerificationCode({
       code: validateCodeValue,
-      email: inputValue,
+      email: `${inputValue}@${storedUnivType === 'HUFS' ? 'hufs' : 'khu'}.ac.kr`,
       university: storedUnivType,
     })
       .then(res => {
