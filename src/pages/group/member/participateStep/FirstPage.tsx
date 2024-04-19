@@ -10,6 +10,13 @@ import { groupDataAtoms } from '~/models/group/data';
 import { useAtomValue, useSetAtom } from 'jotai';
 import { pageFinishAtom } from '~/models/funnel';
 import { combinedValidatiesAtoms } from '~/models';
+import { MeetingAPI } from '~/api';
+import toast from 'react-hot-toast';
+
+type teamInfoType = {
+  teamName: string;
+  userList: object[];
+};
 
 const FirstPage = () => {
   const setPageState = useSetAtom(
@@ -18,17 +25,75 @@ const FirstPage = () => {
 
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [code, setCode] = useState('');
-  const [isError] = useState(false);
+  const [codeStatus, setCodeStatus] = useState('beforeTry');
   const [isModal, setIsModal] = useState(false);
+  const [teamInfo, setTeamInfo] = useState<teamInfoType>({
+    teamName: '',
+    userList: [],
+  });
+  const setIsPageFinished = useSetAtom(pageFinishAtom);
+  const pageValidity = useAtomValue(combinedValidatiesAtoms)
+    .groupMemberParticipateStep.page1;
+  setIsPageFinished(pageValidity);
 
   const handleInputValue = (e: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = e.target.value;
     setCode(inputValue.toUpperCase());
   };
 
-  const showStatusMessage = () => {
+  const handleStatusMessage = () => {
     if (code.length != 4) return '';
-    return isError ? '유효하지 않는 코드입니다.' : '유효한 코드입니다';
+    switch (codeStatus) {
+      case 'beforeTry': {
+        return '';
+      }
+      case 'error': {
+        return '유효하지 않는 코드입니다.';
+      }
+      case 'success': {
+        return '유효한 코드입니다.';
+      }
+      default:
+        return '';
+    }
+  };
+
+  const handleEnterCode = async () => {
+    await MeetingAPI.getGroupStatus('TRIPLE', code)
+      .then(res => {
+        setTeamInfo({
+          teamName: res.data.teamName,
+          userList: res.data.userList,
+        });
+        setIsModal(true);
+        setCodeStatus('success');
+      })
+      .catch(() => {
+        setCodeStatus('error');
+        setTimeout(() => {
+          setCodeStatus('beforeTry');
+          setCode('');
+        }, 2000);
+      });
+  };
+
+  const handleParticipateTeam = async () => {
+    await MeetingAPI.joinGroup('TRIPLE', code, true)
+      .then(() => {
+        setIsModal(false);
+        setPageState({ verified: true });
+      })
+      .catch(error => {
+        if (error.response.data.code === 'M17') {
+          toast.error(
+            '동일한 성별끼리만 신청 가능합니다!\n' +
+              '이전 신청단계에서 확인해주세요!',
+            {
+              icon: '🥲',
+            },
+          );
+        }
+      });
   };
 
   useEffect(() => {
@@ -37,13 +102,10 @@ const FirstPage = () => {
   }, [inputRef]);
 
   useEffect(() => {
-    if (code.length === 4) setIsModal(true);
+    if (code.length === 4) {
+      handleEnterCode();
+    }
   }, [code, setCode]);
-
-  const setIsPageFinished = useSetAtom(pageFinishAtom);
-  const pageValidity = useAtomValue(combinedValidatiesAtoms)
-    .groupMemberParticipateStep.page1;
-  setIsPageFinished(pageValidity);
 
   return (
     <>
@@ -57,16 +119,16 @@ const FirstPage = () => {
           `}
         />
         <S.Container onClick={() => inputRef.current?.focus()}>
-          <S.Code isError={isError} active={!!code && code.length === 1}>
+          <S.Code codeStatus={codeStatus} active={!!code && code.length === 1}>
             {code?.[0]}
           </S.Code>
-          <S.Code isError={isError} active={!!code && code.length === 2}>
+          <S.Code codeStatus={codeStatus} active={!!code && code.length === 2}>
             {code?.[1]}
           </S.Code>
-          <S.Code isError={isError} active={!!code && code.length === 3}>
+          <S.Code codeStatus={codeStatus} active={!!code && code.length === 3}>
             {code?.[2]}
           </S.Code>
-          <S.Code isError={isError} active={!!code && code.length === 4}>
+          <S.Code codeStatus={codeStatus} active={!!code && code.length === 4}>
             {code?.[3]}
           </S.Code>
           <S.Input
@@ -77,21 +139,22 @@ const FirstPage = () => {
           />
         </S.Container>
         <Text
-          label={showStatusMessage()}
-          color={isError ? 'Red200' : 'Primary500'}
+          label={handleStatusMessage()}
+          color={codeStatus === 'error' ? 'Red200' : 'Primary500'}
           typography={'NeoButtonS'}
         />
       </Col>
       <ParticipationModal
         isActive={isModal}
-        label={'api 팅원 이름 연결'}
-        currentParticipant={1}
+        label={teamInfo?.teamName}
+        currentParticipant={teamInfo.userList.length}
         maxParticipant={3}
-        cancelButtonClicked={() => setIsModal(false)}
-        joinButtonClicked={() => {
+        cancelButtonClicked={() => {
           setIsModal(false);
-          setPageState({ verified: true });
+          setCodeStatus('beforeTry');
+          setCode('');
         }}
+        joinButtonClicked={handleParticipateTeam}
       />
     </>
   );
@@ -108,7 +171,7 @@ const S = {
     align-items: center;
     justify-content: center;
   `,
-  Code: styled.div<{ active: boolean; isError: boolean }>`
+  Code: styled.div<{ active: boolean; codeStatus: string }>`
     ${() => typographies.NeoLabel};
     font-size: 60px;
     color: ${colors.Secondary900};
@@ -124,8 +187,8 @@ const S = {
         border-color: ${colors.Primary300};
       `};
 
-    ${({ isError }) =>
-      isError &&
+    ${({ codeStatus }) =>
+      codeStatus === 'error' &&
       css`
         border-color: ${colors.Red200};
       `};
