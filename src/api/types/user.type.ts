@@ -52,11 +52,11 @@ export type GetUserResponse = {
 export type UpdateUserRequest = {
   name: string;
   age: number;
+  gender: 'MALE' | 'FEMALE';
+  height: number | null;
   kakaoTalkId: string;
   department: string;
   studentType: StudentOption;
-  gender: 'MALE' | 'FEMALE';
-  height: number | null;
   phoneNumber: string | null;
   religion: ReligionOption | null;
   smoking: SmokingOption | null;
@@ -65,6 +65,7 @@ export type UpdateUserRequest = {
   spiritAnimal: SpiritAnimalOption[] | null;
   mbti: string | null;
   interest: InterestOption[] | null;
+
 };
 
 export type UpdateMessageRequest = {
@@ -74,17 +75,17 @@ export type UpdateMessageRequest = {
 export type UpdatePreferRequest = {
   ageMin: number;
   ageMax: number;
-  heightMin?: number;
-  heightMax?: number;
-  drinkingMin?: number;
-  drinkingMax?: number;
-  studentType?: StudentOption[];
+  heightMin: number | null;
+  heightMax: number | null;
+  drinkingMin: number | null;
+  drinkingMax: number | null;
+  studentType: StudentOption[] | null;
   university: ('UOS' | 'KHU' | 'HUFS')[];
-  religion?: ReligionOption[];
-  smoking?: SmokingOption[];
-  spiritAnimal?: SpiritAnimalOption[];
-  mbti?: string;
-  mood?: 'ACTIVE' | 'CALM' | 'NOT_MATTER';
+  religion: ReligionOption[] | null;
+  smoking: SmokingOption[] | null;
+  spiritAnimal: SpiritAnimalOption[] | null;
+  mbti: string | null;
+  mood: 'ACTIVE' | 'CALM' | 'NOT_MATTER';
 };
 
 export type UpdateInfoRequest = { questions: number[] };
