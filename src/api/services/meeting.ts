@@ -83,7 +83,7 @@ const joinGroup = async <T = JoinGroupUserListResponse>(
 const getGroupStatus = async <T = GetGroupStatusResponse>(
   teamType: TeamType,
   code: string,
-) => API.get<T>(`/api/meeting/${teamType}/join/${code}/user/list`);
+) => API.get<T>(`/api/meeting/${teamType}/${code}/user/list`);
 
 export default {
   getUser,

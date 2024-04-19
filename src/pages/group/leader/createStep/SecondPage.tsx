@@ -1,6 +1,6 @@
 import Col from '~/components/layout/Col';
 import Text from '~/components/typography/Text';
-import { css } from '@emotion/react';
+import { css, keyframes } from '@emotion/react';
 import { useAtom, useAtomValue, useSetAtom } from 'jotai';
 import { Dispatch, useEffect } from 'react';
 import { colors } from '~/styles/colors';
@@ -20,9 +20,6 @@ type SecondPageProps = {
 };
 
 const SecondPage = ({ isModal, setIsModal, onPrev }: SecondPageProps) => {
-  const { name } = useAtomValue(
-    groupDataAtoms.groupLeaderMyInformationStep.page1,
-  );
   const { teamName } = useAtomValue(
     groupDataAtoms.groupLeaderGroupCreateStep.page1,
   );
@@ -30,15 +27,33 @@ const SecondPage = ({ isModal, setIsModal, onPrev }: SecondPageProps) => {
     groupDataAtoms.groupLeaderGroupCreateStep.page2,
   );
   const { joinCode, otherMembers } = pageState;
+  const enteredMemberNumber = otherMembers.filter(item => item !== null).length;
+
+  const handleUserList = async () => {
+    await MeetingAPI.getGroupStatus('TRIPLE', joinCode!).then(res => {
+      const data = res.data.userList.map(val => val.name);
+      const otherMembersFixed: [string | null, string | null, string | null] = [
+        data[0] || null,
+        data[1] || null,
+        data[2] || null,
+      ];
+      setPageState(prev => ({
+        ...prev,
+        otherMembers: otherMembersFixed,
+      }));
+    });
+  };
 
   useEffect(() => {
-    setPageState(prev => ({
-      ...prev,
-      otherMembers: ['김팅원', '박팅원'],
-    }));
+    if (enteredMemberNumber === 3) return;
+    handleUserList();
+    const interval = setInterval(() => {
+      handleUserList();
+    }, 5000);
+    return () => {
+      clearInterval(interval);
+    };
   }, [setPageState]);
-
-  const entireTeamMembers: (string | null)[] = [name, ...otherMembers];
 
   const setIsPageFinished = useSetAtom(pageFinishAtom);
   const pageValidity = useAtomValue(combinedValidatiesAtoms)
@@ -71,8 +86,7 @@ const SecondPage = ({ isModal, setIsModal, onPrev }: SecondPageProps) => {
           />
           <Text
             label={
-              '팅 결성 전에 페이지를 떠나거나 코드를 재발급하는 경우, \n' +
-              '생성 중인 팅이 자동으로 삭제돼요.'
+              '뒤로 가기를 누르시면, \n' + '생성 중인 팅이 자동으로 삭제돼요.'
             }
             color={'Gray400'}
             typography={'GoThicBodyS'}
@@ -101,9 +115,16 @@ const SecondPage = ({ isModal, setIsModal, onPrev }: SecondPageProps) => {
         </Col>
         <Col gap={6}>
           <Row align={'center'} justify={'space-between'} gap={8}>
-            <Row align={'center'} padding={'0 0 0 30px'}>
+            <Row align={'center'} gap={5}>
+              {enteredMemberNumber === 3 ? (
+                <img src="/images/icons/checkbox-check.png" width={20} />
+              ) : (
+                <S.Loader />
+              )}
               <Text
-                label={'팅 결성 대기중'}
+                label={
+                  enteredMemberNumber === 3 ? '팅 결성 완료!' : '팅 결성 대기중'
+                }
                 color={'Gray400'}
                 typography={'GoThicTitleS'}
               />
@@ -118,12 +139,16 @@ const SecondPage = ({ isModal, setIsModal, onPrev }: SecondPageProps) => {
                 width={15}
                 height={15}
               />
-              <Text label={'1/3'} color={'Gray400'} typography={'PFLabelL'} />
+              <Text
+                label={`${otherMembers.filter(item => item !== null).length}/3`}
+                color={'Gray400'}
+                typography={'PFLabelL'}
+              />
             </Row>
           </Row>
           <S.TeamJoinStatus>
             <Col gap={24}>
-              {entireTeamMembers.map((memberName, index) => {
+              {otherMembers.map((memberName, index) => {
                 return (
                   <Row key={`${memberName} + ${index}`}>
                     <Row align={'center'} gap={8}>
@@ -163,13 +188,19 @@ const SecondPage = ({ isModal, setIsModal, onPrev }: SecondPageProps) => {
       </Col>
       <ApplicationModal
         isActive={isModal}
-        mainLabel={'뒤로 돌아가시면 기존의 팅은 삭제됩니다!'}
-        subLabel={'기존 팅에서 참가한 팅원은 새로운 팅원에 다시 참여해주세요'}
+        mainLabel={'이전 단계로 가시면 기존의 팅은 삭제됩니다!'}
+        subLabel={'기존 팅에 참가한 팅원은 새로운 만들 팅에 다시 참여해주세요'}
         cancelButtonClicked={() => setIsModal(false)}
         joinButtonClicked={async () => {
           await MeetingAPI.deleteMeeting('TRIPLE', true).then(() => {
             setIsModal(false);
-            setTimeout(() => onPrev(), 500);
+            setTimeout(() => {
+              setPageState(prev => ({
+                ...prev,
+                otherMembers: [null, null, null],
+              }));
+              onPrev();
+            }, 500);
           });
         }}
       />
@@ -178,6 +209,24 @@ const SecondPage = ({ isModal, setIsModal, onPrev }: SecondPageProps) => {
 };
 
 export default SecondPage;
+
+const spinner = keyframes`
+  0% {
+    transform: rotate(0deg);
+    border: 2px solid #0000ffff;
+    border-top: 2px solid #fff;
+  }
+  50% {
+    transform: rotate(720deg);
+    border: 2px solid #00ff77ff;
+    border-top: 2px solid #fff;
+  }
+  100% {
+    transform: rotate(1440deg);
+    border: 2px solid #0000ffff;
+    border-top: 2px solid #fff;
+  }
+`;
 
 const S = {
   TeamJoinStatus: styled.div`
@@ -189,5 +238,12 @@ const S = {
     border-radius: 12px;
     border: 1px solid ${colors.Gray300};
     background: ${colors.Gray50};
+  `,
+  Loader: styled.div`
+    border-radius: 50%;
+    width: 14px;
+    height: 14px;
+    animation: ${spinner} 2s cubic-bezier(0.77, 0.26, 0.29, 0.79) infinite;
+    margin: 10px;
   `,
 };

@@ -35,7 +35,7 @@ export type GroupData = {
     };
     page2: {
       joinCode: string | null;
-      otherMembers: [string | null, string | null];
+      otherMembers: [string | null, string | null, string | null];
     };
   };
   // 03. 우리 팅 정보 입력하기
