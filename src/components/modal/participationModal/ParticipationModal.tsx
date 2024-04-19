@@ -3,6 +3,7 @@ import Text from '~/components/typography/Text';
 import RoundButton from '~/components/buttons/roundButton/RoundButton';
 import IconButton from '~/components/buttons/iconButton/IconButton';
 import { useEffect, useState } from 'react';
+import Row from '~/components/layout/Row';
 
 export type ParticipationModalType = {
   isActive: boolean;
@@ -32,7 +33,9 @@ const ParticipationModal = ({
   return (
     initLoad && (
       <S.Container isActive={visible}>
-        <S.GrayHandler />
+        <Row width={'full'} justify={'center'}>
+          <S.GrayHandler />
+        </Row>
         <Text
           label={'팅 이름'}
           color={'Secondary700'}
