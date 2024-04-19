@@ -2,8 +2,8 @@ import PageLayout from '~/components/layout/page/PageLayout';
 import { useFunnel } from '~/hooks/useFunnel';
 import FirstPage from './FirstPage';
 import SecondPage from './SecondPage';
-import { groupDataAtoms } from '~/models/group/data';
 import { useAtomValue } from 'jotai';
+import { groupDataAtoms } from '~/models/group/data';
 import { MeetingAPI } from '~/api';
 
 const STUDENT_MAP = {
@@ -13,22 +13,22 @@ const STUDENT_MAP = {
 } as const;
 
 const useApi = () => {
-  const { name, age, kakaoId } = useAtomValue(
+  const { name, kakaoId, age } = useAtomValue(
     groupDataAtoms.groupMemberMyInformationStep.page1,
   );
 
-  const { major, studentType } = useAtomValue(
+  const { gender, major, studentType } = useAtomValue(
     groupDataAtoms.groupMemberMyInformationStep.page2,
   );
 
-  const updateUser = () => {
+  const updateUserInfo = () => {
     const body = {
       name,
       age: Number(age.replace('~', '')),
       kakaoTalkId: kakaoId,
       department: major,
       studentType: STUDENT_MAP[studentType!],
-      gender: null,
+      gender: gender!,
       height: null,
       phoneNumber: null,
       drinkingMin: null,
@@ -43,7 +43,7 @@ const useApi = () => {
     return MeetingAPI.updateUser(body);
   };
 
-  return { updateUser };
+  return { updateUserInfo };
 };
 
 const GroupMemberMyInformationStep = () => {
@@ -53,13 +53,12 @@ const GroupMemberMyInformationStep = () => {
     nextStep: { path: '/group/member/participateStep' },
   });
 
-  const { updateUser } = useApi();
+  const { updateUserInfo } = useApi();
 
   const onNext = async () => {
     if (currentPage === 2) {
-      await updateUser();
+      await updateUserInfo();
     }
-
     PageHandler.onNext();
   };
 

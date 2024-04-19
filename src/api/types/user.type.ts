@@ -55,7 +55,7 @@ export type UpdateUserRequest = {
   kakaoTalkId: string;
   department: string;
   studentType: StudentOption;
-  gender: 'MALE' | 'FEMALE' | null;
+  gender: 'MALE' | 'FEMALE';
   height: number | null;
   phoneNumber: string | null;
   religion: ReligionOption | null;

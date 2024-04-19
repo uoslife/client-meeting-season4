@@ -88,7 +88,8 @@ export type GroupData = {
     page2: Pick<
       InfoOptions,
       | 'major' // 4. 본인의 학과를 입력해 주세요.
-      | 'studentType' // 5. 본인의 신분을 선택해 주세요.
+      | 'gender' // 5. 본인의 성별을 선택해 주세요.
+      | 'studentType' // 6. 본인의 신분을 선택해 주세요.
     >;
   };
   // 02. 팅 만들기
