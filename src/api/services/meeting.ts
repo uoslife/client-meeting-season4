@@ -38,6 +38,10 @@ const createMeeting = async <
   name?: string,
 ) =>
   API.post<T>(`/api/meeting/${teamType}/${isTeamLeader}/create?name=${name}`);
+
+// 팅(1:1 / 3:3)을 삭제합니다.
+const deleteMeeting = async (teamType: TeamType, isTeamLeader: boolean) =>
+  API.delete(`/api/meeting/${teamType}/${isTeamLeader}`);
 // 팅 정보를 업데이트합니다.
 const updateInfo = async <T = object>(
   teamType: TeamType,
@@ -79,7 +83,7 @@ const joinGroup = async <T = JoinGroupUserListResponse>(
 const getGroupStatus = async <T = GetGroupStatusResponse>(
   teamType: TeamType,
   code: string,
-) => API.get<T>(`/api/meeting/${teamType}/join/${code}/user/list`);
+) => API.get<T>(`/api/meeting/${teamType}/${code}/user/list`);
 
 export default {
   getUser,
@@ -87,6 +91,7 @@ export default {
   updateUser,
   checkUser,
   createMeeting,
+  deleteMeeting,
   updateInfo,
   updatePrefer,
   getMeetingInfo,

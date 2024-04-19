@@ -5,16 +5,17 @@ import PageLayout from '~/components/layout/page/PageLayout';
 import { useAtomValue, useSetAtom } from 'jotai';
 import { groupDataAtoms } from '~/models/group/data';
 import { MeetingAPI } from '~/api';
+import axios from 'axios';
+import toast from 'react-hot-toast';
+import { useState } from 'react';
 
 const useApi = () => {
   const { teamName: name } = useAtomValue(
     groupDataAtoms.groupLeaderGroupCreateStep.page1,
   );
 
-  const createTeam = async () => {
-    const res = await MeetingAPI.createMeeting('TRIPLE', true, name);
-    return res;
-  };
+  const createTeam = () => MeetingAPI.createMeeting('TRIPLE', true, name);
+
   return { createTeam };
 };
 
@@ -32,16 +33,27 @@ const GroupLeaderCreateStep = () => {
   );
 
   const { createTeam } = useApi();
+  const [isModal, setIsModal] = useState(false);
 
   const onNext = async () => {
+    // 팅 만들기
     if (currentPage === 1) {
-      const res = await createTeam();
-      const joinCode = res.data.code;
-      if (joinCode) {
-        setPageState(prev => ({ ...prev, joinCode: joinCode }));
+      try {
+        const res = await createTeam();
+        setPageState(prev => ({ ...prev, joinCode: res.data.code }));
+      } catch (error: unknown) {
+        if (axios.isAxiosError(error) && error.response?.data.code) {
+          toast.success('이미 팅을 만드셨어요!');
+        }
       }
     }
     PageHandler.onNext();
+  };
+
+  const onPrev = () => {
+    if (currentPage === 2) {
+      setIsModal(true);
+    } else PageHandler.onPrev();
   };
 
   return (
@@ -58,7 +70,11 @@ const GroupLeaderCreateStep = () => {
             <FirstPage />
           </Funnel.Page>
           <Funnel.Page pageNumber={2}>
-            <SecondPage />
+            <SecondPage
+              isModal={isModal}
+              onPrev={PageHandler.onPrev}
+              setIsModal={setIsModal}
+            />
           </Funnel.Page>
         </Funnel>
       </PageLayout.SingleCardBody>
@@ -66,7 +82,7 @@ const GroupLeaderCreateStep = () => {
         currentPage={currentPage}
         totalPage={PAGE_NUMBER.length}
         onNext={onNext}
-        onPrev={PageHandler.onPrev}
+        onPrev={onPrev}
       />
     </PageLayout>
   );

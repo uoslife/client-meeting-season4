@@ -13,7 +13,7 @@ const SecondPage = () => {
     groupDataAtoms.groupMemberMyInformationStep.page2,
   );
 
-  const { major, studentType } = pageState;
+  const { major, gender, studentType } = pageState;
 
   const setIsPageFinished = useSetAtom(pageFinishAtom);
   const pageValidity = useAtomValue(combinedValidatiesAtoms)
@@ -61,9 +61,49 @@ const SecondPage = () => {
             }}
           />
         </Col>
+        <Col gap={28}>
+          <Col gap={12} align="center">
+            <Text
+              label={'5. 본인의 성별을 선택해 주세요.'}
+              color={'Gray500'}
+              typography={'NeoTitleM'}
+              weight={400}
+              size={18}
+            />
+            <Col align="center">
+              <Text
+                label={'팅은 동성끼리만 결성할 수 있습니다.'}
+                color={'Gray400'}
+                typography={'GoThicBodyS'}
+                weight={400}
+                size={14}
+              />
+            </Col>
+          </Col>
+          <Col gap={8}>
+            <RoundButton
+              status={gender === 'MALE' ? 'active' : 'inactive'}
+              label={'남자'}
+              height={56}
+              onClick={() =>
+                setPageState(prev => ({ ...prev, gender: 'MALE' }))
+              }
+              borderType="primary"
+            />
+            <RoundButton
+              status={gender === 'FEMALE' ? 'active' : 'inactive'}
+              label={'여자'}
+              height={56}
+              onClick={() =>
+                setPageState(prev => ({ ...prev, gender: 'FEMALE' }))
+              }
+              borderType="primary"
+            />
+          </Col>
+        </Col>
         <Col gap={28} align="center">
           <Text
-            label={'5. 본인의 신분을 선택해 주세요.'}
+            label={'6. 본인의 신분을 선택해 주세요.'}
             color={'Gray500'}
             typography={'NeoTitleM'}
             weight={400}
