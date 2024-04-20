@@ -22,10 +22,12 @@ const CommonUnivVerificationStep = () => {
     prevStep: { path: '/' },
   });
 
+  const setNavigateNextStep = useSetAtom(navigateNextStepAtom);
   const stepToGoBack = useStepToGoBack('commonUnivVerificationStep');
   const navigate = useTypeSafeNavigate();
 
   if (stepToGoBack) {
+    setNavigateNextStep(true);
     navigate(stepToGoBack);
     return null;
   }

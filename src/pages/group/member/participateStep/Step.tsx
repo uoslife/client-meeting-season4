@@ -1,6 +1,10 @@
 import PageLayout from '~/components/layout/page/PageLayout';
 import FirstPage from './FirstPage';
 import { useFunnel } from '~/hooks/useFunnel';
+import { useSetAtom } from 'jotai';
+import { navigateNextStepAtom } from '~/models/funnel';
+import { useStepToGoBack } from '~/hooks/useStepToGoBack';
+import useTypeSafeNavigate from '~/hooks/useTypeSafeNavigate';
 
 const GroupMemberParticipateStep = () => {
   const { Funnel, currentPage, PageHandler } = useFunnel({
@@ -8,6 +12,16 @@ const GroupMemberParticipateStep = () => {
     prevStep: { path: '/group/member/myInformationStep' },
     nextStep: { path: '/group/member/pledgeStep' },
   });
+
+  const setNavigateNextStep = useSetAtom(navigateNextStepAtom);
+  const stepToGoBack = useStepToGoBack('groupMemberParticipateStep');
+  const navigate = useTypeSafeNavigate();
+
+  if (stepToGoBack) {
+    setNavigateNextStep(true);
+    navigate(stepToGoBack);
+    return null;
+  }
 
   return (
     <PageLayout>

@@ -5,9 +5,12 @@ import ThirdPage from './ThirdPage';
 import ForthPage from './ForthPage';
 import FifthPage from './FifthPage';
 import PageLayout from '~/components/layout/page/PageLayout';
-import { useAtomValue } from 'jotai';
+import { useAtomValue, useSetAtom } from 'jotai';
 import { personalDataAtoms } from '~/models/personal/data';
 import { MeetingAPI } from '~/api';
+import { useStepToGoBack } from '~/hooks/useStepToGoBack';
+import useTypeSafeNavigate from '~/hooks/useTypeSafeNavigate';
+import { navigateNextStepAtom } from '~/models/funnel';
 
 const useApi = () => {
   const { answer: a1 } = useAtomValue(
@@ -51,6 +54,16 @@ const PersonalMyRomanceStep = () => {
 
     PageHandler.onNext();
   };
+
+  const setNavigateNextStep = useSetAtom(navigateNextStepAtom);
+  const stepToGoBack = useStepToGoBack('personalMyRomanceStep');
+  const navigate = useTypeSafeNavigate();
+
+  if (stepToGoBack) {
+    setNavigateNextStep(true);
+    navigate(stepToGoBack);
+    return null;
+  }
 
   return (
     <PageLayout>

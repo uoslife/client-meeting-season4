@@ -1,6 +1,10 @@
 import { useFunnel } from '~/hooks/useFunnel';
 import PageLayout from '~/components/layout/page/PageLayout';
 import FirstPage from './FirstPage';
+import { useStepToGoBack } from '~/hooks/useStepToGoBack';
+import useTypeSafeNavigate from '~/hooks/useTypeSafeNavigate';
+import { useSetAtom } from 'jotai';
+import { navigateNextStepAtom } from '~/models/funnel';
 
 const PAGE_NUMBER = [1];
 
@@ -10,6 +14,16 @@ const PersonalPledgeStep = () => {
     prevStep: { path: '/personal/myPreferTypeStep' },
     nextStep: { path: '/common/checkApplyInfoStep' },
   });
+
+  const setNavigateNextStep = useSetAtom(navigateNextStepAtom);
+  const stepToGoBack = useStepToGoBack('personalPledgeStep');
+  const navigate = useTypeSafeNavigate();
+
+  if (stepToGoBack) {
+    setNavigateNextStep(true);
+    navigate(stepToGoBack);
+    return null;
+  }
 
   return (
     <PageLayout>

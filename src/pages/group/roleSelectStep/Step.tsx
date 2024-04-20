@@ -2,7 +2,10 @@ import PageLayout from '~/components/layout/page/PageLayout';
 import FirstPage from './FirstPage';
 import { useFunnel } from '~/hooks/useFunnel';
 import { groupDataAtoms } from '~/models/group/data';
-import { useAtomValue } from 'jotai';
+import { useAtomValue, useSetAtom } from 'jotai';
+import { useStepToGoBack } from '~/hooks/useStepToGoBack';
+import useTypeSafeNavigate from '~/hooks/useTypeSafeNavigate';
+import { navigateNextStepAtom } from '~/models/funnel';
 
 const GroupRoleSelectStep = () => {
   const pageState = useAtomValue(groupDataAtoms.groupRoleSelectStep.page1);
@@ -16,6 +19,16 @@ const GroupRoleSelectStep = () => {
         : '/group/member/myInformationStep',
     },
   });
+
+  const setNavigateNextStep = useSetAtom(navigateNextStepAtom);
+  const stepToGoBack = useStepToGoBack('groupRoleSelectStep');
+  const navigate = useTypeSafeNavigate();
+
+  if (stepToGoBack) {
+    setNavigateNextStep(true);
+    navigate(stepToGoBack);
+    return null;
+  }
 
   return (
     <PageLayout>
