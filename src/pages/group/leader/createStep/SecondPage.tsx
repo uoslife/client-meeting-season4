@@ -20,13 +20,14 @@ type SecondPageProps = {
 };
 
 const SecondPage = ({ isModal, setIsModal, onPrev }: SecondPageProps) => {
-  const { teamName } = useAtomValue(
+  const [page1State, setPage1State] = useAtom(
     groupDataAtoms.groupLeaderGroupCreateStep.page1,
   );
-  const [pageState, setPageState] = useAtom(
+  const { teamName } = page1State;
+  const [page2State, setPage2State] = useAtom(
     groupDataAtoms.groupLeaderGroupCreateStep.page2,
   );
-  const { joinCode, otherMembers } = pageState;
+  const { joinCode, otherMembers } = page2State;
   const enteredMemberNumber = otherMembers.filter(item => item !== null).length;
 
   const handleUserList = async () => {
@@ -37,7 +38,11 @@ const SecondPage = ({ isModal, setIsModal, onPrev }: SecondPageProps) => {
         data[1] || null,
         data[2] || null,
       ];
-      setPageState(prev => ({
+      setPage1State(prev => ({
+        ...prev,
+        teamName: res.data.teamName,
+      }));
+      setPage2State(prev => ({
         ...prev,
         otherMembers: otherMembersFixed,
       }));
@@ -53,7 +58,7 @@ const SecondPage = ({ isModal, setIsModal, onPrev }: SecondPageProps) => {
     return () => {
       clearInterval(interval);
     };
-  }, [setPageState]);
+  }, [setPage2State]);
 
   const setIsPageFinished = useSetAtom(pageFinishAtom);
   const pageValidity = useAtomValue(combinedValidatiesAtoms)
@@ -195,7 +200,7 @@ const SecondPage = ({ isModal, setIsModal, onPrev }: SecondPageProps) => {
           await MeetingAPI.deleteMeeting('TRIPLE', true).then(() => {
             setIsModal(false);
             setTimeout(() => {
-              setPageState(prev => ({
+              setPage2State(prev => ({
                 ...prev,
                 otherMembers: [null, null, null],
               }));
