@@ -33,7 +33,8 @@ export const groupValidator: GroupValidator = {
   groupMemberMyInformationStep: {
     page1: ({ name, age, kakaoId }) =>
       name !== '' && age !== null && kakaoId !== '',
-    page2: ({ major, studentType }) => major !== '' && studentType !== null,
+    page2: ({ major, gender, studentType }) =>
+      major.length >= 2 && gender != null && studentType !== null,
   },
   groupMemberParticipateStep: {
     page1: ({ verified }) => verified,

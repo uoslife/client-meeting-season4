@@ -52,6 +52,7 @@ const CommonCheckApplyInfoStep = () => {
       </PageLayout>
       <ApplicationModal
         isActive={isModalOpen}
+        mainLabel={'매칭 신청을 하시겠습니까?'}
         cancelButtonClicked={closeModal}
         joinButtonClicked={PageHandler.onNext}
       />

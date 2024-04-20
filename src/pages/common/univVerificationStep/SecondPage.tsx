@@ -1,7 +1,6 @@
 import Paddler from '~/components/layout/Pad';
 import Col from '~/components/layout/Col';
 import Row from '~/components/layout/Row';
-import { useEffect } from 'react';
 import { useAtom, useAtomValue, useSetAtom } from 'jotai';
 import { pageFinishAtom } from '~/models/funnel';
 import Text from '~/components/typography/Text';
@@ -19,10 +18,6 @@ const SecondPage = () => {
     .commonUnivVerificationStep.page2;
   const setIsPageFinished = useSetAtom(pageFinishAtom);
   setIsPageFinished(pageValidity);
-
-  useEffect(() => {
-    setPageState({ checked: [true, true] });
-  }, [setPageState]);
 
   return (
     <Paddler top={36} right={20} bottom={24} left={20}>

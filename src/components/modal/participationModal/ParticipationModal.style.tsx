@@ -2,7 +2,6 @@ import styled from '@emotion/styled';
 import { colors } from '~/styles/colors';
 import { keyframes } from '@emotion/react';
 
-
 export const downToUp = keyframes`
   0% {
     opacity: 0;
@@ -26,16 +25,16 @@ export const upToDown = keyframes`
 `;
 
 export const Container = styled.div<{ isActive: boolean }>`
+  width: 100%;
   position: fixed;
   bottom: 0;
   left: 0;
   z-index: 10000;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
   padding: 24px 24px 0 24px;
   border-radius: 24px 24px 0 0;
-  width: 100%;
   box-shadow: 0px -4px 36px rgba(0, 0, 0, 0.08);
   background-color: white;
   animation: ${({ isActive }) => (isActive ? downToUp : upToDown)} 0.5s forwards;
@@ -51,6 +50,7 @@ export const GrayHandler = styled.div`
 
 export const ParticipantCounterWrapper = styled.div`
   display: flex;
+  justify-content: center;
   align-items: center;
   margin-bottom: 24px;
   gap: 4px;

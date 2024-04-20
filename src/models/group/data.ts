@@ -81,6 +81,7 @@ export const groupInitialData: GroupData = {
     },
     page2: {
       major: '',
+      gender: null,
       studentType: null,
     },
   },

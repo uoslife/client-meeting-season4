@@ -53,39 +53,39 @@ export type UpdateUserRequest = {
   name: string;
   age: number;
   gender: 'MALE' | 'FEMALE';
-  height: number;
-  phoneNumber: string;
+  height: number | null;
   kakaoTalkId: string;
   department: string;
   studentType: StudentOption;
-  religion?: ReligionOption;
+  phoneNumber: string | null;
+  religion: ReligionOption | null;
+  smoking: SmokingOption | null;
+  drinkingMin: number | null;
+  drinkingMax: number | null;
+  spiritAnimal: SpiritAnimalOption[] | null;
+  mbti: string | null;
+  interest: InterestOption[] | null;
 
-  smoking?: SmokingOption;
-  drinkingMin?: number;
-  drinkingMax?: number;
-  spiritAnimal?: SpiritAnimalOption[];
-  mbti?: string;
-  interest?: InterestOption[];
 };
 
 export type UpdateMessageRequest = {
-  message: string;
+  message: string | null;
 };
 
 export type UpdatePreferRequest = {
   ageMin: number;
   ageMax: number;
-  heightMin?: number;
-  heightMax?: number;
-  drinkingMin?: number;
-  drinkingMax?: number;
-  studentType?: StudentOption[];
+  heightMin: number | null;
+  heightMax: number | null;
+  drinkingMin: number | null;
+  drinkingMax: number | null;
+  studentType: StudentOption[] | null;
   university: ('UOS' | 'KHU' | 'HUFS')[];
-  religion?: ReligionOption[];
-  smoking?: SmokingOption[];
-  spiritAnimal?: SpiritAnimalOption[];
-  mbti?: string;
-  mood?: 'ACTIVE' | 'CALM' | 'NOT_MATTER';
+  religion: ReligionOption[] | null;
+  smoking: SmokingOption[] | null;
+  spiritAnimal: SpiritAnimalOption[] | null;
+  mbti: string | null;
+  mood: 'ACTIVE' | 'CALM' | 'NOT_MATTER';
 };
 
 export type UpdateInfoRequest = { questions: number[] };
