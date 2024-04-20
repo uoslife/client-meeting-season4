@@ -40,7 +40,7 @@ const useApi = () => {
       spiritAnimal: null,
     };
 
-    MeetingAPI.updateUser(body);
+    return MeetingAPI.updateUser(body);
   };
 
   return { updateUser };

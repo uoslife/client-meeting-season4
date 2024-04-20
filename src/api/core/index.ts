@@ -19,9 +19,10 @@ const handleAuthSilentRefresh = async (originRequest: AxiosError) => {
       .then(res => {
         API.defaults.headers.common.Authorization = `Bearer ${res.data.accessToken}`;
         originRequest.config!.headers.Authorization = `Bearer ${res.data.accessToken}`;
-        return toast.error('다시 시도해주세요!', {
-          duration: 2000,
-        });
+        // return toast.error('다시 시도해주세요!', {
+        //   duration: 2000,
+        // });
+        return axios(originRequest.config!);
       })
       .catch(() => {
         toast.error('다시 로그인해주세요!', {
