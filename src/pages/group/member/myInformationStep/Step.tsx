@@ -46,9 +46,11 @@ const useApi = () => {
   return { updateUserInfo };
 };
 
+const PAGE_NUMBER = [1, 2];
+
 const GroupMemberMyInformationStep = () => {
   const { Funnel, currentPage, PageHandler } = useFunnel({
-    pageNumberList: [1, 2] as const,
+    pageNumberList: PAGE_NUMBER,
     prevStep: { path: '/group/roleSelectStep' },
     nextStep: { path: '/group/member/participateStep' },
   });
