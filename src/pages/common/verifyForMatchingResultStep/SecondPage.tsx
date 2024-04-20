@@ -1,31 +1,32 @@
-import Text from '~/components/typography/Text';
-import Col from '~/components/layout/Col';
-import Row from '~/components/layout/Row';
 import { css } from '@emotion/react';
-import RoundButton from '~/components/buttons/roundButton/RoundButton';
-import { useInput } from '~/hooks/useInput';
-import { useEffect, useState } from 'react';
 import { useAtomValue, useSetAtom } from 'jotai';
-import { pageFinishAtom } from '~/models/funnel';
+import { useEffect, useState } from 'react';
+import { AuthAPI } from '~/api';
+import RoundButton from '~/components/buttons/roundButton/RoundButton';
 import TextInput from '~/components/inputs/textInput/TextInput';
+import Col from '~/components/layout/Col';
 import Paddler from '~/components/layout/Pad';
+import Row from '~/components/layout/Row';
+
+import Text from '~/components/typography/Text';
+import { useInput } from '~/hooks/useInput';
 import { combinedValidatiesAtoms } from '~/models';
 import { commonDataAtoms } from '~/models/common/data';
-import { AuthAPI } from '~/api';
-import { SilentLogin } from '~/utils/silentLogin';
+import { pageFinishAtom } from '~/models/funnel';
 
-const ThirdPage = () => {
-  const login = new SilentLogin();
-  const storedUnivType = useAtomValue(
-    commonDataAtoms.commonUnivVerificationStep.page1,
-  ).univType;
-  const pageValidity = useAtomValue(combinedValidatiesAtoms)
-    .commonUnivVerificationStep.page3;
-  const setPageState = useSetAtom(
-    commonDataAtoms.commonUnivVerificationStep.page3,
-  );
+// copied from src\pages\common\univVerificationStep\ThirdPage.tsx
+const SecondPage = () => {
   const setIsPageFinished = useSetAtom(pageFinishAtom);
+  const pageValidity = useAtomValue(combinedValidatiesAtoms)
+    .commonVerifyForMatchingResultStep.page2;
+  const { univType } = useAtomValue(
+    commonDataAtoms.commonVerifyForMatchingResultStep.page1,
+  );
   setIsPageFinished(pageValidity);
+
+  const setPageState = useSetAtom(
+    commonDataAtoms.commonVerifyForMatchingResultStep.page2,
+  );
 
   const { inputValue, handleInputChange } = useInput('');
   const {
@@ -65,40 +66,39 @@ const ThirdPage = () => {
         return 'Gray500';
     }
   };
-
-  // 인증번호 받기
+  // 인증번호 확인 절차
   const handleTryValidate = async () => {
     if (inputValue) setTryValidate(true);
-    await AuthAPI.getVerificationCode({
-      email: `${inputValue}@${storedUnivType === 'HUFS' ? 'hufs' : 'khu'}.ac.kr`,
-      university: storedUnivType,
+    const res = await AuthAPI.getVerificationCode({
+      email: inputValue,
+      university: univType,
     });
+
+    console.log(res);
   };
 
-  // 인증번호 확인
+  // 인증번호 확인 절차
   const handleValidate = async () => {
     if (!validateCodeValue) return setStatusMessage('인증번호를 입력해주세요!');
-    await AuthAPI.checkVerificationCode({
-      code: validateCodeValue,
-      email: `${inputValue}@${storedUnivType === 'HUFS' ? 'hufs' : 'khu'}.ac.kr`,
-      university: storedUnivType,
-    })
-      .then(res => {
-        login.onLoginSuccess(res);
-        setPageState({
-          verified: true,
-        });
-        setStatusMessage('인증되었습니다.');
-        setValidateStatus('success');
-      })
-      .catch(() => {
-        setStatusMessage('유효하지 않은 인증번호입니다.');
-        setValidateStatus('error');
-        resetValidateCode();
+    if (validateCodeValue === '1234') {
+      const res = await AuthAPI.checkVerificationCode({
+        code: parseInt(validateCodeValue),
+        email: inputValue,
+        university: univType,
       });
+      const result = res.data;
+      console.log(result);
+      setPageState({ verified: true });
+      localStorage.setItem('accessToken', result.accessToken);
+      localStorage.setItem('refreshToken', result.refreshToken);
+      setStatusMessage('인증되었습니다.');
+      setValidateStatus('success');
+    } else {
+      setStatusMessage('유효하지 않은 인증번호입니다.');
+      setValidateStatus('error');
+      resetValidateCode();
+    }
   };
-
-  //인증번호 입력 제한시간
   useEffect(() => {
     let interval: number;
     if (tryValidate) {
@@ -150,7 +150,7 @@ const ThirdPage = () => {
               isAuthentication={true}
               onChange={handleInputChange}>
               <Text
-                label={storedUnivType === 'KHU' ? '@khu.ac.kr' : '@hufs.ac.kr'}
+                label={univType === 'KHU' ? '@khu.ac.kr' : '@hufs.ac.kr'}
                 color={'Gray400'}
                 typography={'GoThicButtonM'}
                 css={css`
@@ -212,4 +212,4 @@ const ThirdPage = () => {
   );
 };
 
-export default ThirdPage;
+export default SecondPage;

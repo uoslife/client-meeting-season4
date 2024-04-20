@@ -27,17 +27,16 @@ const GroupLeaderPreferStep = () => {
   else mood = 'NOT_MATTER';
 
   const updatePrefer = async () => {
-    const res = await MeetingAPI.updatePrefer('TRIPLE', true, {
+    await MeetingAPI.updatePrefer('TRIPLE', true, {
       ageMin: ageRange[0],
       ageMax: ageRange[1],
       university: univs,
       mood: mood,
     });
-    console.log(res);
   };
 
-  const nextFunction = () => {
-    updatePrefer();
+  const onNext = async () => {
+    await updatePrefer();
     PageHandler.onNext();
   };
 
@@ -69,7 +68,7 @@ const GroupLeaderPreferStep = () => {
       <PageLayout.Footer
         currentPage={currentPage}
         totalPage={1}
-        onNext={nextFunction}
+        onNext={onNext}
         onPrev={PageHandler.onPrev}
       />
     </PageLayout>

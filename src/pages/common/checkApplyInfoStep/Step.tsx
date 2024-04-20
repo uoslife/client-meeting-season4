@@ -34,26 +34,29 @@ const CommonCheckApplyInfoStep = () => {
   const openModal = () => setIsModalOpen(true);
 
   return (
-    <PageLayout>
-      <PageLayout.Header title={headerTitle} isProgress={false} />
-      <FirstPage />
-      <PageLayout.Footer
-        innerPadding="20px 20px"
-        outerPadding="22px 16px"
-        backgroundColorName="White"
-        borderExceptTop={`1px solid ${colors.Gray200}`}
-        borderBottomRadius={21}
-        totalPage={1}
-        currentPage={currentPage}
-        onPrev={PageHandler.onPrev}
-        onNext={openModal}
-      />
+    <>
+      <PageLayout>
+        <PageLayout.Header title={headerTitle} isProgress={false} />
+        <FirstPage />
+        <PageLayout.Footer
+          innerPadding="20px 20px"
+          outerPadding="22px 16px"
+          backgroundColorName="White"
+          borderExceptTop={`1px solid ${colors.Gray200}`}
+          borderBottomRadius={21}
+          totalPage={1}
+          currentPage={currentPage}
+          onPrev={PageHandler.onPrev}
+          onNext={openModal}
+        />
+      </PageLayout>
       <ApplicationModal
         isActive={isModalOpen}
+        mainLabel={'매칭 신청을 하시겠습니까?'}
         cancelButtonClicked={closeModal}
         joinButtonClicked={PageHandler.onNext}
       />
-    </PageLayout>
+    </>
   );
 };
 

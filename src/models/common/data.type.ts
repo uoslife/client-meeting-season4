@@ -21,11 +21,17 @@ export type CommonData = {
   };
   commonVerifyForCheckAfterAlreadyAppliedStep: {
     page1: {
+      univType: Univ | null;
+    };
+    page2: {
       verified: boolean;
     };
   };
   commonVerifyForMatchingResultStep: {
     page1: {
+      univType: Univ | null;
+    };
+    page2: {
       verified: boolean;
     };
   };

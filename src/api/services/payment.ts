@@ -10,15 +10,15 @@ import {
 const requestPayment = async <T = PaymentResponse>(data: PaymentRequest) =>
   API.post<T>('/api/payment/request', data);
 
-const refundPayment = async <T = RefundPaymentResponse>(id: number) =>
-  API.post<T>('/api/payment/refund', { id: id });
+const refundPayment = async <T = RefundPaymentResponse>(phoneNumber: number) =>
+  API.post<T>('/api/payment/refund', { phoneNumber });
 
 const refundPaymentFotNotMatching = async <
   T = RefundForNotMatchingResponse,
 >() => API.post<T>('/api/payment/refund/match');
 
-const checkPayment = async <T = CheckPaymentResponse>(uid: string) =>
-  await API.post<T>('/api/payment/check', { uid: uid });
+const checkPayment = async <T = CheckPaymentResponse>(impUid: string) =>
+  await API.post<T>('/api/payment/check', { impUid });
 
 export default {
   requestPayment,

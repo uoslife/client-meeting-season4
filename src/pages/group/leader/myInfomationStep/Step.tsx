@@ -2,10 +2,49 @@ import { useFunnel } from '~/hooks/useFunnel';
 import FirstPage from './FirstPage';
 import SecondPage from './SecondPage';
 import PageLayout from '~/components/layout/page/PageLayout';
-import { useStepToGoBack } from '~/hooks/useStepToGoBack';
-import useTypeSafeNavigate from '~/hooks/useTypeSafeNavigate';
-import { useSetAtom } from 'jotai';
-import { navigateNextStepAtom } from '~/models/funnel';
+import { useAtomValue } from 'jotai';
+import { groupDataAtoms } from '~/models/group/data';
+import { MeetingAPI } from '~/api';
+
+const STUDENT_MAP = {
+  학부생: 'UNDERGRADUATE',
+  대학원생: 'POSTGRADUATE',
+  졸업생: 'GRADUATE',
+} as const;
+
+const useApi = () => {
+  const { name, gender, age } = useAtomValue(
+    groupDataAtoms.groupLeaderMyInformationStep.page1,
+  );
+
+  const { kakaoId, phone, major, studentType } = useAtomValue(
+    groupDataAtoms.groupLeaderMyInformationStep.page2,
+  );
+
+  const updateUser = () => {
+    const body = {
+      name,
+      age: Number(age.replace('~', '')),
+      kakaoTalkId: kakaoId,
+      department: major,
+      studentType: STUDENT_MAP[studentType!],
+      gender: gender!,
+      height: null,
+      phoneNumber: phone,
+      drinkingMin: null,
+      drinkingMax: null,
+      interest: null,
+      mbti: null,
+      religion: null,
+      smoking: null,
+      spiritAnimal: null,
+    };
+
+    return MeetingAPI.updateUser(body);
+  };
+
+  return { updateUser };
+};
 
 const PAGE_NUMBER = [1, 2];
 
@@ -16,15 +55,14 @@ const GroupLeaderMyInformationStep = () => {
     nextStep: { path: '/group/leader/createStep' },
   });
 
-  const setNavigateNextStep = useSetAtom(navigateNextStepAtom);
-  const stepToGoBack = useStepToGoBack('groupLeaderMyInformationStep');
-  const navigate = useTypeSafeNavigate();
+  const { updateUser } = useApi();
 
-  if (stepToGoBack) {
-    setNavigateNextStep(true);
-    navigate(stepToGoBack);
-    return null;
-  }
+  const onNext = async () => {
+    if (currentPage === 2) {
+      await updateUser();
+    }
+    PageHandler.onNext();
+  };
 
   return (
     <PageLayout>
@@ -45,7 +83,7 @@ const GroupLeaderMyInformationStep = () => {
       <PageLayout.Footer
         currentPage={currentPage}
         totalPage={PAGE_NUMBER.length}
-        onNext={PageHandler.onNext}
+        onNext={onNext}
         onPrev={PageHandler.onPrev}
       />
     </PageLayout>

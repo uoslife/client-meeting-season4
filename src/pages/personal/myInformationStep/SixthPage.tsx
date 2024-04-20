@@ -30,7 +30,7 @@ const SixthPage = () => {
           <Row>
             <Col gap={32} align="center">
               <Text
-                label={'12. 본인의 관심사를 3가지 선택해 주세요.'}
+                label={'14. 본인의 관심사를 3가지 선택해 주세요.'}
                 color={'Gray500'}
                 typography={'NeoTitleM'}
                 weight={400}

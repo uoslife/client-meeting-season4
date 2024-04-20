@@ -5,15 +5,20 @@ import ThirdPage from './ThirdPage';
 import PageLayout from '~/components/layout/page/PageLayout';
 import { useStepToGoBack } from '~/hooks/useStepToGoBack';
 import useTypeSafeNavigate from '~/hooks/useTypeSafeNavigate';
-import { useSetAtom } from 'jotai';
-import { navigateNextStepAtom } from '~/models/funnel';
+import { useAtomValue } from 'jotai';
+import { isPaymentFinishedAtom } from '~/models/payment';
 
 const PAGE_NUMBER = [1, 2, 3];
 
 const CommonUnivVerificationStep = () => {
+  const isPaymentFinishedValue = useAtomValue(isPaymentFinishedAtom);
   const { Funnel, currentPage, PageHandler } = useFunnel({
     pageNumberList: PAGE_NUMBER,
-    nextStep: { path: '/common/branchGatewayStep' },
+    nextStep: {
+      path: isPaymentFinishedValue
+        ? '/common/paymentStep'
+        : '/common/branchGatewayStep',
+    },
     prevStep: { path: '/' },
   });
 
