@@ -57,7 +57,7 @@ const Fifthpage = () => {
             <Col gap={32}>
               <Col align="center">
                 <Text
-                  label={'12. 본인의 MBTI를 선택해 주세요.'}
+                  label={'13. 본인의 MBTI를 선택해 주세요.'}
                   color={'Gray500'}
                   typography={'NeoButtonL'}
                   weight={400}

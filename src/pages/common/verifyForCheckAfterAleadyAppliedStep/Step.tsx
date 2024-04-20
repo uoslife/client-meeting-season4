@@ -1,10 +1,11 @@
 import PageLayout from '~/components/layout/page/PageLayout';
-import FirstPage from './FirstPage';
 import { useFunnel } from '~/hooks/useFunnel';
+import FirstPage from './FirstPage';
+import SecondPage from './SecondPage';
 
 const CommonVerifyForCheckAfterAlreadyAppliedStep = () => {
-  const { PageHandler } = useFunnel({
-    pageNumberList: [1],
+  const { PageHandler, Funnel, currentPage } = useFunnel({
+    pageNumberList: [1, 2],
     prevStep: { path: '/' },
     nextStep: { path: '/common/checkAfterAlreadyAppliedStep' },
   });
@@ -13,11 +14,18 @@ const CommonVerifyForCheckAfterAlreadyAppliedStep = () => {
     <PageLayout>
       <PageLayout.Header title="신청 정보 확인하기" />
       <PageLayout.SingleCardBody>
-        <FirstPage />
+        <Funnel>
+          <Funnel.Page pageNumber={1}>
+            <FirstPage />
+          </Funnel.Page>
+          <Funnel.Page pageNumber={2}>
+            <SecondPage />
+          </Funnel.Page>
+        </Funnel>
       </PageLayout.SingleCardBody>
       <PageLayout.Footer
-        currentPage={1}
-        totalPage={1}
+        currentPage={currentPage}
+        totalPage={2}
         onPrev={PageHandler.onPrev}
         onNext={PageHandler.onNext}
       />

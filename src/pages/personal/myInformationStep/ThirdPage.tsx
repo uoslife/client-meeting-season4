@@ -31,7 +31,7 @@ const ThirdPage = () => {
             <Col gap={56}>
               <Col gap={28} align="center">
                 <Text
-                  label={'8. 본인의 종교를 선택해 주세요.'}
+                  label={'9. 본인의 종교를 선택해 주세요.'}
                   color={'Gray500'}
                   typography={'NeoTitleM'}
                   weight={400}
@@ -99,7 +99,38 @@ const ThirdPage = () => {
               </Col>
               <Col gap={28} align="center">
                 <Text
-                  label={'9. 흡연 여부를 선택해 주세요.'}
+                  label={'10. 한 달 기준 음주 횟수를 선택해 주세요.'}
+                  color={'Gray500'}
+                  typography={'NeoTitleM'}
+                  weight={400}
+                  size={18}
+                />
+                <Col gap={17} align="center">
+                  <Text
+                    label={`${drinkRange[0]} - ${drinkRange[1]} 회`}
+                    color={'Primary500'}
+                    typography={'LeferiBaseRegular'}
+                    weight={700}
+                    size={20}
+                  />
+                  <Col padding="15px">
+                    <RangeSlider
+                      value={drinkRange}
+                      onChange={value => {
+                        setPageState(prev => ({ ...prev, drinkRange: value }));
+                      }}
+                      min={0}
+                      max={25}
+                      markStep={5}
+                      step={1}
+                      maxMarkPostfix="~"
+                    />
+                  </Col>
+                </Col>
+              </Col>
+              <Col gap={28} align="center">
+                <Text
+                  label={'11. 흡연 여부를 선택해 주세요.'}
                   color={'Gray500'}
                   typography={'NeoTitleM'}
                   weight={400}
@@ -124,39 +155,6 @@ const ThirdPage = () => {
                     }
                     borderType="primary"
                   />
-                </Col>
-              </Col>
-              <Col gap={28} align="center">
-                <Text
-                  label={'10. 한 달 기준 음주 횟수를 선택해 주세요.'}
-                  color={'Gray500'}
-                  typography={'NeoTitleM'}
-                  weight={400}
-                  size={18}
-                />
-                {/* 슬라이더 수정 이후 gap 값 수정 */}
-                <Col gap={17} align="center">
-                  <Text
-                    label={`${drinkRange[0]} - ${drinkRange[1]} 회`}
-                    color={'Primary500'}
-                    typography={'LeferiBaseRegular'}
-                    weight={700}
-                    size={20}
-                  />
-                  {/* 슬라이더 수정 이후 패딩 값 수정*/}
-                  <Col padding="15px">
-                    <RangeSlider
-                      value={drinkRange}
-                      onChange={value => {
-                        setPageState(prev => ({ ...prev, drinkRange: value }));
-                      }}
-                      min={0}
-                      max={25}
-                      markStep={5}
-                      step={1}
-                      maxMarkPostfix="~"
-                    />
-                  </Col>
                 </Col>
               </Col>
             </Col>
