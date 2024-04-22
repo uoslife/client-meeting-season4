@@ -1,8 +1,6 @@
 import { RequestPayParams, RequestPayResponse } from '~/types/payment.type';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import { PaymentAPI } from '~/api';
-import { PaymentResponse } from '~/api/types/payment.type';
+import { useEffect } from 'react';
 import toast from 'react-hot-toast';
 import Col from '~/components/layout/Col';
 import Text from '~/components/typography/Text';
@@ -14,15 +12,17 @@ import { useAtomValue } from 'jotai';
 import { personalDataAtoms } from '~/models/personal/data';
 import { css } from '@emotion/react';
 import { groupDataAtoms } from '~/models/group/data';
+import { PaymentResponse } from '~/api/types/payment.type';
 
 const ID = 'imp04325748';
 
-const PaymentPage = () => {
+interface PaymentPageProps {
+  userPaymentInfo?: PaymentResponse; // userPaymentInfo는 PaymentResponse 타입이며, 선택적으로 존재할 수 있습니다.
+}
+
+const PaymentPage = ({ userPaymentInfo }: PaymentPageProps) => {
   const navigate = useNavigate();
   const location = useLocation();
-  // api 데이터 관리용
-  const [userPaymentInfo, setUserPaymentInfo] =
-    useState<PaymentResponse | null>(null);
   const meetingTypeValue = useAtomValue(
     commonDataAtoms.commonBranchGatewayStep.page1,
   );
@@ -54,7 +54,7 @@ const PaymentPage = () => {
     }
   };
 
-  const onClickPaymeny = () => {
+  const onClickPayment = async () => {
     /* 1. 가맹점 식별하기 */
     const { IMP } = window;
     IMP?.init(ID);
@@ -68,7 +68,7 @@ const PaymentPage = () => {
       buyer_tel: userPaymentInfo?.phoneNumber,
       buyer_name: userPaymentInfo?.name,
       m_redirect_url: import.meta.env.DEV
-        ? 'http://localhost:5173/common/paymentResultStep'
+        ? 'https://localhost:5173/common/paymentResultStep'
         : 'https://meeting.alpha.uoslife.com/common/paymentResultStep',
     };
 
@@ -92,30 +92,12 @@ const PaymentPage = () => {
     });
   }
 
-  const handlePaymentRequest = async () => {
-    await PaymentAPI.requestPayment({
-      pg: 'WELCOME_PAYMENTS',
-      payMethod: 'card',
-    })
-      .then(res => {
-        setUserPaymentInfo(res.data);
-      })
-      .catch(error => {
-        if (error.response.data.code === 'P04') {
-          toast.success('이미 신청하셨습니다!', {
-            duration: 1800,
-          });
-        }
-      });
-  };
-
   useEffect(() => {
     if (location.state?.cancelToast) {
       toast.error('결제를 취소하셨습니다.', {
         duration: 1800,
       });
     }
-    handlePaymentRequest();
   }, []);
 
   return (
@@ -171,7 +153,7 @@ const PaymentPage = () => {
       </Col>
       <RoundButton
         status={'active'}
-        onClick={onClickPaymeny}
+        onClick={onClickPayment}
         label={'결제하기'}
       />
     </Col>
