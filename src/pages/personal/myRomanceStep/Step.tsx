@@ -47,9 +47,9 @@ const PersonalMyRomanceStep = () => {
   const { updateInfo } = useApi();
 
   const onNext = async () => {
-    // if (currentPage === 5) {
-    //   await updateInfo();
-    // }
+    if (currentPage === 5) {
+      await updateInfo();
+    }
     // TODO:포트원 심사를 위한 api 임시 주석 처리
 
     PageHandler.onNext();
