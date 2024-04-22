@@ -49,7 +49,7 @@ const FirstPage = () => {
 
       <RoundButton
         status="active"
-        label="신청 정보 확인하기"
+        label="홈으로 가기"
         borderType="gray"
         onClick={() => {
           navigate('/');
