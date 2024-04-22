@@ -27,7 +27,7 @@ const CommonPaymentResultStep = () => {
         setTimeout(() => {
           setPaymentStatus('success');
           setIsPaymentFinishedAtom(true);
-        }, 2000),
+        }, 1500),
       )
       .catch(() => {
         setPaymentStatus('fail');
@@ -55,8 +55,8 @@ const CommonPaymentResultStep = () => {
       setPaymentStatus('fail');
       return;
     }
-    handleCheckPaymentResult();
-  }, []);
+    setTimeout(handleCheckPaymentResult, 1000);
+  }, [paymentResultValue]);
 
   const handlePaymentStatus = () => {
     switch (paymentStatus) {
