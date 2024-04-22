@@ -118,26 +118,43 @@ const FirstPage = () => {
             text-align: center;
           `}
         />
-        <S.Container onClick={() => inputRef.current?.focus()}>
-          <S.Code codeStatus={codeStatus} active={!!code && code.length === 1}>
-            {code?.[0]}
-          </S.Code>
-          <S.Code codeStatus={codeStatus} active={!!code && code.length === 2}>
-            {code?.[1]}
-          </S.Code>
-          <S.Code codeStatus={codeStatus} active={!!code && code.length === 3}>
-            {code?.[2]}
-          </S.Code>
-          <S.Code codeStatus={codeStatus} active={!!code && code.length === 4}>
-            {code?.[3]}
-          </S.Code>
-          <S.Input
-            maxLength={4}
-            ref={inputRef}
-            value={code}
-            onChange={handleInputValue}
+        {pageValidity ? (
+          <Text
+            label={'이미 코드를 입력하셨습니다!'}
+            color={'Primary400'}
+            size={20}
+            typography={'PFLabelL'}
           />
-        </S.Container>
+        ) : (
+          <S.Container onClick={() => inputRef.current?.focus()}>
+            <S.Code
+              codeStatus={codeStatus}
+              active={!!code && code.length === 1}>
+              {code?.[0]}
+            </S.Code>
+            <S.Code
+              codeStatus={codeStatus}
+              active={!!code && code.length === 2}>
+              {code?.[1]}
+            </S.Code>
+            <S.Code
+              codeStatus={codeStatus}
+              active={!!code && code.length === 3}>
+              {code?.[2]}
+            </S.Code>
+            <S.Code
+              codeStatus={codeStatus}
+              active={!!code && code.length === 4}>
+              {code?.[3]}
+            </S.Code>
+            <S.Input
+              maxLength={4}
+              ref={inputRef}
+              value={code}
+              onChange={handleInputValue}
+            />
+          </S.Container>
+        )}
         <Text
           label={handleStatusMessage()}
           color={codeStatus === 'error' ? 'Red200' : 'Primary500'}
