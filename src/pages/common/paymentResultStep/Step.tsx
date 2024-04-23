@@ -9,6 +9,8 @@ import querystring from 'query-string';
 import { PaymentAPI } from '~/api';
 import { useSetAtom } from 'jotai';
 import { isPaymentFinishedAtom } from '~/models/payment';
+import { useAtomValue } from 'jotai/index';
+import { isLoggedInAtom } from '~/models/auth';
 
 const CommonPaymentResultStep = () => {
   const navigate = useNavigate();
@@ -19,6 +21,7 @@ const CommonPaymentResultStep = () => {
   // 결제 결과에 따른 화면 렌더링 관리 state
   const [paymentStatus, setPaymentStatus] = useState('loading');
   const paymentResultValue = locationState ? locationState : query;
+  const logInValue = useAtomValue(isLoggedInAtom);
   const setIsPaymentFinishedAtom = useSetAtom(isPaymentFinishedAtom);
 
   const handleCheckPaymentResult = async () => {
@@ -55,8 +58,8 @@ const CommonPaymentResultStep = () => {
       setPaymentStatus('fail');
       return;
     }
-    setTimeout(handleCheckPaymentResult, 1000);
-  }, [paymentResultValue]);
+    if (logInValue) handleCheckPaymentResult();
+  }, [paymentResultValue, logInValue]);
 
   const handlePaymentStatus = () => {
     switch (paymentStatus) {

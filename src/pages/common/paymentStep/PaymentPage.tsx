@@ -1,6 +1,6 @@
 import { RequestPayParams, RequestPayResponse } from '~/types/payment.type';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import Col from '~/components/layout/Col';
 import Text from '~/components/typography/Text';
@@ -13,14 +13,14 @@ import { personalDataAtoms } from '~/models/personal/data';
 import { css } from '@emotion/react';
 import { groupDataAtoms } from '~/models/group/data';
 import { PaymentResponse } from '~/api/types/payment.type';
+import { PaymentAPI } from '~/api';
+import axios from 'axios';
+import { isLoggedInAtom } from '~/models/auth';
 
 const ID = 'imp04325748';
 
-interface PaymentPageProps {
-  userPaymentInfo?: PaymentResponse; // userPaymentInfo는 PaymentResponse 타입이며, 선택적으로 존재할 수 있습니다.
-}
-
-const PaymentPage = ({ userPaymentInfo }: PaymentPageProps) => {
+const PaymentPage = () => {
+  const [userPaymentInfo, setUserPaymentInfo] = useState<PaymentResponse>();
   const navigate = useNavigate();
   const location = useLocation();
   const meetingTypeValue = useAtomValue(
@@ -32,6 +32,7 @@ const PaymentPage = ({ userPaymentInfo }: PaymentPageProps) => {
   const { gender: groupGender } = useAtomValue(
     groupDataAtoms.groupLeaderMyInformationStep.page1,
   );
+  const logInValue = useAtomValue(isLoggedInAtom);
 
   const handleProductInfo = (type: string) => {
     if (meetingTypeValue.meetingType === 'group' && groupGender === 'FEMALE') {
@@ -92,13 +93,31 @@ const PaymentPage = ({ userPaymentInfo }: PaymentPageProps) => {
     });
   }
 
+  const handlePaymentRequest = async () => {
+    try {
+      const res = await PaymentAPI.requestPayment({
+        pg: 'WELCOME_PAYMENTS',
+        payMethod: 'card',
+      });
+      setUserPaymentInfo(res.data);
+    } catch (error) {
+      console.log(error);
+      if (axios.isAxiosError(error) && error.response?.data.code === 'P04') {
+        toast.success('이미 신청하셨습니다!', {
+          duration: 1800,
+        });
+      }
+    }
+  };
+
   useEffect(() => {
     if (location.state?.cancelToast) {
       toast.error('결제를 취소하셨습니다.', {
         duration: 1800,
       });
     }
-  }, []);
+    if (logInValue) handlePaymentRequest();
+  }, [logInValue]);
 
   return (
     <Col
