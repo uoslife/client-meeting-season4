@@ -135,7 +135,7 @@ const SecondPage = ({ isModal, setIsModal, onPrev }: SecondPageProps) => {
         </Col>
         <Col gap={6}>
           <Row align={'center'} justify={'space-between'} gap={8}>
-            <Row align={'center'} gap={5}>
+            <Row align={'center'} gap={2}>
               {enteredMemberNumber === 3 ? (
                 <img src="/images/icons/checkbox-check.png" width={20} />
               ) : (
