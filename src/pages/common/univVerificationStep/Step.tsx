@@ -5,8 +5,9 @@ import ThirdPage from './ThirdPage';
 import PageLayout from '~/components/layout/page/PageLayout';
 import { useStepToGoBack } from '~/hooks/useStepToGoBack';
 import useTypeSafeNavigate from '~/hooks/useTypeSafeNavigate';
-import { useAtomValue } from 'jotai';
+import { useAtomValue, useSetAtom } from 'jotai';
 import { isPaymentFinishedAtom } from '~/models/payment';
+import { navigateNextStepAtom } from '~/models/funnel';
 
 const PAGE_NUMBER = [1, 2, 3];
 
