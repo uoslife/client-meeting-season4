@@ -6,12 +6,15 @@ import { useAtomValue, useSetAtom } from 'jotai';
 import { useStepToGoBack } from '~/hooks/useStepToGoBack';
 import useTypeSafeNavigate from '~/hooks/useTypeSafeNavigate';
 import { navigateNextStepAtom } from '~/models/funnel';
+import { isLoggedInAtom } from '~/models/auth';
+import { useEffect } from 'react';
+import { MeetingAPI } from '~/api';
 
+const PAGE_NUMBER_LIST = [1];
 const GroupRoleSelectStep = () => {
   const pageState = useAtomValue(groupDataAtoms.groupRoleSelectStep.page1);
-
   const { Funnel, currentPage, PageHandler } = useFunnel({
-    pageNumberList: [1] as const,
+    pageNumberList: PAGE_NUMBER_LIST,
     prevStep: { path: '/common/branchGatewayStep' },
     nextStep: {
       path: pageState.isLeader
@@ -19,6 +22,14 @@ const GroupRoleSelectStep = () => {
         : '/group/member/myInformationStep',
     },
   });
+  const logInValue = useAtomValue(isLoggedInAtom);
+  const resetTeam = async () => {
+    await MeetingAPI.deleteMeeting('TRIPLE', true);
+  };
+
+  useEffect(() => {
+    if (logInValue) resetTeam();
+  }, [logInValue]);
 
   const setNavigateNextStep = useSetAtom(navigateNextStepAtom);
   const stepToGoBack = useStepToGoBack('groupRoleSelectStep');

@@ -7,12 +7,13 @@ import useTypeSafeNavigate from '~/hooks/useTypeSafeNavigate';
 import { commonDataAtoms } from '~/models/common/data';
 import { navigateNextStepAtom } from '~/models/funnel';
 
+const PAGE_NUMBER_LIST = [1];
 const CommonBranchGatewayStep = () => {
   const { meetingType } = useAtomValue(
     commonDataAtoms.commonBranchGatewayStep.page1,
   );
   const { Funnel, currentPage, PageHandler } = useFunnel({
-    pageNumberList: [1],
+    pageNumberList: PAGE_NUMBER_LIST,
     nextStep: {
       path:
         meetingType === 'group'

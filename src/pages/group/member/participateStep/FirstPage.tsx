@@ -80,8 +80,14 @@ const FirstPage = () => {
   const handleParticipateTeam = async () => {
     await MeetingAPI.joinGroup('TRIPLE', code, true)
       .then(() => {
-        setIsModal(false);
         setPageState({ verified: true });
+        toast.success(
+          '참여를 수락하셨습니다 :)\n' + '다음 단계로 넘가주세요!',
+          {
+            icon: '🥲',
+            duration: 7000,
+          },
+        );
       })
       .catch(error => {
         if (error.response.data.code === 'M17') {

@@ -122,7 +122,7 @@ export const useFunnel = ({
 
   useEffect(() => {
     navigateNextStep ? setCurrentPage(1) : setCurrentPage(LAST_PAGE);
-  }, [setNavigateNextStep, navigateNextStep, LAST_PAGE]);
+  }, []);
 
   return {
     Funnel,

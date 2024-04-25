@@ -12,6 +12,8 @@ import { pageFinishAtom } from '~/models/funnel';
 import { combinedValidatiesAtoms } from '~/models';
 import ApplicationModal from '~/components/modal/applicationModal/ApplicationModal';
 import { MeetingAPI } from '~/api';
+import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 
 type SecondPageProps = {
   onPrev: () => void;
@@ -20,6 +22,7 @@ type SecondPageProps = {
 };
 
 const SecondPage = ({ isModal, setIsModal, onPrev }: SecondPageProps) => {
+  const navigate = useNavigate();
   const [page1State, setPage1State] = useAtom(
     groupDataAtoms.groupLeaderGroupCreateStep.page1,
   );
@@ -31,22 +34,34 @@ const SecondPage = ({ isModal, setIsModal, onPrev }: SecondPageProps) => {
   const enteredMemberNumber = otherMembers.filter(item => item !== null).length;
 
   const handleUserList = async () => {
-    await MeetingAPI.getGroupStatus('TRIPLE', joinCode!).then(res => {
-      const data = res.data.userList.map(val => val.name);
-      const otherMembersFixed: [string | null, string | null, string | null] = [
-        data[0] || null,
-        data[1] || null,
-        data[2] || null,
-      ];
-      setPage1State(prev => ({
-        ...prev,
-        teamName: res.data.teamName,
-      }));
-      setPage2State(prev => ({
-        ...prev,
-        otherMembers: otherMembersFixed,
-      }));
-    });
+    await MeetingAPI.getGroupStatus('TRIPLE', joinCode!)
+      .then(res => {
+        const data = res.data.userList.map(val => val.name);
+        const otherMembersFixed: [string | null, string | null, string | null] =
+          [data[0] || null, data[1] || null, data[2] || null];
+        setPage1State(prev => ({
+          ...prev,
+          teamName: res.data.teamName,
+        }));
+        setPage2State(prev => ({
+          ...prev,
+          otherMembers: otherMembersFixed,
+        }));
+      })
+      .catch(error => {
+        if (error.response.data.code === 'M06') {
+          toast.success(
+            '팅원 중 누군가가 팅을 삭제하셨습니다! 다시 신청해주세요!',
+            {
+              icon: '🥲',
+              duration: 4500,
+            },
+          );
+          setTimeout(() => {
+            navigate('/');
+          }, 4500);
+        }
+      });
   };
 
   useEffect(() => {
@@ -120,7 +135,7 @@ const SecondPage = ({ isModal, setIsModal, onPrev }: SecondPageProps) => {
         </Col>
         <Col gap={6}>
           <Row align={'center'} justify={'space-between'} gap={8}>
-            <Row align={'center'} gap={5}>
+            <Row align={'center'} gap={2}>
               {enteredMemberNumber === 3 ? (
                 <img src="/images/icons/checkbox-check.png" width={20} />
               ) : (

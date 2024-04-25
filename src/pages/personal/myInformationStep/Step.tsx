@@ -13,6 +13,8 @@ import { MeetingAPI } from '~/api';
 import { useAtomValue, useSetAtom } from 'jotai';
 import { personalDataAtoms } from '~/models/personal/data';
 import { navigateNextStepAtom } from '~/models/funnel';
+import { isLoggedInAtom } from '~/models/auth';
+import { useEffect } from 'react';
 
 const PAGE_NUMBER = [1, 2, 3, 4, 5, 6, 7];
 
@@ -83,6 +85,17 @@ const useApi = () => {
   const { message } = useAtomValue(
     personalDataAtoms.personalMyInformationStep.page7,
   );
+
+  const logInValue = useAtomValue(isLoggedInAtom);
+  const resetTeam = async () => {
+    await MeetingAPI.deleteMeeting('SINGLE', true).finally(() =>
+      MeetingAPI.createMeeting('SINGLE', true),
+    );
+  };
+
+  useEffect(() => {
+    if (logInValue) resetTeam();
+  }, [logInValue]);
 
   const updateUser = () => {
     const body = {

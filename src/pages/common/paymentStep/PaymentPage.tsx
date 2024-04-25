@@ -1,8 +1,6 @@
 import { RequestPayParams, RequestPayResponse } from '~/types/payment.type';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { PaymentAPI } from '~/api';
-import { PaymentResponse } from '~/api/types/payment.type';
 import toast from 'react-hot-toast';
 import Col from '~/components/layout/Col';
 import Text from '~/components/typography/Text';
@@ -14,15 +12,17 @@ import { useAtomValue } from 'jotai';
 import { personalDataAtoms } from '~/models/personal/data';
 import { css } from '@emotion/react';
 import { groupDataAtoms } from '~/models/group/data';
+import { PaymentResponse } from '~/api/types/payment.type';
+import { PaymentAPI } from '~/api';
+import axios from 'axios';
+import { isLoggedInAtom } from '~/models/auth';
 
 const ID = 'imp04325748';
 
 const PaymentPage = () => {
+  const [userPaymentInfo, setUserPaymentInfo] = useState<PaymentResponse>();
   const navigate = useNavigate();
   const location = useLocation();
-  // api 데이터 관리용
-  const [userPaymentInfo, setUserPaymentInfo] =
-    useState<PaymentResponse | null>(null);
   const meetingTypeValue = useAtomValue(
     commonDataAtoms.commonBranchGatewayStep.page1,
   );
@@ -32,6 +32,7 @@ const PaymentPage = () => {
   const { gender: groupGender } = useAtomValue(
     groupDataAtoms.groupLeaderMyInformationStep.page1,
   );
+  const logInValue = useAtomValue(isLoggedInAtom);
 
   const handleProductInfo = (type: string) => {
     if (meetingTypeValue.meetingType === 'group' && groupGender === 'FEMALE') {
@@ -54,7 +55,7 @@ const PaymentPage = () => {
     }
   };
 
-  const onClickPaymeny = () => {
+  const onClickPayment = async () => {
     /* 1. 가맹점 식별하기 */
     const { IMP } = window;
     IMP?.init(ID);
@@ -68,7 +69,7 @@ const PaymentPage = () => {
       buyer_tel: userPaymentInfo?.phoneNumber,
       buyer_name: userPaymentInfo?.name,
       m_redirect_url: import.meta.env.DEV
-        ? 'http://localhost:5173/common/paymentResultStep'
+        ? 'https://localhost:5173/common/paymentResultStep'
         : 'https://meeting.alpha.uoslife.com/common/paymentResultStep',
     };
 
@@ -93,20 +94,20 @@ const PaymentPage = () => {
   }
 
   const handlePaymentRequest = async () => {
-    await PaymentAPI.requestPayment({
-      pg: 'WELCOME_PAYMENTS',
-      payMethod: 'card',
-    })
-      .then(res => {
-        setUserPaymentInfo(res.data);
-      })
-      .catch(error => {
-        if (error.response.data.code === 'P04') {
-          toast.success('이미 신청하셨습니다!', {
-            duration: 1800,
-          });
-        }
+    try {
+      const res = await PaymentAPI.requestPayment({
+        pg: 'WELCOME_PAYMENTS',
+        payMethod: 'card',
       });
+      setUserPaymentInfo(res.data);
+    } catch (error) {
+      console.log(error);
+      if (axios.isAxiosError(error) && error.response?.data.code === 'P04') {
+        toast.success('이미 신청하셨습니다!', {
+          duration: 1800,
+        });
+      }
+    }
   };
 
   useEffect(() => {
@@ -115,8 +116,8 @@ const PaymentPage = () => {
         duration: 1800,
       });
     }
-    handlePaymentRequest();
-  }, []);
+    if (logInValue) handlePaymentRequest();
+  }, [logInValue]);
 
   return (
     <Col
@@ -171,7 +172,7 @@ const PaymentPage = () => {
       </Col>
       <RoundButton
         status={'active'}
-        onClick={onClickPaymeny}
+        onClick={onClickPayment}
         label={'결제하기'}
       />
     </Col>

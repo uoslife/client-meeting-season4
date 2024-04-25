@@ -6,9 +6,11 @@ import { navigateNextStepAtom } from '~/models/funnel';
 import { useStepToGoBack } from '~/hooks/useStepToGoBack';
 import useTypeSafeNavigate from '~/hooks/useTypeSafeNavigate';
 
+const PAGE_NUMBER = [1];
+
 const CommonPaymentStep = () => {
   const { Funnel } = useFunnel({
-    pageNumberList: [1],
+    pageNumberList: PAGE_NUMBER,
     nextStep: { path: '/common/finishApplyStep' },
     prevStep: { path: '/common/paymentStep' },
   });
@@ -24,7 +26,6 @@ const CommonPaymentStep = () => {
     navigate(stepToGoBack);
     return null;
   }
-
   return (
     <PageLayout>
       <PageLayout.Header title={'결제 하기'} isProgress={false} />
