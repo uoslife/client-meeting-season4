@@ -12,6 +12,12 @@ export default defineConfig({
     // mkcert(),
   ],
   resolve: {
-    alias: [{ find: '~', replacement: '/src' }],
+    alias: [
+      { find: '~', replacement: '/src' },
+      {
+        find: 'react-native',
+        replacement: 'react-native-web',
+      },
+    ],
   },
 });
