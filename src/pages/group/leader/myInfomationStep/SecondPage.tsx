@@ -9,6 +9,10 @@ import { useAtom, useAtomValue, useSetAtom } from 'jotai';
 import { pageFinishAtom } from '~/models/funnel';
 import { combinedValidatiesAtoms } from '~/models';
 import { groupDataAtoms } from '~/models/group/data';
+import uoslifeBridge from '~/bridge';
+import { useEffect } from 'react';
+import { isUosUserAtom } from '~/models/auth';
+import { InfoOptions } from '~/models/options';
 
 const SecondPage = () => {
   const [pageState, setPageState] = useAtom(
@@ -21,6 +25,23 @@ const SecondPage = () => {
   const pageValidity = useAtomValue(combinedValidatiesAtoms)
     .groupLeaderMyInformationStep.page2;
   setIsPageFinished(pageValidity);
+
+  const isUosUserValue = useAtomValue(isUosUserAtom);
+  const getUoslifeUserInfo = async () => {
+    const res = await uoslifeBridge.getUserInfo();
+    setPageState(prev => ({
+      ...prev,
+      phone: res.phone,
+      major: res.departmentName,
+      studentType: res.degree as InfoOptions['studentType'],
+    }));
+  };
+
+  useEffect(() => {
+    if (isUosUserValue) {
+      getUoslifeUserInfo();
+    }
+  }, []);
 
   return (
     <PageLayout.SingleCardBody

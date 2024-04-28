@@ -11,6 +11,9 @@ import { pageFinishAtom } from '~/models/funnel';
 import { AGE_LIST, HEIGHT_LIST } from '~/constants';
 import { personalDataAtoms } from '~/models/personal/data';
 import { combinedValidatiesAtoms } from '~/models';
+import { isUosUserAtom } from '~/models/auth';
+import uoslifeBridge from '~/bridge';
+import { useEffect } from 'react';
 
 const FirstPage = () => {
   const [pageState, setPageState] = useAtom(
@@ -22,6 +25,18 @@ const FirstPage = () => {
   const pageValidity = useAtomValue(combinedValidatiesAtoms)
     .personalMyInformationStep.page1;
   setIsPageFinished(!!pageValidity);
+
+  const isUosUserValue = useAtomValue(isUosUserAtom);
+  const getUoslifeUserInfo = async () => {
+    const res = await uoslifeBridge.getUserInfo();
+    setPageState(prev => ({ ...prev, name: res.name }));
+  };
+
+  useEffect(() => {
+    if (isUosUserValue) {
+      getUoslifeUserInfo();
+    }
+  }, []);
 
   return (
     <PageLayout.SingleCardBody

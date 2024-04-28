@@ -6,9 +6,11 @@ import { useStepToGoBack } from '~/hooks/useStepToGoBack';
 import useTypeSafeNavigate from '~/hooks/useTypeSafeNavigate';
 import { commonDataAtoms } from '~/models/common/data';
 import { navigateNextStepAtom } from '~/models/funnel';
+import { isLoggedInAtom } from '~/models/auth';
 
 const PAGE_NUMBER_LIST = [1];
 const CommonBranchGatewayStep = () => {
+  const isLoggedInValue = useAtomValue(isLoggedInAtom);
   const { meetingType } = useAtomValue(
     commonDataAtoms.commonBranchGatewayStep.page1,
   );
@@ -21,7 +23,7 @@ const CommonBranchGatewayStep = () => {
           : '/personal/myInformationStep',
     },
     prevStep: {
-      path: '/common/univVerificationStep',
+      path: isLoggedInValue ? '/' : '/common/univVerificationStep',
     },
   });
 

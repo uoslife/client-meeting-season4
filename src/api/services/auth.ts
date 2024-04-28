@@ -15,4 +15,11 @@ const getVerificationCode = async <T = GetVerificationCodeResponse>(
 
 const getRefreshToken = async <T = VerificationCodeCheckResponse>() =>
   API.post<T>('/api/auth/refresh');
-export default { checkVerificationCode, getVerificationCode, getRefreshToken };
+const signInUosUser = async () => API.post('/api/auth/uos/signUpOrIn');
+
+export default {
+  checkVerificationCode,
+  getVerificationCode,
+  getRefreshToken,
+  signInUosUser,
+};

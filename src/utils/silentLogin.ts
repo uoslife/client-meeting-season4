@@ -3,6 +3,8 @@ import { AxiosResponse } from 'axios';
 import API from '~/api/core';
 import { useSetAtom } from 'jotai';
 import { isLoggedInAtom } from '~/models/auth';
+import toast from 'react-hot-toast';
+import uoslifeBridge from '~/bridge';
 
 export class SilentLogin {
   setIsLoggedIn = useSetAtom(isLoggedInAtom);
@@ -18,5 +20,14 @@ export class SilentLogin {
     API.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
 
     setTimeout(this.onSilentRefresh, this.JWT_EXPIRY_TIME - 60000);
+  };
+
+  reLoginForUosUser = () => {
+    toast.success('원활한 진행을 위해 다시 재접속 해주세요!', {
+      duration: 4000,
+    });
+    setTimeout(() => {
+      uoslifeBridge.goBack();
+    }, 4000);
   };
 }

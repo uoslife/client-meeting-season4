@@ -8,6 +8,9 @@ import Text from '~/components/typography/Text';
 import { combinedValidatiesAtoms } from '~/models';
 import { groupDataAtoms } from '~/models/group/data';
 import { pageFinishAtom } from '~/models/funnel';
+import { isUosUserAtom } from '~/models/auth';
+import uoslifeBridge from '~/bridge';
+import { useEffect } from 'react';
 
 const FirstPage = () => {
   const [pageState, setPageState] = useAtom(
@@ -20,6 +23,18 @@ const FirstPage = () => {
   const pageValidity = useAtomValue(combinedValidatiesAtoms)
     .groupMemberMyInformationStep.page1;
   setIsPageFinished(pageValidity);
+
+  const isUosUserValue = useAtomValue(isUosUserAtom);
+  const getUoslifeUserInfo = async () => {
+    const res = await uoslifeBridge.getUserInfo();
+    setPageState(prev => ({ ...prev, name: res.name }));
+  };
+
+  useEffect(() => {
+    if (isUosUserValue) {
+      getUoslifeUserInfo();
+    }
+  }, []);
 
   return (
     <Paddler top={36} right={20} bottom={24} left={20}>

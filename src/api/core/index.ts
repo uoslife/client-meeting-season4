@@ -1,6 +1,7 @@
 import axios, { AxiosError, AxiosResponse } from 'axios';
 import { AuthAPI } from '~/api';
 import toast from 'react-hot-toast';
+import uoslifeBridge from '~/bridge';
 
 interface IErrorResponseData {
   code: string;
@@ -25,13 +26,15 @@ const handleAuthSilentRefresh = async (originRequest: AxiosError) => {
         return axios(originRequest.config!);
       })
       .catch(() => {
-        toast.error('다시 로그인해주세요!', {
-          duration: 2000,
+        const isUosUser = uoslifeBridge.driver.isInstalled;
+        toast.error(isUosUser ? '다시 접속해주세요!' : '다시 로그인해주세요!', {
+          duration: 4000,
         });
-        setTimeout(
-          () => (window.location.href = '/common/univVerificationStep'),
-          1500,
-        );
+        setTimeout(() => {
+          isUosUser
+            ? uoslifeBridge.goBack()
+            : (window.location.href = '/common/univVerificationStep');
+        }, 1500);
       });
   }
 };

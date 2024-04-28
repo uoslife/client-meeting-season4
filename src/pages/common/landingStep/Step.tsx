@@ -14,14 +14,31 @@ import toast, { Toaster } from 'react-hot-toast';
 import { navigateNextStepAtom } from '~/models/funnel';
 import { useAtom, useAtomValue, useSetAtom } from 'jotai';
 import { useEffect, useState } from 'react';
-import { PaymentAPI } from '~/api';
+import { AuthAPI, PaymentAPI } from '~/api';
 import { isPaymentFinishedAtom } from '~/models/payment';
-import { isLoggedInAtom } from '~/models/auth';
+import { isLoggedInAtom, isUosUserAtom } from '~/models/auth';
+import uoslifeBridge from '~/bridge';
+import API from '~/api/core';
 
 const CommonLandingStep = () => {
+  const isUoslifeUser = useAtomValue(isUosUserAtom);
   return (
     <PageLayout>
-      <S.HeaderDummyBox />
+      {isUoslifeUser ? (
+        <S.HeaderContainer>
+          <Row justify={'space-between'} align={'center'}>
+            <IconButton
+              iconName={'headerButton-backArrow'}
+              width={26}
+              height={28}
+              onClick={() => uoslifeBridge.goBack()}
+            />
+            <S.HeaderDummyBox />
+          </Row>
+        </S.HeaderContainer>
+      ) : (
+        <S.DummyBox />
+      )}
       <PageLayout.DoubleCardBody
         topCardPadding="36px 44px"
         topCardChildren={<TopCardComponent />}
@@ -80,18 +97,37 @@ const BottomCardComponent = () => {
   const navigate = useTypeSafeNavigate();
   const [businessToggle, setBusinessToggle] = useState(false);
   const setNavigateNextStep = useSetAtom(navigateNextStepAtom);
-  const isLoggedInValue = useAtomValue(isLoggedInAtom);
+  const [isLoggedInValue, setIsLoggedInValue] = useAtom(isLoggedInAtom);
   const [isPaymentFinishedValue, setIsPaymentFinishedValue] = useAtom(
     isPaymentFinishedAtom,
   );
+  const isUosUserValue = useAtomValue(isUosUserAtom);
+  const checkUosUser = async () => {
+    try {
+      if (!isUosUserValue) return;
+      const { accessToken: accessTokenFromUoslife } =
+        await uoslifeBridge.getAccessToken();
+      API.defaults.headers.common['Authorization'] =
+        `Bearer ${accessTokenFromUoslife}`;
+      const { data } = await AuthAPI.signInUosUser();
+      API.defaults.headers.common['Authorization'] =
+        `Bearer ${data.accessToken}`;
+      setIsLoggedInValue(true);
+    } catch (error) {
+      console.log('error');
+    }
+  };
+
   const handleOnClickPrimary = () => {
     setNavigateNextStep(true);
+    if (isUosUserValue) return navigate('/common/branchGatewayStep');
     navigate(
       isLoggedInValue
         ? '/common/branchGatewayStep'
         : '/common/univVerificationStep',
     );
   };
+
   const handleOnClickSecondary = () =>
     navigate('/common/verifyForCheckAfterAlreadyAppliedStep');
 
@@ -110,8 +146,9 @@ const BottomCardComponent = () => {
         if (error.response.data.code === 'P04') setIsPaymentFinishedValue(true);
       });
   };
+
   useEffect(() => {
-    handlePaymentResult();
+    checkUosUser().finally(handlePaymentResult);
   }, [isLoggedInValue]);
   // 링크 공유 로직
   const handleShareLink = async () => {
@@ -271,7 +308,7 @@ const FooterIconAreaComponent = () => {
 };
 
 const S = {
-  HeaderDummyBox: styled.div`
+  DummyBox: styled.div`
     margin-top: 18px;
   `,
   SocialLinkContainer: styled.a`
@@ -282,5 +319,19 @@ const S = {
   `,
   BusinessInfo: styled.div<{ businessToggle: boolean }>`
     display: ${({ businessToggle }) => (businessToggle ? 'flex' : 'none')};
+  `,
+  HeaderContainer: styled.header`
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    width: 100%;
+    gap: 16px;
+    padding: 8px 8px;
+    background: ${colors.Primary500};
+    color: ${colors.White};
+  `,
+  HeaderDummyBox: styled.div`
+    height: 24px;
+    width: 24px;
   `,
 };

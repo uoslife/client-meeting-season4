@@ -7,6 +7,10 @@ import Text from '~/components/typography/Text';
 import { combinedValidatiesAtoms } from '~/models';
 import { groupDataAtoms } from '~/models/group/data';
 import { pageFinishAtom } from '~/models/funnel';
+import { isUosUserAtom } from '~/models/auth';
+import uoslifeBridge from '~/bridge';
+import { InfoOptions } from '~/models/options';
+import { useEffect } from 'react';
 
 const SecondPage = () => {
   const [pageState, setPageState] = useAtom(
@@ -19,6 +23,22 @@ const SecondPage = () => {
   const pageValidity = useAtomValue(combinedValidatiesAtoms)
     .groupMemberMyInformationStep.page2;
   setIsPageFinished(pageValidity);
+
+  const isUosUserValue = useAtomValue(isUosUserAtom);
+  const getUoslifeUserInfo = async () => {
+    const res = await uoslifeBridge.getUserInfo();
+    setPageState(prev => ({
+      ...prev,
+      major: res.departmentName,
+      studentType: res.degree as InfoOptions['studentType'],
+    }));
+  };
+
+  useEffect(() => {
+    if (isUosUserValue) {
+      getUoslifeUserInfo();
+    }
+  }, []);
 
   return (
     <Paddler top={36} right={20} bottom={24} left={20}>

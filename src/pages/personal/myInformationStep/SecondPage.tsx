@@ -9,6 +9,10 @@ import { useAtom, useAtomValue, useSetAtom } from 'jotai';
 import { pageFinishAtom } from '~/models/funnel';
 import { personalDataAtoms } from '~/models/personal/data';
 import { combinedValidatiesAtoms } from '~/models';
+import { isUosUserAtom } from '~/models/auth';
+import uoslifeBridge from '~/bridge';
+import { InfoOptions } from '~/models/options';
+import { useEffect } from 'react';
 
 const SecondPage = () => {
   const [pageState, setPageState] = useAtom(
@@ -20,6 +24,23 @@ const SecondPage = () => {
     .personalMyInformationStep.page2;
   const setIsPageFinished = useSetAtom(pageFinishAtom);
   setIsPageFinished(!!pageValidity);
+
+  const isUosUserValue = useAtomValue(isUosUserAtom);
+  const getUoslifeUserInfo = async () => {
+    const res = await uoslifeBridge.getUserInfo();
+    setPageState(prev => ({
+      ...prev,
+      phone: res.phone,
+      major: res.departmentName,
+      studentType: res.degree as InfoOptions['studentType'],
+    }));
+  };
+
+  useEffect(() => {
+    if (isUosUserValue) {
+      getUoslifeUserInfo();
+    }
+  }, []);
 
   return (
     <PageLayout.SingleCardBody
