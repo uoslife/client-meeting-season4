@@ -42,9 +42,9 @@ const ApplicationModal = ({
           <Text
             label={subLabel}
             color={'Gray400'}
-            typography={'GoThicLabelS'}
-            weight={700}
-            size={12}
+            typography={'GoThicBodyS'}
+            weight={400}
+            size={14}
           />
         )}
         <S.ButtonWrapper>
@@ -59,7 +59,7 @@ const ApplicationModal = ({
             status={'active'}
             height={52}
             onClick={joinButtonClicked}
-            label={'신청'}
+            label={'확인'}
           />
         </S.ButtonWrapper>
       </S.Container>
