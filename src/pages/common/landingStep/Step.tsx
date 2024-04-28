@@ -16,12 +16,29 @@ import { useAtom, useAtomValue, useSetAtom } from 'jotai';
 import { useEffect, useState } from 'react';
 import { PaymentAPI } from '~/api';
 import { isPaymentFinishedAtom } from '~/models/payment';
-import { isLoggedInAtom } from '~/models/auth';
+import { isLoggedInAtom, isUosUserAtom } from '~/models/auth';
+import uoslifeBridge from '~/bridge';
+import API from '~/api/core';
 
 const CommonLandingStep = () => {
+  const isUoslifeUser = useAtomValue(isUosUserAtom);
   return (
     <PageLayout>
-      <S.HeaderDummyBox />
+      {isUoslifeUser ? (
+        <S.HeaderContainer>
+          <Row justify={'space-between'} align={'center'}>
+            <IconButton
+              iconName={'headerButton-backArrow'}
+              width={26}
+              height={28}
+              onClick={() => uoslifeBridge.goBack()}
+            />
+            <S.HeaderDummyBox />
+          </Row>
+        </S.HeaderContainer>
+      ) : (
+        <S.DummyBox />
+      )}
       <PageLayout.DoubleCardBody
         topCardPadding="36px 44px"
         topCardChildren={<TopCardComponent />}
