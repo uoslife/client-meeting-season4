@@ -20,9 +20,13 @@ const refundPaymentFotNotMatching = async <
 const checkPayment = async <T = CheckPaymentResponse>(impUid: string) =>
   await API.post<T>('/api/payment/check', { impUid });
 
+const verifyPayment = async <T = PaymentResponse>() =>
+  await API.get<T>('/api/payment/verify');
+
 export default {
   requestPayment,
   refundPayment,
   refundPaymentFotNotMatching,
   checkPayment,
+  verifyPayment,
 };

@@ -11,8 +11,9 @@ import TextInput from '~/components/inputs/textInput/TextInput';
 import Paddler from '~/components/layout/Pad';
 import { combinedValidatiesAtoms } from '~/models';
 import { commonDataAtoms } from '~/models/common/data';
-import { AuthAPI } from '~/api';
+import { AuthAPI, PaymentAPI } from '~/api';
 import { SilentLogin } from '~/utils/silentLogin';
+import { isPaymentFinishedAtom } from '~/models/payment';
 
 const ThirdPage = () => {
   const login = new SilentLogin();
@@ -39,6 +40,7 @@ const ThirdPage = () => {
   const [statusMessage, setStatusMessage] = useState(
     '메일로 발송된 인증번호를 입력해주세요.',
   );
+  const setIsPaymentFinishedValue = useSetAtom(isPaymentFinishedAtom);
 
   const handleValidateCodeInput = (value: string) => {
     switch (value) {
@@ -65,6 +67,15 @@ const ThirdPage = () => {
         return 'Gray500';
     }
   };
+  const handlePaymentResult = async () => {
+    await PaymentAPI.verifyPayment()
+      .then(() => {
+        setIsPaymentFinishedValue(false);
+      })
+      .catch(error => {
+        if (error.response.data.code === 'P04') setIsPaymentFinishedValue(true);
+      });
+  };
 
   // 인증번호 받기
   const handleTryValidate = async () => {
@@ -90,6 +101,7 @@ const ThirdPage = () => {
         });
         setStatusMessage('인증되었습니다.');
         setValidateStatus('success');
+        handlePaymentResult();
       })
       .catch(() => {
         setStatusMessage('유효하지 않은 인증번호입니다.');

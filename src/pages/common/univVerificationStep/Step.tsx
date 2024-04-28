@@ -17,7 +17,7 @@ const CommonUnivVerificationStep = () => {
     pageNumberList: PAGE_NUMBER,
     nextStep: {
       path: isPaymentFinishedValue
-        ? '/common/paymentStep'
+        ? '/common/checkAfterAlreadyAppliedStep'
         : '/common/branchGatewayStep',
     },
     prevStep: { path: '/' },

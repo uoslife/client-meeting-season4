@@ -95,20 +95,23 @@ const TopCardComponent = () => {
 
 const BottomCardComponent = () => {
   const navigate = useTypeSafeNavigate();
-  const [businessToggle, setBusinessToggle] = useState(false);
+  const [businessToggleInfo, setBusinessToggleInfo] = useState(false);
+  const [isTeamMember, setIsTeamMember] = useState(false);
+  const isUosUserValue = useAtomValue(isUosUserAtom);
   const setNavigateNextStep = useSetAtom(navigateNextStepAtom);
   const [isLoggedInValue, setIsLoggedInValue] = useAtom(isLoggedInAtom);
   const [isPaymentFinishedValue, setIsPaymentFinishedValue] = useAtom(
     isPaymentFinishedAtom,
   );
-  const isUosUserValue = useAtomValue(isUosUserAtom);
   const checkUosUser = async () => {
     try {
-      if (!isUosUserValue) return;
+      if (!isUosUserValue) return; // 시대생 앱에서 접근한 경우
+      // 시대생 앱의 accessToken으로 axios header에 주입
       const { accessToken: accessTokenFromUoslife } =
         await uoslifeBridge.getAccessToken();
       API.defaults.headers.common['Authorization'] =
         `Bearer ${accessTokenFromUoslife}`;
+      // 시대팅 accessToken으로 axios header에 주입
       const { data } = await AuthAPI.signInUosUser();
       API.defaults.headers.common['Authorization'] =
         `Bearer ${data.accessToken}`;
@@ -118,8 +121,10 @@ const BottomCardComponent = () => {
     }
   };
 
+  // 신청하기 버튼
   const handleOnClickPrimary = () => {
     setNavigateNextStep(true);
+    // 시대생에서 접근한 유저는 이메일 인증 없이 바로 미팅 신청 로직
     if (isUosUserValue) return navigate('/common/branchGatewayStep');
     navigate(
       isLoggedInValue
@@ -128,28 +133,43 @@ const BottomCardComponent = () => {
     );
   };
 
-  const handleOnClickSecondary = () =>
-    navigate('/common/verifyForCheckAfterAlreadyAppliedStep');
+  // 신청 정보 확인하기 버튼
+  const handleOnClickSecondary = () => {
+    // 3대3 팀원이 버튼을 누르는 경우
+    if (isTeamMember)
+      return toast.error('팅장이 신청을 완료할 때까지 기다려주세요', {
+        duration: 3000,
+        icon: '🥲',
+      });
+    navigate('/common/checkAfterAlreadyAppliedStep');
+  };
 
   // 결제완료 여부 확인 로직
   const handlePaymentResult = async () => {
     if (!isLoggedInValue) return;
-    await PaymentAPI.requestPayment({
-      pg: 'WELCOME_PAYMENTS',
-      payMethod: 'card',
-    })
+    await PaymentAPI.verifyPayment()
       .then(() => {
+        // 미팅 팀만 생성한 경우(결재 x)
         setIsPaymentFinishedValue(false);
       })
       .catch(error => {
-        if (error.status === 401) setIsPaymentFinishedValue(false);
-        if (error.response.data.code === 'P04') setIsPaymentFinishedValue(true);
+        const { code, message } = error.response.data;
+        // 미팅 팀을 생성하지 않은 경우(첫 가입 유저)
+        if (code === 'U02' || code === 'P01') setIsPaymentFinishedValue(false);
+        // 결제를 완료한 유저
+        if (code === 'P04') setIsPaymentFinishedValue(true);
+        // 3대3 팀원이 신청을 완료한 경우
+        if (message === 'Phone Number is not found.') {
+          setIsPaymentFinishedValue(true);
+          setIsTeamMember(true);
+        }
       });
   };
 
   useEffect(() => {
     checkUosUser().finally(handlePaymentResult);
   }, [isLoggedInValue]);
+
   // 링크 공유 로직
   const handleShareLink = async () => {
     await navigator.clipboard.writeText(SOCIAL_LINK.Sharelink);
@@ -157,6 +177,7 @@ const BottomCardComponent = () => {
       icon: '😁',
     });
   };
+
   return (
     <Col gap={30}>
       <Col align={'center'} gap={32}>
@@ -237,10 +258,10 @@ const BottomCardComponent = () => {
           align={'center'}
           padding={'20px 0 5px 0'}
           gap={2}
-          onClick={() => setBusinessToggle(!businessToggle)}>
+          onClick={() => setBusinessToggleInfo(!businessToggleInfo)}>
           <IconButton
             iconName={'next-icon-black'}
-            rotate={businessToggle ? 90 : 0}
+            rotate={businessToggleInfo ? 90 : 0}
             width={12}
             height={12}
           />
@@ -250,7 +271,7 @@ const BottomCardComponent = () => {
             typography={'PFLabelS'}
           />
         </Row>
-        <S.BusinessInfo businessToggle={businessToggle}>
+        <S.BusinessInfo businessToggleInfo={businessToggleInfo}>
           <Col gap={2}>
             <Text
               label={'대표자명: 한유민'}
@@ -317,8 +338,9 @@ const S = {
     width: 100%;
     gap: 6px;
   `,
-  BusinessInfo: styled.div<{ businessToggle: boolean }>`
-    display: ${({ businessToggle }) => (businessToggle ? 'flex' : 'none')};
+  BusinessInfo: styled.div<{ businessToggleInfo: boolean }>`
+    display: ${({ businessToggleInfo }) =>
+      businessToggleInfo ? 'flex' : 'none'};
   `,
   HeaderContainer: styled.header`
     position: sticky;
