@@ -39,7 +39,11 @@ const CommonBranchGatewayStep = () => {
 
   return (
     <PageLayout>
-      <PageLayout.Header title={'시대팅 종류 선택'} isProgress={false} />
+      <PageLayout.Header
+        title={'시대팅 종류 선택'}
+        isProgress={false}
+        showGuidePopUp={true}
+      />
       <PageLayout.SingleCardBody>
         <Funnel>
           <Funnel.Page pageNumber={1}>

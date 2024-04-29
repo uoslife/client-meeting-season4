@@ -13,6 +13,10 @@ export const Container = styled.header<Pick<HeaderProps, 'isProgress'>>`
   color: ${colors.White};
 `;
 
+export const ErrorButtonContainer = styled.div`
+  position: relative;
+`;
+
 export const DummyBox = styled.div`
   height: 24px;
   width: 24px;

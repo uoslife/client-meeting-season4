@@ -77,7 +77,11 @@ const CommonPaymentResultStep = () => {
   return (
     <>
       <PageLayout>
-        <PageLayout.Header title={'결제 결과'} isProgress={false} />
+        <PageLayout.Header
+          title={'결제 결과'}
+          isProgress={false}
+          showErrorButton={false}
+        />
         <PageLayout.SingleCardBody cardPadding={'0'}>
           {handlePaymentStatus()}
         </PageLayout.SingleCardBody>

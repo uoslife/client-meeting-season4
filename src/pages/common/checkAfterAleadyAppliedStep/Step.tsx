@@ -102,7 +102,7 @@ const CheckAfterAlreadyAppliedStep = () => {
 
   return (
     <PageLayout>
-      <PageLayout.Header title="신청 정보" />
+      <PageLayout.Header title="신청 정보" showErrorButton={false} />
       <PageLayout.SingleCardBody theme="BG_GREY" cardPadding="8px 0">
         <Paddler left={5} right={5} bottom={20}>
           <Col gap={44} align="center">

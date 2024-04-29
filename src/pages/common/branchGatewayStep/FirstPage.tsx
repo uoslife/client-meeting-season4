@@ -42,7 +42,7 @@ const FirstPage = () => {
     });
 
   return (
-    <Col align={'center'} gap={20} padding={'36px 20px'}>
+    <Col align={'center'} gap={20} padding={'55px 20px'}>
       <Col gap={12} align={'center'}>
         <Text
           label={'참여하고자 하는 미팅 종류를 선택해주세요'}
