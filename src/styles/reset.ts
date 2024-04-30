@@ -1,10 +1,4 @@
 import { css } from '@emotion/react';
-import NeoDunggeunmoPro from '/fonts/NeoDunggeunmoPro-Regular.ttf';
-import DOSGothic from '/fonts/DOSGothic.ttf';
-import PretendardRegular from '/fonts/Pretendard-Regular.ttf';
-import GothicA1Regular from '/fonts/GothicA1-Regular.ttf';
-import GothicA1Bold from '/fonts/GothicA1-Bold.ttf';
-import LeferiBaseRegular from '/fonts/LeferiBaseBold.ttf';
 
 const reset = css`
   * {
@@ -64,37 +58,43 @@ const reset = css`
 
   @font-face {
     font-family: 'LeferiBaseType-RegularA';
-    src: url(${LeferiBaseRegular}) format('truetype');
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/LeferiPoint-BlackA.woff')
+      format('woff');
     font-weight: 700;
     font-style: normal;
   }
   @font-face {
     font-family: 'GothicA1Type-Regular';
-    src: url(${GothicA1Regular}) format('truetype');
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2205@1.0/GothicA1-Regular.woff2')
+      format('woff2');
     font-weight: normal;
     font-style: normal;
   }
   @font-face {
     font-family: 'GothicA1Type-Bold';
-    src: url(${GothicA1Bold}) format('truetype');
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2205@1.0/GothicA1-Bold.woff2')
+      format('woff2');
     font-weight: normal;
     font-style: normal;
   }
   @font-face {
     font-family: 'NeoDunggeunmoProType-Regular';
-    src: url(${NeoDunggeunmoPro}) format('truetype');
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2302@1.0/NeoDunggeunmoPro-Regular.woff2')
+      format('woff2');
     font-weight: normal;
     font-style: normal;
   }
   @font-face {
     font-family: 'DOSGothic-Regular';
-    src: url(${DOSGothic}) format('truetype');
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_eight@1.0/DOSGothic.woff')
+      format('woff');
     font-weight: normal;
     font-style: normal;
   }
   @font-face {
     font-family: 'PretendardType-Regular';
-    src: url(${PretendardRegular}) format('truetype');
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff')
+      format('woff');
     font-weight: normal;
     font-style: normal;
   }
