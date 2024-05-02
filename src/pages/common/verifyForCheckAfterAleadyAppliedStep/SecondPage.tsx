@@ -82,7 +82,7 @@ const SecondPage = () => {
     if (!validateCodeValue) return setStatusMessage('인증번호를 입력해주세요!');
     if (validateCodeValue === '1234') {
       const res = await AuthAPI.checkVerificationCode({
-        code: parseInt(validateCodeValue),
+        code: validateCodeValue,
         email: inputValue,
         university: univType,
       });

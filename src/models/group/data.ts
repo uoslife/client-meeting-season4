@@ -35,7 +35,7 @@ export const groupInitialData: GroupData = {
     },
     page2: {
       joinCode: null,
-      otherMembers: [null, null],
+      otherMembers: [null, null, null],
     },
   },
   // 3. 우리 팅 정보 입력하기
