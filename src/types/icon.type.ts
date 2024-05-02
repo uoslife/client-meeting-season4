@@ -18,7 +18,9 @@ export type normalType =
   | 'kakaotalk'
   | 'instagram'
   | 'next-icon-black'
-  | 'human-circle';
+  | 'human-circle'
+  | 'errorButton'
+  | 'delete';
 
 // 동물상
 export type animalKeyType =

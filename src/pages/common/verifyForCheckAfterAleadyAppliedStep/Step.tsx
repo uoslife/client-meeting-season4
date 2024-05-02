@@ -12,7 +12,7 @@ const CommonVerifyForCheckAfterAlreadyAppliedStep = () => {
 
   return (
     <PageLayout>
-      <PageLayout.Header title="신청 정보 확인하기" />
+      <PageLayout.Header title="신청 정보 확인하기" showErrorButton={false} />
       <PageLayout.SingleCardBody>
         <Funnel>
           <Funnel.Page pageNumber={1}>

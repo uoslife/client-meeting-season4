@@ -26,6 +26,8 @@ const updateUser = async <T = object>(data: UpdateUserRequest) =>
 const checkUser = async <T = boolean>(email: string) =>
   API.get<T>('/api/user', { params: { email: email } });
 
+const deleteUser = async () => API.delete('/api/user');
+
 // 공통
 // 팅(1:1 / 3:3)을 생성합니다.
 const createMeeting = async <
@@ -60,8 +62,7 @@ const updateMessage = async (
   teamType: TeamType,
   isTeamLeader: boolean,
   data: UpdateMessageRequest,
-) => API.put<T>(`/api/meeting/${teamType}/${isTeamLeader}/message`, data);
-
+) => API.put(`/api/meeting/${teamType}/${isTeamLeader}/message`, data);
 
 // 팅의 모든 정보를 받아옵니다.
 const getMeetingInfo = async <T = GetMeetingInfoResponse>(teamType: TeamType) =>
@@ -89,6 +90,7 @@ export default {
   resetUser,
   updateUser,
   checkUser,
+  deleteUser,
   createMeeting,
   deleteMeeting,
   updateInfo,

@@ -38,6 +38,7 @@ const CommonUnivVerificationStep = () => {
       <PageLayout.Header
         title={'경희대 한국외대 구성원 인증'}
         isProgress={false}
+        showErrorButton={false}
       />
       <PageLayout.SingleCardBody>
         <Funnel>

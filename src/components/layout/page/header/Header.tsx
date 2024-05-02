@@ -4,6 +4,11 @@ import { useNavigate } from 'react-router-dom';
 import IconButton from '~/components/buttons/iconButton/IconButton';
 import Text from '~/components/typography/Text';
 import Pad from '~/components/layout/Pad';
+import CleanUpModal from '~/components/modal/cleanUpModal/CleanUpModal';
+import { useState } from 'react';
+import GuidePopUp from '~/components/modal/guidePopUp/GuidePopUp';
+import { MeetingAPI } from '~/api';
+import toast from 'react-hot-toast';
 
 export type HeaderProps = {
   title: string;
@@ -12,6 +17,8 @@ export type HeaderProps = {
   isProgress?: boolean;
   totalStep?: number;
   currentStep?: number;
+  showGuidePopUp?: boolean;
+  showErrorButton?: boolean;
 };
 
 const Header = ({
@@ -21,38 +28,79 @@ const Header = ({
   isProgress = false,
   currentStep,
   totalStep,
+  showGuidePopUp = false,
+  showErrorButton = true,
 }: HeaderProps) => {
   const navigate = useNavigate();
-  return (
-    <S.Container isProgress={isProgress}>
-      <Pad left={5} right={5}>
-        <Row justify={'space-between'} align={'center'}>
-          <IconButton
-            iconName={
-              isBackArrow ? 'headerButton-backArrow' : 'headerButton-home'
-            }
-            width={24}
-            height={25.5}
-            onClick={() =>
-              isBackArrow ? navigate(backArrowNavigate) : navigate('/')
-            }
-          />
-          <Text label={title} color={'White'} typography={'NeoTitleM'} />
-          <S.DummyBox />
-        </Row>
-      </Pad>
+  const [isCleanUpModalOpen, setIsCleanUpModalOpen] = useState(false);
+  const [isGuidePopUpOpen, setIsGuidePopUpOpen] = useState(showGuidePopUp);
 
-      {isProgress && (
-        <S.ProgressContainer>
-          <S.ProgressBar size={(currentStep! / totalStep!) * 100} />
-          <Text
-            label={`${currentStep} / ${totalStep}`}
-            color={'Primary200'}
-            typography={'PFLabelM'}
-          />
-        </S.ProgressContainer>
+  const handleResetUser = async () => {
+    try {
+      await MeetingAPI.deleteUser();
+      navigate('/');
+    } catch (e) {
+      toast.error('팅을 아직 만들지 않으셨나요?!');
+    }
+  };
+  return (
+    <>
+      <S.Container isProgress={isProgress}>
+        <Pad left={8} right={8}>
+          <Row justify={'space-between'} align={'center'}>
+            <IconButton
+              iconName={
+                isBackArrow ? 'headerButton-backArrow' : 'headerButton-home'
+              }
+              width={24}
+              height={25.5}
+              onClick={() =>
+                isBackArrow ? navigate(backArrowNavigate) : navigate('/')
+              }
+            />
+            <Text label={title} color={'White'} typography={'NeoTitleM'} />
+            {showErrorButton ? (
+              <S.ErrorButtonContainer>
+                <IconButton
+                  iconName={'errorButton'}
+                  format={'png'}
+                  width={32}
+                  height={34}
+                  onClick={() => setIsCleanUpModalOpen(true)}
+                />
+                {isGuidePopUpOpen && (
+                  <GuidePopUp
+                    label={'에러가 발생하면 이 버튼을 눌러보세요!'}
+                    setIsCleanUpModalOpen={setIsGuidePopUpOpen}
+                  />
+                )}
+              </S.ErrorButtonContainer>
+            ) : (
+              <S.DummyBox />
+            )}
+          </Row>
+        </Pad>
+
+        {isProgress && (
+          <S.ProgressContainer>
+            <S.ProgressBar size={(currentStep! / totalStep!) * 100} />
+            <Text
+              label={`${currentStep} / ${totalStep}`}
+              color={'Primary200'}
+              typography={'PFLabelM'}
+            />
+          </S.ProgressContainer>
+        )}
+      </S.Container>
+      {isCleanUpModalOpen && (
+        <CleanUpModal
+          onClick={handleResetUser}
+          setIsCleanUpModalOpen={setIsCleanUpModalOpen}
+          title={'에러가 발생하셨나요?!'}
+          description={'아래 확인 버튼을 누른 후\n' + ' 다시 신청해주세요!'}
+        />
       )}
-    </S.Container>
+    </>
   );
 };
 
