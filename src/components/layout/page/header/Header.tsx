@@ -7,6 +7,8 @@ import Pad from '~/components/layout/Pad';
 import CleanUpModal from '~/components/modal/cleanUpModal/CleanUpModal';
 import { useState } from 'react';
 import GuidePopUp from '~/components/modal/guidePopUp/GuidePopUp';
+import { MeetingAPI } from '~/api';
+import toast from 'react-hot-toast';
 
 export type HeaderProps = {
   title: string;
@@ -32,6 +34,15 @@ const Header = ({
   const navigate = useNavigate();
   const [isCleanUpModalOpen, setIsCleanUpModalOpen] = useState(false);
   const [isGuidePopUpOpen, setIsGuidePopUpOpen] = useState(showGuidePopUp);
+
+  const handleResetUser = async () => {
+    try {
+      await MeetingAPI.deleteUser();
+      navigate('/');
+    } catch (e) {
+      toast.error('팅을 아직 만들지 않으셨나요?!');
+    }
+  };
   return (
     <>
       <S.Container isProgress={isProgress}>
@@ -82,7 +93,12 @@ const Header = ({
         )}
       </S.Container>
       {isCleanUpModalOpen && (
-        <CleanUpModal setIsCleanUpModalOpen={setIsCleanUpModalOpen} />
+        <CleanUpModal
+          onClick={handleResetUser}
+          setIsCleanUpModalOpen={setIsCleanUpModalOpen}
+          title={'에러가 발생하셨나요?!'}
+          description={'아래 확인 버튼을 누른 후\n' + ' 다시 신청해주세요!'}
+        />
       )}
     </>
   );

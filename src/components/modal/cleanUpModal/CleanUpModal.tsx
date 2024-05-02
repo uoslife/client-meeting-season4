@@ -5,30 +5,42 @@ import Text from '~/components/typography/Text';
 
 type CleanUpModalProps = {
   setIsCleanUpModalOpen: React.Dispatch<boolean>;
+  title: string;
+  description: string;
+  onClick: () => void;
 };
 
-const CleanUpModal = ({ setIsCleanUpModalOpen }: CleanUpModalProps) => {
+const CleanUpModal = ({
+  setIsCleanUpModalOpen,
+  onClick,
+  title,
+  description,
+}: CleanUpModalProps) => {
+  // const [pageState, setPageState] = useImmerAtom(
+  //   commonDataAtoms.commonBranchGatewayStep.page1,
+  // );
+  // const [pageState, setPageState] = useImmerAtom(
+  //   groupDataAtoms.groupMemberParticipateStep.page1,
+  // );
+
   return (
     <ModalPortal>
       <S.Wrapper onClick={() => setIsCleanUpModalOpen(false)}>
         <S.Container onClick={e => e.stopPropagation()}>
           <S.TextWrapper>
             <Text
-              label={'오류가 발생하셨나요? 😥'}
+              label={title}
               color={'Gray500'}
               typography={'GoThicTitleS'}
               size={15}
             />
             <Text
-              label={'아래 확인 버튼을 누른 후\n' + ' 다시 신청해주세요!'}
+              label={description}
               color={'Gray200'}
               typography={'GoThicButtonM'}
             />
           </S.TextWrapper>
-          <S.Button
-            onClick={() => {
-              console.log('hh');
-            }}>
+          <S.Button onClick={onClick}>
             <Text
               label={'확인'}
               color={'Primary500'}

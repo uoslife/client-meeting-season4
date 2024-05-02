@@ -28,9 +28,9 @@ const FirstPage = () => {
   const [pageState, setPageState] = useImmerAtom(
     commonDataAtoms.commonBranchGatewayStep.page1,
   );
+  const { checked, meetingType } = pageState;
 
   const navigate = useTypeSafeNavigate();
-  const { checked, meetingType } = pageState;
   const setIsPageFinished = useSetAtom(pageFinishAtom);
   const pageValidity = useAtomValue(combinedValidatiesAtoms)
     .commonBranchGatewayStep.page1;
