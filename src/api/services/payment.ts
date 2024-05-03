@@ -10,8 +10,8 @@ import {
 const requestPayment = async <T = PaymentResponse>(data: PaymentRequest) =>
   API.post<T>('/api/payment/request', data);
 
-const refundPayment = async <T = RefundPaymentResponse>(phoneNumber: number) =>
-  API.post<T>('/api/payment/refund', { phoneNumber });
+const refundPayment = async <T = RefundPaymentResponse>() =>
+  API.post<T>('/api/payment/refund');
 
 const refundPaymentFotNotMatching = async <
   T = RefundForNotMatchingResponse,
