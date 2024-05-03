@@ -35,12 +35,18 @@ jobs:
       HARBOR_REPOSITORY: meeting-client
       HARBOR_USERNAME: ${{ secrets.HARBOR_USERNAME }}
       HARBOR_PASSWORD: ${{ secrets.HARBOR_PASSWORD }}
+      UOSLIFE_LIBRARY_TOKEN: ${{ secrets.UOSLIFE_LIBRARY_TOKEN }}
 
     steps:
       - name: Clone Repository
         uses: actions/checkout@v4
         with:
           ref: ${{ env.GIT_REF }}
+
+      - name: Install Dependencies
+        env:
+          NPM_TOKEN: ${{ env.UOSLIFE_LIBRARY_TOKEN }}
+        run: yarn install
 
       - name: Generate Version Code
         run: |
