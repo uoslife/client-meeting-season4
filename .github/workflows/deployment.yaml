@@ -46,7 +46,7 @@ jobs:
       - name: Install Dependencies
         env:
           NPM_TOKEN: ${{ env.UOSLIFE_LIBRARY_TOKEN }}
-        run: yarn add
+        run: npm install
 
       - name: Generate Version Code
         run: |
