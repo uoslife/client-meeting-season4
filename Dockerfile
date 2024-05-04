@@ -2,7 +2,10 @@ FROM node:20-alpine as builder
 
 WORKDIR /app
 
-COPY package.json yarn.lock tsconfig.json tsconfig.node.json ./
+COPY .npmrc package.json yarn.lock tsconfig.json tsconfig.node.json ./
+
+ARG GITHUB_TOKEN
+ENV GITHUB_TOKEN=${GITHUB_TOKEN}
 RUN yarn
 
 COPY . .

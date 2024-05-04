@@ -35,18 +35,13 @@ jobs:
       HARBOR_REPOSITORY: meeting-client
       HARBOR_USERNAME: ${{ secrets.HARBOR_USERNAME }}
       HARBOR_PASSWORD: ${{ secrets.HARBOR_PASSWORD }}
-      UOSLIFE_LIBRARY_TOKEN: ${{ secrets.UOSLIFE_LIBRARY_TOKEN }}
+      GITHUB_TOKEN: ${{ secrets.NPM_GITHUB_TOKEN }}
 
     steps:
       - name: Clone Repository
         uses: actions/checkout@v4
         with:
           ref: ${{ env.GIT_REF }}
-
-      - name: Install Dependencies
-        env:
-          UOSLIFE_LIBRARY_TOKEN: ${{ secrets.UOSLIFE_LIBRARY_TOKEN }}
-        run: yarn install
 
       - name: Generate Version Code
         run: |
@@ -72,6 +67,8 @@ jobs:
           platforms: linux/amd64
           cache-from: type=gha
           cache-to: 'type=gha,mode=max'
+          build-args:
+            GITHUB_TOKEN=${{ env.GITHUB_TOKEN }}
           tags: >
             ${{ env.HARBOR_REGISTRY }}/${{ env.HARBOR_PROJECT }}/${{ env.HARBOR_REPOSITORY }}:${{ env.VERSION }},
             ${{ env.HARBOR_REGISTRY }}/${{ env.HARBOR_PROJECT }}/${{ env.HARBOR_REPOSITORY }}:latest
