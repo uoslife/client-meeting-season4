@@ -9,11 +9,14 @@ interface IErrorResponseData {
   status: number;
 }
 
+export const API_URL = {
+  ACCOUNT: 'https://account.alpha.uoslife.com',
+  MEETING: 'https://meeting.alpha.uoslife.com',
+};
+
 export const API = axios.create({
   withCredentials: true,
-  baseURL: 'https://meeting.alpha.uoslife.com/',
 });
-
 const handleAuthSilentRefresh = async (originRequest: AxiosError) => {
   if (originRequest.response?.status === 401) {
     await AuthAPI.getRefreshToken()

@@ -166,3 +166,11 @@ export type GetMeetingInfoResponse = {
   preference: PreferenceType;
   message: string;
 };
+
+export type CreateUserRequest = {
+  userId: number;
+};
+
+export type CreateUserResponse = {
+  accessToken: string;
+};

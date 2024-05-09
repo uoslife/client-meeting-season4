@@ -7,7 +7,7 @@ import Text from '~/components/typography/Text';
 import { combinedValidatiesAtoms } from '~/models';
 import { commonDataAtoms } from '~/models/common/data';
 import { pageFinishAtom } from '~/models/funnel';
-import { UnivSelectContainer } from '../univVerificationStep/FirstPage';
+import { UnivSelectContainer } from '../univVerificationStep/ThirdPage';
 
 const UNIV_SELECTION_LIST = ['KHU', 'HUFS'] as const;
 

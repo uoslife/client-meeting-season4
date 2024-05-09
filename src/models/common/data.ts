@@ -13,6 +13,9 @@ export const commonInitialData: CommonData = {
     page3: {
       verified: false,
     },
+    page4: {
+      verified: false,
+    },
   },
   commonBranchGatewayStep: {
     page1: {
@@ -52,6 +55,10 @@ export const commonDataAtoms: CommonDataAtoms = {
     page3: atomWithStorage(
       'commonUnivVerificationStep-page3',
       commonInitialData.commonUnivVerificationStep.page3,
+    ),
+    page4: atomWithStorage(
+      'commonUnivVerificationStep-page4',
+      commonInitialData.commonUnivVerificationStep.page4,
     ),
   },
   commonBranchGatewayStep: {

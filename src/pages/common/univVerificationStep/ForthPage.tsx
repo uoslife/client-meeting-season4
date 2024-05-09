@@ -1,32 +1,30 @@
-import { css } from '@emotion/react';
-import { useAtomValue, useSetAtom } from 'jotai';
-import { useEffect, useState } from 'react';
-import { AuthAPI } from '~/api';
-import RoundButton from '~/components/buttons/roundButton/RoundButton';
-import TextInput from '~/components/inputs/textInput/TextInput';
-import Col from '~/components/layout/Col';
-import Paddler from '~/components/layout/Pad';
-import Row from '~/components/layout/Row';
-
 import Text from '~/components/typography/Text';
+import Col from '~/components/layout/Col';
+import Row from '~/components/layout/Row';
+import { css } from '@emotion/react';
+import RoundButton from '~/components/buttons/roundButton/RoundButton';
 import { useInput } from '~/hooks/useInput';
+import { useEffect, useState } from 'react';
+import { useAtomValue, useSetAtom } from 'jotai';
+import { pageFinishAtom } from '~/models/funnel';
+import TextInput from '~/components/inputs/textInput/TextInput';
+import Paddler from '~/components/layout/Pad';
 import { combinedValidatiesAtoms } from '~/models';
 import { commonDataAtoms } from '~/models/common/data';
-import { pageFinishAtom } from '~/models/funnel';
+import { AuthAPI, MeetingAPI } from '~/api';
+import API from '~/api/core';
 
-// copied from src\pages\common\univVerificationStep\ThirdPage.tsx
-const SecondPage = () => {
-  const setIsPageFinished = useSetAtom(pageFinishAtom);
+const ForthPage = () => {
+  const storedUnivType = useAtomValue(
+    commonDataAtoms.commonUnivVerificationStep.page1,
+  ).univType;
   const pageValidity = useAtomValue(combinedValidatiesAtoms)
-    .commonVerifyForCheckAfterAlreadyAppliedStep.page2;
-  const { univType } = useAtomValue(
-    commonDataAtoms.commonVerifyForCheckAfterAlreadyAppliedStep.page1,
-  );
-  setIsPageFinished(pageValidity);
-
+    .commonUnivVerificationStep.page4;
   const setPageState = useSetAtom(
-    commonDataAtoms.commonVerifyForCheckAfterAlreadyAppliedStep.page2,
+    commonDataAtoms.commonUnivVerificationStep.page4,
   );
+  const setIsPageFinished = useSetAtom(pageFinishAtom);
+  setIsPageFinished(pageValidity);
 
   const { inputValue, handleInputChange } = useInput('');
   const {
@@ -66,37 +64,61 @@ const SecondPage = () => {
         return 'Gray500';
     }
   };
-  // 인증번호 확인 절차
-  const handleTryValidate = async () => {
+
+  // 인증번호 받기
+  const getValidateNumber = async () => {
     if (inputValue) setTryValidate(true);
-    const res = await AuthAPI.getVerificationCodeByEmail({
+    await AuthAPI.getVerificationCodeByEmail({
       email: inputValue,
     });
-
-    console.log(res);
   };
 
-  // 인증번호 확인 절차
-  const handleValidate = async () => {
-    if (!validateCodeValue) return setStatusMessage('인증번호를 입력해주세요!');
-    if (validateCodeValue === '1234') {
-      const res = await AuthAPI.checkVerificationCodeByEmail({
+  const handleCheckVerificationCode = async () => {
+    try {
+      await AuthAPI.checkVerificationCodeByEmail({
+        email: `${inputValue}@${storedUnivType === 'HUFS' ? 'hufs' : 'khu'}.ac.kr`,
         code: validateCodeValue,
-        email: inputValue,
       });
-      const result = res.data;
-      console.log(result);
-      setPageState({ verified: true });
-      localStorage.setItem('accessToken', result.accessToken);
-      localStorage.setItem('refreshToken', result.refreshToken);
-      setStatusMessage('인증되었습니다.');
-      setValidateStatus('success');
-    } else {
+    } catch (e) {
       setStatusMessage('유효하지 않은 인증번호입니다.');
       setValidateStatus('error');
       resetValidateCode();
+      throw Error;
     }
   };
+
+  const handleCreateMeetingUser = async () => {
+    try {
+      await AuthAPI.createUoslifeUser({
+        nickname: `${inputValue}@${storedUnivType === 'HUFS' ? 'hufs' : 'khu'}.ac.kr`,
+      });
+      const uoslifeUserInfoRes = await AuthAPI.getUoslifeUserInfo();
+      const createMeetingUserRes = await MeetingAPI.createUser({
+        userId: uoslifeUserInfoRes.data.id,
+      });
+      API.defaults.headers.common['Authorization'] =
+        `Bearer ${createMeetingUserRes.data.accessToken}`;
+    } catch (e) {
+      setStatusMessage('인증 과정에서 문제가 생겼습니다. 다시 인증해주세요.');
+      setValidateStatus('error');
+      resetValidateCode();
+      throw Error;
+    }
+  };
+
+  // 인증번호 확인
+  const handleValidate = async () => {
+    if (!validateCodeValue) return setStatusMessage('인증번호를 입력해주세요!');
+    await handleCheckVerificationCode();
+    await handleCreateMeetingUser();
+    setPageState({
+      verified: true,
+    });
+    setStatusMessage('인증되었습니다.');
+    setValidateStatus('success');
+  };
+
+  //인증번호 입력 제한시간
   useEffect(() => {
     let interval: number;
     if (tryValidate) {
@@ -148,7 +170,7 @@ const SecondPage = () => {
               isAuthentication={true}
               onChange={handleInputChange}>
               <Text
-                label={univType === 'KHU' ? '@khu.ac.kr' : '@hufs.ac.kr'}
+                label={storedUnivType === 'KHU' ? '@khu.ac.kr' : '@hufs.ac.kr'}
                 color={'Gray400'}
                 typography={'GoThicButtonM'}
                 css={css`
@@ -157,7 +179,7 @@ const SecondPage = () => {
               />
             </TextInput>
             <RoundButton
-              onClick={handleTryValidate}
+              onClick={getValidateNumber}
               status={inputValue ? 'active' : 'disabled'}
               borderType={'gray'}
               height={44}
@@ -174,7 +196,7 @@ const SecondPage = () => {
               <Row gap={8}>
                 {/*TODO: 인증번호가 숫자인지 문자인지 백엔드쪽에 확인해서 input type 제한 걸기*/}
                 <TextInput
-                  placeholder={'인증번호 입력(1234)'}
+                  placeholder={'인증번호 입력'}
                   value={validateCodeValue}
                   status={handleValidateCodeInput(validateStatus)}
                   onChange={handleValidateCodeValue}>
@@ -210,4 +232,4 @@ const SecondPage = () => {
   );
 };
 
-export default SecondPage;
+export default ForthPage;
