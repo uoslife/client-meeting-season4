@@ -96,9 +96,21 @@ const BottomSayingsAndCancelButton = () => {
 const CheckAfterAlreadyAppliedStep = () => {
   const cardState = useData('personal');
 
-  // TODO: 대신 보여줄 UI 확정 후 수정
-  if (cardState === 'error') return '기다려주세요 / 로딩 UI 확정 필요';
-  if (cardState === 'loading') return '기다려주세요 / 로딩 UI 확정 필요';
+  const navigate = useTypeSafeNavigate();
+
+  if (cardState === 'error') {
+    navigate('/');
+    return null;
+  }
+  if (cardState === 'loading')
+    return (
+      <PageLayout>
+        <PageLayout.Header title="신청 정보" />
+        <PageLayout.SingleCardBody theme="BG_WHITE" cardPadding="8px 0">
+          <img src="/images/uoslifeLogo-loadingSpinner.webp" />
+        </PageLayout.SingleCardBody>
+      </PageLayout>
+    );
 
   return (
     <PageLayout>
