@@ -14,11 +14,13 @@ import toast, { Toaster } from 'react-hot-toast';
 import { navigateNextStepAtom } from '~/models/funnel';
 import { useAtom, useAtomValue, useSetAtom } from 'jotai';
 import { useEffect, useState } from 'react';
-import { AuthAPI, PaymentAPI } from '~/api';
+import { AuthAPI, MeetingAPI, PaymentAPI } from '~/api';
 import { isPaymentFinishedAtom } from '~/models/payment';
 import { isLoggedInAtom, isUosUserAtom } from '~/models/auth';
 import uoslifeBridge from '~/bridge';
 import API from '~/api/core';
+import { groupDataAtoms } from '~/models/group/data';
+import CleanUpModal from '~/components/modal/cleanUpModal/CleanUpModal';
 
 const CommonLandingStep = () => {
   const isUoslifeUser = useAtomValue(isUosUserAtom);
@@ -97,12 +99,14 @@ const BottomCardComponent = () => {
   const navigate = useTypeSafeNavigate();
   const [businessToggleInfo, setBusinessToggleInfo] = useState(false);
   const [isTeamMember, setIsTeamMember] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const isUosUserValue = useAtomValue(isUosUserAtom);
   const setNavigateNextStep = useSetAtom(navigateNextStepAtom);
   const [isLoggedInValue, setIsLoggedInValue] = useAtom(isLoggedInAtom);
   const [isPaymentFinishedValue, setIsPaymentFinishedValue] = useAtom(
     isPaymentFinishedAtom,
   );
+  const { isLeader } = useAtomValue(groupDataAtoms.groupRoleSelectStep.page1);
   const checkUosUser = async () => {
     try {
       if (!isUosUserValue) return; // 시대생 앱에서 접근한 경우
@@ -136,11 +140,7 @@ const BottomCardComponent = () => {
   // 신청 정보 확인하기 버튼
   const handleOnClickSecondary = () => {
     // 3대3 팀원이 버튼을 누르는 경우
-    if (isTeamMember)
-      return toast.error('팅장이 신청을 완료할 때까지 기다려주세요', {
-        duration: 3000,
-        icon: '🥲',
-      });
+    if (isTeamMember) return setIsModalOpen(true);
     navigate('/common/checkAfterAlreadyAppliedStep');
   };
 
@@ -153,16 +153,17 @@ const BottomCardComponent = () => {
         setIsPaymentFinishedValue(false);
       })
       .catch(error => {
-        const { code, message } = error.response.data;
+        const { code } = error.response.data;
+        // 3대3 팀원이 신청을 완료한 경우
+        if (code === 'P01' && !isLeader) {
+          setIsPaymentFinishedValue(true);
+          setIsTeamMember(true);
+          return;
+        }
         // 미팅 팀을 생성하지 않은 경우(첫 가입 유저)
         if (code === 'U02' || code === 'P01') setIsPaymentFinishedValue(false);
         // 결제를 완료한 유저
         if (code === 'P04') setIsPaymentFinishedValue(true);
-        // 3대3 팀원이 신청을 완료한 경우
-        if (message === 'Phone Number is not found.') {
-          setIsPaymentFinishedValue(true);
-          setIsTeamMember(true);
-        }
       });
   };
 
@@ -176,6 +177,17 @@ const BottomCardComponent = () => {
     toast.success('널리 공유해주세요~!', {
       icon: '😁',
     });
+  };
+
+  const handleResetUser = async () => {
+    try {
+      await MeetingAPI.deleteUser();
+      setIsModalOpen(true);
+      setIsTeamMember(false);
+      setIsPaymentFinishedValue(false);
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   return (
@@ -296,6 +308,14 @@ const BottomCardComponent = () => {
           </Col>
         </S.BusinessInfo>
       </Col>
+      {isModalOpen && (
+        <CleanUpModal
+          title={'팅장만 결과를 확인할 수 있습니다.'}
+          description={'신청 취소 원하신다면 확인을 눌러주세.'}
+          setIsCleanUpModalOpen={setIsModalOpen}
+          onClick={handleResetUser}
+        />
+      )}
     </Col>
   );
 };

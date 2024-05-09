@@ -80,9 +80,9 @@ const SecondPage = () => {
   // 인증번호 확인 절차
   const handleValidate = async () => {
     if (!validateCodeValue) return setStatusMessage('인증번호를 입력해주세요!');
-    if (validateCodeValue === '1234') {
+    try {
       const res = await AuthAPI.checkVerificationCode({
-        code: parseInt(validateCodeValue),
+        code: validateCodeValue,
         email: inputValue,
         university: univType,
       });
@@ -93,7 +93,7 @@ const SecondPage = () => {
       localStorage.setItem('refreshToken', result.refreshToken);
       setStatusMessage('인증되었습니다.');
       setValidateStatus('success');
-    } else {
+    } catch (e) {
       setStatusMessage('유효하지 않은 인증번호입니다.');
       setValidateStatus('error');
       resetValidateCode();

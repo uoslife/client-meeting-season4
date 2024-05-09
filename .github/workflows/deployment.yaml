@@ -35,6 +35,7 @@ jobs:
       HARBOR_REPOSITORY: meeting-client
       HARBOR_USERNAME: ${{ secrets.HARBOR_USERNAME }}
       HARBOR_PASSWORD: ${{ secrets.HARBOR_PASSWORD }}
+      GITHUB_TOKEN: ${{ secrets.NPM_GITHUB_TOKEN }}
 
     steps:
       - name: Clone Repository
@@ -66,6 +67,8 @@ jobs:
           platforms: linux/amd64
           cache-from: type=gha
           cache-to: 'type=gha,mode=max'
+          build-args:
+            GITHUB_TOKEN=${{ env.GITHUB_TOKEN }}
           tags: >
             ${{ env.HARBOR_REGISTRY }}/${{ env.HARBOR_PROJECT }}/${{ env.HARBOR_REPOSITORY }}:${{ env.VERSION }},
             ${{ env.HARBOR_REGISTRY }}/${{ env.HARBOR_PROJECT }}/${{ env.HARBOR_REPOSITORY }}:latest
