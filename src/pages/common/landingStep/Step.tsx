@@ -141,7 +141,7 @@ const BottomCardComponent = () => {
   const handleOnClickSecondary = () => {
     // 3대3 팀원이 버튼을 누르는 경우
     if (isTeamMember) return setIsModalOpen(true);
-    navigate('/common/checkAfterAlreadyAppliedStep');
+    navigate('/common/cancelStep');
   };
 
   // 결제완료 여부 확인 로직

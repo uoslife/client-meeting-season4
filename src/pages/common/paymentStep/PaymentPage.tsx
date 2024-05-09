@@ -68,9 +68,8 @@ const PaymentPage = () => {
       name: '시대팅 Season4 참가비', // 주문명
       buyer_tel: userPaymentInfo?.phoneNumber,
       buyer_name: userPaymentInfo?.name,
-      m_redirect_url: import.meta.env.DEV
-        ? 'https://localhost:5173/common/paymentResultStep'
-        : 'https://meeting.alpha.uoslife.com/common/paymentResultStep',
+      m_redirect_url:
+        'https://meeting.alpha.uoslife.com/common/paymentResultStep',
     };
 
     IMP?.request_pay(data, callback);
@@ -79,6 +78,7 @@ const PaymentPage = () => {
   //pc 버전 콜백
   function callback(response: RequestPayResponse) {
     const { error_code, error_msg } = response;
+    console.log('pc');
     // pc에서 결제도중 취소하는 경우
     if (
       error_code === 'F400' &&
