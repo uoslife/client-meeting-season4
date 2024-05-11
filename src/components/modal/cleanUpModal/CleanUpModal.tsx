@@ -16,13 +16,6 @@ const CleanUpModal = ({
   title,
   description,
 }: CleanUpModalProps) => {
-  // const [pageState, setPageState] = useImmerAtom(
-  //   commonDataAtoms.commonBranchGatewayStep.page1,
-  // );
-  // const [pageState, setPageState] = useImmerAtom(
-  //   groupDataAtoms.groupMemberParticipateStep.page1,
-  // );
-
   return (
     <ModalPortal>
       <S.Wrapper onClick={() => setIsCleanUpModalOpen(false)}>
