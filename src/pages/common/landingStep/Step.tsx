@@ -133,7 +133,7 @@ const BottomCardComponent = () => {
     navigate(
       isLoggedInValue
         ? '/common/branchGatewayStep'
-        : '/common/verifyForCheckAfterAlreadyAppliedStep',
+        : '/common/univVerificationStep',
     );
   };
 
