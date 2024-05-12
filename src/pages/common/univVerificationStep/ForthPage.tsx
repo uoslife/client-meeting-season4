@@ -92,7 +92,9 @@ const ForthPage = () => {
       await AuthAPI.createUoslifeUser({
         nickname: `${inputValue}@${storedUnivType === 'HUFS' ? 'hufs' : 'khu'}.ac.kr`,
       });
+      // 시대생 계정 유저id 탐색
       const uoslifeUserInfoRes = await AuthAPI.getUoslifeUserInfo();
+      // 시대생 계정 유저id로 시대팅 유저 생성
       const createMeetingUserRes = await MeetingAPI.createUser({
         userId: uoslifeUserInfoRes.data.id,
       });

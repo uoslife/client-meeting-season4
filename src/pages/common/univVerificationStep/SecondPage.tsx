@@ -78,12 +78,13 @@ const SecondPage = ({ setIsRegisteredUoslife }: Props) => {
   // 시대팅 유저 토큰 주입 로직
   const handleUserInfo = async () => {
     try {
-      // 시대생 계정에서 유저Id get.
+      // 시대생 계정에서 유저Id 탐색.
       const uoslifeUserInfoRes = await AuthAPI.getUoslifeUserInfo();
-      // 유저Id로 미팅계정 토큰 조회
+      // 유저Id로 미팅 계정 토큰 조회.
       const createMeetingUserRes = await MeetingAPI.createUser({
         userId: uoslifeUserInfoRes.data.id,
       });
+      // 미팅 계정 토큰 주입
       API.defaults.headers.common['Authorization'] =
         `Bearer ${createMeetingUserRes.data.accessToken}`;
       // 결제 여부 확인
