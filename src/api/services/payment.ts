@@ -1,4 +1,4 @@
-import API from '~/api/core';
+import API, { API_URL } from '~/api/core';
 import {
   CheckPaymentResponse,
   PaymentRequest,
@@ -8,20 +8,20 @@ import {
 } from '~/api/types/payment.type';
 
 const requestPayment = async <T = PaymentResponse>(data: PaymentRequest) =>
-  API.post<T>('/api/payment/request', data);
+  API.post<T>(`${API_URL.MEETING}/api/payment/request`, data);
 
-const refundPayment = async <T = RefundPaymentResponse>() =>
-  API.post<T>('/api/payment/refund');
+const refundPayment = async <T = RefundPaymentResponse>(phoneNumber: number) =>
+  API.post<T>(`${API_URL.MEETING}/api/payment/refund`, { phoneNumber });
 
 const refundPaymentFotNotMatching = async <
   T = RefundForNotMatchingResponse,
->() => API.post<T>('/api/payment/refund/match');
+>() => API.post<T>(`${API_URL.MEETING}/api/payment/refund/match`);
 
 const checkPayment = async <T = CheckPaymentResponse>(impUid: string) =>
-  await API.post<T>('/api/payment/check', { impUid });
+  await API.post<T>(`${API_URL.MEETING}/api/payment/check`, { impUid });
 
 const verifyPayment = async <T = PaymentResponse>() =>
-  await API.get<T>('/api/payment/verify');
+  await API.get<T>(`${API_URL.MEETING}/api/payment/verify`);
 
 export default {
   requestPayment,

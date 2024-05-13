@@ -11,23 +11,21 @@ import TextInput from '~/components/inputs/textInput/TextInput';
 import Paddler from '~/components/layout/Pad';
 import { combinedValidatiesAtoms } from '~/models';
 import { commonDataAtoms } from '~/models/common/data';
-import { AuthAPI, MeetingAPI, PaymentAPI } from '~/api';
+import { AuthAPI, MeetingAPI } from '~/api';
 import API from '~/api/core';
-import { isPaymentFinishedAtom } from '~/models/payment';
 
-type Props = {
-  setIsRegisteredUoslife: React.Dispatch<boolean>;
-};
-
-const SecondPage = ({ setIsRegisteredUoslife }: Props) => {
+const ForthPage = () => {
+  const storedUnivType = useAtomValue(
+    commonDataAtoms.commonUnivVerificationStep.page1,
+  ).univType;
   const pageValidity = useAtomValue(combinedValidatiesAtoms)
-    .commonUnivVerificationStep.page3;
+    .commonUnivVerificationStep.page4;
   const setPageState = useSetAtom(
-    commonDataAtoms.commonUnivVerificationStep.page3,
+    commonDataAtoms.commonUnivVerificationStep.page4,
   );
   const setIsPageFinished = useSetAtom(pageFinishAtom);
   setIsPageFinished(pageValidity);
-  const setIsPaymentFinishedValue = useSetAtom(isPaymentFinishedAtom);
+
   const { inputValue, handleInputChange } = useInput('');
   const {
     inputValue: validateCodeValue,
@@ -38,7 +36,7 @@ const SecondPage = ({ setIsRegisteredUoslife }: Props) => {
   const [tryValidate, setTryValidate] = useState(false);
   const [validateStatus, setValidateStatus] = useState('');
   const [statusMessage, setStatusMessage] = useState(
-    '휴대전화로 발송된 인증번호를 입력해주세요.',
+    '메일로 발송된 인증번호를 입력해주세요.',
   );
 
   const handleValidateCodeInput = (value: string) => {
@@ -70,55 +68,40 @@ const SecondPage = ({ setIsRegisteredUoslife }: Props) => {
   // 인증번호 받기
   const getValidateNumber = async () => {
     if (inputValue) setTryValidate(true);
-    await AuthAPI.getVerificationCodeByPhone({
-      phoneNumber: inputValue,
+    await AuthAPI.getVerificationCodeByEmail({
+      email: inputValue,
     });
   };
 
-  // 시대팅 유저 토큰 주입 로직
-  const handleUserInfo = async () => {
+  const handleCheckVerificationCode = async () => {
     try {
-      // 시대생 계정에서 유저Id 탐색.
-      const uoslifeUserInfoRes = await AuthAPI.getUoslifeUserInfo();
-      // 유저Id로 미팅 계정 토큰 조회.
-      const createMeetingUserRes = await MeetingAPI.createUser({
-        userId: uoslifeUserInfoRes.data.id,
+      await AuthAPI.checkVerificationCodeByEmail({
+        email: `${inputValue}@${storedUnivType === 'HUFS' ? 'hufs' : 'khu'}.ac.kr`,
+        code: validateCodeValue,
       });
-      // 미팅 계정 토큰 주입
-      API.defaults.headers.common['Authorization'] =
-        `Bearer ${createMeetingUserRes.data.accessToken}`;
-      // 결제 여부 확인
-      await PaymentAPI.verifyPayment()
-        .then(() => {
-          setIsPaymentFinishedValue(false);
-        })
-        .catch(error => {
-          if (error.response.data.code === 'P04')
-            setIsPaymentFinishedValue(true);
-        });
     } catch (e) {
-      setStatusMessage('인증 과정에서 문제가 생겼습니다. 다시 인증해주세요.');
+      setStatusMessage('유효하지 않은 인증번호입니다.');
       setValidateStatus('error');
       resetValidateCode();
       throw Error;
     }
   };
 
-  // 핸드폰 인증 로직
-  const handleCheckVerificationCode = async () => {
+  const handleCreateMeetingUser = async () => {
     try {
-      const { data } = await AuthAPI.checkVerificationCodeByPhone({
-        phoneNumber: inputValue,
-        code: validateCodeValue,
+      await AuthAPI.createUoslifeUser({
+        nickname: `${inputValue}@${storedUnivType === 'HUFS' ? 'hufs' : 'khu'}.ac.kr`,
       });
-      // 인증번호 성공 시, 토큰 헤더 주입
+      // 시대생 계정 유저id 탐색
+      const uoslifeUserInfoRes = await AuthAPI.getUoslifeUserInfo();
+      // 시대생 계정 유저id로 시대팅 유저 생성
+      const createMeetingUserRes = await MeetingAPI.createUser({
+        userId: uoslifeUserInfoRes.data.id,
+      });
       API.defaults.headers.common['Authorization'] =
-        `Bearer ${data.accessToken}`;
-      // API.defaults.headers.common['Authorization'] =
-      //   'Bearer eyJhbGciOiJSU0FTU0FfUFNTX1NIQV81MTIiLCJraWQiOiJ1b3NsaWZlL2FjY291bnQiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJ1b3NsaWZlL2FjY291bnQiLCJhdWQiOiJ1b3NsaWZlL2FjY291bnQvYWNjZXNzX3Rva2VuIiwic3ViIjoiMTEiLCJuYmYiOjE3MTUyMzQwMTUsImlhdCI6MTcxNTIzNDAxNSwiZXhwIjoxNzE1MjM3NjE1fQ.bByZEIewGXBl_qc6svyTgmpMfxRZgl9DuWc9gkKn8aJMffi51osYzKY1YKEyyG5328B7c5GoklJaMfL35h-vNEfMS4vkk7t0wPohZJxgGqgSl2wt1D64mPrYS4VO4iT2oual86fm4Ap6mKMS8WTQk7WiiiYUJPC5BQULudrQjgMHTS2zX_k_OGhzHC3f8MOHBKJiP2-C5rgAYlvTBTpeJ6UyHm5GTnGFaHMf2-dGnbmSeXo2HUXfPy0SMkZEKe_9zELKqARdlwX1p40P3Vodq4LQz0NpotqRiEz_0Cr_xQH0a6JsQZ82HBpYzUW6vSFBtQrhOrAGbO___y2cyJbdZ86u89w9UWQ5Rr3veq9KQCnD0FQjSJQNvcQ-qRCauupp_9TDUVQ7YCA88hsWrauU6739eyikvaPH5NL6D7HoTjC9XrFFxNJdQ2t_48901tIUVR2GpaQVqLlWN3UDaoJ7IQzsGLjw79lQxur5S5mTd8oPAGcbezWnyoqxJJ2GcV5JF7RpW1fePKHgJ9IpYlfsODaKOBgdbFYVthOYFtPf197Ftzcbar3kmhO3Ss0_wNouH3jBSk4YYF2TCH_ExpQ4e2wz1jq8k7kXzS-VKrk0EQ3UNJiaLuIPwCL7S9UO8DxbNnn6loInW4_hysO_KS97VF3S8o4b9mbW1SA0OKIt1S4';
-      return data;
+        `Bearer ${createMeetingUserRes.data.accessToken}`;
     } catch (e) {
-      setStatusMessage('유효하지 않은 인증번호입니다.');
+      setStatusMessage('인증 과정에서 문제가 생겼습니다. 다시 인증해주세요.');
       setValidateStatus('error');
       resetValidateCode();
       throw Error;
@@ -128,18 +111,13 @@ const SecondPage = ({ setIsRegisteredUoslife }: Props) => {
   // 인증번호 확인
   const handleValidate = async () => {
     if (!validateCodeValue) return setStatusMessage('인증번호를 입력해주세요!');
-    const { reason } = await handleCheckVerificationCode();
-    // 만약 가입한 사용자라면 유저 정보 바로 추출
-    if (reason === 'logged_in') {
-      await handleUserInfo();
-      setIsRegisteredUoslife(false);
-      setPageState({
-        verified: true,
-      });
-      setStatusMessage('인증되었습니다.');
-      setValidateStatus('success');
-      return;
-    }
+    await handleCheckVerificationCode();
+    await handleCreateMeetingUser();
+    setPageState({
+      verified: true,
+    });
+    setStatusMessage('인증되었습니다.');
+    setValidateStatus('success');
   };
 
   //인증번호 입력 제한시간
@@ -168,15 +146,16 @@ const SecondPage = ({ setIsRegisteredUoslife }: Props) => {
       <Col gap={28}>
         <Col align={'center'} gap={12}>
           <Text
-            label={
-              '‘시대팅의 원활한 이용을 위해\n' +
-              '본인의 전화번호를 입력해주세요 (*^࿄^*)'
-            }
+            label={'학교 웹메일을 입력해 주세요 (*^࿄^*)'}
             color={'Gray500'}
             typography={'NeoTitleM'}
           />
           <Text
-            label={'인증번호 전송은 1일 5회로 제한됩니다.'}
+            label={
+              '‘시대팅X트로이카’는 시립대, 경희대, 한국외대\n' +
+              ' 학생들에게만 제공되는 서비스입니다.\n' +
+              '해당 학교 구성원임을 인증 후 신청을 진행해 주세요!'
+            }
             color={'Gray400'}
             typography={'GoThicBodyS'}
             css={css`
@@ -187,16 +166,23 @@ const SecondPage = ({ setIsRegisteredUoslife }: Props) => {
         <Col gap={12}>
           <Row gap={8}>
             <TextInput
-              placeholder={'01012345678'}
+              placeholder={'웹메일 주소 입력'}
               value={inputValue}
               status={'default'}
               isAuthentication={true}
-              maxLength={11}
-              onChange={handleInputChange}
-            />
+              onChange={handleInputChange}>
+              <Text
+                label={storedUnivType === 'KHU' ? '@khu.ac.kr' : '@hufs.ac.kr'}
+                color={'Gray400'}
+                typography={'GoThicButtonM'}
+                css={css`
+                  padding-left: 5px;
+                `}
+              />
+            </TextInput>
             <RoundButton
               onClick={getValidateNumber}
-              status={inputValue.length === 11 ? 'active' : 'disabled'}
+              status={inputValue ? 'active' : 'disabled'}
               borderType={'gray'}
               height={44}
               width={94}>
@@ -224,9 +210,7 @@ const SecondPage = ({ setIsRegisteredUoslife }: Props) => {
                 </TextInput>
                 <RoundButton
                   onClick={handleValidate}
-                  status={
-                    validateCodeValue.length === 6 ? 'active' : 'disabled'
-                  }
+                  status={validateCodeValue ? 'active' : 'disabled'}
                   borderType={'gray'}
                   height={44}
                   width={94}>
@@ -250,4 +234,4 @@ const SecondPage = ({ setIsRegisteredUoslife }: Props) => {
   );
 };
 
-export default SecondPage;
+export default ForthPage;

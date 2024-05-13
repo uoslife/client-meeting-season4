@@ -9,6 +9,7 @@ export const commonValidators: CommonValidator = {
     // page2: ({ checked }) => checked.every(Boolean),
     page2: ({ checked }) => checked.every(Boolean),
     page3: () => true, // temp
+    page4: () => true, // temp
   },
   commonBranchGatewayStep: {
     page1: ({ meetingType, checked }) =>
@@ -35,6 +36,9 @@ export const commonValiditiesAtom = atom<CommonValidites>(get => ({
     ),
     page3: commonValidators.commonUnivVerificationStep.page3(
       get(commonDataAtoms.commonUnivVerificationStep.page3),
+    ),
+    page4: commonValidators.commonUnivVerificationStep.page4(
+      get(commonDataAtoms.commonUnivVerificationStep.page4),
     ),
   },
   commonBranchGatewayStep: {

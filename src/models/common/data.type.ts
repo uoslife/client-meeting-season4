@@ -12,6 +12,9 @@ export type CommonData = {
     page3: {
       verified: boolean;
     };
+    page4: {
+      verified: boolean;
+    };
   };
   commonBranchGatewayStep: {
     page1: {

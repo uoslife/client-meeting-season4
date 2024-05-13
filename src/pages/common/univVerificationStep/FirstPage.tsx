@@ -1,79 +1,87 @@
+import Paddler from '~/components/layout/Pad';
 import Col from '~/components/layout/Col';
-import Text from '~/components/typography/Text';
 import Row from '~/components/layout/Row';
-import IconButton from '~/components/buttons/iconButton/IconButton';
 import { useAtom, useAtomValue, useSetAtom } from 'jotai';
 import { pageFinishAtom } from '~/models/funnel';
-import styled from '@emotion/styled';
+import Text from '~/components/typography/Text';
 import { css } from '@emotion/react';
-import { colors } from '~/styles/colors';
-import Paddler from '~/components/layout/Pad';
 import { commonDataAtoms } from '~/models/common/data';
 import { combinedValidatiesAtoms } from '~/models';
-
-const UNIV_SELECTION_LIST = ['KHU', 'HUFS'] as const;
+import PledgeItem from '~/components/pledgeItem/PledgeItem';
 
 const FirstPage = () => {
   const [pageState, setPageState] = useAtom(
-    commonDataAtoms.commonUnivVerificationStep.page1,
+    commonDataAtoms.commonUnivVerificationStep.page2,
   );
-  const { univType } = pageState;
-  const setIsPageFinished = useSetAtom(pageFinishAtom);
+
   const pageValidity = useAtomValue(combinedValidatiesAtoms)
-    .commonUnivVerificationStep.page1;
+    .commonUnivVerificationStep.page2;
+  const setIsPageFinished = useSetAtom(pageFinishAtom);
   setIsPageFinished(pageValidity);
 
   return (
     <Paddler top={36} right={20} bottom={24} left={20}>
-      <Col align={'center'} gap={52}>
-        <Text
-          label={'본인 학교를 선택해 주세요 (˵^࿄^˵)'}
-          color={'Gray500'}
-          typography={'NeoTitleM'}
-        />
-        <Row gap={20} justify={'center'}>
-          {UNIV_SELECTION_LIST.map((univ, index) => {
-            return (
-              <UnivSelectContainer
-                key={`${univ} - ${index}`}
-                isClicked={univType === univ}
-                onClick={() => setPageState({ univType: univ })}>
-                <IconButton
-                  iconName={`univSelection/${univ}`}
-                  format={'png'}
-                  width={univ === 'KHU' ? 96 : 170}
-                  height={130}
-                />
-                <Text
-                  label={univ === 'KHU' ? '경희대학교' : '한국외국어대학교'}
-                  color={'Gray300'}
-                  typography={'NeoBodyM'}
-                />
-              </UnivSelectContainer>
-            );
-          })}
-        </Row>
-      </Col>
+      <Row>
+        <Col gap={12} align="center">
+          <Text
+            label={'웹메일, 전화번호 보안 서약'}
+            color={'Gray500'}
+            typography={'NeoTitleM'}
+            weight={400}
+            size={18}
+          />
+          <Col align="center">
+            <Text
+              label={
+                '‘시대팅X트로이카’는 시립대, 경희대, 한국외대 학생들에게만 제공되는 서비스입니다.'
+              }
+              color={'Gray400'}
+              typography={'GoThicBodyS'}
+              weight={400}
+              size={14}
+              css={css`
+                text-align: center;
+              `}
+            />
+            <Text
+              label={
+                '웹메일 또는 전화번호를 타인에게 양도하거나 도용하는 경우, 향후 서비스 이용에 불이익을 받을 수 있습니다. '
+              }
+              color={'Primary500'}
+              typography={'GoThicBodyS'}
+              weight={400}
+              size={14}
+              css={css`
+                text-align: center;
+              `}
+            />
+          </Col>
+          <Col gap={23} align="center">
+            <PledgeItem
+              title={
+                '타인에게 나의 웹메일, 카카오톡 ID, 전화번호를 양도하지 않을게요.'
+              }
+              checked={pageState.checked[0]}
+              onClick={() =>
+                setPageState(prev => ({
+                  checked: [!prev.checked[0], prev.checked[1]],
+                }))
+              }
+            />
+            <PledgeItem
+              title="타인의 웹메일, 카카오톡 ID, 전화번호를 도용/대여하지 않을게요. "
+              checked={pageState.checked[1]}
+              onClick={() =>
+                setPageState(prev => ({
+                  checked: [prev.checked[0], !prev.checked[1]],
+                }))
+              }
+            />
+          </Col>
+        </Col>
+      </Row>
     </Paddler>
   );
 };
 
 export default FirstPage;
-
-export const UnivSelectContainer = styled.div<{ isClicked: boolean }>`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 20px;
-  padding: 10px 0;
-  width: 170px;
-
-  ${({ isClicked }) =>
-    isClicked &&
-    css`
-      border: 2px solid ${colors.Primary500};
-      border-radius: 12px;
-      background: ${colors.Primary100};
-    `}
-`;
