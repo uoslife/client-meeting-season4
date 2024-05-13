@@ -16,11 +16,14 @@ import { PaymentResponse } from '~/api/types/payment.type';
 import { PaymentAPI } from '~/api';
 import axios from 'axios';
 import { isLoggedInAtom } from '~/models/auth';
+import DropdownInput from '~/components/inputs/dropdownInput/DropdownInput';
 
 const ID = 'imp04325748';
+const PG_LIST = ['kakao', 'toss', 'welcome'];
 
 const PaymentPage = () => {
   const [userPaymentInfo, setUserPaymentInfo] = useState<PaymentResponse>();
+  const [selectedPg, setSelectedPg] = useState('');
   const navigate = useNavigate();
   const location = useLocation();
   const meetingTypeValue = useAtomValue(
@@ -55,21 +58,35 @@ const PaymentPage = () => {
     }
   };
 
+  const handlePaymentPg = (type: string) => {
+    switch (type) {
+      case 'kakao':
+        return 'kakaopay.TC0ONETIME';
+      case 'toss':
+        return 'tosspayments';
+      case 'welcome':
+        return 'welcome';
+    }
+  };
+
   const onClickPayment = async () => {
     /* 1. 가맹점 식별하기 */
     const { IMP } = window;
     IMP?.init(ID);
 
     const data: RequestPayParams = {
-      pg: 'welcome', // PG사 : https://developers.portone.io/docs/ko/tip/pg-2 참고
+      pg: handlePaymentPg(selectedPg), // PG사 : https://developers.portone.io/docs/ko/tip/pg-2 참고
       pay_method: 'card', // 결제수단
-      merchant_uid: userPaymentInfo?.merchantUid ?? '', // 주문번호
+      merchant_uid:
+        userPaymentInfo?.merchantUid ??
+        `test_uoslife_meeting_${Math.floor(Math.random() * (9650 + 1)) + 1000}`, // 주문번호
       amount: userPaymentInfo?.price ?? Number(handleProductInfo('price')!), // 결제금액
       name: '시대팅 Season4 참가비', // 주문명
-      buyer_tel: userPaymentInfo?.phoneNumber,
-      buyer_name: userPaymentInfo?.name,
+      buyer_tel: userPaymentInfo?.phoneNumber ?? '01020646347',
+      buyer_name: userPaymentInfo?.name ?? '한유민',
       m_redirect_url:
-        'https://meeting.alpha.uoslife.com/common/paymentResultStep',
+        // 'https://meeting.alpha.uoslife.com/common/paymentResultStep',
+        'http://localhost:5173/common/paymentResultStep',
     };
 
     IMP?.request_pay(data, callback);
@@ -168,6 +185,14 @@ const PaymentPage = () => {
               typography={'GoThicTitleS'}
             />
           </S.productInformationBox>
+          <DropdownInput
+            value={selectedPg}
+            setValue={pg => {
+              setSelectedPg(pg);
+            }}
+            label={'결제 수단 선택'}
+            options={PG_LIST}
+          />
         </Col>
       </Col>
       <RoundButton
