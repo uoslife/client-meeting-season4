@@ -70,6 +70,10 @@ const PaymentPage = () => {
   };
 
   const onClickPayment = async () => {
+    if (!selectedPg)
+      return toast.error('결제 수단을 선택해주세요!', {
+        duration: 2000,
+      });
     /* 1. 가맹점 식별하기 */
     const { IMP } = window;
     IMP?.init(ID);
@@ -84,9 +88,9 @@ const PaymentPage = () => {
       name: '시대팅 Season4 참가비', // 주문명
       buyer_tel: userPaymentInfo?.phoneNumber ?? '01020646347',
       buyer_name: userPaymentInfo?.name ?? '한유민',
-      m_redirect_url:
-        // 'https://meeting.alpha.uoslife.com/common/paymentResultStep',
-        'http://localhost:5173/common/paymentResultStep',
+      m_redirect_url: import.meta.env.DEV
+        ? 'http://localhost:5173/common/paymentResultStep'
+        : 'https://meeting.alpha.uoslife.com/common/paymentResultStep',
     };
 
     IMP?.request_pay(data, callback);
