@@ -96,7 +96,7 @@ const PaymentPage = () => {
       m_redirect_url: import.meta.env.DEV
         ? // ? 'http://192.168.5.139:5173/common/paymentResultStep'
           'http://localhost:5173/common/paymentResultStep'
-        : 'https://meeting.uoslife.com/',
+        : 'https://meeting.uoslife.com/common/paymentResultStep',
     };
 
     IMP?.request_pay(data, callback);
@@ -105,11 +105,11 @@ const PaymentPage = () => {
   //pc 버전 콜백
   function callback(response: RequestPayResponse) {
     const { error_code, error_msg } = response;
-    console.log('pc');
+    console.log(response);
     // pc에서 결제도중 취소하는 경우
     if (
       error_code === 'F400' &&
-      error_msg === '사용자가 결제를 취소하였습니다'
+      error_msg?.includes('사용자가 결제를 취소하였습니다')
     ) {
       return toast.error('결제를 취소하셨습니다!', {
         duration: 1500,
