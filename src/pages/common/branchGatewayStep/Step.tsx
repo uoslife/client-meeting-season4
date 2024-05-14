@@ -40,7 +40,7 @@ const CommonBranchGatewayStep = () => {
   return (
     <PageLayout>
       <PageLayout.Header
-        title={'시대팅 생성하기'}
+        title={'시대팅 종류 선택'}
         isProgress={false}
         showGuidePopUp={true}
       />

@@ -37,16 +37,16 @@ const GroupLeaderCreateStep = () => {
 
   const onNext = async () => {
     // 팅 만들기
-    // if (currentPage === 1) {
-    //   try {
-    //     const res = await createTeam();
-    //     setPageState(prev => ({ ...prev, joinCode: res.data.code }));
-    //   } catch (error: unknown) {
-    //     if (axios.isAxiosError(error) && error.response?.data.code) {
-    //       toast.success('이미 팅을 만드셨어요!');
-    //     }
-    //   }
-    // }
+    if (currentPage === 1) {
+      try {
+        const res = await createTeam();
+        setPageState(prev => ({ ...prev, joinCode: res.data.code }));
+      } catch (error: unknown) {
+        if (axios.isAxiosError(error) && error.response?.data.code) {
+          toast.success('이미 팅을 만드셨어요!');
+        }
+      }
+    }
     PageHandler.onNext();
   };
 

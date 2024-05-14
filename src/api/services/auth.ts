@@ -49,6 +49,10 @@ const createUoslifeUser = async <T = CreateUoslifeUserResponse>(
   data: CreateUoslifeUserRequest,
 ) => API.post<T>(`${API_URL.ACCOUNT}/v1/users`, data);
 
+const updateUoslifeUserName = async <T = CreateUoslifeUserResponse>(
+  data: CreateUoslifeUserRequest,
+) => API.patch<T>(`${API_URL.ACCOUNT}/v1/users/me`, data);
+
 const getUoslifeUserInfo = async <T = GetUoslifeUserInfoResponse>() =>
   API.get<T>(`${API_URL.ACCOUNT}/v1/users/me`);
 export default {
@@ -60,4 +64,5 @@ export default {
   signInUosUser,
   createUoslifeUser,
   getUoslifeUserInfo,
+  updateUoslifeUserName,
 };
