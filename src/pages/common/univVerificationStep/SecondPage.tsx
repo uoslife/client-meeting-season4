@@ -14,6 +14,7 @@ import { commonDataAtoms } from '~/models/common/data';
 import { AuthAPI, MeetingAPI, PaymentAPI } from '~/api';
 import API from '~/api/core';
 import { isPaymentFinishedAtom } from '~/models/payment';
+import { isLoggedInAtom } from '~/models/auth';
 
 type Props = {
   setIsRegisteredUoslife: React.Dispatch<boolean>;
@@ -26,6 +27,7 @@ const SecondPage = ({ setIsRegisteredUoslife }: Props) => {
     commonDataAtoms.commonUnivVerificationStep.page3,
   );
   const setIsPageFinished = useSetAtom(pageFinishAtom);
+  const setIsLoggedIn = useSetAtom(isLoggedInAtom);
   setIsPageFinished(pageValidity);
   const setIsPaymentFinishedValue = useSetAtom(isPaymentFinishedAtom);
   const { inputValue, handleInputChange } = useInput('');
@@ -133,6 +135,7 @@ const SecondPage = ({ setIsRegisteredUoslife }: Props) => {
     if (reason === 'logged_in') {
       await handleUserInfo();
       setIsRegisteredUoslife(false);
+      setIsLoggedIn(true);
       setPageState({
         verified: true,
       });

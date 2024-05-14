@@ -61,7 +61,7 @@ const PaymentPage = () => {
     IMP?.init(ID);
 
     const data: RequestPayParams = {
-      pg: 'welcome', // PG사 : https://developers.portone.io/docs/ko/tip/pg-2 참고
+      pg: 'welcome.IMP2000029', // PG사 : https://developers.portone.io/docs/ko/tip/pg-2 참고
       pay_method: 'card', // 결제수단
       merchant_uid: userPaymentInfo?.merchantUid ?? '', // 주문번호
       amount: userPaymentInfo?.price ?? Number(handleProductInfo('price')!), // 결제금액

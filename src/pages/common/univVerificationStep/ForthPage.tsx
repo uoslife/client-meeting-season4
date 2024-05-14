@@ -13,6 +13,7 @@ import { combinedValidatiesAtoms } from '~/models';
 import { commonDataAtoms } from '~/models/common/data';
 import { AuthAPI, MeetingAPI } from '~/api';
 import API from '~/api/core';
+import { isLoggedInAtom } from '~/models/auth';
 
 const ForthPage = () => {
   const storedUnivType = useAtomValue(
@@ -25,6 +26,7 @@ const ForthPage = () => {
   );
   const setIsPageFinished = useSetAtom(pageFinishAtom);
   setIsPageFinished(pageValidity);
+  const setIsLoggedIn = useSetAtom(isLoggedInAtom);
 
   const { inputValue, handleInputChange } = useInput('');
   const {
@@ -69,8 +71,22 @@ const ForthPage = () => {
   const getValidateNumber = async () => {
     if (inputValue) setTryValidate(true);
     await AuthAPI.getVerificationCodeByEmail({
-      email: inputValue,
+      email: `${inputValue}@${storedUnivType === 'HUFS' ? 'hufs' : 'khu'}.ac.kr`,
     });
+  };
+
+  const handleCreateUoslifeUser = async () => {
+    try {
+      const { data } = await AuthAPI.createUoslifeUser({
+        nickname: `${inputValue}@${storedUnivType === 'HUFS' ? 'hufs' : 'khu'}.ac.kr`,
+      });
+      API.defaults.headers.common['Authorization'] =
+        `Bearer ${data.accessToken}`;
+    } catch (e) {
+      await AuthAPI.updateUoslifeUserName({
+        nickname: `${inputValue}@${storedUnivType === 'HUFS' ? 'hufs' : 'khu'}.ac.kr`,
+      });
+    }
   };
 
   const handleCheckVerificationCode = async () => {
@@ -85,6 +101,11 @@ const ForthPage = () => {
       resetValidateCode();
       throw Error;
     }
+  };
+
+  const handleGetEmailCode = async () => {
+    await handleCreateUoslifeUser();
+    await getValidateNumber();
   };
 
   const handleCreateMeetingUser = async () => {
@@ -116,6 +137,7 @@ const ForthPage = () => {
     setPageState({
       verified: true,
     });
+    setIsLoggedIn(true);
     setStatusMessage('인증되었습니다.');
     setValidateStatus('success');
   };
@@ -181,7 +203,7 @@ const ForthPage = () => {
               />
             </TextInput>
             <RoundButton
-              onClick={getValidateNumber}
+              onClick={handleGetEmailCode}
               status={inputValue ? 'active' : 'disabled'}
               borderType={'gray'}
               height={44}
