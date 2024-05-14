@@ -72,11 +72,11 @@ const GroupLeaderGroupInformationStep = () => {
   const { updateInfo, updateMessage } = useApi();
 
   const onNext = async () => {
-    if (currentPage === 5) {
-      await updateInfo();
-    } else if (currentPage === 6) {
-      await updateMessage();
-    }
+    // if (currentPage === 5) {
+    //   await updateInfo();
+    // } else if (currentPage === 6) {
+    //   await updateMessage();
+    // }
     PageHandler.onNext();
   };
 

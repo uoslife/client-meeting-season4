@@ -21,6 +21,7 @@ import uoslifeBridge from '~/bridge';
 import API from '~/api/core';
 import { groupDataAtoms } from '~/models/group/data';
 import CleanUpModal from '~/components/modal/cleanUpModal/CleanUpModal';
+import { isUseFramerMotionAtom } from '~/models/common/data';
 
 const CommonLandingStep = () => {
   const isUoslifeUser = useAtomValue(isUosUserAtom);
@@ -97,6 +98,7 @@ const TopCardComponent = () => {
 
 const BottomCardComponent = () => {
   const navigate = useTypeSafeNavigate();
+  const setIsUseFramerMotion = useSetAtom(isUseFramerMotionAtom);
   const [businessToggleInfo, setBusinessToggleInfo] = useState(false);
   const [isTeamMember, setIsTeamMember] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -130,11 +132,7 @@ const BottomCardComponent = () => {
     setNavigateNextStep(true);
     // 시대생에서 접근한 유저는 이메일 인증 없이 바로 미팅 신청 로직
     if (isUosUserValue) return navigate('/common/branchGatewayStep');
-    navigate(
-      isLoggedInValue
-        ? '/common/branchGatewayStep'
-        : '/common/univVerificationStep',
-    );
+    navigate('/common/branchGatewayStep');
   };
 
   // 신청 정보 확인하기 버튼
@@ -168,6 +166,7 @@ const BottomCardComponent = () => {
   };
 
   useEffect(() => {
+    setIsUseFramerMotion(true);
     checkUosUser().finally(handlePaymentResult);
   }, [isLoggedInValue]);
 
@@ -221,7 +220,7 @@ const BottomCardComponent = () => {
         </QuestionLabel>
         <Row>
           <Text
-            label={'4/24(월) - 4/28(수)'}
+            label={'5/23(목) - 5/26(일)'}
             typography="NeoBodyL"
             color="Secondary900"
           />
@@ -285,6 +284,11 @@ const BottomCardComponent = () => {
         </Row>
         <S.BusinessInfo businessToggleInfo={businessToggleInfo}>
           <Col gap={2}>
+            <Text
+              label={'상호명: 유오에스라이프'}
+              color={'Secondary700'}
+              typography={'PFLabelS'}
+            />
             <Text
               label={'대표자명: 한유민'}
               color={'Secondary700'}

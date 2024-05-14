@@ -63,8 +63,12 @@ const SecondPage = ({ isModal, setIsModal, onPrev }: SecondPageProps) => {
         }
       });
   };
+  const setIsPageFinished = useSetAtom(pageFinishAtom);
+  const pageValidity = useAtomValue(combinedValidatiesAtoms)
+    .groupLeaderGroupCreateStep.page2;
 
   useEffect(() => {
+    setIsPageFinished(true);
     if (enteredMemberNumber === 3) return;
     handleUserList();
     const interval = setInterval(() => {
@@ -74,11 +78,6 @@ const SecondPage = ({ isModal, setIsModal, onPrev }: SecondPageProps) => {
       clearInterval(interval);
     };
   }, [setPage2State]);
-
-  const setIsPageFinished = useSetAtom(pageFinishAtom);
-  const pageValidity = useAtomValue(combinedValidatiesAtoms)
-    .groupLeaderGroupCreateStep.page2;
-  setIsPageFinished(pageValidity);
 
   return (
     <>

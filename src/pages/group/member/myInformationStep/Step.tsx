@@ -58,9 +58,9 @@ const GroupMemberMyInformationStep = () => {
   const { updateUserInfo } = useApi();
 
   const onNext = async () => {
-    if (currentPage === 2) {
-      await updateUserInfo();
-    }
+    // if (currentPage === 2) {
+    //   await updateUserInfo();
+    // }
     PageHandler.onNext();
   };
 
