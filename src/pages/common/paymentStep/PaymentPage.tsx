@@ -200,7 +200,7 @@ const PaymentPage = () => {
             setValue={pg => {
               setSelectedPg(pg);
             }}
-            label={'결제 수단 선택'}
+            label={'결제수단 선택'}
             options={PG_LIST}
           />
         </Col>
