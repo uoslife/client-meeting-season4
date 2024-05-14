@@ -36,7 +36,7 @@ const GroupLeaderPreferStep = () => {
   };
 
   const onNext = async () => {
-    await updatePrefer();
+    // await updatePrefer();
     PageHandler.onNext();
   };
 

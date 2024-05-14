@@ -7,7 +7,7 @@ import Text from '~/components/typography/Text';
 import RoundButton from '~/components/buttons/roundButton/RoundButton';
 import styled from '@emotion/styled';
 import { colors } from '~/styles/colors';
-import { commonDataAtoms } from '~/models/common/data';
+import { commonDataAtoms, isUseFramerMotionAtom } from '~/models/common/data';
 import { useAtomValue } from 'jotai';
 import { personalDataAtoms } from '~/models/personal/data';
 import { css } from '@emotion/react';
@@ -17,6 +17,7 @@ import { PaymentAPI } from '~/api';
 import axios from 'axios';
 import { isLoggedInAtom } from '~/models/auth';
 import DropdownInput from '~/components/inputs/dropdownInput/DropdownInput';
+import { useSetAtom } from 'jotai/index';
 
 const ID = 'imp04325748';
 const PG_LIST = ['kakao', 'toss', 'welcome'];
@@ -29,13 +30,17 @@ const PaymentPage = () => {
   const meetingTypeValue = useAtomValue(
     commonDataAtoms.commonBranchGatewayStep.page1,
   );
-  const { gender: personalGender } = useAtomValue(
+  const { gender: personalGender, name } = useAtomValue(
     personalDataAtoms.personalMyInformationStep.page1,
+  );
+  const { phone } = useAtomValue(
+    personalDataAtoms.personalMyInformationStep.page2,
   );
   const { gender: groupGender } = useAtomValue(
     groupDataAtoms.groupLeaderMyInformationStep.page1,
   );
   const logInValue = useAtomValue(isLoggedInAtom);
+  const setIsUseFramerMotion = useSetAtom(isUseFramerMotionAtom);
 
   const handleProductInfo = (type: string) => {
     if (meetingTypeValue.meetingType === 'group' && groupGender === 'FEMALE') {
@@ -48,13 +53,13 @@ const PaymentPage = () => {
       meetingTypeValue.meetingType === 'personal' &&
       personalGender === 'FEMALE'
     ) {
-      return type === 'name' ? '1:1 미팅(여자)' : 3500;
+      return type === 'name' ? '1:1 미팅(여자)' : 2500;
     }
     if (
       meetingTypeValue.meetingType === 'personal' &&
       personalGender === 'MALE'
     ) {
-      return type === 'name' ? '1:1 미팅(남자)' : 4000;
+      return type === 'name' ? '1:1 미팅(남자)' : 2500;
     }
   };
 
@@ -83,14 +88,15 @@ const PaymentPage = () => {
       pay_method: 'card', // 결제수단
       merchant_uid:
         userPaymentInfo?.merchantUid ??
-        `test_uoslife_meeting_${Math.floor(Math.random() * (9650 + 1)) + 1000}`, // 주문번호
+        `test_uoslife_meeting4_${Math.floor(Math.random() * (9650 + 1)) + 1000}`, // 주문번호
       amount: userPaymentInfo?.price ?? Number(handleProductInfo('price')!), // 결제금액
       name: '시대팅 Season4 참가비', // 주문명
-      buyer_tel: userPaymentInfo?.phoneNumber ?? '01020646347',
-      buyer_name: userPaymentInfo?.name ?? '한유민',
+      buyer_tel: userPaymentInfo?.phoneNumber ?? phone,
+      buyer_name: userPaymentInfo?.name ?? name,
       m_redirect_url: import.meta.env.DEV
-        ? 'http://localhost:5173/common/paymentResultStep'
-        : 'https://meeting.alpha.uoslife.com/common/paymentResultStep',
+        ? // ? 'http://192.168.5.139:5173/common/paymentResultStep'
+          'http://localhost:5173/common/paymentResultStep'
+        : 'https://meeting.uoslife.com/',
     };
 
     IMP?.request_pay(data, callback);

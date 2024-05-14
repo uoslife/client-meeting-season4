@@ -133,9 +133,9 @@ const PersonalMyInformationStep = () => {
   const { updateUser } = useApi();
 
   const onNext = async () => {
-    if (currentPage === 7) {
-      await updateUser();
-    }
+    // if (currentPage === 7) {
+    //   await updateUser();
+    // }
 
     PageHandler.onNext();
   };

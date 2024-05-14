@@ -9,9 +9,11 @@ import { navigateNextStepAtom } from '~/models/funnel';
 import { useAtomValue } from 'jotai';
 import { useEffect } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
+import { isUseFramerMotionAtom } from '~/models/common/data';
 
 const PageTemplate = ({ children }: { children: React.ReactNode }) => {
   const navigateNextStep = useAtomValue(navigateNextStepAtom);
+  const isUseFramerMotion = useAtomValue(isUseFramerMotionAtom);
 
   const handleEvent = () => {
     toast.error('하단 화살표로 이동해주세요!', {
@@ -29,7 +31,7 @@ const PageTemplate = ({ children }: { children: React.ReactNode }) => {
     };
   }, []);
 
-  return (
+  return isUseFramerMotion ? (
     <motion.div
       css={css`
         height: 100dvh;
@@ -53,6 +55,19 @@ const PageTemplate = ({ children }: { children: React.ReactNode }) => {
       {children}
       <Toaster />
     </motion.div>
+  ) : (
+    <div
+      css={css`
+        height: 100dvh;
+        width: 100vw;
+        display: flex;
+        flex-direction: column;
+
+        align-items: center;
+        background-color: ${colors.Primary500};
+      `}>
+      {children}
+    </div>
   );
 };
 

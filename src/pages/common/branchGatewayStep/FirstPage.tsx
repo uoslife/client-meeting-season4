@@ -15,12 +15,8 @@ import { combinedValidatiesAtoms } from '~/models';
 
 const MEETING_TYPE_BUTTONS = [
   {
-    label: '1:1 미팅',
+    label: '미팅 생성하기',
     type: 'personal',
-  },
-  {
-    label: '3:3 미팅',
-    type: 'group',
   },
 ] as const;
 
@@ -45,20 +41,9 @@ const FirstPage = () => {
     <Col align={'center'} gap={20} padding={'55px 20px'}>
       <Col gap={12} align={'center'}>
         <Text
-          label={'참여하고자 하는 미팅 종류를 선택해주세요'}
+          label={'미팅 생성을 위해 약관을 체크해주세요.'}
           color={'Gray500'}
           typography={'NeoTitleM'}
-        />
-        <Text
-          label={
-            '서울시립대학교 구성원만 신청 가능하며\n' +
-            '3:3 미팅의 경우 함께 나갈 인원을 모아야 신청이 가능해요.'
-          }
-          color={'Gray400'}
-          typography={'GoThicBodyS'}
-          css={css`
-            text-align: center;
-          `}
         />
       </Col>
       <Paddler top={8}>

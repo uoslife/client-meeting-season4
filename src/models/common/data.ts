@@ -1,5 +1,6 @@
 import { CommonData, CommonDataAtoms } from './data.type';
 import { atomWithStorage } from 'jotai/utils';
+import { atom } from 'jotai/index';
 
 // initial values
 export const commonInitialData: CommonData = {
@@ -88,3 +89,6 @@ export const commonDataAtoms: CommonDataAtoms = {
     ),
   },
 };
+
+export const isUseFramerMotionAtom = atom(true);
+isUseFramerMotionAtom.debugLabel = 'isLoggedIn';
