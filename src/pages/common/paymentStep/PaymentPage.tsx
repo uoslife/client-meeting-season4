@@ -7,7 +7,7 @@ import Text from '~/components/typography/Text';
 import RoundButton from '~/components/buttons/roundButton/RoundButton';
 import styled from '@emotion/styled';
 import { colors } from '~/styles/colors';
-import { commonDataAtoms, isUseFramerMotionAtom } from '~/models/common/data';
+import { commonDataAtoms } from '~/models/common/data';
 import { useAtomValue } from 'jotai';
 import { personalDataAtoms } from '~/models/personal/data';
 import { css } from '@emotion/react';
@@ -16,87 +16,61 @@ import { PaymentResponse } from '~/api/types/payment.type';
 import { PaymentAPI } from '~/api';
 import axios from 'axios';
 import { isLoggedInAtom } from '~/models/auth';
-import DropdownInput from '~/components/inputs/dropdownInput/DropdownInput';
-import { useSetAtom } from 'jotai/index';
 
 const ID = 'imp04325748';
-const PG_LIST = ['kakao', 'toss', 'welcome'];
 
 const PaymentPage = () => {
   const [userPaymentInfo, setUserPaymentInfo] = useState<PaymentResponse>();
-  const [selectedPg, setSelectedPg] = useState('');
   const navigate = useNavigate();
   const location = useLocation();
   const meetingTypeValue = useAtomValue(
     commonDataAtoms.commonBranchGatewayStep.page1,
   );
-  const { gender: personalGender, name } = useAtomValue(
+  const { gender: personalGender } = useAtomValue(
     personalDataAtoms.personalMyInformationStep.page1,
-  );
-  const { phone } = useAtomValue(
-    personalDataAtoms.personalMyInformationStep.page2,
   );
   const { gender: groupGender } = useAtomValue(
     groupDataAtoms.groupLeaderMyInformationStep.page1,
   );
   const logInValue = useAtomValue(isLoggedInAtom);
-  const setIsUseFramerMotion = useSetAtom(isUseFramerMotionAtom);
 
   const handleProductInfo = (type: string) => {
     if (meetingTypeValue.meetingType === 'group' && groupGender === 'FEMALE') {
-      return type === 'name' ? '3:3 미팅(여자)' : 10500;
+      return type === 'name' ? '3:3 미팅(여자)' : 6000;
     }
     if (meetingTypeValue.meetingType === 'group' && groupGender === 'MALE') {
-      return type === 'name' ? '3:3 미팅(남자)' : 12000;
+      return type === 'name' ? '3:3 미팅(남자)' : 6000;
     }
     if (
       meetingTypeValue.meetingType === 'personal' &&
       personalGender === 'FEMALE'
     ) {
-      return type === 'name' ? '1:1 미팅(여자)' : 2500;
+      return type === 'name' ? '1:1 미팅(여자)' : 2000;
     }
     if (
       meetingTypeValue.meetingType === 'personal' &&
       personalGender === 'MALE'
     ) {
-      return type === 'name' ? '1:1 미팅(남자)' : 2500;
-    }
-  };
-
-  const handlePaymentPg = (type: string) => {
-    switch (type) {
-      case 'kakao':
-        return 'kakaopay.TC0ONETIME';
-      case 'toss':
-        return 'tosspayments';
-      case 'welcome':
-        return 'welcome';
+      return type === 'name' ? '1:1 미팅(남자)' : 2000;
     }
   };
 
   const onClickPayment = async () => {
-    if (!selectedPg)
-      return toast.error('결제 수단을 선택해주세요!', {
-        duration: 2000,
-      });
     /* 1. 가맹점 식별하기 */
     const { IMP } = window;
     IMP?.init(ID);
 
     const data: RequestPayParams = {
-      pg: handlePaymentPg(selectedPg), // PG사 : https://developers.portone.io/docs/ko/tip/pg-2 참고
+      pg: 'welcome', // PG사 : https://developers.portone.io/docs/ko/tip/pg-2 참고
       pay_method: 'card', // 결제수단
-      merchant_uid:
-        userPaymentInfo?.merchantUid ??
-        `test_uoslife_meeting4_${Math.floor(Math.random() * (9650 + 1)) + 1000}`, // 주문번호
+      merchant_uid: userPaymentInfo?.merchantUid ?? '', // 주문번호
       amount: userPaymentInfo?.price ?? Number(handleProductInfo('price')!), // 결제금액
       name: '시대팅 Season4 참가비', // 주문명
-      buyer_tel: userPaymentInfo?.phoneNumber ?? phone,
-      buyer_name: userPaymentInfo?.name ?? name,
+      buyer_tel: userPaymentInfo?.phoneNumber,
+      buyer_name: userPaymentInfo?.name,
       m_redirect_url: import.meta.env.DEV
-        ? // ? 'http://192.168.5.139:5173/common/paymentResultStep'
-          'http://localhost:5173/common/paymentResultStep'
-        : 'https://meeting.uoslife.com/common/paymentResultStep',
+        ? 'http://localhost:5173/common/paymentResultStep'
+        : 'https://meeting.alpha.uoslife.com/common/paymentResultStep',
     };
 
     IMP?.request_pay(data, callback);
@@ -105,11 +79,11 @@ const PaymentPage = () => {
   //pc 버전 콜백
   function callback(response: RequestPayResponse) {
     const { error_code, error_msg } = response;
-    console.log(response);
+    console.log('pc');
     // pc에서 결제도중 취소하는 경우
     if (
       error_code === 'F400' &&
-      error_msg?.includes('사용자가 결제를 취소하였습니다')
+      error_msg === '사용자가 결제를 취소하였습니다'
     ) {
       return toast.error('결제를 취소하셨습니다!', {
         duration: 1500,
@@ -195,14 +169,6 @@ const PaymentPage = () => {
               typography={'GoThicTitleS'}
             />
           </S.productInformationBox>
-          <DropdownInput
-            value={selectedPg}
-            setValue={pg => {
-              setSelectedPg(pg);
-            }}
-            label={'결제수단 선택'}
-            options={PG_LIST}
-          />
         </Col>
       </Col>
       <RoundButton

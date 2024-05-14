@@ -27,25 +27,21 @@ const CommonPaymentResultStep = () => {
   const setIsUseFramerMotion = useSetAtom(isUseFramerMotionAtom);
 
   const handleCheckPaymentResult = async () => {
-    // await PaymentAPI.checkPayment(paymentResult Value.imp_uid as string)
-    //   .then(() =>
-    //     setTimeout(() => {
-    //       setPaymentStatus('success');
-    //       setIsPaymentFinishedAtom(true);
-    //     }, 1500),
-    //   )
-    //   .catch(() => {
-    //     setPaymentStatus('fail');
-    //   });
-    setTimeout(() => {
-      setIsUseFramerMotion(true);
-      setPaymentStatus('success');
-    }, 1500);
+    await PaymentAPI.checkPayment(paymentResultValue.imp_uid as string)
+      .then(() =>
+        setTimeout(() => {
+          setPaymentStatus('success');
+          setIsPaymentFinishedAtom(true);
+          setIsUseFramerMotion(true);
+        }, 1500),
+      )
+      .catch(() => {
+        setPaymentStatus('fail');
+      });
   };
 
   useEffect(() => {
     setIsUseFramerMotion(false);
-    console.log(query);
     // pc에서 결제가 이미 승인된 경우
     if (locationState?.error_msg?.includes('이미 승인 완료')) {
       toast.success('이미 승인된 결제입니다!', {
@@ -54,7 +50,7 @@ const CommonPaymentResultStep = () => {
       return setPaymentStatus('success');
     }
     // 모바일에서 결제도중 취소하는 경우
-    if (query?.error_msg?.includes('사용자가 결제를 취소하였습니다')) {
+    if (query?.error_msg === '[01] 사용자가 결제를 취소 하였습니다.') {
       return navigate('/common/paymentStep', {
         state: {
           cancelToast: true,
@@ -66,9 +62,6 @@ const CommonPaymentResultStep = () => {
       setPaymentStatus('fail');
       return;
     }
-    setTimeout(() => {
-      setPaymentStatus('success');
-    }, 3500);
     if (logInValue) handleCheckPaymentResult();
   }, [paymentResultValue, logInValue]);
 

@@ -42,28 +42,28 @@ const handleAuthSilentRefresh = async (originRequest: AxiosError) => {
   }
 };
 
-// API.interceptors.response.use(
-//   (res: AxiosResponse) => res,
-//   async (error: AxiosError) => {
-//     const { code } = error.response?.data as IErrorResponseData;
-//     if (code === 'C01') {
-//       toast.error('이전에 답하지 않은 질문은 없나 확인해주세요!', {
-//         duration: 2000,
-//       });
-//     }
-//     if (code === 'M02') {
-//       toast.error(
-//         '이미 신청을 하신적이 있나요?\n' +
-//           '아니라면 우측 상단 버튼으로 다시 신청해주세요!',
-//         {
-//           icon: '🥲',
-//           duration: 3500,
-//         },
-//       );
-//     }
-//     await handleAuthSilentRefresh(error);
-//     return Promise.reject(error);
-//   },
-// );
+API.interceptors.response.use(
+  (res: AxiosResponse) => res,
+  async (error: AxiosError) => {
+    const { code } = error.response?.data as IErrorResponseData;
+    if (code === 'C01') {
+      toast.error('이전에 답하지 않은 질문은 없나 확인해주세요!', {
+        duration: 2000,
+      });
+    }
+    if (code === 'M02') {
+      toast.error(
+        '이미 신청을 하신적이 있나요?\n' +
+          '아니라면 우측 상단 버튼으로 다시 신청해주세요!',
+        {
+          icon: '🥲',
+          duration: 3500,
+        },
+      );
+    }
+    await handleAuthSilentRefresh(error);
+    return Promise.reject(error);
+  },
+);
 
 export default API;
