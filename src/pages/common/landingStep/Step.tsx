@@ -25,12 +25,9 @@ import { isUseFramerMotionAtom } from '~/models/common/data';
 
 const CommonLandingStep = () => {
   const isUoslifeUser = useAtomValue(isUosUserAtom);
-  //@ts-expect-error: window has ReactNativeWebview
-  const isUoslifeWebView = !!window.ReactNativeWebView;
-
   return (
     <PageLayout>
-      {isUoslifeWebView && isUoslifeUser ? (
+      {isUoslifeUser ? (
         <S.HeaderContainer>
           <Row justify={'space-between'} align={'center'}>
             <IconButton
@@ -108,6 +105,7 @@ const BottomCardComponent = () => {
   const setNavigateNextStep = useSetAtom(navigateNextStepAtom);
   const setIsUseFramerMotion = useSetAtom(isUseFramerMotionAtom);
   const [isLoggedInValue, setIsLoggedInValue] = useAtom(isLoggedInAtom);
+  const isUoslifeUser = useAtomValue(isUosUserAtom);
   const [isPaymentFinishedValue, setIsPaymentFinishedValue] = useAtom(
     isPaymentFinishedAtom,
   );
@@ -134,7 +132,7 @@ const BottomCardComponent = () => {
   const handleOnClickPrimary = () => {
     setNavigateNextStep(true);
     // 시대생에서 접근한 유저는 이메일 인증 없이 바로 미팅 신청 로직
-    if (isUosUserValue) return navigate('/common/branchGatewayStep');
+    if (isUoslifeUser) return navigate('/common/branchGatewayStep');
     navigate(
       isLoggedInValue
         ? '/common/branchGatewayStep'
@@ -192,7 +190,7 @@ const BottomCardComponent = () => {
       setIsTeamMember(false);
       setIsPaymentFinishedValue(false);
     } catch (e) {
-      console.log(e);
+      throw Error;
     }
   };
 

@@ -1,9 +1,10 @@
 import { atom } from 'jotai';
-import uoslifeBridge from '~/bridge';
 
 export const isLoggedInAtom = atom(false);
 isLoggedInAtom.debugLabel = 'isLoggedIn';
 
-const isUoslifeBridgeInstalled = uoslifeBridge.driver.isInstalled;
-export const isUosUserAtom = atom(isUoslifeBridgeInstalled);
+//@ts-expect-error: window has ReactNativeWebview
+const isFromUoslifeWebView = !!window.ReactNativeWebView;
+
+export const isUosUserAtom = atom(isFromUoslifeWebView);
 isUosUserAtom.debugLabel = 'isUosUser';
