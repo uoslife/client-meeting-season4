@@ -32,8 +32,8 @@ const SecondPage = () => {
     setPageState(prev => ({
       ...prev,
       phone: res.phone,
-      major: res.departmentName,
-      studentType: res.degree as InfoOptions['studentType'],
+      major: res.identity.department,
+      studentType: res.identity.status as InfoOptions['studentType'],
     }));
   };
 

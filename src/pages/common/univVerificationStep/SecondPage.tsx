@@ -116,8 +116,13 @@ const SecondPage = ({ setIsRegisteredUoslife }: Props) => {
       // 인증번호 성공 시, 토큰 헤더 주입
       API.defaults.headers.common['Authorization'] =
         `Bearer ${data.accessToken}`;
-      // API.defaults.headers.common['Authorization'] =
-      //   'Bearer eyJhbGciOiJSU0FTU0FfUFNTX1NIQV81MTIiLCJraWQiOiJ1b3NsaWZlL2FjY291bnQiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJ1b3NsaWZlL2FjY291bnQiLCJhdWQiOiJ1b3NsaWZlL2FjY291bnQvYWNjZXNzX3Rva2VuIiwic3ViIjoiMTEiLCJuYmYiOjE3MTUyMzQwMTUsImlhdCI6MTcxNTIzNDAxNSwiZXhwIjoxNzE1MjM3NjE1fQ.bByZEIewGXBl_qc6svyTgmpMfxRZgl9DuWc9gkKn8aJMffi51osYzKY1YKEyyG5328B7c5GoklJaMfL35h-vNEfMS4vkk7t0wPohZJxgGqgSl2wt1D64mPrYS4VO4iT2oual86fm4Ap6mKMS8WTQk7WiiiYUJPC5BQULudrQjgMHTS2zX_k_OGhzHC3f8MOHBKJiP2-C5rgAYlvTBTpeJ6UyHm5GTnGFaHMf2-dGnbmSeXo2HUXfPy0SMkZEKe_9zELKqARdlwX1p40P3Vodq4LQz0NpotqRiEz_0Cr_xQH0a6JsQZ82HBpYzUW6vSFBtQrhOrAGbO___y2cyJbdZ86u89w9UWQ5Rr3veq9KQCnD0FQjSJQNvcQ-qRCauupp_9TDUVQ7YCA88hsWrauU6739eyikvaPH5NL6D7HoTjC9XrFFxNJdQ2t_48901tIUVR2GpaQVqLlWN3UDaoJ7IQzsGLjw79lQxur5S5mTd8oPAGcbezWnyoqxJJ2GcV5JF7RpW1fePKHgJ9IpYlfsODaKOBgdbFYVthOYFtPf197Ftzcbar3kmhO3Ss0_wNouH3jBSk4YYF2TCH_ExpQ4e2wz1jq8k7kXzS-VKrk0EQ3UNJiaLuIPwCL7S9UO8DxbNnn6loInW4_hysO_KS97VF3S8o4b9mbW1SA0OKIt1S4';
+
+      setIsLoggedIn(true);
+      setPageState({
+        verified: true,
+      });
+      setStatusMessage('인증되었습니다.');
+      setValidateStatus('success');
       return data;
     } catch (e) {
       setStatusMessage('유효하지 않은 인증번호입니다.');
@@ -135,12 +140,6 @@ const SecondPage = ({ setIsRegisteredUoslife }: Props) => {
     if (reason === 'logged_in') {
       await handleUserInfo();
       setIsRegisteredUoslife(false);
-      setIsLoggedIn(true);
-      setPageState({
-        verified: true,
-      });
-      setStatusMessage('인증되었습니다.');
-      setValidateStatus('success');
       return;
     }
   };
