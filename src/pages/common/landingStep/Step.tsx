@@ -25,13 +25,12 @@ import { isUseFramerMotionAtom } from '~/models/common/data';
 
 const CommonLandingStep = () => {
   const isUoslifeUser = useAtomValue(isUosUserAtom);
+  //@ts-expect-error: window has ReactNativeWebview
+  const isUoslifeWebView = !!window.ReactNativeWebView;
 
-  useEffect(() => {
-    console.log(uoslifeBridge.driver.isInstalled);
-  }, []);
   return (
     <PageLayout>
-      {isUoslifeUser ? (
+      {isUoslifeWebView && isUoslifeUser ? (
         <S.HeaderContainer>
           <Row justify={'space-between'} align={'center'}>
             <IconButton
@@ -127,7 +126,7 @@ const BottomCardComponent = () => {
         `Bearer ${data.accessToken}`;
       setIsLoggedInValue(true);
     } catch (error) {
-      console.log('error');
+      throw Error;
     }
   };
 
