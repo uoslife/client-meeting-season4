@@ -110,6 +110,8 @@ const BottomCardComponent = () => {
     isPaymentFinishedAtom,
   );
   const { isLeader } = useAtomValue(groupDataAtoms.groupRoleSelectStep.page1);
+
+  // 시대생인지 확인
   const checkUosUser = async () => {
     try {
       if (!isUosUserValue) return; // 시대생 앱에서 접근한 경우
@@ -324,8 +326,10 @@ const BottomCardComponent = () => {
   );
 };
 const FooterIconAreaComponent = () => {
+  const isUoslifeUser = useAtomValue(isUosUserAtom);
+
   return (
-    <Col>
+    <Col padding={`0 0 ${isUoslifeUser ? 14 : 7}px 0`}>
       <Row align={'center'} gap={20}>
         <S.SocialLinkContainer href={SOCIAL_LINK.Kakaotalk} target="_blank">
           <Row justify={'flex-end'}>
