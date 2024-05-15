@@ -11,6 +11,9 @@ import { MeetingAPI } from '~/api';
 import toast from 'react-hot-toast';
 import { useSetImmerAtom } from 'jotai-immer';
 import { groupDataAtoms } from '~/models/group/data';
+import { isLoggedInAtom } from '~/models/auth';
+import { useSetAtom } from 'jotai';
+import { commonDataAtoms } from '~/models/common/data';
 
 export type HeaderProps = {
   title: string;
@@ -36,7 +39,11 @@ const Header = ({
   const navigate = useNavigate();
   const [isCleanUpModalOpen, setIsCleanUpModalOpen] = useState(false);
   const [isGuidePopUpOpen, setIsGuidePopUpOpen] = useState(showGuidePopUp);
+  const setLogInValue = useSetAtom(isLoggedInAtom);
 
+  const setAuthPhoneVerification = useSetImmerAtom(
+    commonDataAtoms.commonUnivVerificationStep.page3,
+  );
   const setGroupMemberParticipate = useSetImmerAtom(
     groupDataAtoms.groupMemberParticipateStep.page1,
   );
@@ -47,7 +54,6 @@ const Header = ({
   const handleDeleteUser = async () => {
     try {
       await MeetingAPI.deleteUser();
-      // TODO: 시대생 유저 Id로 유저 생성
     } catch (e) {
       toast.error('팅을 아직 만들지 않으셨나요?!');
       throw Error;
@@ -56,12 +62,16 @@ const Header = ({
 
   const handleReset = async () => {
     await handleDeleteUser();
+    setLogInValue(false);
     setGroupMemberParticipate(() => ({
       verified: false,
     }));
     setGroupLeaderGroupCreate(() => ({
       joinCode: null,
       otherMembers: [null, null, null],
+    }));
+    setAuthPhoneVerification(() => ({
+      verified: false,
     }));
     navigate('/');
   };
