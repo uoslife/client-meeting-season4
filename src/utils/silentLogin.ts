@@ -10,7 +10,9 @@ export class SilentLogin {
   setIsLoggedIn = useSetAtom(isLoggedInAtom);
   JWT_EXPIRY_TIME = 3600 * 1000; // 만료 시간 (1시간 밀리 초로 표현)
   onSilentRefresh = () => {
-    AuthAPI.getRefreshToken().then(this.onLoginSuccess);
+    AuthAPI.getRefreshToken()
+      .then(this.onLoginSuccess)
+      .catch(() => this.setIsLoggedIn(false));
   };
 
   onLoginSuccess = (response: AxiosResponse) => {
@@ -26,6 +28,7 @@ export class SilentLogin {
     toast.success('원활한 진행을 위해 다시 재접속 해주세요!', {
       duration: 4000,
     });
+    this.setIsLoggedIn(false);
     setTimeout(() => {
       uoslifeBridge.goBack();
     }, 4000);

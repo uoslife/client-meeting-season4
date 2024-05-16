@@ -127,6 +127,7 @@ const BottomCardComponent = () => {
       API.defaults.headers.common['Authorization'] =
         `Bearer ${data.accessToken}`;
     } catch (error) {
+      setIsLoggedInValue(false);
       throw Error;
     }
   };
@@ -174,7 +175,7 @@ const BottomCardComponent = () => {
   };
 
   useEffect(() => {
-    setIsUseFramerMotion(true);
+    setIsUseFramerMotion(false);
     checkUosUser().finally(handlePaymentResult);
   }, [isLoggedInValue]);
 

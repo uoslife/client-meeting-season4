@@ -1,6 +1,7 @@
 import { atom } from 'jotai';
+import { atomWithStorage } from 'jotai/utils';
 
-export const isLoggedInAtom = atom(false);
+export const isLoggedInAtom = atomWithStorage('isLoggedInAtom', false);
 isLoggedInAtom.debugLabel = 'isLoggedIn';
 
 //@ts-expect-error: window has ReactNativeWebview

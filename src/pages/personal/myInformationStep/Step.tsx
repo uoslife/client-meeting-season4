@@ -86,17 +86,6 @@ const useApi = () => {
     personalDataAtoms.personalMyInformationStep.page7,
   );
 
-  const logInValue = useAtomValue(isLoggedInAtom);
-  const resetTeam = async () => {
-    await MeetingAPI.deleteMeeting('SINGLE', true).finally(() =>
-      MeetingAPI.createMeeting('SINGLE', true),
-    );
-  };
-
-  useEffect(() => {
-    if (logInValue) resetTeam();
-  }, [logInValue]);
-
   const updateUser = () => {
     const body = {
       age: Number(age.replace('~', '')),
@@ -131,6 +120,16 @@ const PersonalMyInformationStep = () => {
   });
 
   const { updateUser } = useApi();
+  const logInValue = useAtomValue(isLoggedInAtom);
+  const resetTeam = async () => {
+    await MeetingAPI.deleteMeeting('SINGLE', true).finally(() =>
+      MeetingAPI.createMeeting('SINGLE', true),
+    );
+  };
+
+  useEffect(() => {
+    if (logInValue) resetTeam();
+  }, [logInValue]);
 
   const onNext = async () => {
     if (currentPage === 7) {

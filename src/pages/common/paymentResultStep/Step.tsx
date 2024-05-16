@@ -63,8 +63,7 @@ const CommonPaymentResultStep = () => {
       return;
     }
 
-    //@ts-expect-error: window has ReactNativeWebview
-    if (logInValue || !!window.ReactNativeWebView) handleCheckPaymentResult();
+    if (logInValue) handleCheckPaymentResult();
   }, [paymentResultValue, logInValue]);
 
   const handlePaymentStatus = () => {
