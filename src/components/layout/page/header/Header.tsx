@@ -132,11 +132,7 @@ const Header = ({
           onClick={handleReset}
           setIsCleanUpModalOpen={setIsCleanUpModalOpen}
           title={'신청하기 어려운 상황이신가요?'}
-          description={
-            '아래 확인 버튼을 눌러\n' +
-            '아래 확인 버튼을 눌러\n' +
-            ' 다시 신청해주세요!'
-          }
+          description={'아래 확인 버튼을 눌러\n' + ' 다시 신청해주세요!'}
         />
       )}
     </>

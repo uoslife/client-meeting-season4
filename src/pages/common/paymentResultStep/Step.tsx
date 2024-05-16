@@ -27,23 +27,21 @@ const CommonPaymentResultStep = () => {
   const setIsUseFramerMotion = useSetAtom(isUseFramerMotionAtom);
 
   const handleCheckPaymentResult = async () => {
-    setTimeout(async () => {
-      await PaymentAPI.checkPayment(paymentResultValue.imp_uid as string)
-        .then(() =>
-          setTimeout(() => {
-            console.log('성공');
-            setPaymentStatus('success');
-            setIsPaymentFinishedAtom(true);
-            setIsUseFramerMotion(true);
-          }, 1500),
-        )
-        .catch(error => {
-          if (error.response?.data.code === 'T01') {
-            console.log('nn');
-          }
-          setPaymentStatus('fail');
-        });
-    }, 1000);
+    await PaymentAPI.checkPayment(paymentResultValue.imp_uid as string)
+      .then(() =>
+        setTimeout(() => {
+          console.log('성공');
+          setPaymentStatus('success');
+          setIsPaymentFinishedAtom(true);
+          setIsUseFramerMotion(true);
+        }, 1500),
+      )
+      .catch(error => {
+        if (error.response?.data.code === 'T01') {
+          console.log('nn');
+        }
+        setPaymentStatus('fail');
+      });
   };
 
   useEffect(() => {
