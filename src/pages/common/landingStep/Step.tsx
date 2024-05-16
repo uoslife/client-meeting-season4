@@ -25,6 +25,10 @@ import { isUseFramerMotionAtom } from '~/models/common/data';
 
 const CommonLandingStep = () => {
   const isUoslifeUser = useAtomValue(isUosUserAtom);
+
+  useEffect(() => {
+    console.log(uoslifeBridge.driver.isInstalled);
+  }, []);
   return (
     <PageLayout>
       {isUoslifeUser ? (
