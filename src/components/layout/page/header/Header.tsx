@@ -103,7 +103,9 @@ const Header = ({
                 />
                 {isGuidePopUpOpen && (
                   <GuidePopUp
-                    label={'에러가 발생하면 이 버튼을 눌러보세요!'}
+                    label={
+                      '신청도중 문제가 생기신다면\n' + '이 버튼을 눌러보세요!\n'
+                    }
                     setIsCleanUpModalOpen={setIsGuidePopUpOpen}
                   />
                 )}
@@ -129,8 +131,12 @@ const Header = ({
         <CleanUpModal
           onClick={handleReset}
           setIsCleanUpModalOpen={setIsCleanUpModalOpen}
-          title={'에러가 발생하셨나요?!'}
-          description={'아래 확인 버튼을 누른 후\n' + ' 다시 신청해주세요!'}
+          title={'신청하기 어려운 상황이신가요?'}
+          description={
+            '아래 확인 버튼을 눌러\n' +
+            '아래 확인 버튼을 눌러\n' +
+            ' 다시 신청해주세요!'
+          }
         />
       )}
     </>

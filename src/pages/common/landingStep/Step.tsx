@@ -14,7 +14,7 @@ import toast, { Toaster } from 'react-hot-toast';
 import { navigateNextStepAtom } from '~/models/funnel';
 import { useAtom, useAtomValue, useSetAtom } from 'jotai';
 import { useEffect, useState } from 'react';
-import { AuthAPI, MeetingAPI, PaymentAPI } from '~/api';
+import { MeetingAPI, PaymentAPI } from '~/api';
 import { isPaymentFinishedAtom } from '~/models/payment';
 import { isLoggedInAtom, isUosUserAtom } from '~/models/auth';
 import uoslifeBridge from '~/bridge';
@@ -119,13 +119,10 @@ const BottomCardComponent = () => {
   const checkUosUser = async () => {
     try {
       if (!isUosUserValue) return; // 시대생 앱에서 접근한 경우
-      // 시대생 앱의 accessToken으로 axios header에 주입
-      const { accessToken: accessTokenFromUoslife } =
-        await uoslifeBridge.getAccessToken();
-      API.defaults.headers.common['Authorization'] =
-        `Bearer ${accessTokenFromUoslife}`;
-      // 시대팅 accessToken으로 axios header에 주입
-      const { data } = await AuthAPI.signInUosUser();
+      const { id } = await uoslifeBridge.getUserInfo();
+      const { data } = await MeetingAPI.createUser({
+        userId: id,
+      });
       API.defaults.headers.common['Authorization'] =
         `Bearer ${data.accessToken}`;
       setIsLoggedInValue(true);
@@ -321,7 +318,7 @@ const BottomCardComponent = () => {
       {isModalOpen && (
         <CleanUpModal
           title={'팅장만 결과를 확인할 수 있습니다.'}
-          description={'신청 취소 원하신다면 확인을 눌러주세.'}
+          description={'신청 취소 원하신다면 확인을 눌러주세요.'}
           setIsCleanUpModalOpen={setIsModalOpen}
           onClick={handleResetUser}
         />

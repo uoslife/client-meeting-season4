@@ -32,7 +32,7 @@ const GuidePopupContainer = styled.div`
   justify-content: center;
   align-items: center;
   position: absolute;
-  width: 280px;
+  width: 240px;
   height: 40px;
   right: -5px;
   top: 61px;
@@ -45,8 +45,8 @@ const GuidePopupContainer = styled.div`
   :after {
     content: '';
     position: absolute;
-    top: 0;
-    left: 50%;
+    top: 5%;
+    left: 40%;
     width: 0;
     height: 0;
     border: 22px solid transparent;

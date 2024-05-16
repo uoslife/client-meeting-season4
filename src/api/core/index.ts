@@ -67,6 +67,17 @@ API.interceptors.response.use(
         },
       );
     }
+    if (error.response?.status === 500) {
+      toast.error(
+        '일시적인 오류로 신청을 진행할 수 없습니다.\n' +
+          '시대생 카카오톡 채널로 문의해주세요.',
+        {
+          icon: '🥲',
+          duration: 7000,
+        },
+      );
+      return;
+    }
     await handleAuthSilentRefresh(error);
     return Promise.reject(error);
   },

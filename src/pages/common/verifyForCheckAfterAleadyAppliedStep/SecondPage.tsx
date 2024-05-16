@@ -69,11 +69,9 @@ const SecondPage = () => {
   // 인증번호 확인 절차
   const handleTryValidate = async () => {
     if (inputValue) setTryValidate(true);
-    const res = await AuthAPI.getVerificationCodeByEmail({
+    await AuthAPI.getVerificationCodeByEmail({
       email: inputValue,
     });
-
-    console.log(res);
   };
 
   // 인증번호 확인 절차
@@ -85,7 +83,6 @@ const SecondPage = () => {
         email: inputValue,
       });
       const result = res.data;
-      console.log(result);
       setPageState({ verified: true });
       localStorage.setItem('accessToken', result.accessToken);
       localStorage.setItem('refreshToken', result.refreshToken);

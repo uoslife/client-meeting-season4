@@ -26,7 +26,6 @@ const useData = (meetingType: 'personal' | 'group') => {
         const convertedUiData = new MeetingInfo(data).getCheckApplyInfoUiData();
         setMeetingInfoState(convertedUiData);
       } catch (error) {
-        console.log({ error });
         setMeetingInfoState('error');
       }
     }, 3000);

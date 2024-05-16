@@ -18,9 +18,10 @@ import { isLoggedInAtom } from '~/models/auth';
 
 type Props = {
   setIsRegisteredUoslife: React.Dispatch<boolean>;
+  isRegisteredUoslife: boolean;
 };
 
-const SecondPage = ({ setIsRegisteredUoslife }: Props) => {
+const SecondPage = ({ setIsRegisteredUoslife, isRegisteredUoslife }: Props) => {
   const pageValidity = useAtomValue(combinedValidatiesAtoms)
     .commonUnivVerificationStep.page3;
   const setPageState = useSetAtom(
@@ -89,15 +90,6 @@ const SecondPage = ({ setIsRegisteredUoslife }: Props) => {
       // 미팅 계정 토큰 주입
       API.defaults.headers.common['Authorization'] =
         `Bearer ${createMeetingUserRes.data.accessToken}`;
-      // 결제 여부 확인
-      await PaymentAPI.verifyPayment()
-        .then(() => {
-          setIsPaymentFinishedValue(false);
-        })
-        .catch(error => {
-          if (error.response.data.code === 'P04')
-            setIsPaymentFinishedValue(true);
-        });
     } catch (e) {
       setStatusMessage('인증 과정에서 문제가 생겼습니다. 다시 인증해주세요.');
       setValidateStatus('error');
@@ -116,13 +108,6 @@ const SecondPage = ({ setIsRegisteredUoslife }: Props) => {
       // 인증번호 성공 시, 토큰 헤더 주입
       API.defaults.headers.common['Authorization'] =
         `Bearer ${data.accessToken}`;
-
-      setIsLoggedIn(true);
-      setPageState({
-        verified: true,
-      });
-      setStatusMessage('인증되었습니다.');
-      setValidateStatus('success');
       return data;
     } catch (e) {
       setStatusMessage('유효하지 않은 인증번호입니다.');
@@ -140,12 +125,29 @@ const SecondPage = ({ setIsRegisteredUoslife }: Props) => {
     if (reason === 'logged_in') {
       await handleUserInfo();
       setIsRegisteredUoslife(false);
-      return;
+      await PaymentAPI.verifyPayment()
+        .then(() => {
+          setIsPaymentFinishedValue(false);
+        })
+        .catch(error => {
+          if (error.response.data.code === 'P04')
+            setIsPaymentFinishedValue(true);
+        });
     }
+    setIsLoggedIn(true);
+    setPageState({
+      verified: true,
+    });
+    setStatusMessage('인증되었습니다.');
+    setValidateStatus('success');
   };
 
   //인증번호 입력 제한시간
   useEffect(() => {
+    if (!isRegisteredUoslife) {
+      setStatusMessage('인증되었습니다.');
+      setValidateStatus('success');
+    }
     let interval: number;
     if (tryValidate) {
       if (timer === 0) {
@@ -160,7 +162,7 @@ const SecondPage = ({ setIsRegisteredUoslife }: Props) => {
       }, 1000);
     }
     return () => clearInterval(interval);
-  }, [timer, tryValidate]);
+  }, [timer, tryValidate, isRegisteredUoslife]);
 
   const minutes = Math.floor(timer / 60);
   const seconds = timer % 60;

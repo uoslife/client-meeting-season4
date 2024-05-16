@@ -51,7 +51,10 @@ const CommonUnivVerificationStep = () => {
             <FirstPage />
           </Funnel.Page>
           <Funnel.Page pageNumber={2}>
-            <SecondPage setIsRegisteredUoslife={setIsRegisteredUoslife} />
+            <SecondPage
+              isRegisteredUoslife={isRegisteredUoslife}
+              setIsRegisteredUoslife={setIsRegisteredUoslife}
+            />
           </Funnel.Page>
           <Funnel.Page pageNumber={3}>
             <ThirdPage />
