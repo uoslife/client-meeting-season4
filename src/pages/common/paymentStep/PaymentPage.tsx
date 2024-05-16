@@ -8,7 +8,7 @@ import RoundButton from '~/components/buttons/roundButton/RoundButton';
 import styled from '@emotion/styled';
 import { colors } from '~/styles/colors';
 import { commonDataAtoms } from '~/models/common/data';
-import { useAtomValue } from 'jotai';
+import { useAtomValue, useSetAtom } from 'jotai';
 import { personalDataAtoms } from '~/models/personal/data';
 import { css } from '@emotion/react';
 import { groupDataAtoms } from '~/models/group/data';
@@ -54,8 +54,10 @@ const PaymentPage = () => {
       return type === 'name' ? '1:1 미팅(남자)' : 2000;
     }
   };
+  const setLogInValue = useSetAtom(isLoggedInAtom);
 
   const onClickPayment = async () => {
+    setLogInValue(false);
     /* 1. 가맹점 식별하기 */
     const { IMP } = window;
     IMP?.init(ID);

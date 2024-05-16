@@ -7,9 +7,8 @@ import LoadingPayment from '~/pages/common/paymentResultStep/LoadingPage';
 import toast from 'react-hot-toast';
 import querystring from 'query-string';
 import { PaymentAPI } from '~/api';
-import { useSetAtom } from 'jotai';
+import { useAtom, useSetAtom } from 'jotai';
 import { isPaymentFinishedAtom } from '~/models/payment';
-import { useAtomValue } from 'jotai';
 import { isLoggedInAtom } from '~/models/auth';
 import { isUseFramerMotionAtom } from '~/models/common/data';
 
@@ -22,7 +21,7 @@ const CommonPaymentResultStep = () => {
   // 결제 결과에 따른 화면 렌더링 관리 state
   const [paymentStatus, setPaymentStatus] = useState('loading');
   const paymentResultValue = locationState ? locationState : query;
-  const logInValue = useAtomValue(isLoggedInAtom);
+  const [logInValue, setLogInValue] = useAtom(isLoggedInAtom);
   const setIsPaymentFinishedAtom = useSetAtom(isPaymentFinishedAtom);
   const setIsUseFramerMotion = useSetAtom(isUseFramerMotionAtom);
 
@@ -46,6 +45,7 @@ const CommonPaymentResultStep = () => {
 
   useEffect(() => {
     setIsUseFramerMotion(false);
+    setLogInValue(true);
 
     // pc에서 결제가 이미 승인된 경우
     if (locationState?.error_msg?.includes('이미 승인 완료')) {
