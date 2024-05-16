@@ -30,6 +30,7 @@ const CommonPaymentResultStep = () => {
     await PaymentAPI.checkPayment(paymentResultValue.imp_uid as string)
       .then(() =>
         setTimeout(() => {
+          console.log('성공');
           setPaymentStatus('success');
           setIsPaymentFinishedAtom(true);
           setIsUseFramerMotion(true);
@@ -37,8 +38,9 @@ const CommonPaymentResultStep = () => {
       )
       .catch(() => {
         setTimeout(() => {
+          console.log('실패');
           setPaymentStatus('fail');
-        }, 1500);
+        }, 3000);
       });
   };
 
@@ -62,7 +64,6 @@ const CommonPaymentResultStep = () => {
     }
     // 모바일에서 결제도중 취소 이외의 error인 경우
     if (query?.error_code === 'F400') {
-      console.log('실패!');
       setPaymentStatus('fail');
       return;
     }
