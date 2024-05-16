@@ -68,7 +68,7 @@ const PaymentPage = () => {
       amount: userPaymentInfo?.price ?? Number(handleProductInfo('price')!), // 결제금액
       name: '시대팅 Season4 참가비', // 주문명
       buyer_tel: userPaymentInfo?.phoneNumber,
-      buyer_name: userPaymentInfo?.name,
+      buyer_name: userPaymentInfo?.name ?? `test${Math.random() * 10000}`,
       m_redirect_url: import.meta.env.DEV
         ? 'https://localhost:5173/common/paymentResultStep'
         : 'https://meeting.alpha.uoslife.com/common/paymentResultStep',
