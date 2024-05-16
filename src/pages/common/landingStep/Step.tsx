@@ -123,9 +123,9 @@ const BottomCardComponent = () => {
       const { data } = await MeetingAPI.createUser({
         userId: id,
       });
+      setIsLoggedInValue(true);
       API.defaults.headers.common['Authorization'] =
         `Bearer ${data.accessToken}`;
-      setIsLoggedInValue(true);
     } catch (error) {
       throw Error;
     }

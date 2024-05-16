@@ -4,11 +4,11 @@ import SecondPage from './SecondPage';
 import ThirdPage from './ThirdPage';
 import ForthPage from './ForthPage';
 import PageLayout from '~/components/layout/page/PageLayout';
-import { useStepToGoBack } from '~/hooks/useStepToGoBack';
-import useTypeSafeNavigate from '~/hooks/useTypeSafeNavigate';
-import { useAtomValue, useSetAtom } from 'jotai';
+// import { useStepToGoBack } from '~/hooks/useStepToGoBack';
+// import useTypeSafeNavigate from '~/hooks/useTypeSafeNavigate';
+import { useAtomValue } from 'jotai';
 import { isPaymentFinishedAtom } from '~/models/payment';
-import { navigateNextStepAtom } from '~/models/funnel';
+// import { navigateNextStepAtom } from '~/models/funnel';
 import { useState } from 'react';
 
 const REGISTER_PAGE_NUMBER = [1, 2, 3, 4];
@@ -17,9 +17,9 @@ const LOGIN_PAGE_NUMBER = [1, 2];
 const CommonUnivVerificationStep = () => {
   const [isRegisteredUoslife, setIsRegisteredUoslife] = useState(true);
   const isPaymentFinishedValue = useAtomValue(isPaymentFinishedAtom);
-  const setNavigateNextStep = useSetAtom(navigateNextStepAtom);
-  const stepToGoBack = useStepToGoBack('commonUnivVerificationStep');
-  const navigate = useTypeSafeNavigate();
+  // const setNavigateNextStep = useSetAtom(navigateNextStepAtom);
+  // const stepToGoBack = useStepToGoBack('commonUnivVerificationStep');
+  // const navigate = useTypeSafeNavigate();
   const { Funnel, currentPage, PageHandler } = useFunnel({
     pageNumberList: isRegisteredUoslife
       ? REGISTER_PAGE_NUMBER
@@ -32,11 +32,11 @@ const CommonUnivVerificationStep = () => {
     prevStep: { path: '/' },
   });
 
-  if (stepToGoBack) {
-    setNavigateNextStep(true);
-    navigate(stepToGoBack);
-    return null;
-  }
+  // if (stepToGoBack) {
+  //   setNavigateNextStep(true);
+  //   navigate(stepToGoBack);
+  //   return null;
+  // }
 
   return (
     <PageLayout>

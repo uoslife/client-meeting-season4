@@ -14,6 +14,8 @@ import { isLoggedInAtom } from '~/models/auth';
 import { isUseFramerMotionAtom } from '~/models/common/data';
 
 const CommonPaymentResultStep = () => {
+  const [isFromUoslifeWebViewState, setIsFromUoslifeWebViewState] =
+    useState(false);
   const navigate = useNavigate();
   // pc에서 결제 결과 navigate state로 주는 경우,
   const { state: locationState, search: locationSearch } = useLocation();
@@ -42,6 +44,8 @@ const CommonPaymentResultStep = () => {
 
   useEffect(() => {
     setIsUseFramerMotion(false);
+    //@ts-expect-error: window has ReactNativeWebview
+    setIsFromUoslifeWebViewState(!!window.ReactNativeWebView);
     // pc에서 결제가 이미 승인된 경우
     if (locationState?.error_msg?.includes('이미 승인 완료')) {
       toast.success('이미 승인된 결제입니다!', {
@@ -62,8 +66,9 @@ const CommonPaymentResultStep = () => {
       setPaymentStatus('fail');
       return;
     }
-    if (logInValue) handleCheckPaymentResult();
-  }, [paymentResultValue, logInValue]);
+
+    if (logInValue || isFromUoslifeWebViewState) handleCheckPaymentResult();
+  }, [paymentResultValue, logInValue, isFromUoslifeWebViewState]);
 
   const handlePaymentStatus = () => {
     switch (paymentStatus) {
