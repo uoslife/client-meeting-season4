@@ -171,6 +171,7 @@ const BottomCardComponent = () => {
         if (code === 'U02' || code === 'P01') setIsPaymentFinishedValue(false);
         // 결제를 완료한 유저
         if (code === 'P04') setIsPaymentFinishedValue(true);
+        if (code === 'M06') setIsPaymentFinishedValue(false);
       });
   };
 

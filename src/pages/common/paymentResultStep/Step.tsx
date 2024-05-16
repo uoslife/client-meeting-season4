@@ -36,12 +36,15 @@ const CommonPaymentResultStep = () => {
         }, 1500),
       )
       .catch(() => {
-        setPaymentStatus('fail');
+        setTimeout(() => {
+          setPaymentStatus('fail');
+        }, 1500);
       });
   };
 
   useEffect(() => {
     setIsUseFramerMotion(false);
+
     // pc에서 결제가 이미 승인된 경우
     if (locationState?.error_msg?.includes('이미 승인 완료')) {
       toast.success('이미 승인된 결제입니다!', {
@@ -59,6 +62,7 @@ const CommonPaymentResultStep = () => {
     }
     // 모바일에서 결제도중 취소 이외의 error인 경우
     if (query?.error_code === 'F400') {
+      console.log('실패!');
       setPaymentStatus('fail');
       return;
     }
