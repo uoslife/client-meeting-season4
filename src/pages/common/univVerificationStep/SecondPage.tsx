@@ -133,6 +133,7 @@ const SecondPage = ({ setIsRegisteredUoslife, isRegisteredUoslife }: Props) => {
           if (error.response.data.code === 'P04')
             setIsPaymentFinishedValue(true);
         });
+      return;
     }
     setIsLoggedIn(true);
     setPageState({
