@@ -29,6 +29,9 @@ const SecondPage = () => {
   const isUosUserValue = useAtomValue(isUosUserAtom);
   const getUoslifeUserInfo = async () => {
     const res = await uoslifeBridge.getUserInfo();
+    if (res.identity.status === '재학생') {
+      res.identity.status = '학부생';
+    }
     setPageState(prev => ({
       ...prev,
       // phone: res.phone,

@@ -8,7 +8,7 @@ import RoundButton from '~/components/buttons/roundButton/RoundButton';
 import styled from '@emotion/styled';
 import { colors } from '~/styles/colors';
 import { commonDataAtoms } from '~/models/common/data';
-import { useAtomValue, useSetAtom } from 'jotai';
+import { useAtomValue } from 'jotai';
 import { personalDataAtoms } from '~/models/personal/data';
 import { css } from '@emotion/react';
 import { groupDataAtoms } from '~/models/group/data';
@@ -54,10 +54,8 @@ const PaymentPage = () => {
       return type === 'name' ? '1:1 미팅(남자)' : 2000;
     }
   };
-  const setLogInValue = useSetAtom(isLoggedInAtom);
 
   const onClickPayment = async () => {
-    setLogInValue(false);
     /* 1. 가맹점 식별하기 */
     const { IMP } = window;
     IMP?.init(ID);
@@ -71,9 +69,8 @@ const PaymentPage = () => {
       name: '시대팅 Season4 참가비', // 주문명
       buyer_tel: userPaymentInfo?.phoneNumber,
       buyer_name: userPaymentInfo?.name ?? `test${Math.random() * 10000}`,
-      m_redirect_url: import.meta.env.DEV
-        ? 'https://localhost:5173/common/paymentResultStep'
-        : 'https://meeting.alpha.uoslife.com/common/paymentResultStep',
+      m_redirect_url: 'http://localhost:5173/common/paymentResultStep',
+      // 'https://meeting.alpha.uoslife.com/common/paymentResultStep',
     };
 
     IMP?.request_pay(data, callback);
@@ -113,6 +110,7 @@ const PaymentPage = () => {
   };
 
   useEffect(() => {
+    console.log(userPaymentInfo, 1);
     if (location.state?.cancelToast) {
       toast.error('결제를 취소하셨습니다.', {
         duration: 1800,

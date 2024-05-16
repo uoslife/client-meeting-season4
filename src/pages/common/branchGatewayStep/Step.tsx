@@ -8,6 +8,7 @@ import { commonDataAtoms } from '~/models/common/data';
 import { navigateNextStepAtom } from '~/models/funnel';
 import { isLoggedInAtom } from '~/models/auth';
 import { MeetingAPI } from '~/api';
+import { groupDataAtoms } from '~/models/group/data';
 
 const PAGE_NUMBER_LIST = [1];
 const CommonBranchGatewayStep = () => {
@@ -29,6 +30,7 @@ const CommonBranchGatewayStep = () => {
   });
 
   const setNavigateNextStep = useSetAtom(navigateNextStepAtom);
+  const setIsTeamLeader = useSetAtom(groupDataAtoms.groupRoleSelectStep.page1);
   const stepToGoBack = useStepToGoBack('commonBranchGatewayStep');
   const navigate = useTypeSafeNavigate();
 
@@ -38,14 +40,20 @@ const CommonBranchGatewayStep = () => {
     return null;
   }
   const resetTeam = async () => {
-    await MeetingAPI.deleteMeeting('SINGLE', true).finally(() =>
-      MeetingAPI.createMeeting('SINGLE', true),
-    );
+    await MeetingAPI.deleteMeeting('SINGLE', true).finally(() => {
+      MeetingAPI.createMeeting('SINGLE', true);
+      PageHandler.onNext();
+    });
   };
 
   const onNext = async () => {
     if (meetingType === 'personal') {
       await resetTeam();
+      setIsTeamLeader(prev => ({
+        ...prev,
+        isLeader: null,
+      }));
+      return;
     }
     PageHandler.onNext();
   };

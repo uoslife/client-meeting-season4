@@ -116,11 +116,15 @@ const Ask = ({
         </S.Box>
       </S.AskTopArea>
       <S.BottomButtonsWrapper>
-        <RoundButton onClick={onClickGoBackButton} status={'inactive'}>
-          <Text color="Gray400" label="돌아가기" typography="NeoButtonL" />
+        <RoundButton onClick={onClickGoBackButton} status={'active'}>
+          <Text color="White" label="돌아가기" typography="NeoButtonL" />
         </RoundButton>
-        <RoundButton onClick={onClickCancelButton} status={'active'}>
-          <Text color="White" label="신청 취소 하기" typography="NeoButtonL" />
+        <RoundButton onClick={onClickCancelButton} status={'inactive'}>
+          <Text
+            color="Gray400"
+            label="신청 취소 하기"
+            typography="NeoButtonL"
+          />
         </RoundButton>
       </S.BottomButtonsWrapper>
     </S.AskWrapper>

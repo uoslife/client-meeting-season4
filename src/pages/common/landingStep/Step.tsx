@@ -191,7 +191,8 @@ const BottomCardComponent = () => {
   const handleResetUser = async () => {
     try {
       await MeetingAPI.deleteUser();
-      setIsModalOpen(true);
+      await checkUosUser();
+      setIsModalOpen(false);
       setIsTeamMember(false);
       setIsPaymentFinishedValue(false);
     } catch (e) {

@@ -1,7 +1,6 @@
 import axios, { AxiosError, AxiosResponse } from 'axios';
 import { AuthAPI } from '~/api';
 import toast from 'react-hot-toast';
-import uoslifeBridge from '~/bridge';
 
 interface IErrorResponseData {
   code: string;
@@ -18,7 +17,10 @@ export const API = axios.create({
   withCredentials: true,
 });
 const handleAuthSilentRefresh = async (originRequest: AxiosError) => {
-  if (originRequest.response?.status === 401) {
+  //@ts-expect-error: window has ReactNativeWebview
+  const isFromUoslifeWebView = !!window.ReactNativeWebView;
+
+  if (!isFromUoslifeWebView && originRequest.response?.status === 401) {
     await AuthAPI.getRefreshToken()
       .then(res => {
         API.defaults.headers.common.Authorization = `Bearer ${res.data.accessToken}`;
@@ -29,20 +31,12 @@ const handleAuthSilentRefresh = async (originRequest: AxiosError) => {
         return axios(originRequest.config!);
       })
       .catch(() => {
-        //@ts-expect-error: window has ReactNativeWebview
-        const isFromUoslifeWebView = !!window.ReactNativeWebView;
-
-        toast.error(
-          isFromUoslifeWebView ? '다시 접속해주세요!' : '다시 로그인해주세요!',
-          {
-            duration: 4000,
-          },
-        );
+        toast.error('다시 로그인해주세요!', {
+          duration: 4000,
+        });
 
         setTimeout(() => {
-          isFromUoslifeWebView
-            ? uoslifeBridge.goBack()
-            : (window.location.href = '/common/univVerificationStep');
+          window.location.href = '/common/univVerificationStep';
         }, 1500);
       });
   }

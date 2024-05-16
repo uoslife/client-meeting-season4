@@ -11,7 +11,7 @@ import { personalDataAtoms } from '~/models/personal/data';
 import { combinedValidatiesAtoms } from '~/models';
 import { isUosUserAtom } from '~/models/auth';
 import uoslifeBridge from '~/bridge';
-import { InfoOptions } from '~/models/options';
+import { StudentOption } from '~/models/options';
 import { useEffect } from 'react';
 
 const SecondPage = () => {
@@ -28,11 +28,14 @@ const SecondPage = () => {
   const isUosUserValue = useAtomValue(isUosUserAtom);
   const getUoslifeUserInfo = async () => {
     const res = await uoslifeBridge.getUserInfo();
+    if (res.identity.status === '재학생') {
+      res.identity.status = '학부생';
+    }
     setPageState(prev => ({
       ...prev,
       // phone: res.phone,
       major: res.identity.department,
-      studentType: res.identity.status as InfoOptions['studentType'],
+      studentType: res.identity.status as StudentOption,
     }));
   };
 

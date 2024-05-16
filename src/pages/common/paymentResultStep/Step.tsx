@@ -6,11 +6,14 @@ import FailPayment from '~/pages/common/paymentResultStep/FailPage';
 import LoadingPayment from '~/pages/common/paymentResultStep/LoadingPage';
 import toast from 'react-hot-toast';
 import querystring from 'query-string';
-import { PaymentAPI } from '~/api';
+import { MeetingAPI, PaymentAPI } from '~/api';
 import { useAtom, useSetAtom } from 'jotai';
 import { isPaymentFinishedAtom } from '~/models/payment';
-import { isLoggedInAtom } from '~/models/auth';
+import { isLoggedInAtom, isUosUserAtom } from '~/models/auth';
 import { isUseFramerMotionAtom } from '~/models/common/data';
+import { useAtomValue } from 'jotai';
+import uoslifeBridge from '~/bridge';
+import API from '~/api/core';
 
 const CommonPaymentResultStep = () => {
   const navigate = useNavigate();
@@ -22,30 +25,38 @@ const CommonPaymentResultStep = () => {
   const [paymentStatus, setPaymentStatus] = useState('loading');
   const paymentResultValue = locationState ? locationState : query;
   const [logInValue, setLogInValue] = useAtom(isLoggedInAtom);
+  const isUosUserValue = useAtomValue(isUosUserAtom);
   const setIsPaymentFinishedAtom = useSetAtom(isPaymentFinishedAtom);
   const setIsUseFramerMotion = useSetAtom(isUseFramerMotionAtom);
 
+  const handleGetTokenFromWebview = async () => {
+    try {
+      const { id } = await uoslifeBridge.getUserInfo();
+      const { data } = await MeetingAPI.createUser({ userId: id });
+      setLogInValue(true);
+      API.defaults.headers.common['Authorization'] =
+        `Bearer ${data.accessToken}`;
+    } catch (e) {
+      throw Error;
+    }
+  };
+
   const handleCheckPaymentResult = async () => {
-    await PaymentAPI.checkPayment(paymentResultValue.imp_uid as string)
-      .then(() =>
-        setTimeout(() => {
-          console.log('성공');
-          setPaymentStatus('success');
-          setIsPaymentFinishedAtom(true);
-          setIsUseFramerMotion(true);
-        }, 1500),
-      )
-      .catch(error => {
-        if (error.response?.data.code === 'T01') {
-          console.log('nn');
-        }
-        setPaymentStatus('fail');
-      });
+    try {
+      await PaymentAPI.checkPayment(paymentResultValue.imp_uid as string);
+      setTimeout(() => {
+        setPaymentStatus('success');
+        setIsPaymentFinishedAtom(true);
+        setIsUseFramerMotion(true);
+      }, 1500);
+    } catch (e) {
+      setPaymentStatus('fail');
+      throw Error;
+    }
   };
 
   useEffect(() => {
     setIsUseFramerMotion(false);
-    setLogInValue(true);
 
     // pc에서 결제가 이미 승인된 경우
     if (locationState?.error_msg?.includes('이미 승인 완료')) {
@@ -67,9 +78,13 @@ const CommonPaymentResultStep = () => {
       setPaymentStatus('fail');
       return;
     }
-
-    if (logInValue) handleCheckPaymentResult();
-  }, [paymentResultValue, logInValue]);
+    if (isUosUserValue) {
+      handleGetTokenFromWebview();
+    }
+    if (logInValue) {
+      handleCheckPaymentResult();
+    }
+  }, [logInValue]);
 
   const handlePaymentStatus = () => {
     switch (paymentStatus) {

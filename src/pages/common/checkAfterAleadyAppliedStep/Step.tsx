@@ -10,6 +10,7 @@ import PageLayout from '~/components/layout/page/PageLayout';
 import Text from '~/components/typography/Text';
 import useTypeSafeNavigate from '~/hooks/useTypeSafeNavigate';
 import { MeetingInfo } from '~/utils/meetingInfo';
+import { css } from '@emotion/react';
 
 const useData = (meetingType: 'personal' | 'group') => {
   const [meetingInfoState, setMeetingInfoState] = useState<
@@ -28,7 +29,7 @@ const useData = (meetingType: 'personal' | 'group') => {
       } catch (error) {
         setMeetingInfoState('error');
       }
-    }, 3000);
+    }, 2500);
 
     return () => clearTimeout(timer);
   }, [meetingType]);
@@ -106,7 +107,21 @@ const CheckAfterAlreadyAppliedStep = () => {
       <PageLayout>
         <PageLayout.Header title="신청 정보" />
         <PageLayout.SingleCardBody theme="BG_WHITE" cardPadding="8px 0">
-          <img src="/images/uoslifeLogo-loadingSpinner.webp" />
+          <div
+            css={css`
+              width: 100%;
+              height: 80%;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+            `}>
+            <img
+              alt={''}
+              src="/images/uoslifeLogo-loadingSpinner.webp"
+              width={320}
+              height={200}
+            />
+          </div>
         </PageLayout.SingleCardBody>
       </PageLayout>
     );
