@@ -35,7 +35,6 @@ const useData = (meetingType: 'personal' | 'group') => {
 
         setIsPageFinished(true);
       } catch (error) {
-        console.log({ error });
         setMeetingInfoState('error');
       }
     }, 3000);

@@ -71,20 +71,23 @@ const ForthPage = () => {
   const getValidateNumber = async () => {
     if (inputValue) setTryValidate(true);
     await AuthAPI.getVerificationCodeByEmail({
-      email: `${inputValue}@${storedUnivType === 'HUFS' ? 'hufs' : 'khu'}.ac.kr`,
+      // email: `${inputValue}@${storedUnivType === 'HUFS' ? 'hufs' : 'khu'}.ac.kr`,
+      email: `${inputValue}@uos.ac.kr`,
     });
   };
 
   const handleCreateUoslifeUser = async () => {
     try {
       const { data } = await AuthAPI.createUoslifeUser({
-        nickname: `${inputValue}@${storedUnivType === 'HUFS' ? 'hufs' : 'khu'}.ac.kr`,
+        // nickname: `${inputValue}@${storedUnivType === 'HUFS' ? 'hufs' : 'khu'}.ac.kr`,
+        nickname: `aacz1203@uos.ac.kr`,
       });
       API.defaults.headers.common['Authorization'] =
         `Bearer ${data.accessToken}`;
     } catch (e) {
       await AuthAPI.updateUoslifeUserName({
-        nickname: `${inputValue}@${storedUnivType === 'HUFS' ? 'hufs' : 'khu'}.ac.kr`,
+        // nickname: `${inputValue}@${storedUnivType === 'HUFS' ? 'hufs' : 'khu'}.ac.kr`,
+        nickname: `${inputValue}@uos.ac.kr`,
       });
     }
   };
@@ -92,7 +95,8 @@ const ForthPage = () => {
   const handleCheckVerificationCode = async () => {
     try {
       await AuthAPI.checkVerificationCodeByEmail({
-        email: `${inputValue}@${storedUnivType === 'HUFS' ? 'hufs' : 'khu'}.ac.kr`,
+        // email: `${inputValue}@${storedUnivType === 'HUFS' ? 'hufs' : 'khu'}.ac.kr`,
+        email: `${inputValue}@uos.ac.kr`,
         code: validateCodeValue,
       });
     } catch (e) {
@@ -110,9 +114,6 @@ const ForthPage = () => {
 
   const handleCreateMeetingUser = async () => {
     try {
-      await AuthAPI.createUoslifeUser({
-        nickname: `${inputValue}@${storedUnivType === 'HUFS' ? 'hufs' : 'khu'}.ac.kr`,
-      });
       // 시대생 계정 유저id 탐색
       const uoslifeUserInfoRes = await AuthAPI.getUoslifeUserInfo();
       // 시대생 계정 유저id로 시대팅 유저 생성

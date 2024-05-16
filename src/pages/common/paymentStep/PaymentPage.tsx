@@ -69,7 +69,7 @@ const PaymentPage = () => {
       buyer_tel: userPaymentInfo?.phoneNumber,
       buyer_name: userPaymentInfo?.name,
       m_redirect_url: import.meta.env.DEV
-        ? 'http://localhost:5173/common/paymentResultStep'
+        ? 'https://localhost:5173/common/paymentResultStep'
         : 'https://meeting.alpha.uoslife.com/common/paymentResultStep',
     };
 
@@ -79,7 +79,6 @@ const PaymentPage = () => {
   //pc 버전 콜백
   function callback(response: RequestPayResponse) {
     const { error_code, error_msg } = response;
-    console.log('pc');
     // pc에서 결제도중 취소하는 경우
     if (
       error_code === 'F400' &&
@@ -102,7 +101,6 @@ const PaymentPage = () => {
       });
       setUserPaymentInfo(res.data);
     } catch (error) {
-      console.log(error);
       if (axios.isAxiosError(error) && error.response?.data.code === 'P04') {
         toast.success('이미 신청하셨습니다!', {
           duration: 1800,

@@ -109,9 +109,7 @@ const Ask = ({
           <Text
             color="Gray500"
             label={
-              '신청을 취소하면 되돌릴 수 없어요. \n' +
-              '다시 한번 생각해 봐요. \n' +
-              '정말 신청 취소할래요?'
+              '신청을 취소하면 되돌릴 수 없어요. \n' + '신청 취소 하시겠습니까?'
             }
             typography="GoThicBodyS"
           />
