@@ -36,11 +36,11 @@ const CommonPaymentResultStep = () => {
           setIsUseFramerMotion(true);
         }, 1500),
       )
-      .catch(() => {
-        setTimeout(() => {
-          console.log('실패');
-          setPaymentStatus('fail');
-        }, 3000);
+      .catch(error => {
+        if (error.response?.data.code === 'T01') {
+          return;
+        }
+        setPaymentStatus('fail');
       });
   };
 
