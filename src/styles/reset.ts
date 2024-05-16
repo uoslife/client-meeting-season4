@@ -36,6 +36,8 @@ const reset = css`
     justify-content: center;
     background-color: #888888;
     overscroll-behavior: none;
+    position: fixed;
+    overflow: hidden;
   }
   ::-webkit-scrollbar {
     display: none;
