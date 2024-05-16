@@ -7,6 +7,7 @@ import useTypeSafeNavigate from '~/hooks/useTypeSafeNavigate';
 import { commonDataAtoms } from '~/models/common/data';
 import { navigateNextStepAtom } from '~/models/funnel';
 import { isLoggedInAtom } from '~/models/auth';
+import { MeetingAPI } from '~/api';
 
 const PAGE_NUMBER_LIST = [1];
 const CommonBranchGatewayStep = () => {
@@ -36,6 +37,18 @@ const CommonBranchGatewayStep = () => {
     navigate(stepToGoBack);
     return null;
   }
+  const resetTeam = async () => {
+    await MeetingAPI.deleteMeeting('SINGLE', true).finally(() =>
+      MeetingAPI.createMeeting('SINGLE', true),
+    );
+  };
+
+  const onNext = async () => {
+    if (meetingType === 'personal') {
+      await resetTeam();
+    }
+    PageHandler.onNext();
+  };
 
   return (
     <PageLayout>
@@ -54,7 +67,7 @@ const CommonBranchGatewayStep = () => {
       <PageLayout.Footer
         currentPage={currentPage}
         totalPage={1}
-        onNext={PageHandler.onNext}
+        onNext={onNext}
         onPrev={PageHandler.onPrev}
       />
     </PageLayout>
