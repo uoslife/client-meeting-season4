@@ -109,10 +109,13 @@ const BottomCardComponent = () => {
   const setNavigateNextStep = useSetAtom(navigateNextStepAtom);
   const setIsUseFramerMotion = useSetAtom(isUseFramerMotionAtom);
   const [isLoggedInValue, setIsLoggedInValue] = useAtom(isLoggedInAtom);
+  const isUoslifeUser = useAtomValue(isUosUserAtom);
   const [isPaymentFinishedValue, setIsPaymentFinishedValue] = useAtom(
     isPaymentFinishedAtom,
   );
   const { isLeader } = useAtomValue(groupDataAtoms.groupRoleSelectStep.page1);
+
+  // 시대생인지 확인
   const checkUosUser = async () => {
     try {
       if (!isUosUserValue) return; // 시대생 앱에서 접근한 경우
@@ -127,7 +130,7 @@ const BottomCardComponent = () => {
         `Bearer ${data.accessToken}`;
       setIsLoggedInValue(true);
     } catch (error) {
-      console.log('error');
+      throw Error;
     }
   };
 
@@ -135,7 +138,7 @@ const BottomCardComponent = () => {
   const handleOnClickPrimary = () => {
     setNavigateNextStep(true);
     // 시대생에서 접근한 유저는 이메일 인증 없이 바로 미팅 신청 로직
-    if (isUosUserValue) return navigate('/common/branchGatewayStep');
+    if (isUoslifeUser) return navigate('/common/branchGatewayStep');
     navigate(
       isLoggedInValue
         ? '/common/branchGatewayStep'
@@ -193,7 +196,7 @@ const BottomCardComponent = () => {
       setIsTeamMember(false);
       setIsPaymentFinishedValue(false);
     } catch (e) {
-      console.log(e);
+      throw Error;
     }
   };
 
@@ -327,8 +330,10 @@ const BottomCardComponent = () => {
   );
 };
 const FooterIconAreaComponent = () => {
+  const isUoslifeUser = useAtomValue(isUosUserAtom);
+
   return (
-    <Col>
+    <Col padding={`0 0 ${isUoslifeUser ? 14 : 7}px 0`}>
       <Row align={'center'} gap={20}>
         <S.SocialLinkContainer href={SOCIAL_LINK.Kakaotalk} target="_blank">
           <Row justify={'flex-end'}>

@@ -91,11 +91,9 @@ const PersonalMyPreferTypeStep = () => {
   const { updatePrefer } = useApi();
 
   const onNext = async () => {
-    // if (currentPage === 4) {
-    //   await updatePrefer();
-    // }
-    // TODO: 포트원 심사를 위한 임시 주석 처리
-
+    if (currentPage === 4) {
+      await updatePrefer();
+    }
     PageHandler.onNext();
   };
 

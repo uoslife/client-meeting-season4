@@ -29,12 +29,18 @@ const handleAuthSilentRefresh = async (originRequest: AxiosError) => {
         return axios(originRequest.config!);
       })
       .catch(() => {
-        const isUosUser = uoslifeBridge.driver.isInstalled;
-        toast.error(isUosUser ? '다시 접속해주세요!' : '다시 로그인해주세요!', {
-          duration: 4000,
-        });
+        //@ts-expect-error: window has ReactNativeWebview
+        const isFromUoslifeWebView = !!window.ReactNativeWebView;
+
+        toast.error(
+          isFromUoslifeWebView ? '다시 접속해주세요!' : '다시 로그인해주세요!',
+          {
+            duration: 4000,
+          },
+        );
+
         setTimeout(() => {
-          isUosUser
+          isFromUoslifeWebView
             ? uoslifeBridge.goBack()
             : (window.location.href = '/common/univVerificationStep');
         }, 1500);

@@ -1,11 +1,18 @@
 import styled from '@emotion/styled';
 import { useState } from 'react';
-import { PaymentAPI } from '~/api';
+import { MeetingAPI, PaymentAPI } from '~/api';
 import RoundButton from '~/components/buttons/roundButton/RoundButton';
 import PageLayout from '~/components/layout/page/PageLayout';
 import Text from '~/components/typography/Text';
 import useTypeSafeNavigate from '~/hooks/useTypeSafeNavigate';
 import { colors } from '~/styles/colors';
+import { useSetAtom } from 'jotai/index';
+import { isLoggedInAtom } from '~/models/auth';
+import { useSetImmerAtom } from 'jotai-immer';
+import { commonDataAtoms } from '~/models/common/data';
+import { groupDataAtoms } from '~/models/group/data';
+import toast from 'react-hot-toast';
+import axios from 'axios';
 
 const CryingFace = () => (
   <img
@@ -36,13 +43,61 @@ const Ask = ({
     navigate('/common/checkAfterAlreadyAppliedStep');
   };
 
-  const onClickCancelButton = async () => {
+  const setLogInValue = useSetAtom(isLoggedInAtom);
+
+  const setAuthPhoneVerification = useSetImmerAtom(
+    commonDataAtoms.commonUnivVerificationStep.page3,
+  );
+  const setGroupMemberParticipate = useSetImmerAtom(
+    groupDataAtoms.groupMemberParticipateStep.page1,
+  );
+  const setGroupLeaderGroupCreate = useSetImmerAtom(
+    groupDataAtoms.groupLeaderGroupCreateStep.page2,
+  );
+
+  const handleRefundPayment = async () => {
     try {
       await PaymentAPI.refundPayment();
-      setIsCompleted(true);
-    } catch (error) {
-      console.log(error);
+    } catch (error: unknown) {
+      if (axios.isAxiosError(error) && error.response?.data.code === 'P03') {
+        toast.error(
+          '결제가 제대로 처리되지 않았습니다! 시대생 카카오톡 채널로 문의해주세요!',
+          {
+            duration: 5000,
+          },
+        );
+      }
+      throw Error;
     }
+  };
+
+  const handleDeleteUser = async () => {
+    try {
+      await MeetingAPI.deleteUser();
+    } catch (e) {
+      throw Error;
+    }
+  };
+
+  const handleResetInfo = () => {
+    setLogInValue(false);
+    setGroupMemberParticipate(() => ({
+      verified: false,
+    }));
+    setGroupLeaderGroupCreate(() => ({
+      joinCode: null,
+      otherMembers: [null, null, null],
+    }));
+    setAuthPhoneVerification(() => ({
+      verified: false,
+    }));
+  };
+
+  const onClickCancelButton = async () => {
+    await handleRefundPayment();
+    await handleDeleteUser();
+    handleResetInfo();
+    setIsCompleted(true);
   };
 
   return (

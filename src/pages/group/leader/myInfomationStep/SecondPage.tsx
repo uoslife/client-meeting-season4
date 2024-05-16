@@ -31,9 +31,9 @@ const SecondPage = () => {
     const res = await uoslifeBridge.getUserInfo();
     setPageState(prev => ({
       ...prev,
-      phone: res.phone,
-      major: res.departmentName,
-      studentType: res.degree as InfoOptions['studentType'],
+      // phone: res.phone,
+      major: res.identity.department,
+      studentType: res.identity.status as InfoOptions['studentType'],
     }));
   };
 
