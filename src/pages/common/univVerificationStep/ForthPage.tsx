@@ -80,7 +80,7 @@ const ForthPage = () => {
     try {
       const { data } = await AuthAPI.createUoslifeUser({
         // nickname: `${inputValue}@${storedUnivType === 'HUFS' ? 'hufs' : 'khu'}.ac.kr`,
-        nickname: `aacz1203@uos.ac.kr`,
+        nickname: `${inputValue}@uos.ac.kr`,
       });
       API.defaults.headers.common['Authorization'] =
         `Bearer ${data.accessToken}`;
