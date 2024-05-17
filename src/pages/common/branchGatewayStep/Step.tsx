@@ -48,11 +48,11 @@ const CommonBranchGatewayStep = () => {
 
   const onNext = async () => {
     if (meetingType === 'personal') {
-      await resetTeam();
       setIsTeamLeader(prev => ({
         ...prev,
         isLeader: null,
       }));
+      await resetTeam();
       return;
     }
     PageHandler.onNext();

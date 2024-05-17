@@ -49,7 +49,7 @@ const TopSayings = () => (
   <Col gap={4} align="center">
     <Text
       color="Primary500"
-      label="신청 정보를 확인해줘"
+      label="신청 정보를 확인해주세요."
       typography="NeoTitleM"
     />
     <Text

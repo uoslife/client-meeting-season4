@@ -21,14 +21,11 @@ import uoslifeBridge from '~/bridge';
 import API from '~/api/core';
 import { groupDataAtoms } from '~/models/group/data';
 import CleanUpModal from '~/components/modal/cleanUpModal/CleanUpModal';
-import { isUseFramerMotionAtom } from '~/models/common/data';
+import { commonDataAtoms, isUseFramerMotionAtom } from '~/models/common/data';
 
 const CommonLandingStep = () => {
   const isUoslifeUser = useAtomValue(isUosUserAtom);
 
-  useEffect(() => {
-    console.log(uoslifeBridge.driver.isInstalled);
-  }, []);
   return (
     <PageLayout>
       {isUoslifeUser ? (
@@ -103,7 +100,6 @@ const TopCardComponent = () => {
 const BottomCardComponent = () => {
   const navigate = useTypeSafeNavigate();
   const [businessToggleInfo, setBusinessToggleInfo] = useState(false);
-  const [isTeamMember, setIsTeamMember] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const isUosUserValue = useAtomValue(isUosUserAtom);
   const setNavigateNextStep = useSetAtom(navigateNextStepAtom);
@@ -113,7 +109,16 @@ const BottomCardComponent = () => {
   const [isPaymentFinishedValue, setIsPaymentFinishedValue] = useAtom(
     isPaymentFinishedAtom,
   );
-  const { isLeader } = useAtomValue(groupDataAtoms.groupRoleSelectStep.page1);
+  const { isLeader: isTeamLeader } = useAtomValue(
+    groupDataAtoms.groupRoleSelectStep.page1,
+  );
+  const setChangeUniv = useSetAtom(
+    commonDataAtoms.commonUnivVerificationStep.page1,
+  );
+  const setChangePledge = useSetAtom(
+    commonDataAtoms.commonUnivVerificationStep.page2,
+  );
+  setIsUseFramerMotion(false);
 
   // 시대생인지 확인
   const checkUosUser = async () => {
@@ -124,6 +129,12 @@ const BottomCardComponent = () => {
         userId: id,
       });
       setIsLoggedInValue(true);
+      setChangeUniv({
+        univType: 'UOS',
+      });
+      setChangePledge({
+        checked: [true, true],
+      });
       API.defaults.headers.common['Authorization'] =
         `Bearer ${data.accessToken}`;
     } catch (error) {
@@ -136,7 +147,10 @@ const BottomCardComponent = () => {
   const handleOnClickPrimary = () => {
     setNavigateNextStep(true);
     // 시대생에서 접근한 유저는 이메일 인증 없이 바로 미팅 신청 로직
-    if (isUoslifeUser) return navigate('/common/branchGatewayStep');
+    if (isUoslifeUser) {
+      navigate('/common/branchGatewayStep');
+      return;
+    }
     navigate(
       isLoggedInValue
         ? '/common/branchGatewayStep'
@@ -147,7 +161,7 @@ const BottomCardComponent = () => {
   // 신청 정보 확인하기 버튼
   const handleOnClickSecondary = () => {
     // 3대3 팀원이 버튼을 누르는 경우
-    if (isTeamMember) return setIsModalOpen(true);
+    if (isTeamLeader === false) return setIsModalOpen(true);
     navigate('/common/checkAfterAlreadyAppliedStep');
   };
 
@@ -162,9 +176,8 @@ const BottomCardComponent = () => {
       .catch(error => {
         const { code } = error.response.data;
         // 3대3 팀원이 신청을 완료한 경우
-        if (code === 'P01' && !isLeader) {
+        if (code === 'P01' && isTeamLeader === false) {
           setIsPaymentFinishedValue(true);
-          setIsTeamMember(true);
           return;
         }
         // 미팅 팀을 생성하지 않은 경우(첫 가입 유저)
@@ -176,7 +189,6 @@ const BottomCardComponent = () => {
   };
 
   useEffect(() => {
-    setIsUseFramerMotion(false);
     checkUosUser().finally(handlePaymentResult);
   }, [isLoggedInValue]);
 
@@ -193,7 +205,6 @@ const BottomCardComponent = () => {
       await MeetingAPI.deleteUser();
       await checkUosUser();
       setIsModalOpen(false);
-      setIsTeamMember(false);
       setIsPaymentFinishedValue(false);
     } catch (e) {
       throw Error;
@@ -206,8 +217,8 @@ const BottomCardComponent = () => {
         <Col align="center" padding={'10px 30px 0 30px'}>
           <img
             alt={'title'}
-            // width={276}
-            // height={186}
+            width={276}
+            height={186}
             src={'/images/main/mainTextLogo.png'}
           />
         </Col>
@@ -321,7 +332,10 @@ const BottomCardComponent = () => {
       {isModalOpen && (
         <CleanUpModal
           title={'팅장만 결과를 확인할 수 있습니다.'}
-          description={'신청 취소 원하신다면 확인을 눌러주세요.'}
+          description={
+            '확인을 누르면 신청한 팀이 취소됩니다.\n' +
+            '신청 취소 원하신다면 확인을 눌러주세요.'
+          }
           setIsCleanUpModalOpen={setIsModalOpen}
           onClick={handleResetUser}
         />
