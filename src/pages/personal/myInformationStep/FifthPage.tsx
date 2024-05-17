@@ -8,6 +8,7 @@ import { useAtom, useAtomValue, useSetAtom } from 'jotai';
 import { pageFinishAtom } from '~/models/funnel';
 import { personalDataAtoms } from '~/models/personal/data';
 import { combinedValidatiesAtoms } from '~/models';
+import { getSortedMbtiArray } from '~/utils/meetingInfo/mbti';
 
 const Fifthpage = () => {
   const [pageState, setPageState] = useAtom(
@@ -40,7 +41,7 @@ const Fifthpage = () => {
           break;
       }
       newMbtis += value;
-      return { mbti: newMbtis };
+      return { mbti: getSortedMbtiArray(newMbtis).join('') };
     });
   };
 
