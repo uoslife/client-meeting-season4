@@ -12,6 +12,7 @@ import CommonVerifyForCheckAfterAlreadyAppliedStep from '~/pages/common/verifyFo
 import CheckAfterAlreadyAppliedStep from '~/pages/common/checkAfterAleadyAppliedStep/Step';
 import NotFoundPage from '~/pages/common/notFound/NotFoundPage';
 import CommonMatchingStep from '~/pages/common/matchingStep/Step';
+import RoulettePage from '~/pages/common/roulette/Page';
 
 const commonRoutes = [
   //--------------------------------------------------------//
@@ -21,6 +22,10 @@ const commonRoutes = [
   {
     path: '/',
     element: <CommonLandingStep />,
+  },
+  {
+    path: '/common/roulette',
+    element: <RoulettePage />,
   },
   {
     path: '/common/univVerificationStep',
