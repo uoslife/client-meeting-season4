@@ -69,8 +69,9 @@ const PaymentPage = () => {
       name: '시대팅 Season4 참가비', // 주문명
       buyer_tel: userPaymentInfo?.phoneNumber,
       buyer_name: userPaymentInfo?.name ?? `test${Math.random() * 10000}`,
-      m_redirect_url: 'http://localhost:5173/common/paymentResultStep',
-      // 'https://meeting.alpha.uoslife.com/common/paymentResultStep',
+      m_redirect_url:
+        // 'http://localhost:5173/common/paymentResultStep',
+        'https://meeting.alpha.uoslife.com/common/paymentResultStep',
     };
 
     IMP?.request_pay(data, callback);
