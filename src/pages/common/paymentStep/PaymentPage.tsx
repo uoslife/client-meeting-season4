@@ -57,9 +57,6 @@ const PaymentPage = () => {
 
   const onClickPayment = async () => {
     /* 1. 가맹점 식별하기 */
-    const { IMP } = window;
-    IMP?.init(ID);
-
     const data: RequestPayParams = {
       // pg: 'welcome.IMP2000029', // PG사 : https://developers.portone.io/docs/ko/tip/pg-2 참고
       pg: 'welcome', // PG사 : https://developers.portone.io/docs/ko/tip/pg-2 참고
@@ -74,7 +71,27 @@ const PaymentPage = () => {
         'https://meeting.alpha.uoslife.com/common/paymentResultStep',
     };
 
-    IMP?.request_pay(data, callback);
+    //@ts-expect-error: window has ReactNativeWebview
+    const isFromUoslifeWebView = !!window.ReactNativeWebView;
+
+    if (isFromUoslifeWebView) {
+      /* 리액트 네이티브 환경에 대응하기 */
+      const params = {
+        ID, // 가맹점 식별코드
+        data, // 결제 데이터
+        type: 'payment', // 결제와 본인인증 구분을 위한 필드
+      };
+      const paramsToString = JSON.stringify(params);
+      //@ts-expect-error: window has ReactNativeWebview
+      window.ReactNativeWebView.postMessage(paramsToString);
+    } else {
+      /* 그 외 환경의 경우 */
+      /* 가맹점 식별하기 */
+      const { IMP } = window;
+      IMP?.init(ID);
+      /* 결제 창 호출하기 */
+      IMP?.request_pay(data, callback);
+    }
   };
 
   //pc 버전 콜백
