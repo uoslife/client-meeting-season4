@@ -73,23 +73,22 @@ const PaymentPage = () => {
         'https://meeting.alpha.uoslife.com/common/paymentResultStep',
     };
 
-    //@ts-expect-error: window has ReactNativeWebview
-    const isFromUoslifeWebView = !!window.ReactNativeWebView;
+    // const isFromUoslifeWebView = !!window.ReactNativeWebView;
 
-    if (isFromUoslifeWebView) {
-      /* 리액트 네이티브 환경에 대응하기 */
-      uoslifeBridge.requestMeetingPayments({
-        userCode: ID,
-        data: data as IPaymentData,
-      });
-    } else {
-      /* 그 외 환경의 경우 */
-      /* 가맹점 식별하기 */
-      const { IMP } = window;
-      IMP?.init(ID);
-      /* 결제 창 호출하기 */
-      IMP?.request_pay(data, callback);
-    }
+    // if (isFromUoslifeWebView) {
+    //   /* 리액트 네이티브 환경에 대응하기 */
+    //   uoslifeBridge.requestMeetingPayments({
+    //     userCode: ID,
+    //     data: data as IPaymentData,
+    //   });
+    // } else {
+    /* 그 외 환경의 경우 */
+    /* 가맹점 식별하기 */
+    const { IMP } = window;
+    IMP?.init(ID);
+    /* 결제 창 호출하기 */
+    IMP?.request_pay(data, callback);
+    // }
   };
 
   //pc 버전 콜백
