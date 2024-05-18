@@ -30,10 +30,22 @@ const FirstPage = () => {
             weight={400}
             size={18}
           />
-          <Col align="center">
+          <Col gap={4} align="center">
             <Text
               label={
                 '‘시대팅X트로이카’는 시립대, 경희대, 한국외대 학생들에게만 제공되는 서비스입니다.'
+              }
+              color={'Gray400'}
+              typography={'GoThicBodyS'}
+              weight={400}
+              size={14}
+              css={css`
+                text-align: center;
+              `}
+            />
+            <Text
+              label={
+                '경희대, 한국외대 학생들은 원활한 미팅 진행을 위해 서울 캠퍼스만 신청 가능합니다.'
               }
               color={'Gray400'}
               typography={'GoThicBodyS'}

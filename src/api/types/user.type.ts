@@ -170,7 +170,3 @@ export type GetMeetingInfoResponse = {
 export type CreateUserRequest = {
   userId: number;
 };
-
-export type CreateUserResponse = {
-  accessToken: string;
-};

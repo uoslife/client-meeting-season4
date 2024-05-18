@@ -15,7 +15,7 @@ function App() {
       setTimeout(silentRefresh.reLoginForUosUser, 3600 * 1000 * 2);
       return;
     }
-    silentRefresh.onSilentRefresh();
+    silentRefresh.onSilentRefreshV2();
   }, []);
 
   return (

@@ -25,6 +25,7 @@ export type VerificationCodeCheckByPhoneRequest = {
 export type VerificationCodeCheckByEmailResponse = {
   accessToken: string;
   refreshToken: string;
+  reason: string;
 };
 
 export type VerificationCodeCheckByPhoneResponse = {
@@ -66,4 +67,8 @@ export type GetUoslifeUserInfoResponse = {
   isLinkedPortal: boolean;
   isVerified: boolean;
   verificationMethod: string;
+};
+
+export type GetRefreshTokenV2 = {
+  refreshToken: string;
 };

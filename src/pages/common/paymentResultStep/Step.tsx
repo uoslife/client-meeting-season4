@@ -31,8 +31,9 @@ const CommonPaymentResultStep = () => {
 
   const handleGetTokenFromWebview = async () => {
     try {
-      const { id } = await uoslifeBridge.getUserInfo();
-      const { data } = await MeetingAPI.createUser({ userId: id });
+      const { accessToken } = await uoslifeBridge.getAccessToken();
+      API.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
+      const { data } = await MeetingAPI.createUser();
       setLogInValue(true);
       API.defaults.headers.common['Authorization'] =
         `Bearer ${data.accessToken}`;

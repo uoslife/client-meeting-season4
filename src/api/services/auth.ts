@@ -2,6 +2,7 @@ import API, { API_URL } from '~/api/core';
 import {
   CreateUoslifeUserRequest,
   CreateUoslifeUserResponse,
+  GetRefreshTokenV2,
   GetUoslifeUserInfoResponse,
   GetVerificationCodeByEmailRequest,
   GetVerificationCodeByEmailResponse,
@@ -40,7 +41,10 @@ const getVerificationCodeByEmail = async <
   data: GetVerificationCodeByEmailRequest,
 ) => API.post<T>(`${API_URL.ACCOUNT}/v1/verification/email`, data);
 
-const getRefreshToken = async <T = VerificationCodeCheckByEmailResponse>() =>
+const getRefreshTokenV2 = async <T = VerificationCodeCheckByEmailResponse>(
+  data: GetRefreshTokenV2,
+) => API.post<T>(`${API_URL.ACCOUNT}/v1/auth/refresh`, data);
+const getRefreshTokenV1 = async <T = VerificationCodeCheckByEmailResponse>() =>
   API.post<T>(`${API_URL.MEETING}/api/auth/refresh`);
 const signInUosUser = async () =>
   API.post(`${API_URL.MEETING}/api/auth/uos/signUpOrIn`);
@@ -60,7 +64,8 @@ export default {
   getVerificationCodeByPhone,
   checkVerificationCodeByEmail,
   getVerificationCodeByEmail,
-  getRefreshToken,
+  getRefreshTokenV1,
+  getRefreshTokenV2,
   signInUosUser,
   createUoslifeUser,
   getUoslifeUserInfo,

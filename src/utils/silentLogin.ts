@@ -9,19 +9,34 @@ import uoslifeBridge from '~/bridge';
 export class SilentLogin {
   setIsLoggedIn = useSetAtom(isLoggedInAtom);
   JWT_EXPIRY_TIME = 3600 * 1000; // 만료 시간 (1시간 밀리 초로 표현)
-  onSilentRefresh = () => {
-    AuthAPI.getRefreshToken()
-      .then(this.onLoginSuccess)
+  onSilentRefreshV1 = () => {
+    AuthAPI.getRefreshTokenV1()
+      .then(this.onLoginSuccessV1)
       .catch(() => this.setIsLoggedIn(false));
   };
-
-  onLoginSuccess = (response: AxiosResponse) => {
+  onLoginSuccessV1 = (response: AxiosResponse) => {
     const { accessToken } = response.data;
     this.setIsLoggedIn(true);
 
     API.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
 
-    setTimeout(this.onSilentRefresh, this.JWT_EXPIRY_TIME - 60000);
+    setTimeout(this.onSilentRefreshV1, this.JWT_EXPIRY_TIME - 60000);
+  };
+
+  onSilentRefreshV2 = () => {
+    const refreshToken = localStorage.getItem('refreshToken');
+    AuthAPI.getRefreshTokenV2({ refreshToken: refreshToken ?? '' })
+      .then(this.onLoginSuccessV2)
+      .catch(() => this.setIsLoggedIn(false));
+  };
+  onLoginSuccessV2 = (response: AxiosResponse) => {
+    const { accessToken, refreshToken } = response.data;
+    this.setIsLoggedIn(true);
+    localStorage.setItem('refreshToken', refreshToken);
+
+    API.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
+
+    setTimeout(this.onSilentRefreshV2, this.JWT_EXPIRY_TIME - 60000);
   };
 
   reLoginForUosUser = () => {

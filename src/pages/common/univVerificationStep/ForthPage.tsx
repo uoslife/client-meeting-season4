@@ -82,6 +82,7 @@ const ForthPage = () => {
         // nickname: `${inputValue}@${storedUnivType === 'HUFS' ? 'hufs' : 'khu'}.ac.kr`,
         nickname: `${inputValue}@uos.ac.kr`,
       });
+      localStorage.setItem('refreshToken', data.refreshToken);
       API.defaults.headers.common['Authorization'] =
         `Bearer ${data.accessToken}`;
     } catch (e) {
@@ -114,12 +115,7 @@ const ForthPage = () => {
 
   const handleCreateMeetingUser = async () => {
     try {
-      // 시대생 계정 유저id 탐색
-      const uoslifeUserInfoRes = await AuthAPI.getUoslifeUserInfo();
-      // 시대생 계정 유저id로 시대팅 유저 생성
-      const createMeetingUserRes = await MeetingAPI.createUser({
-        userId: uoslifeUserInfoRes.data.id,
-      });
+      const createMeetingUserRes = await MeetingAPI.createUser();
       API.defaults.headers.common['Authorization'] =
         `Bearer ${createMeetingUserRes.data.accessToken}`;
     } catch (e) {

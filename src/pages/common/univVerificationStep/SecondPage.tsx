@@ -81,12 +81,7 @@ const SecondPage = ({ setIsRegisteredUoslife, isRegisteredUoslife }: Props) => {
   // 시대팅 유저 토큰 주입 로직
   const handleUserInfo = async () => {
     try {
-      // 시대생 계정에서 유저Id 탐색.
-      const uoslifeUserInfoRes = await AuthAPI.getUoslifeUserInfo();
-      // 유저Id로 미팅 계정 토큰 조회.
-      const createMeetingUserRes = await MeetingAPI.createUser({
-        userId: uoslifeUserInfoRes.data.id,
-      });
+      const createMeetingUserRes = await MeetingAPI.createUser();
       // 미팅 계정 토큰 주입
       API.defaults.headers.common['Authorization'] =
         `Bearer ${createMeetingUserRes.data.accessToken}`;
@@ -108,6 +103,9 @@ const SecondPage = ({ setIsRegisteredUoslife, isRegisteredUoslife }: Props) => {
       // 인증번호 성공 시, 토큰 헤더 주입
       API.defaults.headers.common['Authorization'] =
         `Bearer ${data.accessToken}`;
+      if (data.refreshToken) {
+        localStorage.setItem('refreshToken', data.refreshToken);
+      }
       return data;
     } catch (e) {
       setStatusMessage('유효하지 않은 인증번호입니다.');

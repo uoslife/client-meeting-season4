@@ -1,7 +1,5 @@
 import API, { API_URL } from '~/api/core';
 import {
-  CreateUserRequest,
-  CreateUserResponse,
   GetGroupStatusResponse,
   GetMeetingInfoResponse,
   GetUserResponse,
@@ -15,8 +13,7 @@ import {
 
 // 유저 기본 정보(이름, 키, 카카오톡ID, 학과, 등)
 // 유저를 생성합니다.
-const createUser = async <T = CreateUserResponse>(data: CreateUserRequest) =>
-  API.post<T>(`${API_URL.MEETING}/api/user`, data);
+const createUser = async () => API.post(`${API_URL.MEETING}/api/user`);
 // 유저 기본 정보를 얻습니다.
 const getUser = async <T = GetUserResponse>() =>
   API.get<T>(`${API_URL.MEETING}/api/user`);
