@@ -6,6 +6,7 @@ import { useEffect } from 'react';
 import { SilentLogin } from '~/utils/silentLogin';
 import { isUosUserAtom } from '~/models/auth';
 import { useAtomValue } from 'jotai';
+
 function App() {
   const silentRefresh = new SilentLogin();
   const isUosUserValue = useAtomValue(isUosUserAtom);
