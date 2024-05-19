@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react';
 import { MeetingAPI } from '~/api';
 import { pageFinishAtom } from '~/models/funnel';
 import { MeetingInfo } from '~/utils/meetingInfo';
-import { useClientTempData } from './temp';
 import CheckPageDoubleCards, {
   CheckPageDoubleCardsProps,
 } from '~/components/applyInfo/CheckPageDoubleCards';
@@ -12,6 +11,7 @@ import Paddler from '~/components/layout/Pad';
 import Col from '~/components/layout/Col';
 import PageLayout from '~/components/layout/page/PageLayout';
 import Text from '~/components/typography/Text';
+import { css } from '@emotion/react';
 
 // production에서 사용할 훅
 const useData = (meetingType: 'personal' | 'group') => {
@@ -65,13 +65,34 @@ const FirstPage = () => {
     commonDataAtoms.commonBranchGatewayStep.page1,
   );
 
-  const data = useClientTempData(meetingType!);
+  // const data = useClientTempData(meetingType!);
 
-  // const data = useData(meetingType!);
+  const data = useData(meetingType!);
 
-  // // TODO: 대신 보여줄 UI 확정 후 수정
-  // if (data === 'error') return null;
-  // if (data === 'loading') return null;
+  if (data === 'error') return null;
+  if (data === 'loading')
+    return (
+      <PageLayout>
+        <PageLayout.Header title="신청 정보" />
+        <PageLayout.SingleCardBody theme="BG_WHITE" cardPadding="8px 0">
+          <div
+            css={css`
+              width: 100%;
+              height: 80%;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+            `}>
+            <img
+              alt={''}
+              src="/images/uoslifeLogo-loadingSpinner.webp"
+              width={320}
+              height={200}
+            />
+          </div>
+        </PageLayout.SingleCardBody>
+      </PageLayout>
+    );
 
   return (
     <PageLayout.SingleCardBody theme="BG_GREY" cardPadding="8px 0 80px">

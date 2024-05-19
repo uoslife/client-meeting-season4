@@ -44,6 +44,8 @@ const FirstPage = () => {
         />
       </Col>
       <TextInput
+        minLength={2}
+        maxLength={7}
         value={teamName}
         onChange={onChangeTeamName}
         status={'default'}
