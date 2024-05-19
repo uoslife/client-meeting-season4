@@ -3,6 +3,7 @@ import Text from '~/components/typography/Text';
 import S from './Game.style';
 import Col from '~/components/layout/Col';
 import { colors } from '~/styles/colors';
+import ResultModal from './ResultModal';
 
 const StartButton = ({
   onClick,
@@ -88,6 +89,7 @@ const STOP_DEG_CANDIDATES = Array.from(
 const SPINNING_TIME = 2000;
 
 const Game = () => {
+  const [result, setResult] = useState<string | null>(null);
   const [isSpinning, setIsSpinning] = useState(false);
   // 회전된 정도
 
@@ -120,7 +122,7 @@ const Game = () => {
 
     setTimeout(() => {
       setIsSpinning(false);
-      alert(selectedOptionText);
+      setResult(selectedOptionText);
     }, SPINNING_TIME);
   };
 
@@ -132,6 +134,7 @@ const Game = () => {
         <RouletteBody ref={bodyRef} />
         <RouletteSupport />
         <SideIrumae />
+        <ResultModal result={result} onClickConfirm={() => setResult(null)} />
       </S.RouletteContainer>
     </Col>
   );
