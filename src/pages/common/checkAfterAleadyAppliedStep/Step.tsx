@@ -99,7 +99,7 @@ const CheckAfterAlreadyAppliedStep = () => {
   const { meetingType } = useAtomValue(
     commonDataAtoms.commonBranchGatewayStep.page1,
   );
-  const cardState = useData(meetingType);
+  const cardState = useData(meetingType!);
 
   console.log('asd');
 
