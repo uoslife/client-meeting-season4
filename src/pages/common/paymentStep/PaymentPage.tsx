@@ -16,6 +16,8 @@ import { PaymentResponse } from '~/api/types/payment.type';
 import { PaymentAPI } from '~/api';
 import axios from 'axios';
 import { isLoggedInAtom } from '~/models/auth';
+import uoslifeBridge from '~/bridge';
+import { IPaymentData } from '@uoslife/webview';
 
 const ID = 'imp04325748';
 
@@ -69,29 +71,25 @@ const PaymentPage = () => {
       m_redirect_url:
         // 'http://localhost:5173/common/paymentResultStep',
         'https://meeting.alpha.uoslife.com/common/paymentResultStep',
+      app_scheme: 'uoslife',
     };
 
-    //@ts-expect-error: window has ReactNativeWebview
-    const isFromUoslifeWebView = !!window.ReactNativeWebView;
+    // const isFromUoslifeWebView = !!window.ReactNativeWebView;
 
-    if (isFromUoslifeWebView) {
-      /* 리액트 네이티브 환경에 대응하기 */
-      const params = {
-        ID, // 가맹점 식별코드
-        data, // 결제 데이터
-        type: 'payment', // 결제와 본인인증 구분을 위한 필드
-      };
-      const paramsToString = JSON.stringify(params);
-      //@ts-expect-error: window has ReactNativeWebview
-      window.ReactNativeWebView.postMessage(paramsToString);
-    } else {
-      /* 그 외 환경의 경우 */
-      /* 가맹점 식별하기 */
-      const { IMP } = window;
-      IMP?.init(ID);
-      /* 결제 창 호출하기 */
-      IMP?.request_pay(data, callback);
-    }
+    // if (isFromUoslifeWebView) {
+    //   /* 리액트 네이티브 환경에 대응하기 */
+    //   uoslifeBridge.requestMeetingPayments({
+    //     userCode: ID,
+    //     data: data as IPaymentData,
+    //   });
+    // } else {
+    /* 그 외 환경의 경우 */
+    /* 가맹점 식별하기 */
+    const { IMP } = window;
+    IMP?.init(ID);
+    /* 결제 창 호출하기 */
+    IMP?.request_pay(data, callback);
+    // }
   };
 
   //pc 버전 콜백
