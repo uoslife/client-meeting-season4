@@ -127,7 +127,7 @@ const BottomCardComponent = () => {
       const { accessToken } = await uoslifeBridge.getAccessToken();
       // TODO: refreshToken 주입
       API.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
-      const { data } = await MeetingAPI.createUser();
+      await MeetingAPI.createUser();
       setIsLoggedInValue(true);
       setChangeUniv({
         univType: 'UOS',
@@ -135,8 +135,6 @@ const BottomCardComponent = () => {
       setChangePledge({
         checked: [true, true],
       });
-      API.defaults.headers.common['Authorization'] =
-        `Bearer ${data.accessToken}`;
     } catch (error) {
       setIsLoggedInValue(false);
       throw Error;
