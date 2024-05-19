@@ -11,6 +11,8 @@ import Text from '~/components/typography/Text';
 import useTypeSafeNavigate from '~/hooks/useTypeSafeNavigate';
 import { MeetingInfo } from '~/utils/meetingInfo';
 import { css } from '@emotion/react';
+import { useAtomValue } from 'jotai';
+import { commonDataAtoms } from '~/models/common/data';
 
 const useData = (meetingType: 'personal' | 'group') => {
   const [meetingInfoState, setMeetingInfoState] = useState<
@@ -94,7 +96,12 @@ const BottomSayingsAndCancelButton = () => {
 };
 
 const CheckAfterAlreadyAppliedStep = () => {
-  const cardState = useData('personal');
+  const { meetingType } = useAtomValue(
+    commonDataAtoms.commonBranchGatewayStep.page1,
+  );
+  const cardState = useData(meetingType);
+
+  console.log('asd');
 
   const navigate = useTypeSafeNavigate();
 
