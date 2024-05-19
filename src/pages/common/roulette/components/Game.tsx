@@ -93,7 +93,9 @@ const Game = () => {
 
   const bodyRef = useRef<HTMLDivElement>(null);
 
-  const start = () => {
+  const onClickButton = () => {
+    if (isSpinning) return;
+
     setIsSpinning(true);
 
     const rIndex = Math.floor(Math.random() * OPTION_LENGTH);
@@ -124,7 +126,7 @@ const Game = () => {
 
   return (
     <Col align="center" gap={18}>
-      <StartButton isSpinning={isSpinning} onClick={start} />
+      <StartButton isSpinning={isSpinning} onClick={onClickButton} />
       <S.RouletteContainer>
         <BottomArrow />
         <RouletteBody ref={bodyRef} />
