@@ -71,6 +71,7 @@ const PaymentPage = () => {
       m_redirect_url:
         // 'http://localhost:5173/common/paymentResultStep',
         'https://meeting.alpha.uoslife.com/common/paymentResultStep',
+      app_scheme: 'uoslife',
     };
 
     // const isFromUoslifeWebView = !!window.ReactNativeWebView;
