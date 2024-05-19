@@ -10,7 +10,7 @@ interface IErrorResponseData {
 
 export const API_URL = {
   ACCOUNT: 'https://account.uoslife.com',
-  MEETING: 'https://meeting.alpha.uoslife.com',
+  MEETING: 'https://meeting.uoslife.com',
 };
 
 export const API = axios.create({
