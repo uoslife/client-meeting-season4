@@ -9,7 +9,7 @@ type CleanUpModalProps = {
   setIsCleanUpModalOpen: React.Dispatch<boolean>;
   title: string;
   description: string;
-  onClick: () => void;
+  onClick?: () => void;
 };
 
 const CleanUpModal = ({
@@ -36,18 +36,6 @@ const CleanUpModal = ({
             />
           </S.TextWrapper>
           <Row justify={'center'}>
-            <S.Button onClick={onClick}>
-              <Text
-                label={'확인'}
-                color={'Primary500'}
-                typography={'NeoButtonL'}
-              />
-            </S.Button>
-            <div
-              css={css`
-                height: 46px;
-                border-right: 1px solid ${colors.Gray100};
-              `}></div>
             <S.Button onClick={() => setIsCleanUpModalOpen(false)}>
               <Text
                 label={'닫기'}
@@ -55,6 +43,23 @@ const CleanUpModal = ({
                 typography={'NeoButtonL'}
               />
             </S.Button>
+            {onClick && (
+              <>
+                <div
+                  css={css`
+                    height: 46px;
+                    border-right: 1px solid ${colors.Gray100};
+                  `}
+                />{' '}
+                <S.Button onClick={onClick}>
+                  <Text
+                    label={'확인'}
+                    color={'Primary500'}
+                    typography={'NeoButtonL'}
+                  />
+                </S.Button>
+              </>
+            )}
           </Row>
         </S.Container>
       </S.Wrapper>
@@ -94,7 +99,7 @@ const S = {
   Button: styled.div`
     border-top: 1px solid ${colors.Gray100};
     padding: 10px;
-    width: 48%;
+    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;

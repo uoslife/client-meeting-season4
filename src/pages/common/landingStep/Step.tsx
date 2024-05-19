@@ -109,9 +109,7 @@ const BottomCardComponent = () => {
   const [isPaymentFinishedValue, setIsPaymentFinishedValue] = useAtom(
     isPaymentFinishedAtom,
   );
-  const { isLeader: isTeamLeader } = useAtomValue(
-    groupDataAtoms.groupRoleSelectStep.page1,
-  );
+  const { isLeader } = useAtomValue(groupDataAtoms.groupRoleSelectStep.page1);
   const setChangeUniv = useSetAtom(
     commonDataAtoms.commonUnivVerificationStep.page1,
   );
@@ -159,7 +157,7 @@ const BottomCardComponent = () => {
   // 신청 정보 확인하기 버튼
   const handleOnClickSecondary = () => {
     // 3대3 팀원이 버튼을 누르는 경우
-    if (isTeamLeader === false) return setIsModalOpen(true);
+    if (isLeader === false) return setIsModalOpen(true);
     navigate('/common/checkAfterAlreadyAppliedStep');
   };
 
@@ -174,7 +172,7 @@ const BottomCardComponent = () => {
       .catch(error => {
         const { code } = error.response.data;
         // 3대3 팀원이 신청을 완료한 경우
-        if (code === 'P01' && isTeamLeader === false) {
+        if (code === 'P01' && isLeader === false) {
           setIsPaymentFinishedValue(true);
           return;
         }
@@ -196,17 +194,6 @@ const BottomCardComponent = () => {
     toast.success('널리 공유해주세요~!', {
       icon: '😁',
     });
-  };
-
-  const handleResetUser = async () => {
-    try {
-      await MeetingAPI.deleteUser();
-      await checkUosUser();
-      setIsModalOpen(false);
-      setIsPaymentFinishedValue(false);
-    } catch (e) {
-      throw Error;
-    }
   };
 
   return (
@@ -331,11 +318,9 @@ const BottomCardComponent = () => {
         <CleanUpModal
           title={'팅장만 결과를 확인할 수 있습니다.'}
           description={
-            '확인을 누르면 신청한 팀이 취소됩니다.\n' +
-            '신청 취소 원하신다면 확인을 눌러주세요.'
+            '신청 취소를 원하신다면\n' + '팅장이 직접 취소해주셔야 합니다!'
           }
           setIsCleanUpModalOpen={setIsModalOpen}
-          onClick={handleResetUser}
         />
       )}
     </Col>
