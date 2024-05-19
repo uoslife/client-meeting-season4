@@ -6,43 +6,43 @@ export const typographies = {
     font-size: 17px;
     line-height: 27px;
     font-weight: 400;
-    font-family: 'NeoDunggeunmoProType-Regular';
+    font-family: 'Neo Dunggeunmo Pro', sans-serif;
   `,
   NeoBodyL: css`
     font-size: 18px;
     line-height: 21px;
     font-weight: 400;
-    font-family: 'NeoDunggeunmoProType-Regular';
+    font-family: 'Neo Dunggeunmo Pro', sans-serif;
   `,
   NeoBodyM: css`
     font-size: 16px;
     line-height: 24px;
     font-weight: 400;
-    font-family: 'NeoDunggeunmoProType-Regular';
+    font-family: 'Neo Dunggeunmo Pro', sans-serif;
   `,
   NeoBodyS: css`
     font-size: 14px;
     line-height: 20px;
     font-weight: 400;
-    font-family: 'NeoDunggeunmoProType-Regular';
+    font-family: 'Neo Dunggeunmo Pro', sans-serif;
   `,
   NeoButtonL: css`
     font-size: 18px;
     line-height: 30px;
     font-weight: 400;
-    font-family: 'NeoDunggeunmoProType-Regular';
+    font-family: 'Neo Dunggeunmo Pro', sans-serif;
   `,
   NeoButtonS: css`
     font-size: 14px;
     line-height: 30px;
     font-weight: 400;
-    font-family: 'NeoDunggeunmoProType-Regular';
+    font-family: 'Neo Dunggeunmo Pro', sans-serif;
   `,
   NeoLabel: css`
     font-size: 14px;
     line-height: normal;
     font-weight: 400;
-    font-family: 'NeoDunggeunmoProType-Regular';
+    font-family: 'Neo Dunggeunmo Pro', sans-serif;
   `,
 
   // GoThic
@@ -50,45 +50,45 @@ export const typographies = {
     font-size: 14px;
     line-height: 20px;
     font-weight: 700;
-    font-family: 'GothicA1Type-Bold';
+    font-family: 'Gothic A1', sans-serif;
   `,
   GoThicBodyS: css`
     font-size: 14px;
     line-height: 20px;
     font-weight: 400;
-    font-family: 'GothicA1Type-Regular';
+    font-family: 'Gothic A1', sans-serif;
   `,
   GoThicButtonM: css`
     font-size: 14px;
     line-height: 19.5px;
     font-weight: 400;
-    font-family: 'GothicA1Type-Regular';
+    font-family: 'Gothic A1', sans-serif;
   `,
   GoThicLabelS: css`
     font-size: 12px;
     line-height: normal;
     font-weight: 500;
-    font-family: 'GothicA1Type-Regular';
+    font-family: 'Gothic A1', sans-serif;
   `,
 
   // PF
   PFLabelL: css`
     font-size: 18px;
     line-height: 24px;
-    font-weight: 500;
-    font-family: 'DOSGothic-Regular';
+    font-weight: 400;
+    font-family: 'DOSGothic', sans-serif;
   `,
   PFLabelM: css`
     font-size: 14px;
     line-height: normal;
     font-weight: 400;
-    font-family: 'DOSGothic-Regular';
+    font-family: 'DOSGothic', sans-serif;
   `,
   PFLabelS: css`
     font-size: 12px;
     line-height: normal;
     font-weight: 400;
-    font-family: 'DOSGothic-Regular';
+    font-family: 'DOSGothic', sans-serif;
   `,
 
   // Pretendard
@@ -96,7 +96,7 @@ export const typographies = {
     font-size: 14px;
     line-height: 19.5px;
     font-weight: 400;
-    font-family: 'PretendardType-Regular';
+    font-family: 'Pretendard', sans-serif;
   `,
 
   // Leferi
@@ -104,6 +104,6 @@ export const typographies = {
     font-size: 20px;
     line-height: normal;
     font-weight: 700;
-    font-family: 'LeferiBaseType-RegularA';
+    font-family: 'Leferi Base', sans-serif;
   `,
 };

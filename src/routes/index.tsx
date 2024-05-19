@@ -4,6 +4,7 @@ import groupRoutes from '~/routes/groupRoutes';
 import personalRoutes from '~/routes/personalRoutes';
 import { ReactElement } from 'react';
 import { AnimatePresence } from 'framer-motion';
+import usePageTracking from '~/hooks/usePageTracking.tsx';
 
 type RouteType = {
   path: string;
@@ -23,6 +24,8 @@ const getRoutes = (routes: RouteType[]) => {
 
 export const Router = () => {
   const location = useLocation();
+  usePageTracking();
+
   return (
     <AnimatePresence>
       <Routes location={location} key={location.pathname}>
