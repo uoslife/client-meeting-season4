@@ -199,8 +199,8 @@ export class MeetingInfo {
             {
               name: '흡연 여부 / 음주 횟수',
               content: getSmokingAndDrinkPreferLabel({
-                drinkingMax: preference.drinkingMax!,
                 drinkingMin: preference.drinkingMin!,
+                drinkingMax: preference.drinkingMax!,
                 smoking: preference.smoking!,
               }),
             },

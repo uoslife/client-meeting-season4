@@ -11,7 +11,6 @@ import { useAtomValue, useSetAtom } from 'jotai';
 import { pageFinishAtom } from '~/models/funnel';
 import { combinedValidatiesAtoms } from '~/models';
 import { MeetingAPI } from '~/api';
-import toast from 'react-hot-toast';
 
 type teamInfoType = {
   teamName: string;
@@ -53,6 +52,9 @@ const FirstPage = () => {
       case 'success': {
         return '유효한 코드입니다.';
       }
+      case 'notSameGender': {
+        return '같은 성별끼리만 신청 가능합니다.';
+      }
       default:
         return '';
     }
@@ -78,27 +80,13 @@ const FirstPage = () => {
   };
 
   const handleParticipateTeam = async () => {
-    setPageState({ verified: true });
     await MeetingAPI.joinGroup('TRIPLE', code, true)
       .then(() => {
         setPageState({ verified: true });
-        toast.success(
-          '참여를 수락하셨습니다 :)\n' + '다음 단계로 넘가주세요!',
-          {
-            icon: '🥲',
-            duration: 7000,
-          },
-        );
       })
       .catch(error => {
         if (error.response.data.code === 'M17') {
-          toast.error(
-            '동일한 성별끼리만 신청 가능합니다!\n' +
-              '이전 신청단계에서 확인해주세요!',
-            {
-              icon: '🥲',
-            },
-          );
+          setCodeStatus('notSameGender');
         }
       });
   };
@@ -109,13 +97,16 @@ const FirstPage = () => {
   }, [inputRef]);
 
   useEffect(() => {
-    if (pageValidity) {
-      toast.success('성공적으로 참여하셨습니다');
-    }
     if (code.length === 4) {
       handleEnterCode();
     }
   }, [code, setCode]);
+
+  useEffect(() => {
+    if (pageValidity) {
+      setCodeStatus('success');
+    }
+  }, [pageValidity]);
 
   return (
     <>
@@ -198,7 +189,7 @@ const S = {
       `};
 
     ${({ codeStatus }) =>
-      codeStatus === 'error' &&
+      (codeStatus === 'error' || codeStatus === 'notSameGender') &&
       css`
         border-color: ${colors.Red200};
       `};

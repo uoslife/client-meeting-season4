@@ -16,8 +16,6 @@ import { PaymentResponse } from '~/api/types/payment.type';
 import { PaymentAPI } from '~/api';
 import axios from 'axios';
 import { isLoggedInAtom } from '~/models/auth';
-import uoslifeBridge from '~/bridge';
-import { IPaymentData } from '@uoslife/webview';
 
 const ID = 'imp04325748';
 
@@ -67,7 +65,7 @@ const PaymentPage = () => {
       amount: userPaymentInfo?.price ?? Number(handleProductInfo('price')!), // 결제금액
       name: '시대팅 Season4 참가비', // 주문명
       buyer_tel: userPaymentInfo?.phoneNumber,
-      buyer_name: userPaymentInfo?.name ?? `test${Math.random() * 10000}`,
+      buyer_name: userPaymentInfo?.name,
       m_redirect_url:
         // 'http://localhost:5173/common/paymentResultStep',
         'https://meeting.alpha.uoslife.com/common/paymentResultStep',
