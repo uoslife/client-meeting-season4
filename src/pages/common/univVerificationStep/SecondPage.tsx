@@ -81,10 +81,8 @@ const SecondPage = ({ setIsRegisteredUoslife, isRegisteredUoslife }: Props) => {
   // 시대팅 유저 토큰 주입 로직
   const handleUserInfo = async () => {
     try {
-      const createMeetingUserRes = await MeetingAPI.createUser();
+      await MeetingAPI.createUser();
       // 미팅 계정 토큰 주입
-      API.defaults.headers.common['Authorization'] =
-        `Bearer ${createMeetingUserRes.data.accessToken}`;
     } catch (e) {
       setStatusMessage('인증 과정에서 문제가 생겼습니다. 다시 인증해주세요.');
       setValidateStatus('error');

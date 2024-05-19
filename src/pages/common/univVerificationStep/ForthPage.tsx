@@ -115,9 +115,7 @@ const ForthPage = () => {
 
   const handleCreateMeetingUser = async () => {
     try {
-      const createMeetingUserRes = await MeetingAPI.createUser();
-      API.defaults.headers.common['Authorization'] =
-        `Bearer ${createMeetingUserRes.data.accessToken}`;
+      await MeetingAPI.createUser();
     } catch (e) {
       setStatusMessage('인증 과정에서 문제가 생겼습니다. 다시 인증해주세요.');
       setValidateStatus('error');
