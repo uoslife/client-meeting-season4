@@ -15,6 +15,7 @@ import { AuthAPI, MeetingAPI, PaymentAPI } from '~/api';
 import API from '~/api/core';
 import { isPaymentFinishedAtom } from '~/models/payment';
 import { isLoggedInAtom } from '~/models/auth';
+import toast from 'react-hot-toast';
 
 type Props = {
   setIsRegisteredUoslife: React.Dispatch<boolean>;
@@ -141,6 +142,7 @@ const SecondPage = ({ setIsRegisteredUoslife, isRegisteredUoslife }: Props) => {
 
   //인증번호 입력 제한시간
   useEffect(() => {
+    if (pageValidity) toast.success('성공적으로 인증되었습니다!');
     if (!isRegisteredUoslife) {
       setStatusMessage('인증되었습니다.');
       setValidateStatus('success');

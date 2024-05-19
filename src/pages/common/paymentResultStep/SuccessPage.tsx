@@ -36,7 +36,7 @@ const SuccessPayment = () => {
         <Col align={'center'} gap={8}>
           <Col align={'center'}>
             <Text
-              label={'05/23 목요일 저녁,'}
+              label={'05/25 토요일 저녁,'}
               color={'Secondary900'}
               typography={'GoThicTitleS'}
             />
@@ -47,7 +47,7 @@ const SuccessPayment = () => {
             />
           </Col>
           <Text
-            label={'(신청 취소 기한 : 5월 22일 오후 10시까지)'}
+            label={'(신청 취소 기한 : 5월 22일 23시 59분까지)'}
             color={'Primary500'}
             typography={'GoThicLabelS'}
           />

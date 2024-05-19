@@ -78,6 +78,7 @@ const FirstPage = () => {
   };
 
   const handleParticipateTeam = async () => {
+    setPageState({ verified: true });
     await MeetingAPI.joinGroup('TRIPLE', code, true)
       .then(() => {
         setPageState({ verified: true });
@@ -108,6 +109,9 @@ const FirstPage = () => {
   }, [inputRef]);
 
   useEffect(() => {
+    if (pageValidity) {
+      toast.success('성공적으로 참여하셨습니다');
+    }
     if (code.length === 4) {
       handleEnterCode();
     }

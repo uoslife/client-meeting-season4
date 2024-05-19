@@ -32,7 +32,9 @@ const FirstPage = () => {
         />
         <Col gap={8} align="center">
           <Text
-            label={'11/1 목요일 저녁, \n' + '시대생 어플로 알림을 보내드려요.'}
+            label={
+              '5월 25일 토요일 저녁, \n' + '시대생 어플로 알림을 보내드려요.'
+            }
             color="Secondary800"
             typography="GoThicTitleS"
             css={css`
@@ -40,7 +42,7 @@ const FirstPage = () => {
             `}
           />
           <Text
-            label="(신청 취소 기한 : 5월 31일 오후 10시까지)"
+            label="(신청 취소 기한 : 5월 22일 23시 59분까지)"
             color="Primary500"
             typography="GoThicLabelS"
           />

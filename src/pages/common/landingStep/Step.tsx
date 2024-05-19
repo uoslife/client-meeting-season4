@@ -247,29 +247,20 @@ const BottomCardComponent = () => {
         </Row>
       </Col>
       <Col gap={8} padding={'0 0 10px 0'}>
-        {/*{isPaymentFinishedValue ? (*/}
-        {/*  <RoundButton*/}
-        {/*    status={'cancel'}*/}
-        {/*    borderType={'black'}*/}
-        {/*    label={'신청 정보 확인하기'}*/}
-        {/*    onClick={handleOnClickSecondary}*/}
-        {/*  />*/}
-        {/*) : (*/}
-        {/*  <RoundButton*/}
-        {/*    status={'active'}*/}
-        {/*    label={'신청하기'}*/}
-        {/*    onClick={handleOnClickPrimary}*/}
-        {/*  />*/}
-        {/*)}*/}
-        <RoundButton
-          status={'cancel'}
-          label={'아직 신청 기간이 아닙니다.'}
-          onClick={() =>
-            toast.success('더 나은 서비스 제공을 위해 노력중입니다!', {
-              icon: '😁',
-            })
-          }
-        />
+        {isPaymentFinishedValue ? (
+          <RoundButton
+            status={'cancel'}
+            borderType={'black'}
+            label={'신청 정보 확인하기'}
+            onClick={handleOnClickSecondary}
+          />
+        ) : (
+          <RoundButton
+            status={'active'}
+            label={'신청하기'}
+            onClick={handleOnClickPrimary}
+          />
+        )}
       </Col>
       <Col align={'center'} gap={10}>
         <Text
