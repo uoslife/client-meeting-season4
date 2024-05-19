@@ -125,6 +125,7 @@ const BottomCardComponent = () => {
     try {
       if (!isUosUserValue) return; // 시대생 앱에서 접근한 경우
       const { accessToken } = await uoslifeBridge.getAccessToken();
+      console.log(accessToken);
       API.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
       await MeetingAPI.createUser();
       setIsLoggedInValue(true);
@@ -239,27 +240,36 @@ const BottomCardComponent = () => {
         </QuestionLabel>
         <Row>
           <Text
-            label={'4/24(월) - 4/28(수)'}
+            label={'5/20(월) - 5/22(수)'}
             typography="NeoBodyL"
             color="Secondary900"
           />
         </Row>
       </Col>
       <Col gap={8} padding={'0 0 10px 0'}>
-        {isPaymentFinishedValue ? (
-          <RoundButton
-            status={'cancel'}
-            borderType={'black'}
-            label={'신청 정보 확인하기'}
-            onClick={handleOnClickSecondary}
-          />
-        ) : (
-          <RoundButton
-            status={'active'}
-            label={'신청하기'}
-            onClick={handleOnClickPrimary}
-          />
-        )}
+        {/*{isPaymentFinishedValue ? (*/}
+        {/*  <RoundButton*/}
+        {/*    status={'cancel'}*/}
+        {/*    borderType={'black'}*/}
+        {/*    label={'신청 정보 확인하기'}*/}
+        {/*    onClick={handleOnClickSecondary}*/}
+        {/*  />*/}
+        {/*) : (*/}
+        {/*  <RoundButton*/}
+        {/*    status={'active'}*/}
+        {/*    label={'신청하기'}*/}
+        {/*    onClick={handleOnClickPrimary}*/}
+        {/*  />*/}
+        {/*)}*/}
+        <RoundButton
+          status={'cancel'}
+          label={'아직 신청 기간이 아닙니다.'}
+          onClick={() =>
+            toast.success('더 나은 서비스 제공을 위해 노력중입니다!', {
+              icon: '😁',
+            })
+          }
+        />
       </Col>
       <Col align={'center'} gap={10}>
         <Text
