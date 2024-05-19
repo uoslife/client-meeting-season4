@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 
 const S = {
-  StartButtonContainer: styled.div`
+  StartButtonContainer: styled.div<{ bgColor: string }>`
     width: 188px;
     height: 42px;
     height: 42px;
@@ -12,7 +12,7 @@ const S = {
     align-items: center;
 
     border-radius: 6px;
-    background: #42b1cb;
+    background: ${({ bgColor }) => bgColor};
   `,
   RouletteContainer: styled.div`
     position: relative;
@@ -26,10 +26,8 @@ const S = {
 
     z-index: 2;
   `,
-  BodyWrapper: styled.div<{ rotate: number }>`
+  BodyWrapper: styled.div`
     z-index: 1;
-
-    transform: rotate(${({ rotate }) => rotate}deg);
   `,
   SupportWrapper: styled.div`
     margin-top: -48px;
