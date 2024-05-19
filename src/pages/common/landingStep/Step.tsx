@@ -125,7 +125,7 @@ const BottomCardComponent = () => {
     try {
       if (!isUosUserValue) return; // 시대생 앱에서 접근한 경우
       const { accessToken } = await uoslifeBridge.getAccessToken();
-      API.defaults.headers.common['Authorization'] = `${accessToken}`;
+      API.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
       await MeetingAPI.createUser();
       setIsLoggedInValue(true);
       setChangeUniv({
