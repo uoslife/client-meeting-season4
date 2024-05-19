@@ -97,11 +97,34 @@ const FirstPage = () => {
             onClick={() => navigate('/common/privacyPolicyStep')}
           />
         </Row>
+        <Row align={'center'} justify={'space-between'}>
+          <Row
+            align={'center'}
+            gap={8}
+            onClick={() => handleSetMeetingTypeCheckValue(1)}>
+            <Checkbox checked={checked[1]} height={16} width={16} />
+            <Text
+              label={'시대팅 이용약관에 동의합니다.'}
+              color={'Gray300'}
+              typography={'PretendardRegular'}
+            />
+          </Row>
+          <IconButton
+            iconName={'arrow-black'}
+            height={10}
+            width={6}
+            onClick={() =>
+              window.open(
+                'https://uoslife.notion.site/4-9f7c5cf2509c49389e57d9abafade98a',
+              )
+            }
+          />
+        </Row>
         <Row
           align={'center'}
           gap={8}
-          onClick={() => handleSetMeetingTypeCheckValue(1)}>
-          <Checkbox checked={checked[1]} height={16} width={16} />
+          onClick={() => handleSetMeetingTypeCheckValue(2)}>
+          <Checkbox checked={checked[2]} height={16} width={16} />
           <Text
             label={'경희대, 외대, 시립대 재학생 인증을 완료하였습니다.'}
             color={'Gray300'}

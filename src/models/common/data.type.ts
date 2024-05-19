@@ -19,7 +19,7 @@ export type CommonData = {
   commonBranchGatewayStep: {
     page1: {
       meetingType: 'group' | 'personal' | null;
-      checked: [boolean, boolean];
+      checked: [boolean, boolean, boolean];
     };
   };
   commonVerifyForCheckAfterAlreadyAppliedStep: {
