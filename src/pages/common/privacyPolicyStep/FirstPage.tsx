@@ -85,7 +85,7 @@ const FirstPage = () => {
               />
               <Text
                 label={
-                  ': 대학정보, 이름(실명), 성별, 나이, 학과, 카카오톡 아이디, 계좌번호\n\n'
+                  ': 학교 정보, 학교 웹메일 주소, 실명, 성별, 나이, 키, 카카오톡 ID, 전화번호, 학과, 신분, 종교, 흡연 여부\n\n'
                 }
                 color={'Gray500'}
                 typography={'GoThicBodyS'}
