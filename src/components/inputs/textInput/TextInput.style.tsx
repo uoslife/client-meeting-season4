@@ -36,6 +36,12 @@ export const Input = styled.input<InputStyledProps>`
   &:focus {
     outline: none;
   }
+
+  ::-webkit-outer-spin-button,
+  ::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
 `;
 
 //Icon 컴포넌트 도입 후 수정
