@@ -15,7 +15,7 @@ import { AuthAPI, MeetingAPI, PaymentAPI } from '~/api';
 import API from '~/api/core';
 import { isPaymentFinishedAtom } from '~/models/payment';
 import { isLoggedInAtom } from '~/models/auth';
-import toast from 'react-hot-toast';
+import CleanUpModal from '~/components/modal/cleanUpModal/CleanUpModal';
 
 type Props = {
   setIsRegisteredUoslife: React.Dispatch<boolean>;
@@ -23,10 +23,17 @@ type Props = {
 };
 
 const SecondPage = ({ setIsRegisteredUoslife, isRegisteredUoslife }: Props) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const { univType } = useAtomValue(
+    commonDataAtoms.commonUnivVerificationStep.page1,
+  );
   const pageValidity = useAtomValue(combinedValidatiesAtoms)
     .commonUnivVerificationStep.page3;
-  const setPageState = useSetAtom(
+  const setPageStateForNumber = useSetAtom(
     commonDataAtoms.commonUnivVerificationStep.page3,
+  );
+  const setPageStateForEmail = useSetAtom(
+    commonDataAtoms.commonUnivVerificationStep.page4,
   );
   const setIsPageFinished = useSetAtom(pageFinishAtom);
   const setIsLoggedIn = useSetAtom(isLoggedInAtom);
@@ -106,7 +113,6 @@ const SecondPage = ({ setIsRegisteredUoslife, isRegisteredUoslife }: Props) => {
         localStorage.setItem('refreshToken', data.refreshToken);
       }
       const { data: InfoData } = await AuthAPI.getUoslifeUserInfo();
-      console.log(InfoData.isVerified, 1);
       return InfoData.isVerified;
     } catch (e) {
       setStatusMessage('유효하지 않은 인증번호입니다.');
@@ -120,11 +126,22 @@ const SecondPage = ({ setIsRegisteredUoslife, isRegisteredUoslife }: Props) => {
   const handleValidate = async () => {
     if (!validateCodeValue) return setStatusMessage('인증번호를 입력해주세요!');
     const isVerified = await handleCheckVerificationCode();
-    console.log(isVerified);
+    if (!isVerified && univType === 'UOS') {
+      setIsModalOpen(true);
+      return;
+    }
+    setIsLoggedIn(true);
+    setPageStateForNumber({
+      verified: true,
+    });
+    setIsRegisteredUoslife(false);
+    setStatusMessage('인증되었습니다.');
+    setValidateStatus('success');
     // 만약 가입한 사용자라면 유저 정보 바로 추출
     if (isVerified) {
       await handleUserInfo();
       setIsRegisteredUoslife(false);
+      setPageStateForEmail({ verified: true });
       await PaymentAPI.verifyPayment()
         .then(() => {
           setIsPaymentFinishedValue(false);
@@ -135,17 +152,7 @@ const SecondPage = ({ setIsRegisteredUoslife, isRegisteredUoslife }: Props) => {
         });
       return;
     }
-    setIsLoggedIn(true);
-    setPageState({
-      verified: true,
-    });
-    setStatusMessage('인증되었습니다.');
-    setValidateStatus('success');
   };
-
-  useEffect(() => {
-    if (pageValidity) toast.success('성공적으로 인증되었습니다!');
-  }, [pageValidity]);
 
   //인증번호 입력 제한시간
   useEffect(() => {
@@ -184,14 +191,28 @@ const SecondPage = ({ setIsRegisteredUoslife, isRegisteredUoslife }: Props) => {
             color={'Gray500'}
             typography={'NeoTitleM'}
           />
-          <Text
-            label={'인증번호 전송은 1일 5회로 제한됩니다.'}
-            color={'Gray400'}
-            typography={'GoThicBodyS'}
-            css={css`
-              text-align: center;
-            `}
-          />
+          <Col align={'center'} justify={'center'} gap={4}>
+            <Text
+              label={'인증번호 전송은 1일 5회로 제한됩니다.'}
+              color={'Gray400'}
+              typography={'GoThicBodyS'}
+              css={css`
+                text-align: center;
+              `}
+            />
+            <Text
+              label={
+                '시립대 학생은 서비스 이용을 위해 반드시 시대생 앱의 포털 인증이 필요합니다!'
+              }
+              color={'Gray400'}
+              typography={'GoThicBodyS'}
+              weight={400}
+              size={14}
+              css={css`
+                text-align: center;
+              `}
+            />
+          </Col>
         </Col>
         <Col gap={12}>
           <Row gap={8}>
@@ -219,7 +240,6 @@ const SecondPage = ({ setIsRegisteredUoslife, isRegisteredUoslife }: Props) => {
           {tryValidate && (
             <Col gap={6}>
               <Row gap={8}>
-                {/*TODO: 인증번호가 숫자인지 문자인지 백엔드쪽에 확인해서 input type 제한 걸기*/}
                 <TextInput
                   placeholder={'인증번호 입력'}
                   value={validateCodeValue}
@@ -255,6 +275,16 @@ const SecondPage = ({ setIsRegisteredUoslife, isRegisteredUoslife }: Props) => {
           )}
         </Col>
       </Col>
+      {isModalOpen && (
+        <CleanUpModal
+          title={'시대생 포털 인증을 하지 않으셨나요?'}
+          description={
+            '시랩대생은 신청을 진행하시려면\n' +
+            '시대생 앱에서 포털 인증을 하셔야 합니다!'
+          }
+          setIsCleanUpModalOpen={setIsModalOpen}
+        />
+      )}
     </Paddler>
   );
 };

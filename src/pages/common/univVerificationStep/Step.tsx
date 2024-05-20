@@ -9,7 +9,7 @@ import { isPaymentFinishedAtom } from '~/models/payment';
 import { useState } from 'react';
 
 const REGISTER_PAGE_NUMBER = [1, 2, 3, 4];
-const LOGIN_PAGE_NUMBER = [1, 2];
+const LOGIN_PAGE_NUMBER = [1, 2, 3];
 
 const CommonUnivVerificationStep = () => {
   const [isRegisteredUoslife, setIsRegisteredUoslife] = useState(true);
@@ -39,13 +39,13 @@ const CommonUnivVerificationStep = () => {
             <FirstPage />
           </Funnel.Page>
           <Funnel.Page pageNumber={2}>
+            <ThirdPage />
+          </Funnel.Page>
+          <Funnel.Page pageNumber={3}>
             <SecondPage
               isRegisteredUoslife={isRegisteredUoslife}
               setIsRegisteredUoslife={setIsRegisteredUoslife}
             />
-          </Funnel.Page>
-          <Funnel.Page pageNumber={3}>
-            <ThirdPage />
           </Funnel.Page>
           <Funnel.Page pageNumber={4}>
             <ForthPage />
