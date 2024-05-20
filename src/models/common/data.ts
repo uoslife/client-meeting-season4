@@ -21,7 +21,7 @@ export const commonInitialData: CommonData = {
   commonBranchGatewayStep: {
     page1: {
       meetingType: null,
-      checked: [false, false],
+      checked: [false, false, false],
     },
   },
   commonVerifyForCheckAfterAlreadyAppliedStep: {

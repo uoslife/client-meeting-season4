@@ -23,16 +23,23 @@ const SuccessPayment = () => {
             height={230}
           />
         </picture>
-        <Text
-          label={
-            '신청이 완료되었습니다.\n' + '매칭 결과가 나오면 알려드릴게요!'
-          }
-          color={'Secondary900'}
-          typography={'NeoTitleM'}
-          css={css`
-            text-align: center;
-          `}
-        />
+        <Col gap={8} align="center">
+          <Text
+            label={
+              '신청이 완료되었습니다. \n' + '매칭 결과가 나오면 알려드릴게요!'
+            }
+            color="Secondary900"
+            typography="NeoTitleM"
+            css={css`
+              text-align: center;
+            `}
+          />
+          <Text
+            label="매칭 완료 이후에는 신청 취소가 불가합니다."
+            color="Gray300"
+            typography="NeoLabel"
+          />
+        </Col>
         <Col align={'center'} gap={8}>
           <Col align={'center'}>
             <Text
