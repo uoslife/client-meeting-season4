@@ -4,24 +4,14 @@ import SecondPage from './SecondPage';
 import ThirdPage from './ThirdPage';
 import ForthPage from './ForthPage';
 import PageLayout from '~/components/layout/page/PageLayout';
-import { useAtomValue } from 'jotai';
-import { isPaymentFinishedAtom } from '~/models/payment';
-import { useState } from 'react';
 
 const REGISTER_PAGE_NUMBER = [1, 2, 3, 4];
-const LOGIN_PAGE_NUMBER = [1, 2, 3];
 
 const CommonUnivVerificationStep = () => {
-  const [isRegisteredUoslife, setIsRegisteredUoslife] = useState(true);
-  const isPaymentFinishedValue = useAtomValue(isPaymentFinishedAtom);
   const { Funnel, currentPage, PageHandler } = useFunnel({
-    pageNumberList: isRegisteredUoslife
-      ? REGISTER_PAGE_NUMBER
-      : LOGIN_PAGE_NUMBER,
+    pageNumberList: REGISTER_PAGE_NUMBER,
     nextStep: {
-      path: isPaymentFinishedValue
-        ? '/common/checkAfterAlreadyAppliedStep'
-        : '/common/branchGatewayStep',
+      path: '/common/branchGatewayStep',
     },
     prevStep: { path: '/' },
   });
@@ -42,10 +32,7 @@ const CommonUnivVerificationStep = () => {
             <ThirdPage />
           </Funnel.Page>
           <Funnel.Page pageNumber={3}>
-            <SecondPage
-              isRegisteredUoslife={isRegisteredUoslife}
-              setIsRegisteredUoslife={setIsRegisteredUoslife}
-            />
+            <SecondPage />
           </Funnel.Page>
           <Funnel.Page pageNumber={4}>
             <ForthPage />
@@ -54,11 +41,7 @@ const CommonUnivVerificationStep = () => {
       </PageLayout.SingleCardBody>
       <PageLayout.Footer
         currentPage={currentPage}
-        totalPage={
-          isRegisteredUoslife
-            ? REGISTER_PAGE_NUMBER.length
-            : LOGIN_PAGE_NUMBER.length
-        }
+        totalPage={REGISTER_PAGE_NUMBER.length}
         onNext={PageHandler.onNext}
         onPrev={PageHandler.onPrev}
       />

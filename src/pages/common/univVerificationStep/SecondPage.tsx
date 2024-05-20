@@ -16,16 +16,11 @@ import API from '~/api/core';
 import { isPaymentFinishedAtom } from '~/models/payment';
 import { isLoggedInAtom } from '~/models/auth';
 import CleanUpModal from '~/components/modal/cleanUpModal/CleanUpModal';
-import { useThrottle } from '@uoslife/react';
 import { useNavigate } from 'react-router-dom';
 
-type Props = {
-  setIsRegisteredUoslife: React.Dispatch<boolean>;
-  isRegisteredUoslife: boolean;
-};
-
-const SecondPage = ({ setIsRegisteredUoslife, isRegisteredUoslife }: Props) => {
+const SecondPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalText, setModalText] = useState('');
   const { univType } = useAtomValue(
     commonDataAtoms.commonUnivVerificationStep.page1,
   );
@@ -84,13 +79,16 @@ const SecondPage = ({ setIsRegisteredUoslife, isRegisteredUoslife }: Props) => {
   // 인증번호 받기
   const getValidateNumber = async () => {
     if (inputValue) setTryValidate(true);
+    setPageStateForNumber({
+      verified: false,
+    });
     await AuthAPI.getVerificationCodeByPhone({
       phoneNumber: inputValue,
     });
   };
 
   // 시대팅 유저 토큰 주입 로직
-  const handleUserInfo = useThrottle(async () => {
+  const handleUserInfo = async () => {
     try {
       await MeetingAPI.createUser();
       // 미팅 계정 토큰 주입
@@ -100,7 +98,7 @@ const SecondPage = ({ setIsRegisteredUoslife, isRegisteredUoslife }: Props) => {
       resetValidateCode();
       throw Error;
     }
-  });
+  };
 
   // 핸드폰 인증 로직
   const handleCheckVerificationCode = async () => {
@@ -115,10 +113,12 @@ const SecondPage = ({ setIsRegisteredUoslife, isRegisteredUoslife }: Props) => {
       if (data.refreshToken) {
         localStorage.setItem('refreshToken', data.refreshToken);
       }
-      const { data: InfoData } = await AuthAPI.getUoslifeUserInfo();
-      return InfoData.isVerified;
+      return data.reason;
     } catch (e) {
-      setStatusMessage('유효하지 않은 인증번호입니다.');
+      // @ts-expect-error custom error object
+      if (e.response.data.message === 'TOO_MANY_PHONE_OTP_REQUEST')
+        setStatusMessage('문자 인증 요청 횟수(5회)가 초과되었습니다.');
+      else setStatusMessage('유효하지 않은 인증번호입니다.');
       setValidateStatus('error');
       resetValidateCode();
       throw Error;
@@ -128,42 +128,67 @@ const SecondPage = ({ setIsRegisteredUoslife, isRegisteredUoslife }: Props) => {
   // 인증번호 확인
   const handleValidate = async () => {
     if (!validateCodeValue) return setStatusMessage('인증번호를 입력해주세요!');
-    const isVerified = await handleCheckVerificationCode();
-    if (!isVerified && univType === 'UOS') {
-      setIsModalOpen(true);
+    setIsPaymentFinishedValue(true);
+    const reason = await handleCheckVerificationCode();
+    // 가입 X
+    if (reason !== 'logged_in') {
+      // 시대생 -> 앱에서 가입 안내
+      if (univType === 'UOS') {
+        setModalText('회원가입');
+        setIsModalOpen(true);
+        return;
+      }
+      // 타대생 -> 이메일 인증
+      setIsLoggedIn(true);
+      setPageStateForNumber({
+        verified: true,
+      });
+      setStatusMessage('인증되었습니다.');
+      setValidateStatus('success');
       return;
     }
-    setIsLoggedIn(true);
-    setPageStateForNumber({
-      verified: true,
-    });
-    setIsRegisteredUoslife(false);
-    setStatusMessage('인증되었습니다.');
-    setValidateStatus('success');
-    // 만약 가입한 사용자라면 유저 정보 바로 추출
-    if (isVerified) {
-      await handleUserInfo();
-      setIsRegisteredUoslife(false);
+    const { data: InfoData } = await AuthAPI.getUoslifeUserInfo();
+    // 가입 O, 신분인증 O
+    if (InfoData.isVerified) {
+      // '시대팅' 유저 조회 후 없다면 생성
+      try {
+        await MeetingAPI.getUser();
+      } catch (err) {
+        await handleUserInfo();
+      }
+      setIsLoggedIn(true); // login 상태 true
       setPageStateForEmail({ verified: true });
       await PaymentAPI.verifyPayment()
         .then(() => {
           setIsPaymentFinishedValue(false);
         })
         .catch(error => {
-          if (error.response.data.code === 'P04')
+          if (error.response.data.code === 'P04') {
             setIsPaymentFinishedValue(true);
+            navigate('/common/checkAfterAlreadyAppliedStep');
+          }
         });
       navigate('/common/branchGatewayStep');
       return;
     }
+    // 가입 O, 신분인증 X
+    // 시대생 -> 포털 연동 안내
+    if (univType === 'UOS') {
+      setModalText('포털 연동');
+      setIsModalOpen(true);
+      return;
+    }
+    // 타대생 -> 다음 step (이메일 인증)
+    setPageStateForNumber({
+      verified: true,
+    });
+    setStatusMessage('인증되었습니다.');
+    setValidateStatus('success');
+    return;
   };
 
   //인증번호 입력 제한시간
   useEffect(() => {
-    if (!isRegisteredUoslife) {
-      setStatusMessage('인증되었습니다.');
-      setValidateStatus('success');
-    }
     let interval: number;
     if (tryValidate) {
       if (timer === 0) {
@@ -178,7 +203,7 @@ const SecondPage = ({ setIsRegisteredUoslife, isRegisteredUoslife }: Props) => {
       }, 1000);
     }
     return () => clearInterval(interval);
-  }, [timer, tryValidate, isRegisteredUoslife]);
+  }, [timer, tryValidate]);
 
   const minutes = Math.floor(timer / 60);
   const seconds = timer % 60;
@@ -227,6 +252,7 @@ const SecondPage = ({ setIsRegisteredUoslife, isRegisteredUoslife }: Props) => {
               isAuthentication={true}
               maxLength={11}
               onChange={handleInputChange}
+              type="number"
             />
             <RoundButton
               onClick={getValidateNumber}
@@ -248,7 +274,9 @@ const SecondPage = ({ setIsRegisteredUoslife, isRegisteredUoslife }: Props) => {
                   placeholder={'인증번호 입력'}
                   value={validateCodeValue}
                   status={handleValidateCodeInput(validateStatus)}
-                  onChange={handleValidateCodeValue}>
+                  onChange={handleValidateCodeValue}
+                  type="number"
+                  maxLength={6}>
                   <Text
                     label={`${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`}
                     color={'Gray300'}
@@ -281,13 +309,15 @@ const SecondPage = ({ setIsRegisteredUoslife, isRegisteredUoslife }: Props) => {
       </Col>
       {isModalOpen && (
         <CleanUpModal
-          title={'시대생 포털 인증을 하지 않으셨나요?'}
-          description={
-            '시랩대생은 신청을 진행하시려면\n' +
-            '시대생 앱에서 포털 인증을 하셔야 합니다!'
-          }
+          title={`시대생 ${modalText}을 하지 않으셨나요?`}
+          description={`시대생 앱에서 ${modalText}을 진행 후 신청해주세요.`}
           setIsCleanUpModalOpen={setIsModalOpen}
         />
+        // <CleanUpModal
+        //   title={'시대생 포털 인증을 하지 않으셨나요?'}
+        //   description={'시대생 앱에서 포털 인증을 진행 후\n' + '신청해주세요.'}
+        //   setIsCleanUpModalOpen={setIsModalOpen}
+        // />
       )}
     </Paddler>
   );

@@ -14,7 +14,6 @@ import { commonDataAtoms } from '~/models/common/data';
 import { AuthAPI, MeetingAPI } from '~/api';
 import API from '~/api/core';
 import { isLoggedInAtom } from '~/models/auth';
-import { useThrottle } from '@uoslife/react';
 
 const ForthPage = () => {
   const storedUnivType = useAtomValue(
@@ -79,7 +78,7 @@ const ForthPage = () => {
     }
   };
 
-  // 인증번호 받기
+  /** 인증번호 받기 */
   const getValidateNumber = async () => {
     if (inputValue) setTryValidate(true);
     await AuthAPI.getVerificationCodeByEmail({
@@ -87,6 +86,7 @@ const ForthPage = () => {
     });
   };
 
+  /** 임시 토큰으로 시대생 유저 회원가입 및 token 저장 */
   const handleCreateUoslifeUser = async () => {
     try {
       const { data } = await AuthAPI.createUoslifeUser({
@@ -121,7 +121,7 @@ const ForthPage = () => {
     await getValidateNumber();
   };
 
-  const handleCreateMeetingUser = useThrottle(async () => {
+  const handleCreateMeetingUser = async () => {
     try {
       await MeetingAPI.createUser();
     } catch (e) {
@@ -130,13 +130,13 @@ const ForthPage = () => {
       resetValidateCode();
       throw Error;
     }
-  });
+  };
 
   // 인증번호 확인
   const handleValidate = async () => {
     if (!validateCodeValue) return setStatusMessage('인증번호를 입력해주세요!');
     await handleCheckVerificationCode();
-    await handleCreateMeetingUser();
+    await handleCreateMeetingUser(); // verification 실패하면 이거 실행 안되야함
     setPageState({
       verified: true,
     });
