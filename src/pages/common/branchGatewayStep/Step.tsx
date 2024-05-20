@@ -9,6 +9,7 @@ import { navigateNextStepAtom } from '~/models/funnel';
 import { isLoggedInAtom } from '~/models/auth';
 import { MeetingAPI } from '~/api';
 import { groupDataAtoms } from '~/models/group/data';
+import { useThrottle } from '@uoslife/react';
 
 const PAGE_NUMBER_LIST = [1];
 const CommonBranchGatewayStep = () => {
@@ -34,17 +35,18 @@ const CommonBranchGatewayStep = () => {
   const stepToGoBack = useStepToGoBack('commonBranchGatewayStep');
   const navigate = useTypeSafeNavigate();
 
+  const resetTeam = useThrottle(async () => {
+    await MeetingAPI.deleteMeeting('SINGLE', true).finally(() => {
+      MeetingAPI.createMeeting('SINGLE', true);
+      PageHandler.onNext();
+    });
+  });
+
   if (stepToGoBack) {
     setNavigateNextStep(true);
     navigate(stepToGoBack);
     return null;
   }
-  const resetTeam = async () => {
-    await MeetingAPI.deleteMeeting('SINGLE', true).finally(() => {
-      MeetingAPI.createMeeting('SINGLE', true);
-      PageHandler.onNext();
-    });
-  };
 
   const onNext = async () => {
     if (meetingType === 'personal') {

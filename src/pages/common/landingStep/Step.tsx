@@ -22,6 +22,7 @@ import API from '~/api/core';
 import { groupDataAtoms } from '~/models/group/data';
 import CleanUpModal from '~/components/modal/cleanUpModal/CleanUpModal';
 import { commonDataAtoms, isUseFramerMotionAtom } from '~/models/common/data';
+import { useThrottle } from '@uoslife/react';
 
 const CommonLandingStep = () => {
   const isUoslifeUser = useAtomValue(isUosUserAtom);
@@ -119,7 +120,7 @@ const BottomCardComponent = () => {
   setIsUseFramerMotion(false);
 
   // 시대생인지 확인
-  const checkUosUser = async () => {
+  const checkUosUser = useThrottle(async () => {
     try {
       if (!isUosUserValue) return; // 시대생 앱에서 접근한 경우
       const { accessToken } = await uoslifeBridge.getAccessToken();
@@ -137,7 +138,7 @@ const BottomCardComponent = () => {
       setIsLoggedInValue(false);
       throw Error;
     }
-  };
+  });
 
   // 신청하기 버튼
   const handleOnClickPrimary = () => {

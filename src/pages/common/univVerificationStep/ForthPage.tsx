@@ -14,6 +14,7 @@ import { commonDataAtoms } from '~/models/common/data';
 import { AuthAPI, MeetingAPI } from '~/api';
 import API from '~/api/core';
 import { isLoggedInAtom } from '~/models/auth';
+import { useThrottle } from '@uoslife/react';
 
 const ForthPage = () => {
   const storedUnivType = useAtomValue(
@@ -120,7 +121,7 @@ const ForthPage = () => {
     await getValidateNumber();
   };
 
-  const handleCreateMeetingUser = async () => {
+  const handleCreateMeetingUser = useThrottle(async () => {
     try {
       await MeetingAPI.createUser();
     } catch (e) {
@@ -129,7 +130,7 @@ const ForthPage = () => {
       resetValidateCode();
       throw Error;
     }
-  };
+  });
 
   // 인증번호 확인
   const handleValidate = async () => {

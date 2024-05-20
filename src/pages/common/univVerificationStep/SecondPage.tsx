@@ -16,6 +16,7 @@ import API from '~/api/core';
 import { isPaymentFinishedAtom } from '~/models/payment';
 import { isLoggedInAtom } from '~/models/auth';
 import CleanUpModal from '~/components/modal/cleanUpModal/CleanUpModal';
+import { useThrottle } from '@uoslife/react';
 
 type Props = {
   setIsRegisteredUoslife: React.Dispatch<boolean>;
@@ -87,7 +88,7 @@ const SecondPage = ({ setIsRegisteredUoslife, isRegisteredUoslife }: Props) => {
   };
 
   // 시대팅 유저 토큰 주입 로직
-  const handleUserInfo = async () => {
+  const handleUserInfo = useThrottle(async () => {
     try {
       await MeetingAPI.createUser();
       // 미팅 계정 토큰 주입
@@ -97,7 +98,7 @@ const SecondPage = ({ setIsRegisteredUoslife, isRegisteredUoslife }: Props) => {
       resetValidateCode();
       throw Error;
     }
-  };
+  });
 
   // 핸드폰 인증 로직
   const handleCheckVerificationCode = async () => {

@@ -14,6 +14,7 @@ import { isUseFramerMotionAtom } from '~/models/common/data';
 import { useAtomValue } from 'jotai';
 import uoslifeBridge from '~/bridge';
 import API from '~/api/core';
+import { useThrottle } from '@uoslife/react';
 
 const CommonPaymentResultStep = () => {
   const navigate = useNavigate();
@@ -29,7 +30,7 @@ const CommonPaymentResultStep = () => {
   const setIsPaymentFinishedAtom = useSetAtom(isPaymentFinishedAtom);
   const setIsUseFramerMotion = useSetAtom(isUseFramerMotionAtom);
 
-  const handleGetTokenFromWebview = async () => {
+  const handleGetTokenFromWebview = useThrottle(async () => {
     try {
       const { accessToken } = await uoslifeBridge.getAccessToken();
       API.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
@@ -38,7 +39,7 @@ const CommonPaymentResultStep = () => {
     } catch (e) {
       throw Error;
     }
-  };
+  });
 
   const handleCheckPaymentResult = async () => {
     try {
