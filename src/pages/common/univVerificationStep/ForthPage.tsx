@@ -67,28 +67,36 @@ const ForthPage = () => {
     }
   };
 
+  const handleEmailType = (univType: string) => {
+    switch (univType) {
+      case 'HUFS':
+        return 'hufs.ac.kr';
+      case 'UOS':
+        return `uos.ac.kr`;
+      case 'KHU':
+        return `khu.ac.kr`;
+    }
+  };
+
   // 인증번호 받기
   const getValidateNumber = async () => {
     if (inputValue) setTryValidate(true);
     await AuthAPI.getVerificationCodeByEmail({
-      // email: `${inputValue}@${storedUnivType === 'HUFS' ? 'hufs' : 'khu'}.ac.kr`,
-      email: `${inputValue}@uos.ac.kr`,
+      email: `${inputValue}@${handleEmailType(storedUnivType!)}`,
     });
   };
 
   const handleCreateUoslifeUser = async () => {
     try {
       const { data } = await AuthAPI.createUoslifeUser({
-        // nickname: `${inputValue}@${storedUnivType === 'HUFS' ? 'hufs' : 'khu'}.ac.kr`,
-        nickname: `${inputValue}@uos.ac.kr`,
+        nickname: `${inputValue}@${handleEmailType(storedUnivType!)}`,
       });
       localStorage.setItem('refreshToken', data.refreshToken);
       API.defaults.headers.common['Authorization'] =
         `Bearer ${data.accessToken}`;
     } catch (e) {
       await AuthAPI.updateUoslifeUserName({
-        // nickname: `${inputValue}@${storedUnivType === 'HUFS' ? 'hufs' : 'khu'}.ac.kr`,
-        nickname: `${inputValue}@uos.ac.kr`,
+        nickname: `${inputValue}@${handleEmailType(storedUnivType!)}`,
       });
     }
   };
@@ -96,8 +104,7 @@ const ForthPage = () => {
   const handleCheckVerificationCode = async () => {
     try {
       await AuthAPI.checkVerificationCodeByEmail({
-        // email: `${inputValue}@${storedUnivType === 'HUFS' ? 'hufs' : 'khu'}.ac.kr`,
-        email: `${inputValue}@uos.ac.kr`,
+        email: `${inputValue}@${handleEmailType(storedUnivType!)}`,
         code: validateCodeValue,
       });
     } catch (e) {
@@ -189,7 +196,7 @@ const ForthPage = () => {
               isAuthentication={true}
               onChange={handleInputChange}>
               <Text
-                label={storedUnivType === 'KHU' ? '@khu.ac.kr' : '@hufs.ac.kr'}
+                label={`@${handleEmailType(storedUnivType!)!}`}
                 color={'Gray400'}
                 typography={'GoThicButtonM'}
                 css={css`

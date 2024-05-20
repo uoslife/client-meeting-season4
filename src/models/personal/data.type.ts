@@ -17,7 +17,9 @@ export type PersonalData = {
       | 'phone' // 6
       | 'major' // 7
       | 'studentType' // 8
-    >;
+    > & {
+      isNotDuplicatedForKakaotalkId: boolean;
+    };
     page3: Pick<
       InfoOptions,
       | 'religion' // 9

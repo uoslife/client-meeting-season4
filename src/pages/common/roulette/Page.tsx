@@ -69,7 +69,7 @@ const RoulettePage = () => {
 
   return (
     <PageLayout>
-      <PageLayout.Header title="시2k" />
+      <PageLayout.Header title="시2k" showErrorButton={false} />
       <PageLayout.SingleCardBody cardPadding="0">
         {mode === 'LANDING' ? <LandingMode /> : <PlayingMode />}
       </PageLayout.SingleCardBody>

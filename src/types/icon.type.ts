@@ -50,7 +50,7 @@ export type interestKeyType =
 export type interestType = `interests/${interestKeyType}`;
 
 // 학교 선택
-export type univSelectionKeyType = 'HUFS' | 'KHU';
+export type univSelectionKeyType = 'HUFS' | 'KHU' | 'UOS';
 export type univSelectionType = `univSelection/${univSelectionKeyType}`;
 
 export type directoryKeyType = 'directory' | 'directory-connector';

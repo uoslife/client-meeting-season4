@@ -26,7 +26,9 @@ export type GroupData = {
       | 'phone' // 5. 본인의 전화번호를 입력해 주세요.
       | 'major' // 6. 본인의 학과를 입력해 주세요.
       | 'studentType' // 7. 본인의 신분을 선택해 주세요.
-    >;
+    > & {
+      isNotDuplicatedForKakaotalkId: boolean;
+    };
   };
   // 02. 팅 만들기
   groupLeaderGroupCreateStep: {
@@ -84,7 +86,9 @@ export type GroupData = {
       | 'name' // 1. 이름(실명)을 입력해 주세요.
       | 'age' // 2. 나이를 선택해 주세요.
       | 'kakaoId' // 3. 본인의 카카오톡 ID를 입력해 주세요.
-    >;
+    > & {
+      isNotDuplicatedForKakaotalkId: boolean;
+    };
     page2: Pick<
       InfoOptions,
       | 'major' // 4. 본인의 학과를 입력해 주세요.

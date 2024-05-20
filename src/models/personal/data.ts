@@ -11,6 +11,7 @@ export const personalInitialData: PersonalData = {
     },
     page2: {
       kakaoId: '',
+      isNotDuplicatedForKakaotalkId: false,
       phone: '',
       major: '',
       studentType: null,

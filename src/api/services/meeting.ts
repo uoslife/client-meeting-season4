@@ -103,6 +103,12 @@ const getGroupStatus = async <T = GetGroupStatusResponse>(
   code: string,
 ) => API.get<T>(`${API_URL.MEETING}/api/meeting/${teamType}/${code}/user/list`);
 
+// 현재 입장한 팅원을 알려줍니다.
+const checkDuplicatedKakaotalkId = async (kakaotalkId: string) =>
+  API.get(`${API_URL.MEETING}/api/user/isDuplicatedKakaoTalkId`, {
+    params: { kakaoTalkId: kakaotalkId },
+  });
+
 export default {
   createUser,
   getUser,
@@ -118,4 +124,5 @@ export default {
   getGroupStatus,
   getMatchingInfo,
   updateMessage,
+  checkDuplicatedKakaotalkId,
 };

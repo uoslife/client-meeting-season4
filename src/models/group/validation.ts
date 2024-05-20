@@ -8,8 +8,18 @@ export const groupValidator: GroupValidator = {
   },
   groupLeaderMyInformationStep: {
     page1: ({ age, gender, name }) => !!age && !!gender && name !== '',
-    page2: ({ kakaoId, major, phone, studentType }) =>
-      !!kakaoId && !!major && !!phone && !!studentType,
+    page2: ({
+      kakaoId,
+      major,
+      phone,
+      studentType,
+      isNotDuplicatedForKakaotalkId,
+    }) =>
+      !!kakaoId &&
+      !!major &&
+      !!phone &&
+      !!studentType &&
+      isNotDuplicatedForKakaotalkId,
   },
   groupLeaderGroupCreateStep: {
     page1: ({ teamName }) => !!teamName,
@@ -31,8 +41,11 @@ export const groupValidator: GroupValidator = {
     page1: ({ atmosphere, univs }) => atmosphere !== '' && univs.length > 0,
   },
   groupMemberMyInformationStep: {
-    page1: ({ name, age, kakaoId }) =>
-      name !== '' && age !== null && kakaoId !== '',
+    page1: ({ name, age, kakaoId, isNotDuplicatedForKakaotalkId }) =>
+      name !== '' &&
+      age !== null &&
+      kakaoId !== '' &&
+      isNotDuplicatedForKakaotalkId,
     page2: ({ major, gender, studentType }) =>
       major.length >= 2 && gender != null && studentType !== null,
   },

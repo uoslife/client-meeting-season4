@@ -1,6 +1,6 @@
 import { RequestPayParams, RequestPayResponse } from '~/types/payment.type';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import Col from '~/components/layout/Col';
 import Text from '~/components/typography/Text';
@@ -55,20 +55,39 @@ const PaymentPage = () => {
     }
   };
 
+  const handleProductPrice = (type: string) => {
+    if (meetingTypeValue.meetingType === 'group' && groupGender === 'FEMALE') {
+      return type === 'name' ? '3:3 미팅(여자)' : 10500;
+    }
+    if (meetingTypeValue.meetingType === 'group' && groupGender === 'MALE') {
+      return type === 'name' ? '3:3 미팅(남자)' : 10500;
+    }
+    if (
+      meetingTypeValue.meetingType === 'personal' &&
+      personalGender === 'FEMALE'
+    ) {
+      return type === 'name' ? '1:1 미팅(여자)' : 3500;
+    }
+    if (
+      meetingTypeValue.meetingType === 'personal' &&
+      personalGender === 'MALE'
+    ) {
+      return type === 'name' ? '1:1 미팅(남자)' : 3500;
+    }
+  };
+
   const onClickPayment = async () => {
     /* 1. 가맹점 식별하기 */
     const data: RequestPayParams = {
-      // pg: 'welcome.IMP2000029', // PG사 : https://developers.portone.io/docs/ko/tip/pg-2 참고
-      pg: 'welcome', // PG사 : https://developers.portone.io/docs/ko/tip/pg-2 참고
+      pg: 'welcome.IMP2000029', // PG사 : https://developers.portone.io/docs/ko/tip/pg-2 참고
+      // pg: 'welcome', // PG사 : https://developers.portone.io/docs/ko/tip/pg-2 참고
       pay_method: 'card', // 결제수단
       merchant_uid: userPaymentInfo?.merchantUid ?? '', // 주문번호
       amount: userPaymentInfo?.price ?? Number(handleProductInfo('price')!), // 결제금액
       name: '시대팅 Season4 참가비', // 주문명
       buyer_tel: userPaymentInfo?.phoneNumber,
       buyer_name: userPaymentInfo?.name,
-      m_redirect_url:
-        // 'http://localhost:5173/common/paymentResultStep',
-        'https://meeting.alpha.uoslife.com/common/paymentResultStep',
+      m_redirect_url: 'https://meeting.uoslife.com/common/paymentResultStep',
       app_scheme: 'uoslife',
     };
 
@@ -176,11 +195,20 @@ const PaymentPage = () => {
               color={'Gray500'}
               typography={'GoThicButtonM'}
             />
-            <Text
-              label={handleProductInfo('price') + '원'}
-              color={'Gray500'}
-              typography={'GoThicTitleS'}
-            />
+            <div
+              css={css`
+                display: flex;
+                gap: 10px;
+                justify-content: center;
+                align-items: center;
+              `}>
+              <del>{`${String(handleProductPrice('price'))}원`}</del>
+              <Text
+                label={handleProductInfo('price') + '원'}
+                color={'Gray500'}
+                typography={'GoThicTitleS'}
+              />
+            </div>
           </S.productInformationBox>
         </Col>
       </Col>

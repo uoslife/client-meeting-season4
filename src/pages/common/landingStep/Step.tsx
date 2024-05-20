@@ -328,9 +328,12 @@ const BottomCardComponent = () => {
 };
 const FooterIconAreaComponent = () => {
   const isUoslifeUser = useAtomValue(isUosUserAtom);
-
+  const getInset = async () => {
+    const res = await uoslifeBridge.getInsets();
+    return res.bottom;
+  };
   return (
-    <Col padding={`0 0 ${isUoslifeUser ? 14 : 7}px 0`}>
+    <Col padding={`0 0 ${isUoslifeUser ? getInset() : 7}px 0`}>
       <Row align={'center'} gap={20}>
         <S.SocialLinkContainer href={SOCIAL_LINK.Kakaotalk} target="_blank">
           <Row justify={'flex-end'}>

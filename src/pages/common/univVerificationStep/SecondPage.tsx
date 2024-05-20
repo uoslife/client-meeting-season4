@@ -105,7 +105,9 @@ const SecondPage = ({ setIsRegisteredUoslife, isRegisteredUoslife }: Props) => {
       if (data.refreshToken) {
         localStorage.setItem('refreshToken', data.refreshToken);
       }
-      return data;
+      const { data: InfoData } = await AuthAPI.getUoslifeUserInfo();
+      console.log(InfoData.isVerified, 1);
+      return InfoData.isVerified;
     } catch (e) {
       setStatusMessage('유효하지 않은 인증번호입니다.');
       setValidateStatus('error');
@@ -117,9 +119,10 @@ const SecondPage = ({ setIsRegisteredUoslife, isRegisteredUoslife }: Props) => {
   // 인증번호 확인
   const handleValidate = async () => {
     if (!validateCodeValue) return setStatusMessage('인증번호를 입력해주세요!');
-    const { reason } = await handleCheckVerificationCode();
+    const isVerified = await handleCheckVerificationCode();
+    console.log(isVerified);
     // 만약 가입한 사용자라면 유저 정보 바로 추출
-    if (reason === 'logged_in') {
+    if (isVerified) {
       await handleUserInfo();
       setIsRegisteredUoslife(false);
       await PaymentAPI.verifyPayment()
@@ -140,9 +143,12 @@ const SecondPage = ({ setIsRegisteredUoslife, isRegisteredUoslife }: Props) => {
     setValidateStatus('success');
   };
 
-  //인증번호 입력 제한시간
   useEffect(() => {
     if (pageValidity) toast.success('성공적으로 인증되었습니다!');
+  }, [pageValidity]);
+
+  //인증번호 입력 제한시간
+  useEffect(() => {
     if (!isRegisteredUoslife) {
       setStatusMessage('인증되었습니다.');
       setValidateStatus('success');
