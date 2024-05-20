@@ -1,3 +1,4 @@
+import styled from '@emotion/styled';
 import { css } from '@emotion/react';
 import { atom, useAtomValue, useSetAtom } from 'jotai';
 import { Button } from '~/components/buttons/roundButton/RoundButton.style';
@@ -7,6 +8,8 @@ import PageLayout from '~/components/layout/page/PageLayout';
 import Text from '~/components/typography/Text';
 import CommentComponents from './components/Comments';
 import Game from './components/Game';
+import IconButton from '~/components/buttons/iconButton/IconButton';
+import uoslifeBridge from '~/bridge';
 
 const modeAtom = atom<'LANDING' | 'PLAYING'>('LANDING');
 
@@ -64,12 +67,26 @@ const PlayingMode = () => (
   </Paddler>
 );
 
+const CustomHeader = () => (
+  <S.CustomHeaderContainer>
+    <S.BackArrowWrapper>
+      <IconButton
+        iconName={'headerButton-backArrow'}
+        width={24}
+        height={25.5}
+        onClick={async () => await uoslifeBridge.goBack()}
+      />
+    </S.BackArrowWrapper>
+    <Text label={'시2k'} color={'White'} typography={'NeoTitleM'} />
+  </S.CustomHeaderContainer>
+);
+
 const RoulettePage = () => {
   const mode = useAtomValue(modeAtom);
 
   return (
     <PageLayout>
-      <PageLayout.Header title="시2k" showErrorButton={false} />
+      <CustomHeader />
       <PageLayout.SingleCardBody cardPadding="0">
         {mode === 'LANDING' ? <LandingMode /> : <PlayingMode />}
       </PageLayout.SingleCardBody>
@@ -78,3 +95,18 @@ const RoulettePage = () => {
 };
 
 export default RoulettePage;
+
+const S = {
+  CustomHeaderContainer: styled.div`
+    width: 100%;
+    padding: 16px 16px;
+    position: relative;
+
+    display: flex;
+    justify-content: center;
+  `,
+  BackArrowWrapper: styled.div`
+    position: absolute;
+    left: 16px;
+  `,
+};
