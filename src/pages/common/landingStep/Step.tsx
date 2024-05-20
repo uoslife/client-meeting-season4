@@ -22,7 +22,6 @@ import API from '~/api/core';
 import { groupDataAtoms } from '~/models/group/data';
 import CleanUpModal from '~/components/modal/cleanUpModal/CleanUpModal';
 import { commonDataAtoms, isUseFramerMotionAtom } from '~/models/common/data';
-import { useThrottle } from '@uoslife/react';
 
 const CommonLandingStep = () => {
   const isUoslifeUser = useAtomValue(isUosUserAtom);
@@ -120,7 +119,7 @@ const BottomCardComponent = () => {
   setIsUseFramerMotion(false);
 
   // 시대생인지 확인
-  const checkUosUser = useThrottle(async () => {
+  const checkUosUser = async () => {
     try {
       if (!isUosUserValue) return; // 시대생 앱에서 접근한 경우
       const { accessToken } = await uoslifeBridge.getAccessToken();
@@ -138,7 +137,7 @@ const BottomCardComponent = () => {
       setIsLoggedInValue(false);
       throw Error;
     }
-  });
+  };
 
   // 신청하기 버튼
   const handleOnClickPrimary = () => {
@@ -228,7 +227,7 @@ const BottomCardComponent = () => {
         </QuestionLabel>
         <Row>
           <Text
-            label={'5/20(월) - 5/22(수)'}
+            label={'5/20(월) - 5/23(목)'}
             typography="NeoBodyL"
             color="Secondary900"
           />
