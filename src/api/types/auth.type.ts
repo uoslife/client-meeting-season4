@@ -25,20 +25,21 @@ export type VerificationCodeCheckByPhoneRequest = {
 export type VerificationCodeCheckByEmailResponse = {
   accessToken: string;
   refreshToken: string;
-  reason: string;
+  reason: AuthSuccessReasonType;
 };
 
 export type VerificationCodeCheckByPhoneResponse = {
   accessToken: string;
-  refreshToken: string;
-  reason: string;
+  refreshToken?: string;
+  reason: AuthSuccessReasonType;
 };
 
 export type CreateUoslifeUserRequest = {
   nickname: string;
 };
 
-export type CreateUoslifeUserResponse = VerificationCodeCheckByPhoneResponse;
+export type CreateUoslifeUserResponse =
+  Required<VerificationCodeCheckByPhoneResponse>;
 
 export type GetUoslifeUserInfoResponse = {
   id: number;
@@ -72,3 +73,9 @@ export type GetUoslifeUserInfoResponse = {
 export type GetRefreshTokenV2 = {
   refreshToken: string;
 };
+
+export type AuthSuccessReasonType =
+  | 'logged_in' // 로그인 완료
+  | 'registering' // 회원가입 필요
+  | 'registered' // 회원가입 완료
+  | 'refreshed'; // 토큰 재발급 완료
