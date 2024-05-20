@@ -17,6 +17,7 @@ import { isPaymentFinishedAtom } from '~/models/payment';
 import { isLoggedInAtom } from '~/models/auth';
 import CleanUpModal from '~/components/modal/cleanUpModal/CleanUpModal';
 import { useThrottle } from '@uoslife/react';
+import { useNavigate } from 'react-router-dom';
 
 type Props = {
   setIsRegisteredUoslife: React.Dispatch<boolean>;
@@ -28,6 +29,7 @@ const SecondPage = ({ setIsRegisteredUoslife, isRegisteredUoslife }: Props) => {
   const { univType } = useAtomValue(
     commonDataAtoms.commonUnivVerificationStep.page1,
   );
+  const navigate = useNavigate();
   const pageValidity = useAtomValue(combinedValidatiesAtoms)
     .commonUnivVerificationStep.page3;
   const setPageStateForNumber = useSetAtom(
@@ -151,6 +153,7 @@ const SecondPage = ({ setIsRegisteredUoslife, isRegisteredUoslife }: Props) => {
           if (error.response.data.code === 'P04')
             setIsPaymentFinishedValue(true);
         });
+      navigate('/common/branchGatewayStep');
       return;
     }
   };
