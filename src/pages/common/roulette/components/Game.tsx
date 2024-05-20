@@ -123,7 +123,7 @@ const Game = () => {
     setTimeout(() => {
       setIsSpinning(false);
       setResult(selectedOptionText);
-    }, SPINNING_TIME);
+    }, SPINNING_TIME * 1.1);
   };
 
   return (
