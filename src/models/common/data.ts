@@ -6,7 +6,7 @@ import { atom } from 'jotai/index';
 export const commonInitialData: CommonData = {
   commonUnivVerificationStep: {
     page1: {
-      univType: null,
+      univType: 'UOS',
     },
     page2: {
       checked: [false, false],
