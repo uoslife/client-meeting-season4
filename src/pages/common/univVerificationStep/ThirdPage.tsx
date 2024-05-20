@@ -11,7 +11,7 @@ import Paddler from '~/components/layout/Pad';
 import { commonDataAtoms } from '~/models/common/data';
 import { combinedValidatiesAtoms } from '~/models';
 
-const UNIV_SELECTION_LIST = ['KHU', 'HUFS'] as const;
+const UNIV_SELECTION_LIST = ['KHU', 'HUFS', 'UOS'] as const;
 
 const ThirdPage = () => {
   const [pageState, setPageState] = useAtom(
@@ -22,6 +22,28 @@ const ThirdPage = () => {
   const pageValidity = useAtomValue(combinedValidatiesAtoms)
     .commonUnivVerificationStep.page1;
   setIsPageFinished(pageValidity);
+
+  const handleSize = (type: string) => {
+    switch (type) {
+      case 'KHU':
+        return 96;
+      case 'UOS':
+        return 80;
+      case 'HUFS':
+        return 170;
+    }
+  };
+
+  const handleText = (type: string) => {
+    switch (type) {
+      case 'KHU':
+        return '경희대';
+      case 'UOS':
+        return '서울시립대';
+      case 'HUFS':
+        return '한국외대';
+    }
+  };
 
   return (
     <Paddler top={36} right={20} bottom={24} left={20}>
@@ -41,11 +63,11 @@ const ThirdPage = () => {
                 <IconButton
                   iconName={`univSelection/${univ}`}
                   format={'png'}
-                  width={univ === 'KHU' ? 96 : 170}
+                  width={handleSize(univ)}
                   height={130}
                 />
                 <Text
-                  label={univ === 'KHU' ? '경희대학교' : '한국외국어대학교'}
+                  label={handleText(univ)!}
                   color={'Gray300'}
                   typography={'NeoBodyM'}
                 />

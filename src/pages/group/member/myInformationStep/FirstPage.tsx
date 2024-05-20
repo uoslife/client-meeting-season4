@@ -10,14 +10,17 @@ import { groupDataAtoms } from '~/models/group/data';
 import { pageFinishAtom } from '~/models/funnel';
 import { isUosUserAtom } from '~/models/auth';
 import uoslifeBridge from '~/bridge';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { MeetingAPI } from '~/api';
+import RoundButton from '~/components/buttons/roundButton/RoundButton';
 
 const FirstPage = () => {
+  const [duplicateStatusForKakao, setDuplicateStatusForKakao] = useState('');
   const [pageState, setPageState] = useAtom(
     groupDataAtoms.groupMemberMyInformationStep.page1,
   );
 
-  const { age, name, kakaoId } = pageState;
+  const { age, name, kakaoId, isNotDuplicatedForKakaotalkId } = pageState;
 
   const setIsPageFinished = useSetAtom(pageFinishAtom);
   const pageValidity = useAtomValue(combinedValidatiesAtoms)
@@ -28,6 +31,20 @@ const FirstPage = () => {
   const getUoslifeUserInfo = async () => {
     const res = await uoslifeBridge.getUserInfo();
     setPageState(prev => ({ ...prev, name: res.name }));
+  };
+
+  const handleDuplicatedForKakaotalkId = async () => {
+    try {
+      await MeetingAPI.checkDuplicatedKakaotalkId(kakaoId);
+      setPageState(prev => ({
+        ...prev,
+        isNotDuplicatedForKakaotalkId: true,
+      }));
+      setDuplicateStatusForKakao('사용가능한 아이디입니다.');
+    } catch (e) {
+      setDuplicateStatusForKakao('중복된 아이디입니다.');
+      throw Error;
+    }
   };
 
   useEffect(() => {
@@ -141,17 +158,45 @@ const FirstPage = () => {
                 />
               </Col>
             </Col>
-            <TextInput
-              value={kakaoId}
-              status={'default'}
-              placeholder={'카카오톡 ID 입력'}
-              onChange={e => {
-                setPageState(prev => ({
-                  ...prev,
-                  kakaoId: e.target.value,
-                }));
-              }}
-            />
+            <Col>
+              <Row justify={'center'} align={'center'} gap={10}>
+                <TextInput
+                  value={kakaoId}
+                  status={'default'}
+                  placeholder={'카카오톡 ID 입력'}
+                  minLength={2}
+                  onChange={e => {
+                    setPageState(prev => ({
+                      ...prev,
+                      kakaoId: e.target.value,
+                    }));
+                  }}
+                />
+                <RoundButton
+                  status={isNotDuplicatedForKakaotalkId ? 'active' : 'inactive'}
+                  onClick={handleDuplicatedForKakaotalkId}
+                  width={100}
+                  height={45}>
+                  <Text
+                    label={'중복확인'}
+                    color={
+                      isNotDuplicatedForKakaotalkId ? 'White' : 'Primary500'
+                    }
+                    typography={'PretendardRegular'}
+                    size={15}
+                  />
+                </RoundButton>
+              </Row>
+              <Text
+                label={duplicateStatusForKakao}
+                color={
+                  duplicateStatusForKakao === '사용가능한 아이디입니다.'
+                    ? 'Primary500'
+                    : 'Red200'
+                }
+                typography={'PretendardRegular'}
+              />
+            </Col>
           </Col>
         </Col>
       </Row>

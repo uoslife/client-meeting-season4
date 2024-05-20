@@ -20,6 +20,12 @@ const handleAuthSilentRefresh = async (originRequest: AxiosError) => {
   //@ts-expect-error: window has ReactNativeWebview
   const isFromUoslifeWebView = !!window.ReactNativeWebView;
 
+  if (isFromUoslifeWebView && originRequest.response?.status === 401) {
+    toast.error('원활한 서비스 진행을 위해 재접속해주세요!', {
+      duration: 4000,
+    });
+  }
+
   if (!isFromUoslifeWebView && originRequest.response?.status === 401) {
     const refreshToken = localStorage.getItem('refreshToken');
     await AuthAPI.getRefreshTokenV2({ refreshToken: refreshToken ?? '' })

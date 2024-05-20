@@ -23,6 +23,7 @@ export const groupInitialData: GroupData = {
     },
     page2: {
       kakaoId: '',
+      isNotDuplicatedForKakaotalkId: false,
       phone: '',
       major: '',
       studentType: null,
@@ -77,6 +78,7 @@ export const groupInitialData: GroupData = {
     page1: {
       name: '',
       kakaoId: '',
+      isNotDuplicatedForKakaotalkId: false,
       age: '',
     },
     page2: {

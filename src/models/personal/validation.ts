@@ -7,8 +7,18 @@ export const personalValidators: PersonalValidator = {
   personalMyInformationStep: {
     page1: ({ name, gender, age, height }) =>
       name !== '' && !!gender && !!age && !!height,
-    page2: ({ kakaoId, major, phone, studentType }) =>
-      kakaoId !== '' && phone !== '' && major !== '' && !!studentType,
+    page2: ({
+      kakaoId,
+      major,
+      phone,
+      studentType,
+      isNotDuplicatedForKakaotalkId,
+    }) =>
+      kakaoId !== '' &&
+      phone !== '' &&
+      major !== '' &&
+      !!studentType &&
+      isNotDuplicatedForKakaotalkId,
     page3: ({ religion, smoking }) => !!religion && smoking !== null,
     page4: ({ animalOptions }) => animalOptions.length > 0,
     page5: ({ mbti }) =>

@@ -24,7 +24,7 @@ const useData = (meetingType: 'personal' | 'group') => {
   useEffect(() => {
     setIsPageFinished(false);
 
-    const timer = setTimeout(async () => {
+    (async () => {
       try {
         const { data } = await MeetingAPI.getMeetingInfo(
           meetingType === 'group' ? 'TRIPLE' : 'SINGLE',
@@ -37,9 +37,7 @@ const useData = (meetingType: 'personal' | 'group') => {
       } catch (error) {
         setMeetingInfoState('error');
       }
-    }, 3000);
-
-    return () => clearTimeout(timer);
+    })();
   }, [meetingType, setIsPageFinished]);
 
   return meetingInfoState;
@@ -64,7 +62,6 @@ const FirstPage = () => {
   const { meetingType } = useAtomValue(
     commonDataAtoms.commonBranchGatewayStep.page1,
   );
-
   // const data = useClientTempData(meetingType!);
 
   const data = useData(meetingType!);
@@ -72,26 +69,23 @@ const FirstPage = () => {
   if (data === 'error') return null;
   if (data === 'loading')
     return (
-      <PageLayout>
-        <PageLayout.Header title="신청 정보" />
-        <PageLayout.SingleCardBody theme="BG_WHITE" cardPadding="8px 0">
-          <div
-            css={css`
-              width: 100%;
-              height: 80%;
-              display: flex;
-              justify-content: center;
-              align-items: center;
-            `}>
-            <img
-              alt={''}
-              src="/images/uoslifeLogo-loadingSpinner.webp"
-              width={320}
-              height={200}
-            />
-          </div>
-        </PageLayout.SingleCardBody>
-      </PageLayout>
+      <PageLayout.SingleCardBody theme="BG_WHITE" cardPadding="8px 0">
+        <div
+          css={css`
+            width: 100%;
+            height: 80%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          `}>
+          <img
+            alt={''}
+            src="/images/uoslifeLogo-loadingSpinner.webp"
+            width={320}
+            height={200}
+          />
+        </div>
+      </PageLayout.SingleCardBody>
     );
 
   return (

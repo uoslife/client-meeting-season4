@@ -1077,10 +1077,10 @@
     react "^18.2.0"
     react-dom "^18.2.0"
 
-"@uoslife/webview@^0.0.23":
-  version "0.0.23"
-  resolved "https://npm.pkg.github.com/download/@uoslife/webview/0.0.23/a95197b796ff896da67518d5347a23480892a53d#a95197b796ff896da67518d5347a23480892a53d"
-  integrity sha512-FzUvMdBKooifcrmmCPbmK+V2818IPOCqX70KPwi3DOFnopOZLT9gRcFKkY2lHzNu2p7EEydf/CK90/+Vr0TZXA==
+"@uoslife/webview@^0.0.24":
+  version "0.0.24"
+  resolved "https://npm.pkg.github.com/download/@uoslife/webview/0.0.24/3b9eba7ae77055c5fae7646df07e50d95e0b3f0b#3b9eba7ae77055c5fae7646df07e50d95e0b3f0b"
+  integrity sha512-8Wlbu5mR64pgJlWpbeH/ug0rs54mwpMl8salBoqvzdOLnVSKEK2F+0brsaUr34JkQ4tnlApAEOfCPhKi18m20g==
 
 "@vitejs/plugin-react-swc@^3.5.0":
   version "3.5.0"
