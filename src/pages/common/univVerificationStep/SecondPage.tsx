@@ -82,22 +82,40 @@ const SecondPage = () => {
     setPageStateForNumber({
       verified: false,
     });
-    await AuthAPI.getVerificationCodeByPhone({
-      phoneNumber: inputValue,
-    });
+    try {
+      await AuthAPI.getVerificationCodeByPhone({
+        phoneNumber: inputValue,
+      });
+    } catch (err) {
+      // @ts-expect-error custom error object
+      if (err.response.data.message !== 'TOO_MANY_PHONE_OTP_REQUEST') return;
+      setStatusMessage(
+        '문자 인증 요청 횟수(5회)가 초과되었습니다. 잠시 후 다시 시도해주세요',
+      );
+      setValidateStatus('error');
+    }
   };
 
-  // 시대팅 유저 토큰 주입 로직
-  const handleUserInfo = async () => {
-    try {
-      await MeetingAPI.createUser();
-      // 미팅 계정 토큰 주입
-    } catch (e) {
-      setStatusMessage('인증 과정에서 문제가 생겼습니다. 다시 인증해주세요.');
-      setValidateStatus('error');
-      resetValidateCode();
-      throw Error;
-    }
+  /** 가입 O, 신분인증 O, 시대팅 계정 생성 O -> 다음 팅 선택으로 으로 넘어갑니다 */
+  const handleNextStepForLoginedUser = async () => {
+    setIsLoggedIn(true); // login 상태 true
+    setPageStateForNumber({
+      verified: true,
+    });
+    setStatusMessage('인증되었습니다.');
+    setValidateStatus('success');
+    setPageStateForEmail({ verified: true });
+    navigate('/common/branchGatewayStep');
+    await PaymentAPI.verifyPayment()
+      .then(() => {
+        setIsPaymentFinishedValue(false);
+      })
+      .catch(error => {
+        if (error.response.data.code === 'P04') {
+          setIsPaymentFinishedValue(true);
+          navigate('/common/checkAfterAlreadyAppliedStep'); // TODO: 검증 필요 @김영찬
+        }
+      });
   };
 
   // 핸드폰 인증 로직
@@ -115,10 +133,7 @@ const SecondPage = () => {
       }
       return data.reason;
     } catch (e) {
-      // @ts-expect-error custom error object
-      if (e.response.data.message === 'TOO_MANY_PHONE_OTP_REQUEST')
-        setStatusMessage('문자 인증 요청 횟수(5회)가 초과되었습니다.');
-      else setStatusMessage('유효하지 않은 인증번호입니다.');
+      setStatusMessage('유효하지 않은 인증번호입니다.');
       setValidateStatus('error');
       resetValidateCode();
       throw Error;
@@ -150,32 +165,17 @@ const SecondPage = () => {
     const { data: InfoData } = await AuthAPI.getUoslifeUserInfo();
     // 가입 O, 신분인증 O
     if (InfoData.isVerified) {
-      // '시대팅' 유저 조회 후 없다면 생성
-      try {
-        await MeetingAPI.getUser();
-      } catch (err) {
-        await handleUserInfo();
-      }
-      setIsLoggedIn(true); // login 상태 true
-      setPageStateForEmail({ verified: true });
-      await PaymentAPI.verifyPayment()
-        .then(() => {
-          setIsPaymentFinishedValue(false);
+      // '시대팅' 유저 조회
+      await MeetingAPI.getUser()
+        .then(async () => {
+          // 있으면 다음 로직
+          await handleNextStepForLoginedUser();
         })
-        .catch(error => {
-          if (error.response.data.code === 'P04') {
-            setIsPaymentFinishedValue(true);
-            navigate('/common/checkAfterAlreadyAppliedStep');
-          }
-        });
-      navigate('/common/branchGatewayStep');
-      return;
-    }
-    // 가입 O, 신분인증 X
-    // 시대생 -> 포털 연동 안내
-    if (univType === 'UOS') {
-      setModalText('포털 연동');
-      setIsModalOpen(true);
+        .catch(
+          async () =>
+            // 없으면 유저 생성 후, 다음 로직
+            await handleNextStepForLoginedUser(),
+        );
       return;
     }
     // 타대생 -> 다음 step (이메일 인증)

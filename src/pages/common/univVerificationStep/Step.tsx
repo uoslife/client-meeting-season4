@@ -4,12 +4,19 @@ import SecondPage from './SecondPage';
 import ThirdPage from './ThirdPage';
 import ForthPage from './ForthPage';
 import PageLayout from '~/components/layout/page/PageLayout';
+import { useAtomValue } from 'jotai';
+import { isLoggedInAtom } from '~/models/auth';
 
-const REGISTER_PAGE_NUMBER = [1, 2, 3, 4];
+const DEFAULT_PAGE_NUMBER = [1, 2, 3, 4];
+const LOGINED_USER_PAGE_NUMBER = [1, 2, 3];
 
 const CommonUnivVerificationStep = () => {
+  const isLoggedInValue = useAtomValue(isLoggedInAtom);
+
   const { Funnel, currentPage, PageHandler } = useFunnel({
-    pageNumberList: REGISTER_PAGE_NUMBER,
+    pageNumberList: isLoggedInValue
+      ? LOGINED_USER_PAGE_NUMBER
+      : DEFAULT_PAGE_NUMBER,
     nextStep: {
       path: '/common/branchGatewayStep',
     },
@@ -34,14 +41,20 @@ const CommonUnivVerificationStep = () => {
           <Funnel.Page pageNumber={3}>
             <SecondPage />
           </Funnel.Page>
-          <Funnel.Page pageNumber={4}>
-            <ForthPage />
-          </Funnel.Page>
+          {!isLoggedInValue ? (
+            <Funnel.Page pageNumber={4}>
+              <ForthPage />
+            </Funnel.Page>
+          ) : null}
         </Funnel>
       </PageLayout.SingleCardBody>
       <PageLayout.Footer
         currentPage={currentPage}
-        totalPage={REGISTER_PAGE_NUMBER.length}
+        totalPage={
+          isLoggedInValue
+            ? LOGINED_USER_PAGE_NUMBER.length
+            : DEFAULT_PAGE_NUMBER.length
+        }
         onNext={PageHandler.onNext}
         onPrev={PageHandler.onPrev}
       />
