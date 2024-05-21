@@ -170,10 +170,13 @@ const SecondPage = () => {
           // 있으면 다음 로직
           await handleNextStepForLoginedUser();
         })
-        .catch(
-          async () =>
-            // 없으면 유저 생성 후, 다음 로직
-            await handleNextStepForLoginedUser(),
+        .catch(async () =>
+          // 없으면 유저 생성 후, 다음 로직
+          {
+            await MeetingAPI.createUser().then(
+              async () => await handleNextStepForLoginedUser(),
+            );
+          },
         );
       return;
     }
