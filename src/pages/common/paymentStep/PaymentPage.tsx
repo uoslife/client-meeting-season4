@@ -1,6 +1,6 @@
 import { RequestPayParams, RequestPayResponse } from '~/types/payment.type';
 import { useLocation, useNavigate } from 'react-router-dom';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import toast from 'react-hot-toast';
 import Col from '~/components/layout/Col';
 import Text from '~/components/typography/Text';
@@ -12,7 +12,6 @@ import { useAtomValue } from 'jotai';
 import { personalDataAtoms } from '~/models/personal/data';
 import { css } from '@emotion/react';
 import { groupDataAtoms } from '~/models/group/data';
-import { PaymentResponse } from '~/api/types/payment.type';
 import { PaymentAPI } from '~/api';
 import axios from 'axios';
 import { isLoggedInAtom } from '~/models/auth';
@@ -20,7 +19,6 @@ import { isLoggedInAtom } from '~/models/auth';
 const ID = 'imp04325748';
 
 const PaymentPage = () => {
-  const [userPaymentInfo, setUserPaymentInfo] = useState<PaymentResponse>();
   const navigate = useNavigate();
   const location = useLocation();
   const meetingTypeValue = useAtomValue(
@@ -82,17 +80,17 @@ const PaymentPage = () => {
         duration: 1800,
       });
     }
-    await handlePaymentRequest();
+    const res = await handlePaymentRequest();
     /* 1. 가맹점 식별하기 */
     const data: RequestPayParams = {
       pg: 'welcome.IMP2000029', // PG사 : https://developers.portone.io/docs/ko/tip/pg-2 참고
       // pg: 'welcome', // PG사 : https://developers.portone.io/docs/ko/tip/pg-2 참고
       pay_method: 'card', // 결제수단
-      merchant_uid: userPaymentInfo?.merchantUid ?? '', // 주문번호
-      amount: userPaymentInfo?.price ?? Number(handleProductInfo('price')!), // 결제금액
+      merchant_uid: res?.data?.merchantUid ?? '', // 주문번호
+      amount: res?.data?.price ?? Number(handleProductInfo('price')!), // 결제금액
       name: '시대팅 Season4 참가비', // 주문명
-      buyer_tel: userPaymentInfo?.phoneNumber,
-      buyer_name: userPaymentInfo?.name,
+      buyer_tel: res?.data?.phoneNumber,
+      buyer_name: res?.data?.name,
       m_redirect_url: 'https://meeting.uoslife.com/common/paymentResultStep',
       app_scheme: 'uoslife',
     };
@@ -138,7 +136,7 @@ const PaymentPage = () => {
         pg: 'WELCOME_PAYMENTS',
         payMethod: 'card',
       });
-      setUserPaymentInfo(res.data);
+      return res;
     } catch (error) {
       if (axios.isAxiosError(error) && error.response?.data.code === 'P04') {
         toast.success('이미 신청하셨습니다!', {
@@ -149,7 +147,6 @@ const PaymentPage = () => {
   };
 
   useEffect(() => {
-    console.log(userPaymentInfo, 1);
     if (location.state?.cancelToast) {
       toast.error('결제를 취소하셨습니다.', {
         duration: 1800,
