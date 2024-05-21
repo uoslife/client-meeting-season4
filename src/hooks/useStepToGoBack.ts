@@ -13,7 +13,7 @@ const prevSteps: {
   [key in CombinedStep]: CombinedStep | null;
 } = {
   commonUnivVerificationStep: null,
-  commonBranchGatewayStep: 'commonUnivVerificationStep', // /common/branchGatewayStep
+  commonBranchGatewayStep: null, // /common/branchGatewayStep
   groupRoleSelectStep: 'commonBranchGatewayStep', // /group/roleSelectStep
   groupLeaderMyInformationStep: 'groupRoleSelectStep', // /group/leader/myInformationStep
   groupLeaderGroupCreateStep: 'groupLeaderMyInformationStep', // /group/leader/createStep
