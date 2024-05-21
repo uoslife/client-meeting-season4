@@ -154,7 +154,6 @@ const SecondPage = () => {
         return;
       }
       // 타대생 -> 이메일 인증
-      setIsLoggedIn(true);
       setPageStateForNumber({
         verified: true,
       });
@@ -176,6 +175,13 @@ const SecondPage = () => {
             // 없으면 유저 생성 후, 다음 로직
             await handleNextStepForLoginedUser(),
         );
+      return;
+    }
+    // 가입 O, 신분인증 X
+    // 시대생 -> 포털 연동 안내
+    if (univType === 'UOS') {
+      setModalText('포털 연동');
+      setIsModalOpen(true);
       return;
     }
     // 타대생 -> 다음 step (이메일 인증)
