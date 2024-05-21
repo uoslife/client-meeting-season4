@@ -77,6 +77,12 @@ const PaymentPage = () => {
   };
 
   const onClickPayment = async () => {
+    if (!logInValue) {
+      toast.error('로그인 해주세요', {
+        duration: 1800,
+      });
+    }
+    await handlePaymentRequest();
     /* 1. 가맹점 식별하기 */
     const data: RequestPayParams = {
       pg: 'welcome.IMP2000029', // PG사 : https://developers.portone.io/docs/ko/tip/pg-2 참고
@@ -149,8 +155,7 @@ const PaymentPage = () => {
         duration: 1800,
       });
     }
-    if (logInValue) handlePaymentRequest();
-  }, [logInValue]);
+  }, []);
 
   return (
     <Col
