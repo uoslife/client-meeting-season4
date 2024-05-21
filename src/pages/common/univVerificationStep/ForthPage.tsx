@@ -14,8 +14,10 @@ import { commonDataAtoms } from '~/models/common/data';
 import { AuthAPI, MeetingAPI } from '~/api';
 import API from '~/api/core';
 import { isLoggedInAtom } from '~/models/auth';
+import { useNavigate } from 'react-router-dom';
 
 const ForthPage = () => {
+  const navigate = useNavigate();
   const storedUnivType = useAtomValue(
     commonDataAtoms.commonUnivVerificationStep.page1,
   ).univType;
@@ -143,6 +145,7 @@ const ForthPage = () => {
     setIsLoggedIn(true);
     setStatusMessage('인증되었습니다.');
     setValidateStatus('success');
+    navigate('/common/branchGatewayStep');
   };
 
   //인증번호 입력 제한시간
