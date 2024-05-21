@@ -211,6 +211,13 @@ const SecondPage = () => {
     return () => clearInterval(interval);
   }, [timer, tryValidate]);
 
+  useEffect(() => {
+    return () =>
+      setPageStateForNumber({
+        verified: false,
+      });
+  }, [setPageStateForNumber]);
+
   const minutes = Math.floor(timer / 60);
   const seconds = timer % 60;
 
