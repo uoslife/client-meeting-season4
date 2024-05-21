@@ -234,20 +234,25 @@ const BottomCardComponent = () => {
         </Row>
       </Col>
       <Col gap={8} padding={'0 0 10px 0'}>
-        {isPaymentFinishedValue ? (
-          <RoundButton
-            status={'cancel'}
-            borderType={'black'}
-            label={'신청 정보 확인하기'}
-            onClick={handleOnClickSecondary}
-          />
-        ) : (
-          <RoundButton
-            status={'active'}
-            label={'신청하기'}
-            onClick={handleOnClickPrimary}
-          />
-        )}
+        {/*{isPaymentFinishedValue ? (*/}
+        {/*  <RoundButton*/}
+        {/*    status={'cancel'}*/}
+        {/*    borderType={'black'}*/}
+        {/*    label={'신청 정보 확인하기'}*/}
+        {/*    onClick={handleOnClickSecondary}*/}
+        {/*  />*/}
+        {/*) : (*/}
+        {/*  <RoundButton*/}
+        {/*    status={'active'}*/}
+        {/*    label={'신청하기'}*/}
+        {/*    onClick={handleOnClickPrimary}*/}
+        {/*  />*/}
+        {/*)}*/}
+        <RoundButton
+          status={'active'}
+          label={'서비스 점검중입니다.'}
+          onClick={() => toast.error('빠르게 고치고 있습니다.')}
+        />
       </Col>
       <Col align={'center'} gap={10}>
         <Text
