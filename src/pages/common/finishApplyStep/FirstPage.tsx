@@ -49,7 +49,7 @@ const FirstPage = () => {
             `}
           />
           <Text
-            label="(신청 취소 기한 : 5월 22일 23시 59분까지)"
+            label="(신청 취소 기한 : 5월 24일 23시 59분까지)"
             color="Primary500"
             typography="GoThicLabelS"
           />

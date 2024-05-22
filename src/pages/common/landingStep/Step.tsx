@@ -228,7 +228,7 @@ const BottomCardComponent = () => {
         </QuestionLabel>
         <Row>
           <Text
-            label={'5/20(월) - 5/23(목)'}
+            label={'5/20(월) - 5/24(금)'}
             typography="NeoBodyL"
             color="Secondary900"
           />

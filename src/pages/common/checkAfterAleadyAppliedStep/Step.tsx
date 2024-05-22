@@ -49,7 +49,7 @@ const BottomSayingsAndCancelButton = () => {
           label={
             '참여에 문제가 생겼다면, \n' +
             '기한 내에 신청 취소를 눌러주세요. \n' +
-            '(신청 취소 기한 : n월 n일 오후 nn시까지)'
+            '(신청 취소 기한 : 5월 24일 23시 59분까지)'
           }
           color="Gray500"
           typography="GoThicBodyS"
