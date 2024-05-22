@@ -115,7 +115,7 @@ const FirstPage = () => {
             width={6}
             onClick={() =>
               window.open(
-                'https://uoslife.notion.site/4-9f7c5cf2509c49389e57d9abafade98a',
+                'https://uoslife.notion.site/5ea8fc45cc8f4a2ea45e79415b0f047f?pvs=4',
               )
             }
           />
