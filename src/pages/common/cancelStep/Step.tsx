@@ -6,8 +6,6 @@ import PageLayout from '~/components/layout/page/PageLayout';
 import Text from '~/components/typography/Text';
 import useTypeSafeNavigate from '~/hooks/useTypeSafeNavigate';
 import { colors } from '~/styles/colors';
-import { useSetAtom } from 'jotai/index';
-import { isLoggedInAtom } from '~/models/auth';
 import { useSetImmerAtom } from 'jotai-immer';
 import { commonDataAtoms } from '~/models/common/data';
 import { groupDataAtoms } from '~/models/group/data';
@@ -42,9 +40,6 @@ const Ask = ({
   const onClickGoBackButton = () => {
     navigate('/common/checkAfterAlreadyAppliedStep');
   };
-
-  const setLogInValue = useSetAtom(isLoggedInAtom);
-
   const setAuthPhoneVerification = useSetImmerAtom(
     commonDataAtoms.commonUnivVerificationStep.page3,
   );
@@ -80,7 +75,6 @@ const Ask = ({
   };
 
   const handleResetInfo = () => {
-    setLogInValue(false);
     setGroupMemberParticipate(() => ({
       verified: false,
     }));

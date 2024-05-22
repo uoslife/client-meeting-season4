@@ -11,8 +11,6 @@ import { MeetingAPI } from '~/api';
 import toast from 'react-hot-toast';
 import { useSetImmerAtom } from 'jotai-immer';
 import { groupDataAtoms } from '~/models/group/data';
-import { isLoggedInAtom } from '~/models/auth';
-import { useSetAtom } from 'jotai';
 import { commonDataAtoms } from '~/models/common/data';
 
 export type HeaderProps = {
@@ -39,7 +37,6 @@ const Header = ({
   const navigate = useNavigate();
   const [isCleanUpModalOpen, setIsCleanUpModalOpen] = useState(false);
   const [isGuidePopUpOpen, setIsGuidePopUpOpen] = useState(showGuidePopUp);
-  const setLogInValue = useSetAtom(isLoggedInAtom);
 
   const setAuthPhoneVerification = useSetImmerAtom(
     commonDataAtoms.commonUnivVerificationStep.page3,
@@ -62,7 +59,6 @@ const Header = ({
 
   const handleReset = async () => {
     await handleDeleteUser();
-    setLogInValue(false);
     setGroupMemberParticipate(() => ({
       verified: false,
     }));

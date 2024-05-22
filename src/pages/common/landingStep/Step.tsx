@@ -123,7 +123,6 @@ const BottomCardComponent = () => {
       if (!isUosUserValue) return; // 시대생 앱에서 접근한 경우
       const { accessToken } = await uoslifeBridge.getAccessToken();
       if (accessToken) localStorage.setItem('accessToken', accessToken);
-      await MeetingAPI.createUser();
       setIsLoggedInValue(true);
       setChangeUniv({
         univType: 'UOS',
@@ -136,6 +135,10 @@ const BottomCardComponent = () => {
       throw Error;
     }
   };
+
+  useEffect(() => {
+    if (isLoggedInValue) MeetingAPI.createUser();
+  }, [isLoggedInValue]);
 
   // 신청하기 버튼
   const handleOnClickPrimary = () => {
