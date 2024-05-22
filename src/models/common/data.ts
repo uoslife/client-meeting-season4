@@ -92,3 +92,6 @@ export const commonDataAtoms: CommonDataAtoms = {
 
 export const isUseFramerMotionAtom = atom(true);
 isUseFramerMotionAtom.debugLabel = 'isLoggedIn';
+
+export const notificationModalAtom = atomWithStorage('notificationModal', true);
+notificationModalAtom.debugLabel = 'notificationModal';

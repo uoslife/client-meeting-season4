@@ -20,7 +20,11 @@ import { isLoggedInAtom, isUosUserAtom } from '~/models/auth';
 import uoslifeBridge from '~/bridge';
 import { groupDataAtoms } from '~/models/group/data';
 import CleanUpModal from '~/components/modal/cleanUpModal/CleanUpModal';
-import { commonDataAtoms, isUseFramerMotionAtom } from '~/models/common/data';
+import {
+  commonDataAtoms,
+  isUseFramerMotionAtom,
+  notificationModalAtom,
+} from '~/models/common/data';
 
 const CommonLandingStep = () => {
   const isUoslifeUser = useAtomValue(isUosUserAtom);
@@ -104,6 +108,9 @@ const BottomCardComponent = () => {
   const setNavigateNextStep = useSetAtom(navigateNextStepAtom);
   const setIsUseFramerMotion = useSetAtom(isUseFramerMotionAtom);
   const [isLoggedInValue, setIsLoggedInValue] = useAtom(isLoggedInAtom);
+  const [notificationModalValue, setNotificationModalValue] = useAtom(
+    notificationModalAtom,
+  );
   const isUoslifeUser = useAtomValue(isUosUserAtom);
   const [isPaymentFinishedValue, setIsPaymentFinishedValue] = useAtom(
     isPaymentFinishedAtom,
@@ -322,6 +329,16 @@ const BottomCardComponent = () => {
             '신청 취소를 원하신다면\n' + '팅장이 직접 취소해주셔야 합니다!'
           }
           setIsCleanUpModalOpen={setIsModalOpen}
+        />
+      )}
+      {notificationModalValue && (
+        <CleanUpModal
+          title={'21일 수요일 신청중 에러가 있었나요?'}
+          description={
+            '수요일 신청도중 에러가 발생하신 분은\n' +
+            '재신청 부탁드리겠습니다 😥'
+          }
+          setIsCleanUpModalOpen={setNotificationModalValue}
         />
       )}
     </Col>
