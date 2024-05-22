@@ -1,6 +1,5 @@
 import { AuthAPI } from '~/api';
 import { AxiosResponse } from 'axios';
-import API from '~/api/core';
 import { useSetAtom } from 'jotai';
 import { isLoggedInAtom } from '~/models/auth';
 import toast from 'react-hot-toast';
@@ -20,7 +19,7 @@ export class SilentLogin {
     const { accessToken } = response.data;
     this.setIsLoggedIn(true);
 
-    API.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
+    localStorage.setItem('accessToken', accessToken);
 
     setTimeout(this.onSilentRefreshV1, this.JWT_EXPIRY_TIME - 60000);
   };
@@ -38,11 +37,10 @@ export class SilentLogin {
   };
   onLoginSuccessV2 = (response: AxiosResponse) => {
     const { accessToken, refreshToken } = response.data;
-    this.setIsLoggedIn(true);
+    localStorage.setItem('accessToken', accessToken);
     localStorage.setItem('refreshToken', refreshToken);
 
-    API.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
-
+    this.setIsLoggedIn(true);
     setTimeout(this.onSilentRefreshV2, this.JWT_EXPIRY_TIME - 60000);
   };
 

@@ -12,7 +12,6 @@ import Paddler from '~/components/layout/Pad';
 import { combinedValidatiesAtoms } from '~/models';
 import { commonDataAtoms } from '~/models/common/data';
 import { AuthAPI, MeetingAPI } from '~/api';
-import API from '~/api/core';
 import { isLoggedInAtom } from '~/models/auth';
 import { useNavigate } from 'react-router-dom';
 
@@ -90,18 +89,14 @@ const ForthPage = () => {
 
   /** 임시 토큰으로 시대생 유저 회원가입 및 token 저장 */
   const handleCreateUoslifeUser = async () => {
-    try {
-      const { data } = await AuthAPI.createUoslifeUser({
-        nickname: `${inputValue}@${handleEmailType(storedUnivType!)}`,
-      });
-      localStorage.setItem('refreshToken', data.refreshToken);
-      API.defaults.headers.common['Authorization'] =
-        `Bearer ${data.accessToken}`;
-    } catch (e) {
-      await AuthAPI.updateUoslifeUserName({
-        nickname: `${inputValue}@${handleEmailType(storedUnivType!)}`,
-      });
-    }
+    const nickname = `${inputValue}@${handleEmailType(storedUnivType!)}`;
+    await AuthAPI.createUoslifeUser({ nickname })
+      // 해당 토큰은 다른게 필요하다.
+      .then(({ data }) => {
+        localStorage.setItem('accessToken', data.accessToken);
+        localStorage.setItem('refreshToken', data.refreshToken);
+      })
+      .catch(() => AuthAPI.updateUoslifeUserName({ nickname }));
   };
 
   const handleCheckVerificationCode = async () => {
@@ -119,8 +114,7 @@ const ForthPage = () => {
   };
 
   const handleGetEmailCode = async () => {
-    await handleCreateUoslifeUser();
-    await getValidateNumber();
+    handleCreateUoslifeUser().finally(async () => await getValidateNumber());
   };
 
   const handleCreateMeetingUser = async () => {
@@ -224,7 +218,6 @@ const ForthPage = () => {
           {tryValidate && (
             <Col gap={6}>
               <Row gap={8}>
-                {/*TODO: 인증번호가 숫자인지 문자인지 백엔드쪽에 확인해서 input type 제한 걸기*/}
                 <TextInput
                   placeholder={'인증번호 입력'}
                   value={validateCodeValue}

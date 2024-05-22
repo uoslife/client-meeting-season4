@@ -12,7 +12,6 @@ import Paddler from '~/components/layout/Pad';
 import { combinedValidatiesAtoms } from '~/models';
 import { commonDataAtoms } from '~/models/common/data';
 import { AuthAPI, MeetingAPI, PaymentAPI } from '~/api';
-import API from '~/api/core';
 import { isPaymentFinishedAtom } from '~/models/payment';
 import { isLoggedInAtom } from '~/models/auth';
 import CleanUpModal from '~/components/modal/cleanUpModal/CleanUpModal';
@@ -113,7 +112,7 @@ const SecondPage = () => {
       .catch(error => {
         if (error.response.data.code === 'P04') {
           setIsPaymentFinishedValue(true);
-          navigate('/common/checkAfterAlreadyAppliedStep'); // TODO: 검증 필요 @김영찬
+          navigate('/common/checkAfterAlreadyAppliedStep');
         }
       });
   };
@@ -126,8 +125,7 @@ const SecondPage = () => {
         code: validateCodeValue,
       });
       // 인증번호 성공 시, 토큰 헤더 주입
-      API.defaults.headers.common['Authorization'] =
-        `Bearer ${data.accessToken}`;
+      localStorage.setItem('accessToken', data.accessToken);
       if (data.refreshToken) {
         localStorage.setItem('refreshToken', data.refreshToken);
       }

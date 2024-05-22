@@ -18,7 +18,6 @@ import { MeetingAPI, PaymentAPI } from '~/api';
 import { isPaymentFinishedAtom } from '~/models/payment';
 import { isLoggedInAtom, isUosUserAtom } from '~/models/auth';
 import uoslifeBridge from '~/bridge';
-import API from '~/api/core';
 import { groupDataAtoms } from '~/models/group/data';
 import CleanUpModal from '~/components/modal/cleanUpModal/CleanUpModal';
 import { commonDataAtoms, isUseFramerMotionAtom } from '~/models/common/data';
@@ -123,8 +122,7 @@ const BottomCardComponent = () => {
     try {
       if (!isUosUserValue) return; // 시대생 앱에서 접근한 경우
       const { accessToken } = await uoslifeBridge.getAccessToken();
-      console.log(accessToken);
-      API.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
+      if (accessToken) localStorage.setItem('accessToken', accessToken);
       await MeetingAPI.createUser();
       setIsLoggedInValue(true);
       setChangeUniv({
@@ -234,25 +232,20 @@ const BottomCardComponent = () => {
         </Row>
       </Col>
       <Col gap={8} padding={'0 0 10px 0'}>
-        {/*{isPaymentFinishedValue ? (*/}
-        {/*  <RoundButton*/}
-        {/*    status={'cancel'}*/}
-        {/*    borderType={'black'}*/}
-        {/*    label={'신청 정보 확인하기'}*/}
-        {/*    onClick={handleOnClickSecondary}*/}
-        {/*  />*/}
-        {/*) : (*/}
-        {/*  <RoundButton*/}
-        {/*    status={'active'}*/}
-        {/*    label={'신청하기'}*/}
-        {/*    onClick={handleOnClickPrimary}*/}
-        {/*  />*/}
-        {/*)}*/}
-        <RoundButton
-          status={'active'}
-          label={'서비스 점검중입니다.'}
-          onClick={() => toast.error('빠르게 고치고 있습니다.')}
-        />
+        {isPaymentFinishedValue ? (
+          <RoundButton
+            status={'cancel'}
+            borderType={'black'}
+            label={'신청 정보 확인하기'}
+            onClick={handleOnClickSecondary}
+          />
+        ) : (
+          <RoundButton
+            status={'active'}
+            label={'신청하기'}
+            onClick={handleOnClickPrimary}
+          />
+        )}
       </Col>
       <Col align={'center'} gap={10}>
         <Text

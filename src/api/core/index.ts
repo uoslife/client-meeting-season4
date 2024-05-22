@@ -16,6 +16,7 @@ export const API_URL = {
 export const API = axios.create({
   withCredentials: true,
 });
+
 const handleAuthSilentRefresh = async (originRequest: AxiosError) => {
   //@ts-expect-error: window has ReactNativeWebview
   const isFromUoslifeWebView = !!window.ReactNativeWebView;
@@ -30,7 +31,7 @@ const handleAuthSilentRefresh = async (originRequest: AxiosError) => {
     const refreshToken = localStorage.getItem('refreshToken');
     await AuthAPI.getRefreshTokenV2({ refreshToken: refreshToken ?? '' })
       .then(res => {
-        API.defaults.headers.common.Authorization = `Bearer ${res.data.accessToken}`;
+        localStorage.setItem('accessToken', res.data.accessToken);
         localStorage.setItem('refreshToken', res.data.refreshToken);
         originRequest.config!.headers.Authorization = `Bearer ${res.data.accessToken}`;
         // return toast.error('다시 시도해주세요!', {
@@ -39,16 +40,24 @@ const handleAuthSilentRefresh = async (originRequest: AxiosError) => {
         return axios(originRequest.config!);
       })
       .catch(() => {
-        toast.error('다시 로그인해주세요!', {
+        toast('아직 회원가입을 진행하지 않으셨나요?', {
           duration: 4000,
+          icon: '🥺',
         });
 
-        setTimeout(() => {
-          window.location.href = '/common/univVerificationStep';
-        }, 1500);
+        // setTimeout(() => {
+        //   window.location.href = '/common/univVerificationStep';
+        // }, 1500);
       });
   }
 };
+
+API.interceptors.request.use(config => {
+  const accessToken = localStorage.getItem('accessToken');
+  if (accessToken) config.headers.Authorization = `Bearer ${accessToken}`;
+
+  return config;
+});
 
 API.interceptors.response.use(
   (res: AxiosResponse) => res,

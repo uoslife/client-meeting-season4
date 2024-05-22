@@ -13,7 +13,6 @@ import { isLoggedInAtom, isUosUserAtom } from '~/models/auth';
 import { isUseFramerMotionAtom } from '~/models/common/data';
 import { useAtomValue } from 'jotai';
 import uoslifeBridge from '~/bridge';
-import API from '~/api/core';
 import { useThrottle } from '@uoslife/react';
 
 const CommonPaymentResultStep = () => {
@@ -33,7 +32,8 @@ const CommonPaymentResultStep = () => {
   const handleGetTokenFromWebview = useThrottle(async () => {
     try {
       const { accessToken } = await uoslifeBridge.getAccessToken();
-      API.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
+      if (accessToken) localStorage.setItem('accessToken', accessToken);
+
       await MeetingAPI.createUser();
       setLogInValue(true);
     } catch (e) {
