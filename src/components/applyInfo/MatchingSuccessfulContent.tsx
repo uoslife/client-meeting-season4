@@ -11,6 +11,7 @@ import { colors } from '~/styles/colors';
 import PageLayout from '../layout/page/PageLayout';
 import RoundButton from '../buttons/roundButton/RoundButton';
 import IconButton from '../buttons/iconButton/IconButton';
+import toast from 'react-hot-toast';
 
 export type MatchingSuccessfulContentProps = {
   myName: string;
@@ -43,7 +44,11 @@ const TopSayings = ({ myName }: { myName: string }) => (
 const BottomPaddingAndButton = () => (
   <Paddler right={20} left={20}>
     <RoundButton
-      onClick={() => alert('TEMP')}
+      onClick={() =>
+        window.open(
+          'https://uoslife.notion.site/4-9f7c5cf2509c49389e57d9abafade98a',
+        )
+      }
       status="active"
       label="시대팅 안내 사항 보러가기"
     />
@@ -82,7 +87,11 @@ const KakaoProfileBox = ({
               />
               <S.CopyButton
                 onClick={() => {
-                  console.log('TEMP');
+                  window.navigator.clipboard
+                    .writeText(kakaoIds[0])
+                    .then(() =>
+                      toast.success('복사되었습니다: ' + kakaoIds[0]),
+                    );
                 }}>
                 <Text color="White" label="복사" typography="NeoButtonS" />
               </S.CopyButton>
@@ -122,9 +131,11 @@ const KakaoProfileBox = ({
                     typography="GoThicTitleS"
                   />
                   <S.CopyButton
-                    onClick={() => {
-                      console.log('TEMP');
-                    }}>
+                    onClick={() =>
+                      window.navigator.clipboard
+                        .writeText(kakaoId)
+                        .then(() => toast.success('복사되었습니다: ' + kakaoId))
+                    }>
                     <Text color="White" label="복사" typography="NeoButtonS" />
                   </S.CopyButton>
                 </Row>

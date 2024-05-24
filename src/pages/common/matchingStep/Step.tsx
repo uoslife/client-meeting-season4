@@ -1,5 +1,6 @@
 import { css } from '@emotion/react';
 import { useEffect, useState } from 'react';
+import toast from 'react-hot-toast';
 import { MeetingAPI } from '~/api';
 import { GetMatchingInfoResponse } from '~/api/types/user.type';
 import MatchingFailedContent from '~/components/applyInfo/MatchingFailedContent';
@@ -151,8 +152,8 @@ const useData = () => {
         // const { data } = await MeetingAPI.getMatchingInfo();
 
         const convertedUiData = new MatchingSuccessfulResultInfo(
-          // DUMMY_API_MOCK_TEAM,
-          DUMMY_API_MOCK_SINGLE,
+          DUMMY_API_MOCK_TEAM,
+          // DUMMY_API_MOCK_SINGLE,
         ).getUiData();
         setMeetingInfoState(convertedUiData);
       } catch (error) {
@@ -189,7 +190,7 @@ const CommonMatchingStep = () => {
       </PageLayout.SingleCardBody>
     );
 
-  // 매칭 실패 분기처리 필요
+  // TODO: 매칭 실패 분기처리 필요
   // if (<조건>) return <MatchingFailedContent />;
 
   return <MatchingSuccessfulContent {...data} />;
