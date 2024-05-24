@@ -6,7 +6,7 @@ export const groupInitialData: GroupData = {
   // 모임을 만드시나요? 참여하시나요?
   groupRoleSelectStep: {
     page1: {
-      isLeader: null,
+      isLeader: true,
     },
   },
 

@@ -62,6 +62,11 @@ const Ask = ({
           },
         );
       }
+      if (axios.isAxiosError(error) && error.response?.data.code === 'P01') {
+        toast.error('팅장만 결제 취소가 가능합니다!', {
+          duration: 5000,
+        });
+      }
       throw Error;
     }
   };
