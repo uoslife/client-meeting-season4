@@ -257,8 +257,8 @@ const BottomCardComponent = () => {
         {/*  />*/}
         {/*)}*/}
         <RoundButton
-          status={'inactive'}
-          // borderType={'black'}
+          status={'cancel'}
+          borderType={'black'}
           label={'5월 27일 월요일 저녁\n' + '매칭 결과가 나옵니다'}
           onClick={() =>
             toast.error('두근 두근 내 매칭 상대는 누굴까요?', {
