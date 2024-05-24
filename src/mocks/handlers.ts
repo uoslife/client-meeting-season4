@@ -242,7 +242,6 @@ const getRefreshToken = () => {
 };
 
 const SINGLE_USER_INFORMATION: GetMeetingInfoResponse = {
-  myName: 'mock-내이름',
   teamName: 'mock-유저이름',
   teamType: 'SINGLE',
   gender: 'MALE',
@@ -288,7 +287,6 @@ const SINGLE_USER_INFORMATION: GetMeetingInfoResponse = {
 };
 
 const TRIPLE_USER_INFORMATION: GetMeetingInfoResponse = {
-  myName: 'mock-내이름',
   teamName: 'mock-팀이름',
   teamType: 'TRIPLE',
   gender: 'MALE',

@@ -157,7 +157,6 @@ export type PreferenceType = {
 };
 
 export type GetMeetingInfoResponse = {
-  myName: string;
   teamType: TeamType;
   gender: GenderType;
   teamName: string;
@@ -165,6 +164,11 @@ export type GetMeetingInfoResponse = {
   information: InformationType;
   preference: PreferenceType;
   message: string;
+};
+
+export type GetMatchingInfoResponse = {
+  myName: string;
+  opponnentUserInformation: GetMeetingInfoResponse;
 };
 
 export type CreateUserRequest = {
