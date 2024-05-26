@@ -166,9 +166,18 @@ export type GetMeetingInfoResponse = {
   message: string;
 };
 
+export type GetOpponentInfoResponse = {
+  teamType: TeamType;
+  gender: GenderType;
+  teamName: string;
+  teamUserList: UserProfileType[];
+  information: InformationType;
+  message: string;
+};
+
 export type GetMatchingInfoResponse = {
   myName: string;
-  opponnentUserInformation: GetMeetingInfoResponse;
+  opponnentUserInformation: GetOpponentInfoResponse;
 };
 
 export type CreateUserRequest = {

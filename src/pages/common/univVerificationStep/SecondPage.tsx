@@ -104,7 +104,7 @@ const SecondPage = () => {
     setStatusMessage('인증되었습니다.');
     setValidateStatus('success');
     setPageStateForEmail({ verified: true });
-    navigate('/common/branchGatewayStep');
+    navigate('/common/matchingStep');
     await PaymentAPI.verifyPayment()
       .then(() => {
         setIsPaymentFinishedValue(false);
@@ -112,7 +112,7 @@ const SecondPage = () => {
       .catch(error => {
         if (error.response.data.code === 'P04') {
           setIsPaymentFinishedValue(true);
-          navigate('/common/checkAfterAlreadyAppliedStep');
+          navigate('/common/matchingStep');
         }
       });
   };

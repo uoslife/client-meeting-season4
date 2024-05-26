@@ -12,6 +12,7 @@ import PageLayout from '../layout/page/PageLayout';
 import RoundButton from '../buttons/roundButton/RoundButton';
 import IconButton from '../buttons/iconButton/IconButton';
 import toast from 'react-hot-toast';
+import { css } from '@emotion/react';
 
 export type MatchingSuccessfulContentProps = {
   myName: string;
@@ -29,7 +30,7 @@ const Congraturation = () => (
 
 const TopSayings = ({ myName }: { myName: string }) => (
   <Col align="center">
-    <Row justify="center">
+    <Row justify="center" gap={5}>
       <Congraturation />
       <Text color="Primary500" label={`${myName} 님,`} typography="NeoTitleM" />
     </Row>
@@ -87,11 +88,15 @@ const KakaoProfileBox = ({
               />
               <S.CopyButton
                 onClick={() => {
-                  window.navigator.clipboard
-                    .writeText(kakaoIds[0])
-                    .then(() =>
-                      toast.success('복사되었습니다: ' + kakaoIds[0]),
-                    );
+                  window.navigator.clipboard.writeText(kakaoIds[0]).then(() =>
+                    toast.success(
+                      `${kakaoIds[0]}가 복사되었습니다!\n` +
+                        `상대방에게 연락해보세요~`,
+                      {
+                        icon: '😍',
+                      },
+                    ),
+                  );
                 }}>
                 <Text color="White" label="복사" typography="NeoButtonS" />
               </S.CopyButton>
@@ -132,9 +137,15 @@ const KakaoProfileBox = ({
                   />
                   <S.CopyButton
                     onClick={() =>
-                      window.navigator.clipboard
-                        .writeText(kakaoId)
-                        .then(() => toast.success('복사되었습니다: ' + kakaoId))
+                      window.navigator.clipboard.writeText(kakaoId).then(() =>
+                        toast.success(
+                          `${kakaoId}가 복사되었습니다!\n` +
+                            `상대방에게 연락해보세요~`,
+                          {
+                            icon: '😍',
+                          },
+                        ),
+                      )
                     }>
                     <Text color="White" label="복사" typography="NeoButtonS" />
                   </S.CopyButton>
@@ -164,7 +175,15 @@ const MessageBox = ({
             typography="GoThicTitleS"
           />
         </Row>
-        <Text label={message} color="Primary500" typography="GoThicTitleS" />
+        <Text
+          label={message}
+          color="Primary500"
+          typography="GoThicTitleS"
+          css={css`
+            width: 100%;
+            text-align: left;
+          `}
+        />
       </Col>
     </Paddler>
   </S.DescriptionBox>

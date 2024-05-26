@@ -25,7 +25,7 @@ const MatchingFailedContent = () => {
         <S.BodyInnerContainer>
           <Col align="center" gap={28}>
             <Text
-              label="매칭이 실패하였습니다."
+              label="매칭된 상대방을 찾을 수 없습니다."
               color="Gray500"
               typography="NeoTitleM"
             />

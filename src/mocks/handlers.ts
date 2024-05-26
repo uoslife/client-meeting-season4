@@ -8,6 +8,7 @@ export function handlers() {
     ...matchingHandlers(),
     ...verificationHandlers(),
     ...userHandlers(),
+    ...matchingInfoHandlers(),
   ];
 }
 
@@ -80,9 +81,6 @@ const getAllTeamInfo = ({
   return teamType === 'SINGLE'
     ? HttpResponse.json({ data: SINGLE_USER_INFORMATION }, { status: 200 })
     : HttpResponse.json({ data: TRIPLE_USER_INFORMATION }, { status: 200 });
-};
-const getMatchingInfo = () => {
-  return HttpResponse.json({ data: SINGLE_USER_INFORMATION }, { status: 200 });
 };
 const deleteTeam = () => {
   return HttpResponse.json({}, { status: 204 });
@@ -236,6 +234,20 @@ const getRefreshToken = () => {
         accessToken: 'access-token-mock2',
         refreshToken: 'refresh-token-mock2',
       },
+    },
+    { status: 200 },
+  );
+};
+
+const matchingInfoHandlers = () => {
+  return [http.get('https://meeting.uoslife.com/api/match', getMatchingInfo)];
+};
+
+const getMatchingInfo = () => {
+  return HttpResponse.json(
+    {
+      // data: DUMMY_API_MOCK_SINGLE,
+      data: SINGLE_USER_INFORMATION,
     },
     { status: 200 },
   );

@@ -6,6 +6,7 @@ import { useEffect } from 'react';
 import { SilentLogin } from '~/utils/silentLogin';
 import { isUosUserAtom } from '~/models/auth';
 import { useAtomValue } from 'jotai';
+import { Toaster } from 'react-hot-toast';
 
 function App() {
   const silentRefresh = new SilentLogin();
@@ -26,6 +27,7 @@ function App() {
       <BrowserRouter>
         <Router />
       </BrowserRouter>
+      <Toaster />
     </>
   );
 }
