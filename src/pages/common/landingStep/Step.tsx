@@ -227,7 +227,7 @@ const BottomCardComponent = () => {
       <Col align={'center'} gap={10}>
         <QuestionLabel>
           <Text
-            label={'신청기간'}
+            label={'매칭결과'}
             typography="NeoBodyS"
             size={14}
             color="Primary500"
@@ -235,36 +235,41 @@ const BottomCardComponent = () => {
         </QuestionLabel>
         <Row>
           <Text
-            label={'5/20(월) - 5/24(금)'}
+            label={'5/27(월) 저녁'}
             typography="NeoBodyL"
             color="Secondary900"
           />
         </Row>
       </Col>
       <Col gap={8} padding={'0 0 10px 0'}>
-        {isPaymentFinishedValue ? (
-          <RoundButton
-            status={'cancel'}
-            borderType={'black'}
-            label={'신청 정보 확인하기'}
-            onClick={handleOnClickSecondary}
-          />
-        ) : (
-          <RoundButton
-            status={'active'}
-            label={'신청하기'}
-            onClick={handleOnClickPrimary}
-          />
-        )}
-        {/*<RoundButton*/}
-        {/*  status={'cancel'}*/}
-        {/*  label={'서비스 점검중입니다 '}*/}
-        {/*  onClick={() =>*/}
-        {/*    toast.error('곧 점검이 끝날 예정이니 잠시만 기다려주세요', {*/}
-        {/*      icon: '😥',*/}
-        {/*    })*/}
-        {/*  }*/}
-        {/*/>*/}
+        {/*{isPaymentFinishedValue ? (*/}
+        {/*  <RoundButton*/}
+        {/*    status={'cancel'}*/}
+        {/*    borderType={'black'}*/}
+        {/*    label={'신청 정보 확인하기'}*/}
+        {/*    onClick={handleOnClickSecondary}*/}
+        {/*  />*/}
+        {/*) : (*/}
+        {/*  <RoundButton*/}
+        {/*    status={'active'}*/}
+        {/*    label={'신청하기'}*/}
+        {/*    onClick={handleOnClickPrimary}*/}
+        {/*  />*/}
+        {/*)}*/}
+        <RoundButton
+          status={'cancel'}
+          borderType={'black'}
+          label={'5월 27일 월요일 저녁\n' + '매칭 결과가 나옵니다'}
+          onClick={() =>
+            toast.error('두근 두근 내 매칭 상대는 누굴까요?', {
+              icon: '🥰',
+            })
+          }
+          css={css`
+            padding-top: 37px;
+            padding-bottom: 37px;
+          `}
+        />
       </Col>
       <Col align={'center'} gap={10}>
         <Text
