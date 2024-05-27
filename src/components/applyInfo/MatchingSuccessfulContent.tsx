@@ -239,7 +239,11 @@ const MatchingSuccessfulContent = ({
 }: MatchingSuccessfulContentProps) => {
   return (
     <PageLayout>
-      <PageLayout.Header title={'매칭 성공'} isProgress={false} />
+      <PageLayout.Header
+        title={'매칭 성공'}
+        isProgress={false}
+        showErrorButton={false}
+      />
       <PageLayout.SingleCardBody cardPadding="8px 4px" theme="BG_GREY">
         <Paddler top={24} bottom={24}>
           <Col align="center" gap={16}>
