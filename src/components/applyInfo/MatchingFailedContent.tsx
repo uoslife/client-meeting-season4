@@ -43,7 +43,7 @@ const MatchingFailedContent = () => {
                     color="Gray500"
                     label={
                       '한정된 인원으로 매칭에 \n' +
-                      '어려움이 생겼음을 알려드립니다. \n' +
+                      '매칭에 실패하셨음을 알려드립니다. \n' +
                       '결제하신 금액은 곧 환불될 예정입니다.'
                     }
                     typography="GoThicBodyS"
