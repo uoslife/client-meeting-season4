@@ -343,16 +343,6 @@ const BottomCardComponent = () => {
           setIsCleanUpModalOpen={setIsModalOpen}
         />
       )}
-      {notificationModalValue && (
-        <CleanUpModal
-          title={'21일 화요일 신청중 에러가 있었나요?'}
-          description={
-            '화요일 신청도중 에러를 경험하신 분은\n' +
-            '재신청 부탁드리겠습니다 😥'
-          }
-          setIsCleanUpModalOpen={setNotificationModalValue}
-        />
-      )}
     </Col>
   );
 };
