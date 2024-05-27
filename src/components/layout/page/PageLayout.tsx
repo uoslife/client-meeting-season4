@@ -8,7 +8,7 @@ import { motion } from 'framer-motion';
 import { navigateNextStepAtom } from '~/models/funnel';
 import { useAtomValue } from 'jotai';
 import { useEffect } from 'react';
-import toast, { Toaster } from 'react-hot-toast';
+import toast from 'react-hot-toast';
 import { isUseFramerMotionAtom } from '~/models/common/data';
 
 const PageTemplate = ({ children }: { children: React.ReactNode }) => {
@@ -53,7 +53,6 @@ const PageTemplate = ({ children }: { children: React.ReactNode }) => {
       }}
       transition={{ duration: 0.3 }}>
       {children}
-      <Toaster />
     </motion.div>
   ) : (
     <div

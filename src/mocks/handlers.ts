@@ -8,6 +8,7 @@ export function handlers() {
     ...matchingHandlers(),
     ...verificationHandlers(),
     ...userHandlers(),
+    ...matchingInfoHandlers(),
   ];
 }
 
@@ -80,9 +81,6 @@ const getAllTeamInfo = ({
   return teamType === 'SINGLE'
     ? HttpResponse.json({ data: SINGLE_USER_INFORMATION }, { status: 200 })
     : HttpResponse.json({ data: TRIPLE_USER_INFORMATION }, { status: 200 });
-};
-const getMatchingInfo = () => {
-  return HttpResponse.json({ data: SINGLE_USER_INFORMATION }, { status: 200 });
 };
 const deleteTeam = () => {
   return HttpResponse.json({}, { status: 204 });
@@ -241,8 +239,21 @@ const getRefreshToken = () => {
   );
 };
 
+const matchingInfoHandlers = () => {
+  return [http.get('https://meeting.uoslife.com/api/match', getMatchingInfo)];
+};
+
+const getMatchingInfo = () => {
+  return HttpResponse.json(
+    {
+      // data: DUMMY_API_MOCK_SINGLE,
+      data: SINGLE_USER_INFORMATION,
+    },
+    { status: 200 },
+  );
+};
+
 const SINGLE_USER_INFORMATION: GetMeetingInfoResponse = {
-  myName: 'mock-내이름',
   teamName: 'mock-유저이름',
   teamType: 'SINGLE',
   gender: 'MALE',
@@ -288,7 +299,6 @@ const SINGLE_USER_INFORMATION: GetMeetingInfoResponse = {
 };
 
 const TRIPLE_USER_INFORMATION: GetMeetingInfoResponse = {
-  myName: 'mock-내이름',
   teamName: 'mock-팀이름',
   teamType: 'TRIPLE',
   gender: 'MALE',

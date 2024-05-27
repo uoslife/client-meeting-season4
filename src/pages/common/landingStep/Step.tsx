@@ -124,6 +124,10 @@ const BottomCardComponent = () => {
   );
   setIsUseFramerMotion(false);
 
+  const setChangeValidationForNumber = useSetAtom(
+    commonDataAtoms.commonUnivVerificationStep.page3,
+  );
+
   // 시대생인지 확인
   const checkUosUser = async () => {
     try {
@@ -144,6 +148,9 @@ const BottomCardComponent = () => {
   };
 
   useEffect(() => {
+    setChangeValidationForNumber({
+      verified: false,
+    });
     if (isLoggedInValue) MeetingAPI.createUser();
   }, [isLoggedInValue]);
 
@@ -257,18 +264,9 @@ const BottomCardComponent = () => {
         {/*  />*/}
         {/*)}*/}
         <RoundButton
-          status={'cancel'}
-          borderType={'black'}
-          label={'5월 27일 월요일 저녁\n' + '매칭 결과가 나옵니다'}
-          onClick={() =>
-            toast.error('두근 두근 내 매칭 상대는 누굴까요?', {
-              icon: '🥰',
-            })
-          }
-          css={css`
-            padding-top: 37px;
-            padding-bottom: 37px;
-          `}
+          status={'active'}
+          label={'매칭 결과 확인하기'}
+          onClick={() => navigate('/common/matchingStep')}
         />
       </Col>
       <Col align={'center'} gap={10}>

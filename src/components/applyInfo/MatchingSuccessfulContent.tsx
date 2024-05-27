@@ -10,13 +10,18 @@ import Col from '../layout/Col';
 import { colors } from '~/styles/colors';
 import PageLayout from '../layout/page/PageLayout';
 import RoundButton from '../buttons/roundButton/RoundButton';
+import IconButton from '../buttons/iconButton/IconButton';
+import toast from 'react-hot-toast';
+import { css } from '@emotion/react';
 
 export type MatchingSuccessfulContentProps = {
   myName: string;
-  kakaoIds: string[];
+  kakaoIds: string;
+  usernames?: string;
   message: string;
   profileViewData: ProfileViewData;
   directoryViewItems: DirectoryViewItemType[];
+  meetingType: 'SINGLE' | 'TRIPLE';
 };
 
 const Congraturation = () => (
@@ -25,7 +30,7 @@ const Congraturation = () => (
 
 const TopSayings = ({ myName }: { myName: string }) => (
   <Col align="center">
-    <Row justify="center">
+    <Row justify="center" gap={5}>
       <Congraturation />
       <Text color="Primary500" label={`${myName} 님,`} typography="NeoTitleM" />
     </Row>
@@ -40,7 +45,12 @@ const TopSayings = ({ myName }: { myName: string }) => (
 const BottomPaddingAndButton = () => (
   <Paddler right={20} left={20}>
     <RoundButton
-      onClick={() => alert('TEMP')}
+      onClick={() =>
+        window.open(
+          'https://www.instagram.com/p/C7d6w__yTql/?igsh=MTA3bDg5MGJwNWhwcA==',
+          '_blank',
+        )
+      }
       status="active"
       label="시대팅 안내 사항 보러가기"
     />
@@ -49,38 +59,104 @@ const BottomPaddingAndButton = () => (
 
 const Heart = () => <img src={'/images/icons/heart_pixel.png'} alt="" />;
 
-const KakaoIdBox = ({ kakaoIds }: { kakaoIds: string[] }) => (
-  <S.DescriptionBox>
-    <Row align="center">
-      <Row gap={4}>
-        <Heart />
-        <Text
-          color="Gray500"
-          label="상대의 카카오톡 ID"
-          typography="GoThicTitleS"
-        />
-      </Row>
-      {kakaoIds.map(kakaoId => (
-        <Row gap={8} justify="flex-end" align="center">
-          <Text
-            color="Primary500"
-            key={kakaoId}
-            label={kakaoId}
-            typography="GoThicTitleS"
-          />
-          <S.CopyButton
-            onClick={() => {
-              console.log('TEMP');
-            }}>
-            <Text color="White" label="복사" typography="NeoButtonS" />
-          </S.CopyButton>
-        </Row>
-      ))}
-    </Row>
-  </S.DescriptionBox>
-);
-
-const MessageBox = ({ message }: { message: string }) => (
+const KakaoProfileBox = ({
+  kakaoIds,
+  usernames,
+  meetingType,
+}: Pick<
+  MatchingSuccessfulContentProps,
+  'kakaoIds' | 'usernames' | 'meetingType'
+>) => {
+  return (
+    <S.DescriptionBox>
+      <Paddler top={10} bottom={10}>
+        {meetingType === 'SINGLE' ? (
+          <Row justify="space-between" align="center">
+            <Row align="center" gap={4}>
+              <Heart />
+              <Text
+                color="Gray500"
+                label={'상대의 카카오톡 ID'}
+                typography="GoThicTitleS"
+              />
+            </Row>
+            <Row align="center" justify="flex-end" gap={8}>
+              <Text
+                color="Primary500"
+                key={kakaoIds[0]}
+                label={kakaoIds[0]}
+                typography="GoThicTitleS"
+              />
+              <S.CopyButton
+                onClick={() => {
+                  window.navigator.clipboard.writeText(kakaoIds[0]).then(() =>
+                    toast.success(
+                      `${kakaoIds[0]}가 복사되었습니다!\n` +
+                        `상대방에게 연락해보세요~`,
+                      {
+                        icon: '😍',
+                      },
+                    ),
+                  );
+                }}>
+                <Text color="White" label="복사" typography="NeoButtonS" />
+              </S.CopyButton>
+            </Row>
+          </Row>
+        ) : (
+          <Col gap={12}>
+            <Paddler top={4} bottom={4}>
+              <Row gap={4}>
+                <Heart />
+                <Text
+                  color="Gray500"
+                  label={'상대 팅의 카카오톡 ID'}
+                  typography="GoThicTitleS"
+                />
+              </Row>
+            </Paddler>
+            <Row gap={8} justify="space-between" align="center">
+              <Row align="center" justify="flex-start" gap={8}>
+                <IconButton iconName={'human-circle'} width={20} height={20} />
+                <Text
+                  color="Gray500"
+                  label={usernames!}
+                  typography="GoThicBodyS"
+                />
+              </Row>
+              <Row align="center" justify="flex-end" gap={8}>
+                <Text
+                  color="Primary500"
+                  key={kakaoIds}
+                  label={kakaoIds}
+                  typography="GoThicTitleS"
+                />
+                <S.CopyButton
+                  onClick={() =>
+                    window.navigator.clipboard.writeText(kakaoIds).then(() =>
+                      toast.success(
+                        `${kakaoIds}가 복사되었습니다!\n` +
+                          `상대방에게 연락해보세요~`,
+                        {
+                          icon: '😍',
+                        },
+                      ),
+                    )
+                  }>
+                  <Text color="White" label="복사" typography="NeoButtonS" />
+                </S.CopyButton>
+              </Row>
+            </Row>
+          </Col>
+        )}
+      </Paddler>
+    </S.DescriptionBox>
+  );
+};
+const MessageBox = ({
+  message,
+  meetingType,
+}: Pick<MatchingSuccessfulContentProps, 'message' | 'meetingType'>) => (
   <S.DescriptionBox>
     <Paddler top={4} bottom={4}>
       <Col gap={8}>
@@ -88,11 +164,21 @@ const MessageBox = ({ message }: { message: string }) => (
           <Heart />
           <Text
             color="Gray500"
-            label="상대의 메세지"
+            label={
+              meetingType === 'SINGLE' ? '상대의 메세지' : '상대 팅의 메세지'
+            }
             typography="GoThicTitleS"
           />
         </Row>
-        <Text label={message} color="Primary500" typography="GoThicTitleS" />
+        <Text
+          label={message}
+          color="Primary500"
+          typography="GoThicTitleS"
+          css={css`
+            width: 100%;
+            text-align: left;
+          `}
+        />
       </Col>
     </Paddler>
   </S.DescriptionBox>
@@ -101,18 +187,39 @@ const MessageBox = ({ message }: { message: string }) => (
 const InnerCard = ({
   directoryViewItems,
   kakaoIds,
+  usernames,
   message,
   profileViewData,
+  meetingType,
 }: Pick<
   MatchingSuccessfulContentProps,
-  'directoryViewItems' | 'kakaoIds' | 'message' | 'profileViewData'
+  | 'directoryViewItems'
+  | 'kakaoIds'
+  | 'usernames'
+  | 'message'
+  | 'profileViewData'
+  | 'meetingType'
 >) => {
   return (
     <S.InnerCardContainer>
+      {meetingType === 'TRIPLE' && (
+        <Text
+          color="Gray500"
+          label={'* 3대3은 팅장 정보만 제공합니다.'}
+          typography="GoThicBodyS"
+          css={css`
+            text-align: left;
+          `}
+        />
+      )}
       <Col gap={20}>
         <Col gap={12}>
-          <KakaoIdBox kakaoIds={kakaoIds} />
-          <MessageBox message={message} />
+          <KakaoProfileBox
+            meetingType={meetingType}
+            kakaoIds={kakaoIds}
+            usernames={usernames}
+          />
+          <MessageBox message={message} meetingType={meetingType} />
           <ApplyInfoProfile {...profileViewData} />
         </Col>
         <DirectoryViewInfoList items={directoryViewItems} />
@@ -127,6 +234,8 @@ const MatchingSuccessfulContent = ({
   message,
   profileViewData,
   myName,
+  usernames,
+  meetingType,
 }: MatchingSuccessfulContentProps) => {
   return (
     <PageLayout>
@@ -136,7 +245,14 @@ const MatchingSuccessfulContent = ({
           <Col align="center" gap={16}>
             <TopSayings myName={myName} />
             <InnerCard
-              {...{ directoryViewItems, kakaoIds, message, profileViewData }}
+              {...{
+                directoryViewItems,
+                kakaoIds,
+                message,
+                profileViewData,
+                meetingType,
+                usernames,
+              }}
             />
             <BottomPaddingAndButton />
           </Col>

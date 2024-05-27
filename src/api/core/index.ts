@@ -37,7 +37,8 @@ const handleAuthSilentRefresh = async (originRequest: AxiosError) => {
         // return toast.error('다시 시도해주세요!', {
         //   duration: 2000,
         // });
-        return axios(originRequest.config!);
+        axios(originRequest.config!);
+        return;
       })
       .catch(() => {
         toast('아직 회원가입을 진행하지 않으셨나요?', {
@@ -45,9 +46,9 @@ const handleAuthSilentRefresh = async (originRequest: AxiosError) => {
           icon: '🥺',
         });
 
-        // setTimeout(() => {
-        //   window.location.href = '/common/univVerificationStep';
-        // }, 1500);
+        setTimeout(() => {
+          window.location.href = '/common/univVerificationStep';
+        }, 1500);
       });
   }
 };

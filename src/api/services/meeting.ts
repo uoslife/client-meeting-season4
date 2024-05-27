@@ -1,6 +1,7 @@
 import API, { API_URL } from '~/api/core';
 import {
   GetGroupStatusResponse,
+  GetMatchingInfoResponse,
   GetMeetingInfoResponse,
   GetUserResponse,
   JoinGroupUserListResponse,
@@ -83,7 +84,7 @@ const updateMessage = async (
 const getMeetingInfo = async <T = GetMeetingInfoResponse>(teamType: TeamType) =>
   API.get<T>(`${API_URL.MEETING}/api/meeting/${teamType}/application/info`);
 
-const getMatchingInfo = async <T = GetMeetingInfoResponse>() =>
+const getMatchingInfo = async <T = GetMatchingInfoResponse>() =>
   API.get<T>(`${API_URL.MEETING}/api/match`);
 
 // 그룹
