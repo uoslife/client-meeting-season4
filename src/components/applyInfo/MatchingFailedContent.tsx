@@ -21,7 +21,11 @@ const MatchingFailedContent = () => {
 
   return (
     <PageLayout>
-      <PageLayout.Header title={'매칭 결과'} isProgress={false} />
+      <PageLayout.Header
+        title={'매칭 결과'}
+        isProgress={false}
+        showErrorButton={false}
+      />
       <PageLayout.SingleCardBody cardPadding={'0'}>
         <S.BodyInnerContainer>
           <Col align="center" gap={28}>
