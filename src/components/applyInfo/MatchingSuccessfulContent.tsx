@@ -16,8 +16,8 @@ import { css } from '@emotion/react';
 
 export type MatchingSuccessfulContentProps = {
   myName: string;
-  kakaoIds: string[];
-  usernames?: string[];
+  kakaoIds: string;
+  usernames?: string;
   message: string;
   profileViewData: ProfileViewData;
   directoryViewItems: DirectoryViewItemType[];
@@ -47,7 +47,8 @@ const BottomPaddingAndButton = () => (
     <RoundButton
       onClick={() =>
         window.open(
-          'https://uoslife.notion.site/4-9f7c5cf2509c49389e57d9abafade98a',
+          'https://www.instagram.com/p/C7d6w__yTql/?igsh=MTA3bDg5MGJwNWhwcA==',
+          '_blank',
         )
       }
       status="active"
@@ -114,44 +115,38 @@ const KakaoProfileBox = ({
                 />
               </Row>
             </Paddler>
-            {kakaoIds.map((kakaoId, index) => (
-              <Row gap={8} justify="space-between" align="center">
-                <Row align="center" justify="flex-start" gap={8}>
-                  <IconButton
-                    iconName={'human-circle'}
-                    width={20}
-                    height={20}
-                  />
-                  <Text
-                    color="Gray500"
-                    label={usernames![index]}
-                    typography="GoThicBodyS"
-                  />
-                </Row>
-                <Row align="center" justify="flex-end" gap={8}>
-                  <Text
-                    color="Primary500"
-                    key={kakaoId}
-                    label={kakaoId}
-                    typography="GoThicTitleS"
-                  />
-                  <S.CopyButton
-                    onClick={() =>
-                      window.navigator.clipboard.writeText(kakaoId).then(() =>
-                        toast.success(
-                          `${kakaoId}가 복사되었습니다!\n` +
-                            `상대방에게 연락해보세요~`,
-                          {
-                            icon: '😍',
-                          },
-                        ),
-                      )
-                    }>
-                    <Text color="White" label="복사" typography="NeoButtonS" />
-                  </S.CopyButton>
-                </Row>
+            <Row gap={8} justify="space-between" align="center">
+              <Row align="center" justify="flex-start" gap={8}>
+                <IconButton iconName={'human-circle'} width={20} height={20} />
+                <Text
+                  color="Gray500"
+                  label={usernames!}
+                  typography="GoThicBodyS"
+                />
               </Row>
-            ))}
+              <Row align="center" justify="flex-end" gap={8}>
+                <Text
+                  color="Primary500"
+                  key={kakaoIds}
+                  label={kakaoIds}
+                  typography="GoThicTitleS"
+                />
+                <S.CopyButton
+                  onClick={() =>
+                    window.navigator.clipboard.writeText(kakaoIds).then(() =>
+                      toast.success(
+                        `${kakaoIds}가 복사되었습니다!\n` +
+                          `상대방에게 연락해보세요~`,
+                        {
+                          icon: '😍',
+                        },
+                      ),
+                    )
+                  }>
+                  <Text color="White" label="복사" typography="NeoButtonS" />
+                </S.CopyButton>
+              </Row>
+            </Row>
           </Col>
         )}
       </Paddler>
@@ -207,6 +202,16 @@ const InnerCard = ({
 >) => {
   return (
     <S.InnerCardContainer>
+      {meetingType === 'TRIPLE' && (
+        <Text
+          color="Gray500"
+          label={'* 3대3은 팅장 정보만 제공합니다.'}
+          typography="GoThicBodyS"
+          css={css`
+            text-align: left;
+          `}
+        />
+      )}
       <Col gap={20}>
         <Col gap={12}>
           <KakaoProfileBox

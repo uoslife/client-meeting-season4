@@ -170,7 +170,7 @@ export type GetOpponentInfoResponse = {
   teamType: TeamType;
   gender: GenderType;
   teamName: string;
-  teamUserList: UserProfileType[];
+  leaderProfile: UserProfileType;
   information: InformationType;
   message: string;
 };

@@ -117,8 +117,7 @@ export const getSmokingAndDrinkPreferLabel = ({
   drinkingMax: number;
 }) => `${SMOKING_MAP[smoking]} / 1달에 ${drinkingMin}~${drinkingMax}회`;
 
-export const getDepartmentsLabel = (departments: string[]) =>
-  departments.join(', ');
+export const getDepartmentsLabel = (departments: string) => departments;
 
 export const getHeightMyInfoLabel = (height: number) => `${height}cm`;
 

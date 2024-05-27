@@ -9,7 +9,6 @@ import { Univ } from '~/models/options';
 import {
   getAnimalAndMbtiLabel,
   getCommaJoinedLabel,
-  getDepartmentsLabel,
   getDrinkLabel,
   getGenderAndAgeLabel,
   getHeightMyInfoLabel,
@@ -29,11 +28,11 @@ export class MatchingSuccessfulResultInfo {
   private gender: GenderType;
   private teamName: string;
   private age: number;
-  private teamUserList: UserProfileType[];
+  private leaderProfile: UserProfileType;
   private questions: number[];
   private message: string;
   private univ: Univ;
-  private departments: string[];
+  private departments: string;
 
   constructor({
     myName,
@@ -43,7 +42,7 @@ export class MatchingSuccessfulResultInfo {
       message,
       teamName,
       teamType,
-      teamUserList,
+      leaderProfile,
     },
   }: GetMatchingInfoResponse) {
     this.myName = myName;
@@ -52,16 +51,15 @@ export class MatchingSuccessfulResultInfo {
     this.questions = information.questions;
     this.message = message;
     this.teamName = teamName;
-    this.teamUserList = teamUserList;
-    this.age =
-      teamUserList.reduce((acc, cur) => acc + cur.age, 0) / teamUserList.length;
-    this.univ = teamUserList[0].university!;
-    this.departments = teamUserList.map(user => user.department);
+    this.leaderProfile = leaderProfile;
+    this.age = leaderProfile.age;
+    this.univ = leaderProfile.university!;
+    this.departments = leaderProfile.department;
   }
 
   getUiData = (): MatchingSuccessfulContentProps => {
     const {
-      teamUserList,
+      leaderProfile,
       message,
       teamName,
       univ,
@@ -84,7 +82,7 @@ export class MatchingSuccessfulResultInfo {
         mbti,
         spiritAnimal,
         religion,
-      } = teamUserList[0];
+      } = leaderProfile;
 
       return {
         meetingType: 'SINGLE',
@@ -105,7 +103,7 @@ export class MatchingSuccessfulResultInfo {
               name: '학교',
               content: getProfileUniversityLabel(univ),
             },
-            { name: '학과', content: getDepartmentsLabel(departments) },
+            { name: '학과', content: departments },
             {
               name: '신분',
               content: getStudentTypeLabel(studentType),
@@ -154,7 +152,7 @@ export class MatchingSuccessfulResultInfo {
             content: getQnaLabel('SINGLE', 4, questions[4]),
           },
         ],
-        kakaoIds: teamUserList.map(({ kakaoTalkId }) => kakaoTalkId),
+        kakaoIds: leaderProfile.kakaoTalkId,
       };
     } else {
       return {
@@ -177,15 +175,11 @@ export class MatchingSuccessfulResultInfo {
             },
             {
               name: '학과',
-              content: getCommaJoinedLabel(
-                teamUserList.map(user => user.department),
-              ),
+              content: leaderProfile.department,
             },
             {
               name: '신분',
-              content: getCommaJoinedLabel(
-                teamUserList.map(user => getStudentTypeLabel(user.studentType)),
-              ),
+              content: getStudentTypeLabel(leaderProfile.studentType),
             },
             {
               name: '선호 요일',
@@ -213,8 +207,8 @@ export class MatchingSuccessfulResultInfo {
             content: getQnaLabel('TRIPLE', 4, questions[4]),
           },
         ],
-        kakaoIds: teamUserList.map(user => user.kakaoTalkId),
-        usernames: teamUserList.map(user => user.name),
+        kakaoIds: leaderProfile.kakaoTalkId,
+        usernames: leaderProfile.name,
       };
     }
   };

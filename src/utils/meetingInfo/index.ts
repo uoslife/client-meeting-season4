@@ -45,7 +45,7 @@ export class MeetingInfo {
   private message: string;
   private preference: PreferenceType;
   private univ: Univ;
-  private departments: string[];
+  private departments: string;
 
   constructor({
     gender,
@@ -66,7 +66,7 @@ export class MeetingInfo {
     this.age =
       teamUserList.reduce((acc, cur) => acc + cur.age, 0) / teamUserList.length;
     this.univ = teamUserList[0].university!;
-    this.departments = teamUserList.map(user => user.department);
+    this.departments = teamUserList[0].department;
   }
 
   getCheckApplyInfoUiData = (): CheckPageDoubleCardsProps => {
