@@ -178,7 +178,6 @@ const BottomCardComponent = () => {
 
   // 결제완료 여부 확인 로직
   const handlePaymentResult = async () => {
-    console.log(isLoggedInValue);
     if (!isLoggedInValue) return;
     await PaymentAPI.verifyPayment()
       .then(() => {
