@@ -83,15 +83,15 @@ const KakaoProfileBox = ({
             <Row align="center" justify="flex-end" gap={8}>
               <Text
                 color="Primary500"
-                key={kakaoIds[0]}
-                label={kakaoIds[0]}
+                key={kakaoIds}
+                label={kakaoIds}
                 typography="GoThicTitleS"
               />
               <S.CopyButton
                 onClick={() => {
-                  window.navigator.clipboard.writeText(kakaoIds[0]).then(() =>
+                  window.navigator.clipboard.writeText(kakaoIds).then(() =>
                     toast.success(
-                      `${kakaoIds[0]}가 복사되었습니다!\n` +
+                      `${kakaoIds}가 복사되었습니다!\n` +
                         `상대방에게 연락해보세요~`,
                       {
                         icon: '😍',
