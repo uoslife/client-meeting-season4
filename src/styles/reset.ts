@@ -58,6 +58,15 @@ const reset = css`
     border-spacing: 0;
   }
 
+  // Gothci-A1
+  @font-face {
+    font-family: 'Gothic A1';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2205@1.0/GothicA1-Light.woff2')
+      format('woff2');
+    font-weight: 300;
+    font-style: normal;
+  }
+
   /* Neo 둥근모 Pro */
   @font-face {
     font-family: 'Neo Dunggeunmo Pro';
@@ -88,6 +97,14 @@ const reset = css`
   @font-face {
     font-family: 'DOSGothic';
     src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_eight@1.0/DOSGothic.woff')
+      format('woff');
+    font-weight: 400;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: 'Pretendard';
+    src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff')
       format('woff');
     font-weight: 400;
     font-style: normal;
