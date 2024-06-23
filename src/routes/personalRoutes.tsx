@@ -40,4 +40,9 @@ const personalRoutes = PERSONAL_LAZY_ROUTES_LIST.map(component =>
   }),
 );
 
+export type PersonalPath = Extract<
+  (typeof personalRoutes)[number]['path'],
+  `${string}`
+>;
+
 export default personalRoutes;

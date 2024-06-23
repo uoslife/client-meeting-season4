@@ -100,7 +100,7 @@ const COMMON_LAZY__ROUTES_LIST = [
   'cancelStep',
   'verifyForMatchingResultStep',
   'matchingStep',
-];
+] as const;
 
 const commonRoutes = [
   {
@@ -118,5 +118,12 @@ const commonRoutes = [
     }),
   ),
 ] as const;
+
+console.log(commonRoutes);
+
+export type CommonPath = Extract<
+  (typeof commonRoutes)[number]['path'],
+  `${string}`
+>;
 
 export default commonRoutes;

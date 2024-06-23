@@ -79,4 +79,9 @@ const groupRoutes = GROUP_LAZY_ROUTES_LIST.map(component =>
   }),
 );
 
+export type GroupPath = Extract<
+  (typeof groupRoutes)[number]['path'],
+  `${string}`
+>;
+
 export default groupRoutes;
