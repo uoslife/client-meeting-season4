@@ -249,25 +249,25 @@ const BottomCardComponent = () => {
         </Row>
       </Col>
       <Col gap={8} padding={'0 0 10px 0'}>
-        {isPaymentFinishedValue ? (
-          <RoundButton
-            status={'cancel'}
-            borderType={'black'}
-            label={'신청 정보 확인하기'}
-            onClick={handleOnClickSecondary}
-          />
-        ) : (
-          <RoundButton
-            status={'active'}
-            label={'신청하기'}
-            onClick={handleOnClickPrimary}
-          />
-        )}
-        {/*<RoundButton*/}
-        {/*  status={'active'}*/}
-        {/*  label={'매칭 결과 확인하기'}*/}
-        {/*  onClick={() => navigate('/common/matchingStep')}*/}
-        {/*/>*/}
+        {/*{isPaymentFinishedValue ? (*/}
+        {/*  <RoundButton*/}
+        {/*    status={'cancel'}*/}
+        {/*    borderType={'black'}*/}
+        {/*    label={'신청 정보 확인하기'}*/}
+        {/*    onClick={handleOnClickSecondary}*/}
+        {/*  />*/}
+        {/*) : (*/}
+        {/*  <RoundButton*/}
+        {/*    status={'active'}*/}
+        {/*    label={'신청하기'}*/}
+        {/*    onClick={handleOnClickPrimary}*/}
+        {/*  />*/}
+        {/*)}*/}
+        <RoundButton
+          status={'active'}
+          label={'매칭 결과 확인하기'}
+          onClick={() => navigate('/common/matchingStep')}
+        />
       </Col>
       <Col align={'center'} gap={10}>
         <Text
