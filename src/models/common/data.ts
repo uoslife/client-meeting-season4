@@ -90,7 +90,7 @@ export const commonDataAtoms: CommonDataAtoms = {
   },
 };
 
-export const isUseFramerMotionAtom = atom(true);
+export const isUseFramerMotionAtom = atom(false);
 isUseFramerMotionAtom.debugLabel = 'isLoggedIn';
 
 export const notificationModalAtom = atomWithStorage('notificationModal', true);
